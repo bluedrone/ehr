@@ -1,0 +1,88 @@
+<div class="container id="check-in-list">
+  <div class="ttop">Check-In List</div>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="table-responsive">
+	      <table class="table table-bordered">
+	        <thead>
+	          <tr>
+              <th width="50">Bio</th>
+              <th>Nombre</th>
+              <th>Primer Apellido</th>
+              <th>Segundo Apellido</th>
+              <th width="50">Sex</th>
+              <th width="40">Age</th>
+              <th width="40">Trg</th>
+              <th width="250">Notes</th>
+              <th width="50">Check</th>
+              <th width="50">Intake</th>
+              <th width="50">Prov</th>
+              <th width="40">Miss</th>
+              <th width="40">Cmp</th>
+              <th width="60">Remove</th>
+	          </tr>
+	        </thead>
+	        <tbody>
+         {{each(i, group) groups}}
+            <tr style="height:70px">
+              <td colspan="14" style="text-align:left;vertical-align:bottom">
+                <button class="btn btn-default intake-group-up navbar-btn navbar-link" data-group-index="${i}" data-group-id="${group.id}" type="button">
+                  <i class="icon-chevron-up"></i> 
+                </button>
+                <button class="btn btn-default intake-group-down navbar-btn navbar-link" data-group-index="${i}" data-group-id="${group.id}" type="button">
+                  <i class="icon-chevron-down"></i> 
+                </button>
+                <span style="margin-left:5px" class="table-group-name">${group.name}</span>
+                <button 
+                  style="margin-left:20px" 
+                  data-group-id="${group.id}" 
+                  class="btn btn-default navbar-btn navbar-link intake-forms-link pull-right" 
+                  type="button"
+                >
+                  <i class="icon-user icon-lg"></i> Intake Forms
+                </button>
+                <button 
+                  style="margin-left:20px" 
+                  data-group-id="${group.id}" 
+                  class="btn btn-default navbar-btn navbar-link intake-add-patient-to-group-link pull-right" 
+                  type="button"
+                >
+                  <i class="icon-user icon-lg"></i> Add Patient
+                </button>
+              </td>
+            </tr>
+           {{each(j, encounter) encounterList}} 
+           <tr data-patient-intake-id="${patient.id}">
+             <td><span contenteditable="true" class="check-in-biometrics edit-on-select">${patient.demo.bioPhoto ? 'P' : ''} ${patient.demo.bioFinger ? 'F' : ''}
+              &nbsp;&nbsp;</span>
+             </td>
+             <td class="patient-name"><span contenteditable="true" class="check-in-nombre edit-on-select">${patient.cred.firstName}</span></td>
+             <td class="patient-name"><span contenteditable="true" class="check-in-apellido edit-on-select">${patient.cred.lastName}</span></td>
+             <td class="patient-name"><span contenteditable="true" class="check-in-apellido-segundo edit-on-select">${patient.cred.additionalName}</span></td>
+             <td><span contenteditable="true" class="check-in-gender edit-on-select">${patient.demo.gender.code}</span></td>
+             <td><span contenteditable="true" class="check-in-age edit-on-select">${patient.demo.age}</span></td>
+             <td class="success"><span contenteditable="true" class="check-in-triage edit-on-select patient-triage-control">${encounter.triage}</span></td>
+             <td class="patient-notes"><span contenteditable="true" class="check-in-notes edit-on-select">${encounter.notes}</span></td>
+             
+             <td><span class="badge badge-primary check-in-check-in"><i class="icon-ok ${encounter.checkIn ? '' : 'icon-hidden'}"></i></span></td>
+             
+             <td><span class="badge badge-primary check-in-intake"><i class="icon-ok ${encounter.intake ? '' : 'icon-hidden'}"></i></span></td>
+             <td><span class="badge badge-primary check-in-provider"><i class="icon-ok ${encounter.provider ? '' : 'icon-hidden'}"></i></span></td>
+             <td class="patient-missing-control check-in-missing">
+             {{if encounter.missing == true}}
+               <span class='patient-missing-badge badge badge-danger'><i class='icon-question'></i></span>
+             {{else}}
+               <input class="patient-missing-checkbox" type="checkbox" name="missing" style="toggle-missing">
+             {{/if}}
+             </td>
+             <td><span class="badge badge-success check-in-completed"><i class="icon-ok ${encounter.completed ? '' : 'icon-hidden'}"></i></span></td>
+             <td><span class="badge badge-danger patient-delete-control"><i class="icon-remove"></i></span></td>
+           </tr>
+           {{/each}}
+         {{/each}}
+         </tbody>
+	      </table>
+	    </div>
+	  </div>
+  </div>
+</div>

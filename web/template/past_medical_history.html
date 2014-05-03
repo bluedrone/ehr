@@ -1,0 +1,180 @@
+<div class="modal fade" id="modal-medical-history" tabindex="-1" role="dialog" aria-labelledby="modal-medical-history" aria-hidden="true">
+  <div id="size3" class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title"><i class="icon-h-sign icon-2x"></i> Medical History</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row hidden-xs">
+          <div class="col-md-12">
+            <div class="chartheader">
+              <div class="col-xm-6 col-sm-3">
+                <p class="patient-chart-full-name"></p>
+              </div>
+              <div class="col-xm-6 col-sm-3">
+                <p><label>Next Appointment:</label><span class="patient-chart-next-appt"></span></p>
+                <p><label>Sex:</label><span class="patient-chart-gender"></span> 
+              </div>
+              <div class="col-xm-6 col-sm-3">
+                <p><label>ID#:</label> <span class="patient-chart-mrn"></span></p>
+                <p><label>DOB:</label><span class="patient-chart-dob"></span></p>
+              </div>
+              <div id="headshot-div" class="col-xm-6 col-sm-3">
+                <label class="pull-right">Active <i class="icon-check-sign icon-2x"></i></label>
+                <img src="images/headshot-placeholder.jpg" class="pull-right img-responsive img-rounded headshot" alt="Patient Photo">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row visible-xs">
+          <div class="panel panel-default chartheader">
+            <div class="panel-body">
+              <div class="col-xs-12">
+                <div class="col-xs-6">
+                  <p class="patient-chart-full-name"></p>
+                  <p><label>Next Appointment:</label><span class="patient-chart-next-appt"></span></p>
+                  <p><label>Sex:</label><span class="patient-chart-gender"></span> 
+                  <p><label>ID#:</label> <span class="patient-chart-mrn"></span></p>
+                  <p><label>DOB:</label><span class="patient-chart-dob"></span></p>
+                </div>
+                <div id="headshot-div2" class="col-xs-6">
+                  <p><label class="pull-right">Active <i class="icon-check-sign icon-2x"></i></label>
+                  <img src="images/headshot-placeholder.jpg" class="pull-right img-responsive img-rounded headshot" alt="Patient Photo"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="container-fluid">
+          <a id="patient-hist-new-medication" class="btn btn-primary pull-right">New Medication</a>
+          <br>
+          <form role="form">
+            <div class="form-group">
+              <label for="patient-past-s-m">Past Surgeries Or Medical Conditions</label>
+              <textarea id="patient-past-s-m" class="form-control form-control-unsaved" rows="3"></textarea>
+              <div class="form-control-saved edit-on-select" id="patient-past-s-m-saved" contenteditable="true">&nbsp;</div>
+            </div>
+            <label class="sub-title">Family History</label>
+            <div class="row">
+              <div class="col-sm-12">
+	              <div class="col-xs-4">
+	                <div class="form-group">
+	                  <div class="checkbox"><label><input name="patient-fam-hist" type="checkbox" value="">Cancer</label></div>
+	                  <div class="checkbox"><label><input name="patient-fam-hist" type="checkbox" value="">Diabetes</label></div>
+	                  <div class="checkbox"><label><input name="patient-fam-hist" type="checkbox" value="">Heart problems</label></div>
+	                </div>
+	              </div>
+	              <div class="col-xs-4">
+	                <div class="form-group">
+	                  <div class="checkbox"><label><input name="patient-fam-hist" type="checkbox" value="">Hepatitis</label></div>
+	                  <div class="checkbox"><label><input name="patient-fam-hist" type="checkbox" value="">High BP</label></div>
+	                  <div class="checkbox"><label><input name="patient-fam-hist" type="checkbox" value="">HIV</label></div>
+	                </div>
+	              </div>
+	              <div class="col-xs-4">
+	                <div class="form-group">
+	                  <div class="checkbox"><label><input name="patient-fam-hist" type="checkbox" value="">Tuberculosis</label></div>
+	                  <div class="checkbox"><label><input name="patient-fam-hist" type="checkbox" value="">Other-specify</label></div>
+	                </div>
+	                <input type="text" class="form-control input-sm" id="fam-hist-other">
+	                <div class="form-control-saved edit-on-select" id="patient-fam-hist-other-saved" contenteditable="true">&nbsp;</div>
+	              </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">           
+		            <div class="form-group">
+		              <label for="patient-fam-hist-notes">Family History Notes</label>
+		              <textarea id="patient-fam-hist-notes" class="form-control form-control-unsaved" rows="5"></textarea>
+		              <div class="form-control-saved edit-on-select" id="patient-fam-hist-notes-saved" contenteditable="true">&nbsp;</div>
+		            </div> 
+		          </div>
+		        </div>         
+            <div class="row">
+              <div class="col-md-6">
+                <label class="sub-title">Allergies</label>
+                <div class="form-group">
+                  <label for="patient-allerg-food">Food</label>
+                  <input type="text" class="form-control form-control-unsaved" id="patient-allerg-food">
+                  <div class="form-control-saved edit-on-select" id="patient-allerg-food-saved" contenteditable="true">&nbsp;</div>
+                </div>
+                <div class="form-group">
+                  <label for="patient-allerg-drug">Drug</label>
+                  <input type="text" class="form-control form-control-unsaved" id="patient-allerg-drug">
+                  <div class="form-control-saved edit-on-select" id="patient-allerg-drug-saved" contenteditable="true">&nbsp;</div>
+                </div>
+                <div class="form-group">
+                  <label for="patient-allerg-env">Enviro</label>
+                  <input type="text" class="form-control form-control-unsaved" id="patient-allerg-env">
+                  <div class="form-control-saved edit-on-select" id="patient-allerg-env-saved" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="sub-title">Vaccinations</label>
+                <div class="form-group">
+                  <label for="vaccinations">Completed FD Vaccination Record?</label>
+                  <label class="radio-inline"><input type="radio" name="patient-vacc" value="true">Yes</label>
+                  <label class="radio-inline"><input type="radio" name="patient-vacc" value="false">No</label>
+                </div>
+                <div class="form-group">
+                  <label for="patient-med-hist-notes">Notes</label>
+                  <textarea id="patient-vacc-notes" class="form-control form-control-unsaved" rows="9"></textarea>
+                  <div class="form-control-saved edit-on-select" id="patient-vacc-notes-saved" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+			          <label class="sub-title">Substances</label>
+		            <div class="form-group">
+		              <label>Currently </label>
+		              <label class="checkbox-inline"><input type="checkbox" name="patient-subst" value="smoke"> Smoke</label>
+		              <label class="checkbox-inline"><input type="checkbox" name="patient-subst" value="drink"> Drink</label>
+		              <label class="checkbox-inline"><input type="checkbox" name="patient-subst" value="drugs"> Drugs</label>
+		             </div>
+		           </div>
+		         </div>
+             <div class="row">
+               <div class="col-md-6">
+                 <div class="form-group">
+                   <label for="smokes-pk-day">smoke packs / day</label>
+                   <input type="text" class="form-control form-control-unsaved" id="patient-smoke-pks-day">
+                   <div class="form-control-saved edit-on-select" id="patient-smoke-pks-day-saved" contenteditable="true">&nbsp;</div>
+                 </div>
+                 <div class="form-group">
+                   <label for="patient-years-smoked">Years smoked</label>
+                   <input type="text" class="form-control form-control-unsaved" id="patient-years-smoked">
+                   <div class="form-control-saved edit-on-select" id="patient-years-smoked-saved" contenteditable="true">&nbsp;</div>
+                 </div>
+                 <div class="form-group">
+                   <label for="patient-smoke-years-quit">Years Quit smoking</label>
+                   <input type="text" class="form-control form-control-unsaved" id="patient-smoke-years-quit">
+                   <div class="form-control-saved edit-on-select" id="patient-smoke-years-quit-saved" contenteditable="true">&nbsp;</div>
+                 </div>
+               </div>
+               <div class="col-md-6">
+	               <div class="form-group">
+	                 <label for="etoh-units-week">EtOH units / week</label>
+	                 <input type="text" class="form-control form-control-unsaved" id="patient-etoh-units-week">
+	                 <div class="form-control-saved edit-on-select" id="patient-etoh-units-week-saved" contenteditable="true">&nbsp;</div>
+	               </div>
+	               <div class="form-group">
+	                 <label for="current-drugs">Drugs currently used</label>
+	                 <textarea id="patient-current-drugs" class="form-control form-control-unsaved" rows="7"></textarea>
+	                 <div class="form-control-saved edit-on-select" id="patient-current-drugs-saved" contenteditable="true">&nbsp;</div>
+	               </div>  
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="#" id="btn-medical-history-close" class="btn btn-success btn-lg" data-dismiss="modal">Save</a>
+        <a id="patient-hist-print" class="btn btn-primary btn-lg">Print</a>
+        <a href="#" id="btn-medical-history-close" class="btn btn-default btn-lg" data-dismiss="modal">Close</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,90 @@
+<div class="modal fade" id="modal-progress-notes" tabindex="-1" role="dialog" aria-labelledby="modal-progress-notes" aria-hidden="true">
+  <div id="size3" class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title"><i class="icon-pencil icon-2x"></i> Progress Notes</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row hidden-xs">
+          <div class="col-md-12">
+            <div class="chartheader">
+              <div class="col-xm-6 col-sm-3">
+                <p class="patient-chart-full-name"></p>
+              </div>
+              <div class="col-xm-6 col-sm-3">
+                <p><label>Next Appointment:</label><span class="patient-chart-next-appt"></span></p>
+                <p><label>Sex:</label><span class="patient-chart-gender"></span> 
+              </div>
+              <div class="col-xm-6 col-sm-3">
+                <p><label>ID#:</label> <span class="patient-chart-mrn"></span></p>
+                <p><label>DOB:</label><span class="patient-chart-dob"></span></p>
+              </div>
+              <div id="headshot-div" class="col-xm-6 col-sm-3">
+                <label class="pull-right">Active <i class="icon-check-sign icon-2x"></i></label>
+                <img src="images/headshot-placeholder.jpg" class="pull-right img-responsive img-rounded headshot" alt="Patient Photo">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row visible-xs">
+          <div class="panel panel-default chartheader">
+            <div class="panel-body">
+              <div class="col-xs-12">
+                <div class="col-xs-6">
+                  <p class="patient-chart-full-name"></p>
+                  <p><label>Next Appointment:</label><span class="patient-chart-next-appt"></span></p>
+                  <p><label>Sex:</label><span class="patient-chart-gender"></span> 
+                  <p><label>ID#:</label> <span class="patient-chart-mrn"></span></p>
+                  <p><label>DOB:</label><span class="patient-chart-dob"></span></p>
+                </div>
+                <div id="headshot-div2" class="col-xs-6">
+                  <p><label class="pull-right">Active <i class="icon-check-sign icon-2x"></i></label>
+                  <img src="images/headshot-placeholder.jpg" class="pull-right img-responsive img-rounded headshot" alt="Patient Photo">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="container-fluid">
+	        <div class="pull-right">
+		        <button id="progress-notes-prev-btn" class="btn btn-default intake-group-up navbar-btn navbar-link" type="button"><i class="icon-chevron-left"></i> </button>
+		        <span id="progress-notes-date"></span>
+		        <button id="progress-notes-next-btn" class="btn btn-default intake-group-down navbar-btn navbar-link" type="button"><i class="icon-chevron-right"></i> </button>
+	        </div>
+	        <div class="row">
+	          <div class="col-sm-2">
+	            <br><br>
+	            <a href="#" id="btn-progress-notes-newer" class="btn btn-info btn-block">Newer</a>
+	            <a href="#" id="btn-progress-notes-older" class="btn btn-info btn-block">Older</a>
+	            <br>
+	            <a href="#" id="btn-progress-notes-new" class="btn btn-success btn-block">New</a>
+	            <a href="#" id="btn-progress-notes-save" class="btn btn-primary btn-block">Save</a>
+	            <a href="#" id="btn-progress-notes-print" class="btn btn-warning btn-block">Print</a>
+	            <a href="#" id="btn-progress-notes-fax" class="btn btn-warning btn-block">Fax</a>
+	            <a href="#" id="btn-progress-notes-image" class="btn btn-warning btn-block">Image</a>
+	          </div>
+	          <div class="col-sm-10">
+		          <div class="form-group">
+		            <label for="progress-notes-subject">Subject</label>
+		            <input type="text" class="form-control form-control-unsaved input-sm" id="progress-notes-subject">
+		            <div class="form-control-saved" id="progress-notes-subject-saved">&nbsp;</div>
+		            </div>
+		          </div>
+		          <div class="col-sm-10">
+		            <div class="form-group">
+		              <label for="progress-notes-content">Notes</label>
+		              <textarea id="progress-notes-content" class="form-control form-control-unsaved" rows="12"></textarea>
+		              <div class="form-control-saved" id="progress-notes-content-saved">&nbsp;</div>
+		            </div>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	      <div class="modal-footer">
+	        <a href="#" id="btn-progress-notes-close" class="btn btn-default btn-lg pull-right" data-dismiss="modal">Close</a>
+	      </div>
+    </div>
+  </div>
+</div>

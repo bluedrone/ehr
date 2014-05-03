@@ -1,0 +1,176 @@
+ <!--
+  WDean Medical is distributed under the
+  GNU Lesser General Public License (GNU LGPL).
+  For details see: http://www.wdeanmedical.com
+  copyright 2013-2014 WDean Medical
+--> 
+
+   <div class="modal fade" id="modal-admin-user-form" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">
+              <i class="fa fa-user fa-lg"></i><i class="fa fa-plus"></i><span id="admin-user-form-title"></span>
+            </h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal" role="form">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="user-form-first-name" class="col-sm-5 control-label">First Name*</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control form-control-unsaved input-sm" id="user-form-first-name">
+                      <div class="form-control-saved edit-on-select" id="user-form-first-name-saved" contenteditable="true">&nbsp;</div>
+                      <span id="user-form-first-name-validation" class="form-element-error"></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="user-form-middle-name" class="col-sm-5 control-label">Middle Name</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control form-control-unsaved input-sm" id="user-form-middle-name">
+                      <div class="form-control-saved edit-on-select" id="user-form-middle-name-saved" contenteditable="true">&nbsp;</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="user-form-last-name" class="col-sm-5 control-label">Last Name*</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control form-control-unsaved input-sm" id="user-form-last-name">
+                      <div class="form-control-saved edit-on-select" id="user-form-last-name-saved" contenteditable="true">&nbsp;</div>
+                      <span id="user-form-last-name-validation" class="form-element-error"></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="user-form-username" class="col-sm-5 control-label">Username*</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control form-control-unsaved input-sm" id="user-form-username">
+                      <div class="form-control-saved edit-on-select" id="user-form-username-saved" contenteditable="true">&nbsp;</div>
+                      <span id="user-form-username-validation" class="form-element-error"></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="user-form-group-name" class="col-sm-5 control-label">Group Name</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control form-control-unsaved input-sm" id="user-form-group-name">
+                      <div class="form-control-saved edit-on-select" id="user-form-group-name-saved" contenteditable="true">&nbsp;</div>
+                      <span id="user-form-group-name-validation" class="form-element-error"></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="user-form-practice-name" class="col-sm-5 control-label">Practice Name</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control form-control-unsaved input-sm" id="user-form-practice-name">
+                      <div class="form-control-saved edit-on-select" id="user-form-practice-name-saved" contenteditable="true">&nbsp;</div>
+                      <span id="user-form-practice-name-validation" class="form-element-error"></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="user-form-role" class="col-sm-5 control-label">Role</label>
+                    <div class="col-sm-7">
+                      <select id="user-form-role" class="form-control form-control-unsaved input-sm">
+                        <option value="">Choose</option>
+                        <option value="1">Admin</option>
+                        <option value="2">General</option>
+                      </select> 
+                      <div class="form-control-saved edit-on-select" id="user-form-role-saved" contenteditable="true">&nbsp;</div>
+                      <span id="user-form-role-validation" class="form-element-error"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="user-form-primary-phone" class="col-sm-5 control-label">Primary Phone*</label>
+                    <div class="col-sm-6">
+                      <input type="phone" class="form-control form-control-unsaved input-sm" id="user-form-primary-phone" >
+                      <div class="form-control-saved edit-on-select" id="user-form-primary-phone-saved" contenteditable="true">&nbsp;</div>
+                      <span id="user-form-primary-phone-validation" class="form-element-error"></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="user-form-secondary-phone" class="col-sm-5 control-label">Secondary Phone</label>
+                    <div class="col-sm-6">
+                      <input type="phone" class="form-control form-control-unsaved input-sm" id="user-form-secondary-phone">
+                      <div class="form-control-saved edit-on-select" id="user-form-secondary-phone-saved" contenteditable="true">&nbsp;</div>
+                      <span id="user-form-secondary-phone-validation" class="form-element-error"></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="user-form-credential" class="col-sm-5 control-label">Credential*</label>
+                    <div class="col-sm-6">
+                      <select id="user-form-credential" class="form-control form-control-unsaved input-sm">
+                        <option value="">Choose</option>
+                        <option value="1">MD</option>
+                        <option value="2">PhD</option>
+                        <option value="3">MD PhD</option>
+                        <option value="4">RN</option>
+                        <option value="5">RN PhD</option>
+                        <option value="6">RN MSN</option>
+                        <option value="7">MA/MS</option>
+                        <option value="8">MPH</option>
+                        <option value="9">NP</option>
+                        <option value="10">PA</option>
+                        <option value="11">Other</option>
+                      </select>
+                      <div class="form-control-saved edit-on-select" id="user-form-credential-saved" contenteditable="true">&nbsp;</div>
+                      <span id="user-form-credential-validation" class="form-element-error"></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="user-form-pager" class="col-sm-5 control-label">Pager</label>
+                    <div class="col-sm-6">
+                      <input type="text" class="form-control form-control-unsaved input-sm" id="user-form-pager">
+                      <div class="form-control-saved edit-on-select" id="user-form-pager-saved" contenteditable="true">&nbsp;</div>
+                      <span id="user-form-pager-validation" class="form-element-error"></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="user-form-email" class="col-sm-5 control-label">Email*</label>
+                    <div class="col-sm-6">
+                      <input type="text" class="form-control form-control-unsaved input-sm" id="user-form-email">
+                      <div class="form-control-saved edit-on-select" id="user-form-email-saved" contenteditable="true">&nbsp;</div>
+                      <span id="user-form-email-validation" class="form-element-error"></span>
+                    </div>
+                  </div>
+                 {{if formMode == 'add'}}
+                  <div class="form-group">
+                    <label for="user-form-email-confirm" class="col-sm-5 control-label">Confirm Email*</label>
+                    <div class="col-sm-6">
+                      <input type="text" class="form-control form-control-unsaved input-sm" id="user-form-email-confirm">
+                      <span id="user-form-email-confirm-validation" class="form-element-error"></span>
+                    </div>
+                  </div>
+                 {{/if}}
+                  <div class="form-group">
+                    <label for="password" class="col-sm-5 control-label">Password*</label>
+                    <div class="col-sm-6">
+                      <input type="password" class="form-control form-control-unsaved input-sm" id="user-form-password">
+                      <div class="form-control-saved edit-on-select" id="user-form-password-saved" contenteditable="true">&nbsp;</div>
+                      <span id="user-form-password-validation" class="form-element-error"></span>
+                    </div>
+                  </div>
+                 {{if formMode == 'add'}}
+                  <div class="form-group">
+                    <label for="confirmPassword" class="col-sm-5 control-label">Confirm Password*</label>
+                    <div class="col-sm-6">
+                      <input type="password" class="form-control form-control-unsaved input-sm" id="user-form-password-confirm">
+                      <span id="user-form-password-confirm-validation" class="form-element-error"></span>
+                    </div>
+                  </div>
+                 {{/if}}
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            {{if formMode == 'add'}}
+            <button class="btn btn-link pull-left">* = required fields</button>
+            <button id="admin-user-form-cancel" type="button" class="btn btn-default" data-dismiss="modal" >Cancel</button>
+            <button id="admin-user-form-save" type="button" class="btn btn-success">Save changes</button>
+            {{else formMode == 'edit'}}
+            <button id="admin-user-form-cancel" type="button" class="btn btn-default" data-dismiss="modal" >Close</button>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+    </div>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" 
+  xmlns="http://java.sun.com/xml/ns/j2ee" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+  http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+>
+  <display-name>WDean Medical EHR</display-name>
+  <description>WDean Medical EHR</description>
+
+  <context-param>
+    <param-name>webAppRootKey</param-name>
+    <param-value>website.root.ehr</param-value>
+	</context-param>
+	
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>/WEB-INF/spring-servlet.xml</param-value>
+  </context-param> 
+  
+  <context-param>
+    <param-name>timeZone</param-name>
+    <param-value>America/New_York</param-value>
+  </context-param> 
+  	
+  <context-param>
+    <param-name>log4jConfigLocation</param-name>
+    <param-value>/WEB-INF/log4j.properties</param-value>
+  </context-param> 
+  
+  <context-param>
+    <param-name>appSessionTimeout</param-name>
+    <param-value>0</param-value>
+  </context-param> 
+  
+  <context-param>
+    <param-name>appDefaultHeadshot</param-name>
+    <param-value>headshot-placeholder.jpg</param-value>
+  </context-param> 
+  
+  <context-param>
+    <param-name>patientDirPath</param-name>
+    <param-value>files/patients</param-value>
+  </context-param> 
+  
+  <context-param>
+    <param-name>IMAGE_MAGICK_HOME</param-name>
+    <param-value>/Users/nick/imagemagick/bin/</param-value>
+  </context-param>  
+  
+  <context-param>
+    <param-name>imagesDir</param-name>
+    <param-value>images</param-value>
+  </context-param> 
+
+  <listener>
+    <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+  </listener>
+    
+  <servlet>
+    <servlet-name>AppServlet</servlet-name>
+    <servlet-class>com.wdeanmedical.ehr.web.AppServlet</servlet-class>
+    <load-on-startup>3</load-on-startup>
+   </servlet>
+    
+  <servlet-mapping>
+    <servlet-name>AppServlet</servlet-name>
+    <url-pattern>/app/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>AdminServlet</servlet-name>
+    <servlet-class>com.wdeanmedical.ehr.web.AdminServlet</servlet-class>
+    <load-on-startup>3</load-on-startup>
+   </servlet>
+    
+  <servlet-mapping>
+    <servlet-name>AdminServlet</servlet-name>
+    <url-pattern>/admin/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>PatientServlet</servlet-name>
+    <servlet-class>com.wdeanmedical.ehr.web.PatientServlet</servlet-class>
+    <load-on-startup>3</load-on-startup>
+  </servlet>
+    
+  <servlet-mapping>
+    <servlet-name>PatientServlet</servlet-name>
+    <url-pattern>/patient/*</url-pattern>
+  </servlet-mapping>
+
+   
+  <context-param>
+    <param-name>mail.from</param-name>
+    <param-value>support@wdeanmedical.com</param-value>
+  </context-param> 
+  
+    <context-param>
+    <param-name>mail.send</param-name>
+    <param-value>false</param-value>
+  </context-param>
+ 
+  <context-param>
+    <param-name>mail.smtp.host</param-name>
+    <param-value>mail.wdeanmedical.com</param-value>
+  </context-param>
+  
+   <context-param>
+    <param-name>mail.smtp.port</param-name>
+    <param-value>25</param-value>
+  </context-param> 
+  
+  <!-- Spring Servlet Configuration -->
+  <servlet>
+    <servlet-name>SpringContext</servlet-name>
+    <servlet-class>org.springframework.web.context.ContextLoaderServlet</servlet-class>
+    <load-on-startup>2</load-on-startup>
+  </servlet> 
+
+  <welcome-file-list>
+    <welcome-file>app.html</welcome-file>
+  </welcome-file-list>
+
+</web-app>

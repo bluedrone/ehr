@@ -1,0 +1,74 @@
+<!--
+  WDean Medical is distributed under the
+  GNU Lesser General Public License (GNU LGPL).
+  For details see: http://www.wdeanmedical.com
+  copyright 2013-2014 WDean Medical
+--> 
+
+<div class="modal fade" id="modal-patient-search" tabindex="-1" role="dialog" aria-labelledby="modal-patient-search" aria-hidden="true">
+  <div id="size1" class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title"><i class="icon-bar-chart icon-2x"></i> Patient Chart Search</h4>
+      </div>
+      <div class="modal-body">
+        <h5 class="modal-sub-title">Patient Search By</h5>
+        <div class="panel panel-default">
+          <div class="panel-body search-panel">
+            <form class="form-horizontal container-fluid">
+              <div class="row">
+                <div class="col-sm-6">
+		              <div class="form-group">
+		                <label for="patient-search-nombre" class="col-sm-4 control-label">First Name</label>
+		                <div class="col-sm-7">
+		                  <input type="text" class="form-control input-sm" id="patient-search-nombre">
+		                </div>
+		              </div>
+		              <div class="form-group">
+		                <label for="patient-search-apellido" class="col-sm-4 control-label">Middle</label>
+		                <div class="col-sm-7">
+		                  <input type="text" class="form-control input-sm" id="patient-search-apellido">
+		                </div>
+		              </div>
+		              <div class="form-group">
+			              <label for="patient-search-gender" class="col-sm-4 control-label">Last Name</label>
+			              <div class="col-sm-7">
+			                <input type="text" class="form-control input-sm" id="patient-search-segundo">
+			              </div>
+			            </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+		                <label for="patient-search-apellido" class="col-sm-4 control-label">Gender</label>
+		                <div class="col-sm-7">
+		                  <input type="text" class="form-control input-sm" id="patient-search-gender">
+		                </div>
+		              </div>
+			            <div class="form-group">
+		                <label for="patient-search-dob" class="col-sm-4 control-label">Date of Birth</label>
+		                <div class="col-sm-7">
+		                  <input type="text" class="form-control input-sm" id="patient-search-dob">
+		                </div>
+		              </div>
+			            <div class="form-group">
+			              <label for="patient-search-region" class="col-sm-4 control-label">City</label>
+			              <div class="col-sm-7">
+			                <input type="text" class="form-control input-sm" id="patient-search-region">
+			                <a id="btn-patient-search-search" class="btn btn-primary btn-block search-btn pull-right">Search</a>
+			              </div>                
+			            </div>
+			          </div>
+			        </div>
+            </form>              
+          </div>
+        </div>
+        <h5 class="modal-sub-title" id="patient-search-results-title">Search Results <small>(click to see chart)</small></h5>
+        <div id="patient-search-results" class="table-responsive"></div>        			         
+      </div>
+      <div class="modal-footer">
+        <a id="btn-patient-search-cancel" href="#" class="app-dashboard-link btn btn-default btn-lg" data-dismiss="modal">Cancel</a>
+      </div>
+    </div>
+  </div>
+</div>

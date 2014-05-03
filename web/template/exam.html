@@ -1,0 +1,162 @@
+<div class="modal fade" id="modal-exam" tabindex="-1" role="dialog" aria-labelledby="modal-exam" aria-hidden="true">
+  <div id="size3" class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title"><i class="icon-check icon-2x"></i> Exam</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row hidden-xs">
+          <div class="col-md-12">
+            <div class="chartheader">
+              <div class="col-xm-6 col-sm-3">
+                <p class="patient-chart-full-name"></p>
+              </div>
+              <div class="col-xm-6 col-sm-3">
+                <p><label>Next Appointment:</label><span class="patient-chart-next-appt"></span></p>
+                <p><label>Sex:</label><span class="patient-chart-gender"></span> 
+              </div>
+              <div class="col-xm-6 col-sm-3">
+                <p><label>ID#:</label> <span class="patient-chart-mrn"></span></p>
+                <p><label>DOB:</label><span class="patient-chart-dob"></span></p>
+              </div>
+              <div id="headshot-div" class="col-xm-6 col-sm-3">
+                <label class="pull-right">Active <i class="icon-check-sign icon-2x"></i></label>
+                <img src="images/headshot-placeholder.jpg" class="pull-right img-responsive img-rounded headshot" alt="Patient Photo">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row visible-xs">
+          <div class="panel panel-default chartheader">
+            <div class="panel-body">
+              <div class="col-xs-12">
+                <div class="col-xs-6">
+                  <p class="patient-chart-full-name"></p>
+                  <p><label>Next Appointment:</label><span class="patient-chart-next-appt"></span></p>
+                  <p><label>Sex:</label><span class="patient-chart-gender"></span> 
+                  <p><label>ID#:</label> <span class="patient-chart-mrn"></span></p>
+                  <p><label>DOB:</label><span class="patient-chart-dob"></span></p>
+                </div>
+                <div id="headshot-div2" class="col-xs-6">
+                  <p><label class="pull-right">Active <i class="icon-check-sign icon-2x"></i></label>
+                  <img src="images/headshot-placeholder.jpg" class="pull-right img-responsive img-rounded headshot" alt="Patient Photo"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="container-fluid">         
+	        <div class="pull-right">
+	        <button id="patient-exam-prev-btn" class="btn btn-default intake-group-up navbar-btn navbar-link" type="button">
+	           <i class="icon-chevron-left"></i> 
+	        </button>
+	        <span id="patient-exam-date"></span>
+	        <button id="patient-follow-up-next-btn" class="btn btn-default intake-group-down navbar-btn navbar-link" type="button">
+	          <i class="icon-chevron-right"></i> 
+	        </button>
+	        </div>
+	          <div class="row">
+	            <div class="patient-exam-image-and-overlay">
+	              <canvas class="patient-exam-image-overlay" id="patient-exam-image-overlay"></canvas>
+	              <div class="patient-exam-image-wrapper" id="patient-exam-image-wrapper">
+	                <div class="col-md-4">
+	                  <img src="images/human-body-outline1.png" class="img-responsive center-block" alt="Responsive image">
+	                </div>
+	                <div class="col-md-4">
+	                  <img src="images/lungs.png" class="img-responsive center-block" alt="Responsive image">
+	                </div>
+	                <div class="col-md-4">
+	                  <img src="images/exam_shape.png" class="img-responsive center-block" alt="Responsive image">
+	                </div>
+	              </div>
+	            </div>
+	          </div>
+	          <div class="row">
+	            <div class="col-md-3">
+	              <div class="form-group">
+	                <label class="sub-title">CVS</label>
+	              </div>
+	              <div class="form-group">
+	                <label for="hs">HS I + II</label>
+	                <div class="form-control-saved" id="hs">&nbsp;</div>
+	              </div>
+	            </div>
+	          </div>
+	          <div class="row">
+	            <div class="col-md-3">
+	              <label for="heart-rhythm">Rhythm</label>
+	              <div class="form-group">
+	                <label class="radio-inline"><input type="radio" name="heart-rhythm" value="regular">Regular</label>
+	                <label class="radio-inline"><input type="radio" name="heart-rhythm" value="irregular">Irregular</label>
+	              </div>
+	            </div>
+	          </div>
+	          <div class="row">
+	            <div class="col-md-3">
+	              <div class="panel panel-default">
+	                <div class="panel-body">
+	                    <label class="sub-title">LABS</label>
+	                    <div class="form-group">
+	                    <label for="lab-hb">Hb</label>
+	                    <div class="form-control-saved" id="lab-hb">&nbsp;</div>
+	                  </div>
+	                  <div class="form-group">
+	                    <label for="lab-glucose">Glucose</label>
+	                    <div class="form-control-saved" id="lab-glucose">&nbsp;</div>
+	                  </div>
+	                  <div class="form-group">
+	                    <label for="lab-urine-dip">Urine DIP (+)</label>
+	                    <div class="form-control-saved" id="lab-urine-dip">&nbsp;</div>
+	                  </div>
+	                </div>
+	              </div>
+	            </div>
+	          </div>
+	          <div class="row">
+	            <div class="col-md-8">
+	              <div class="form-group">
+	                <label for="diagnosis">Diagnosis</label>
+	                <div class="form-control-saved" id="diagnosis">&nbsp;</div>
+	              </div>
+	            </div>
+	            <div class="col-md-4">
+	              <div class="form-group">
+	                <label for="dx-code">DX Code</label>
+	                <div class="form-control-saved" id="dx-code">&nbsp;</div>
+	              </div>
+	            </div>
+	          </div>
+	          <div class="row">
+	            <div class="col-md-8">
+	              <div class="form-group">
+	                <label for="treatment-plan">Treatment Plan</label>
+	                <div class="form-control-saved" id="treatment-plan">&nbsp;</div>
+	              </div>
+	            </div>
+	            <div class="col-md-4">
+	              <div class="form-group">
+	                <label for="tx-code">TX Code</label>
+	                <div class="form-control-saved" id="tx-code">&nbsp;</div>
+	              </div>
+	            </div>
+	          </div>
+	          <div class="row">
+	            <div class="col-md-12">
+	              <div class="form-group">
+	                <label for="provider-name">Treating provider name</label>
+	                <div class="form-control-saved" id="provider-name">&nbsp;</div>
+	              </div>
+	            </div>
+	          </div>
+	        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="#" id="btn-special-studies-ok" class="btn btn-success btn-lg" data-dismiss="modal">Save</a>
+        <a id="patient-exam-print" class="btn btn-primary btn-lg">Print</a>
+        <a href="#" class="btn btn-default btn-lg" data-dismiss="modal">Close</a>
+      </div>
+    </div>
+  </div>
+</div>

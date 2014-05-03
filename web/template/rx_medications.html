@@ -1,0 +1,253 @@
+<div class="modal fade" id="modal-rx-medications" tabindex="-1" role="dialog" aria-labelledby="modal-rx-medications" aria-hidden="true">
+  <div id="size4" class="modal-dialog">
+  <div id="new-problem-placement"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title"><i class="icon-beer icon-2x"></i> RX/Medications</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row hidden-xs">
+          <div class="col-md-12">
+            <div class="chartheader">
+              <div class="col-xm-6 col-sm-3">
+                <p class="patient-chart-full-name"></p>
+              </div>
+              <div class="col-xm-6 col-sm-3">
+                <p><label>Next Appointment:</label><span class="patient-chart-next-appt"></span></p>
+                <p><label>Sex:</label><span class="patient-chart-gender"></span> 
+              </div>
+              <div class="col-xm-6 col-sm-3">
+                <p><label>ID#:</label> <span class="patient-chart-mrn"></span></p>
+                <p><label>DOB:</label><span class="patient-chart-dob"></span></p> 
+              </div>
+              <div id="headshot-div3" class="col-xm-6 col-sm-3">
+                <label class="pull-right">Active <i class="icon-check-sign icon-2x"></i></label>
+                <img id="headshot-img3" class="pull-right img-responsive img-rounded headshot" 
+                alt="patientphoto" src="images/headshot-placeholder.jpg">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row visible-xs">
+          <div class="panel panel-default chartheader">
+            <div class="panel-body">
+              <div class="col-xs-12">
+                <div class="col-xs-6">
+                  <p class="patient-chart-full-name"></p>
+                  <p><label>Next Appointment:</label><span class="patient-chart-next-appt"></span></p>
+                  <p><label>Sex:</label><span class="patient-chart-gender"></span> 
+                  <p><label>ID#:</label> <span class="patient-chart-mrn"></span></p>
+                  <p><label>DOB:</label><span class="patient-chart-dob"></span></p> 
+                </div>
+                <div id="headshot-div4" class="col-xs-6">
+                  <p><label class="pull-right">Active <i class="icon-check-sign icon-2x"></i></label>
+                  <img id="headshot-img4" class="pull-right img-responsive img-rounded headshot" alt="patientphoto" src="images/headshot-placeholder.jpg"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-2">
+            <a href="#" id="btn-rx-medications-new" class="btn btn-success btn-block" data-dismiss="modal">New</a>
+            <a href="#" id="btn-rx-medications-renew" class="btn btn-info btn-block" data-dismiss="modal">Renew</a>
+            <a href="#" id="btn-rx-medications-renew-all" class="btn btn-info btn-block" data-dismiss="modal">Renew All</a>
+            <a href="#" id="btn-rx-medications-discount" class="btn btn-warning btn-block" data-dismiss="modal">Discount</a>
+            <a href="#" id="btn-rx-medications-allergy" class="btn btn-danger btn-block" data-dismiss="modal">Allergy</a>
+            <a href="#" id="btn-rx-medications-detail" class="btn btn-primary btn-block" data-dismiss="modal">Detail</a>
+            <a href="#" id="btn-rx-medications-on-no-meds" class="btn btn-primary btn-block" data-dismiss="modal">On No Meds</a>
+            <a href="#" id="btn-rx-medications-action" class="btn btn-primary btn-block" data-dismiss="modal">Action</a>
+            <a href="#" id="btn-rx-medications-other" class="btn btn-primary btn-block" data-dismiss="modal">Other</a>
+          </div>
+          <div class="col-md-10">
+            <div class="tabbable">
+              <ul class="nav nav-tabs nav-justified">
+                <li class="active"><a href="#tab1" data-toggle="tab">Current</a></li>
+                <li><a href="#tab2" data-toggle="tab">Ineffective</a></li>
+                <li><a href="#tab3" data-toggle="tab">Historical</a></li>
+                <li><a href="#tab4" data-toggle="tab">Fix Fill History</a></li>
+                <li><a href="#tab5" data-toggle="tab">Eligibility</a></li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane active" id="tab1">
+                  <br>
+                  <h5 class="modal-sub-title">Current Medications</h5>
+                  <div class="table-responsive">
+                    <table class="table table-striped table-hover table-bordered table-condensed">
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Name</th>
+                          <th>Size</th>
+                          <th>Take</th>
+                          <th>Freq</th>
+                          <th>Dur</th>
+                          <th>Amt</th>
+                          <th>Refill</th>
+                          <th>Prov</th>
+                          <th>Oper</th>
+                          <th>Sign</th>
+                          <th>Co-Sign Pro</th>
+                          <th>Co-Sign Op</th>
+                          <th>Co-Sign</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="tab-pane" id="tab2">
+                  <br>
+                  <h5 class="modal-sub-title">Ineffective Medications</h5>
+                  <div class="table-responsive ">
+                    <table class="table table-striped table-hover table-bordered table-condensed">
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Name</th>
+                          <th>Size</th>
+                          <th>Take</th>
+                          <th>Freq</th>
+                          <th>Dur</th>
+                          <th>Amt</th>
+                          <th>Refill</th>
+                          <th>Prov</th>
+                          <th>Oper</th>
+                          <th>Sign</th>
+                          <th>Co-Sign Pro</th>
+                          <th>Co-Sign Op</th>
+                          <th>Co-Sign</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="tab-pane" id="tab3">
+                  <br>
+                  <h5 class="modal-sub-title">Historical Medications</h5>
+                  <div class="table-responsive ">
+                    <table class="table table-striped table-hover table-bordered table-condensed">
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Name</th>
+                          <th>Size</th>
+                          <th>Take</th>
+                          <th>Freq</th>
+                          <th>Dur</th>
+                          <th>Amt</th>
+                          <th>Refill</th>
+                          <th>Prov</th>
+                          <th>Oper</th>
+                          <th>Sign</th>
+                          <th>Co-Sign Pro</th>
+                          <th>Co-Sign Op</th>
+                          <th>Co-Sign</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="tab-pane" id="tab4">
+                  <br>
+                  <h5 class="modal-sub-title">Fix Fill History</h5>
+                  <div class="table-responsive ">
+                    <table class="table table-striped table-hover table-bordered table-condensed">
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Name</th>
+                          <th>Size</th>
+                          <th>Take</th>
+                          <th>Freq</th>
+                          <th>Dur</th>
+                          <th>Amt</th>
+                          <th>Refill</th>
+                          <th>Prov</th>
+                          <th>Oper</th>
+                          <th>Sign</th>
+                          <th>Co-Sign Pro</th>
+                          <th>Co-Sign Op</th>
+                          <th>Co-Sign</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="tab-pane" id="tab5">
+                  <br>
+                  <h5 class="modal-sub-title">Eligibility</h5>
+                  <div class="table-responsive ">
+                    <table class="table table-striped table-hover table-bordered table-condensed">
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Name</th>
+                          <th>Size</th>
+                          <th>Take</th>
+                          <th>Freq</th>
+                          <th>Dur</th>
+                          <th>Amt</th>
+                          <th>Refill</th>
+                          <th>Prov</th>
+                          <th>Oper</th>
+                          <th>Sign</th>
+                          <th>Co-Sign Pro</th>
+                          <th>Co-Sign Op</th>
+                          <th>Co-Sign</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+        <a href="#" id="btn-rx-medications-close" class="btn btn-default btn-lg" data-dismiss="modal">Close</a>
+      </div>
+  </div>
+</div>

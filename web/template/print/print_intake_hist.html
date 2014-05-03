@@ -1,0 +1,133 @@
+<div id="form-wrapper-basic-info">
+ <div class="page-title-background"><div class="page-title">MEDICAL HISTORY</div></div>
+ <table class="form-table">
+    {{each(i, item) encounter.patient.hist.intakeMedicationList}}
+   <tr>   
+     <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">MEDICATION</span>
+       <div class="basic-info-input">${medication}</div>
+     </div>
+     </td>
+     <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">DOSE</span>
+       <div class="basic-info-input">${dose}</div>
+     </div>
+     </td>
+     <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">FREQUENCY</span>
+       <div class="basic-info-input">${frequency}</div>
+     </div>
+     </td>
+   </tr>
+  {{/each}}
+   <tr>
+     <td colspan="3">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">PAST SURGERIES AND MEDICAL CONDITIONS</span>
+       <div class="basic-info-input">${encounter.patient.hist.pastSM}</div>
+     </div>
+     </td>
+   </tr>
+   <tr>
+   <td colspan="3">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">FAMILY HISTORY</span>
+       <div style="margin-top:20px">
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.patient.hist.famHist && encounter.patient.hist.famHist.split(",").indexOf('n-a') != -1}}checked{{/if}}><label class="checkbox-label">Cancer</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.patient.hist.famHist && encounter.patient.hist.famHist.split(",").indexOf('constant') != -1}}checked{{/if}}><label class="checkbox-label">Diabetes</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.patient.hist.famHist && encounter.patient.hist.famHist.split(",").indexOf('walking') != -1}}checked{{/if}}><label class="checkbox-label">Heart Problems</label></div>
+       </div>
+       <div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.patient.hist.famHist && encounter.patient.hist.famHist.split(",").indexOf('standing_up') != -1}}checked{{/if}}><label class="checkbox-label">Hepatitis</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.patient.hist.famHist && encounter.patient.hist.famHist.split(",").indexOf('laying_down') != -1}}checked{{/if}}><label class="checkbox-label">High BP</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.patient.hist.famHist && encounter.patient.hist.famHist.split(",").indexOf('touchedv') != -1}}checked{{/if}}><label class="checkbox-label">HIV</label></div>
+       </div>
+       <div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.patient.hist.famHist && encounter.patient.hist.famHist.split(",").indexOf('bending') != -1}}checked{{/if}}><label class="checkbox-label">Tuberculosis</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.patient.hist.famHist && encounter.patient.hist.famHist.split(",").indexOf('other') != -1}}checked{{/if}}><label class="checkbox-label">Other-specify</label></div>
+         <div class="form-checkbox">${encounter.patient.hist.famHistOther ? encounter.patient.hist.famHistOther : '___________________'}</div>
+       </div>
+     </div>
+   </td>
+  </tr>
+  <tr>
+     <td colspan="3">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">FAMILY HISTORY NOTES</span>
+       <div class="basic-info-input">${encounter.patient.hist.famHistNotes}</div>
+     </div>
+     </td>
+   </tr>
+   <tr>
+    <td colspan="3">
+     <div class="item-wrapper-basic-info" style="height:100px">
+       <span class="item-label">ALLERGIES</span><br>
+       <span class="item-label">FOOD</span>
+       <span class="item-label" style="left:400px">DRUG</span>
+       <span class="item-label" style="left:550px">ENVIRO</span><br>
+       <span class="basic-info-input" style="left:20px">${encounter.patient.hist.allergFood}</span>
+       <span class="basic-info-input" style="left:500px">${encounter.patient.hist.allergDrug}</span>
+       <span class="basic-info-input" style="left:700px">${encounter.patient.hist.allergEnv}</span>
+     </div>
+     </td>
+   </tr>
+   <tr>
+    <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">COMPLETED FD VACCINATION RECORD?</span>
+       <div style="margin-top:20px">
+         <div class="form-radio"><input type="radio" {{if encounter.patient.hist.vacc == true}}checked{{/if}}><label class="checkbox-label">Yes</label></div>
+         <div class="form-radio"><input type="radio" {{if encounter.patient.hist.vacc == false}}checked{{/if}}><label class="checkbox-label">No</label></div>
+       </div>
+     </div>
+   </td>
+   <td colspan="2">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">NOTES</span>
+       <div class="basic-info-input">${encounter.patient.hist.vaccNotes}</div>
+     </div>
+     </td>
+   </tr>
+   <tr>
+    <tr>
+    <td>
+     <div class="item-wrapper-basic-info" style="height:100px">
+       <span class="item-label">SMOKING</span><br>
+       <span class="item-label">PACKS/DAY</span>
+       <span class="item-label">YEARS SMOKED</span>
+       <span class="item-label">YEARS QUIT</span><br>
+       <span class="basic-info-input" style="left:20px">${encounter.patient.hist.smokePksDay}</span>
+       <span class="basic-info-input" style="left:100px">${encounter.patient.hist.yearsSmoked}</span>
+       <span class="basic-info-input" style="left:200px">${encounter.patient.hist.smokeYearsQuit}</span>
+     </div>
+     </td>
+    <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">ETOH UNITS / WEEK</span>
+       <div class="basic-info-input">${encounter.patient.hist.etohUnitsWeek}</div>
+     </div>
+     </td>
+     <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">SUBSTANCES</span>
+       <div style="margin-top:20px">
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.patient.hist.subst && encounter.patient.hist.subst.split(",").indexOf('smoke') != -1}}checked{{/if}}><label class="checkbox-label">Smoke</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.patient.hist.subst && encounter.patient.hist.subst.split(",").indexOf('drink') != -1}}checked{{/if}}><label class="checkbox-label">Drink</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.patient.hist.subst && encounter.patient.hist.subst.split(",").indexOf('drugs') != -1}}checked{{/if}}><label class="checkbox-label">Drugs</label></div>
+       </div>
+     </div>
+   </td>
+    </tr>
+   <tr>
+    <td colspan="3">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">DRUGS CURRENTLY USED</span>
+       <div class="basic-info-input">${encounter.patient.hist.currentDrugs}</div>
+     </div>
+     </td>
+   </tr>
+ </table>
+</div>

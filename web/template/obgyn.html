@@ -1,0 +1,193 @@
+<div class="modal fade" id="modal-obgyn" tabindex="-1" role="dialog" aria-labelledby="modal-obgyn" aria-hidden="true">
+  <div id="size3" class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title"><i class="icon-female icon-large"></i> OB/GYN</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row hidden-xs">
+          <div class="col-md-12">
+            <div class="chartheader">
+              <div class="col-xm-6 col-sm-3">
+                <p class="patient-chart-full-name"></p>
+              </div>
+              <div class="col-xm-6 col-sm-3">
+                <p><label>Next Appointment:</label><span class="patient-chart-next-appt"></span></p>
+                <p><label>Sex:</label><span class="patient-chart-gender"></span> 
+              </div>
+              <div class="col-xm-6 col-sm-3">
+                <p><label>ID#:</label> <span class="patient-chart-mrn"></span></p>
+                <p><label>DOB:</label><span class="patient-chart-dob"></span></p>
+              </div>
+              <div id="headshot-div" class="col-xm-6 col-sm-3">
+                <label class="pull-right">Active <i class="icon-check-sign icon-2x"></i></label>
+                <img src="images/headshot-placeholder.jpg" class="pull-right img-responsive img-rounded headshot" alt="Patient Photo">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row visible-xs">
+          <div class="panel panel-default chartheader">
+            <div class="panel-body">
+              <div class="col-xs-12">
+                <div class="col-xs-6">
+                  <p class="patient-chart-full-name"></p>
+                  <p><label>Next Appointment:</label><span class="patient-chart-next-appt"></span></p>
+                  <p><label>Sex:</label><span class="patient-chart-gender"></span> 
+                  <p><label>ID#:</label> <span class="patient-chart-mrn"></span></p>
+                  <p><label>DOB:</label><span class="patient-chart-dob"></span></p>
+                </div>
+                <div id="headshot-div2" class="col-xs-6">
+                  <p><label class="pull-right">Active <i class="icon-check-sign icon-2x"></i></label>
+                  <img src="images/headshot-placeholder.jpg" class="pull-right img-responsive img-rounded headshot" alt="Patient Photo"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>    
+        <div class="pull-right">
+        <button id="patient-obgyn-prev-btn" class="btn btn-default intake-group-up navbar-btn navbar-link" type="button">
+           <i class="icon-chevron-left"></i> 
+        </button>
+        <span id="patient-obgyn-date"></span>
+        <button id="patient-obgyn-next-btn" class="btn btn-default intake-group-down navbar-btn navbar-link" type="button">
+          <i class="icon-chevron-right"></i> 
+        </button>
+        </div>
+        <div class="clearfix"></div>
+        <br>        
+        <div id="obgyn" class="container-fluid">
+          <div id="obgyn-panel">
+            <div class="row text-center">
+              <div class="col-xs-2">
+                <div class="form-group">
+                  <label for="obgyn-g">G</label>
+                  <div class="form-control-saved" id="obgyn-g" >&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-xs-2">
+                <div class="form-group">
+                  <label for="obgyn-p">P</label>
+                  <div class="form-control-saved" id="obgyn-p" >&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-xs-2">
+                <div class="form-group">
+                  <label for="obgyn-t">T</label>
+                  <div class="form-control-saved" id="obgyn-t" >&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-xs-2">
+                <div class="form-group">
+                  <label for="obgyn-a">A</label>
+                  <div class="form-control-saved" id="obgyn-a" >&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-xs-2">
+                <div class="form-group">
+                  <label for="obgyn-l">L</label>
+                  <div class="form-control-saved" id="obgyn-l" >&nbsp;</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <label for="pregnant">Pregnant</label>
+                <div class="form-group">
+                  <label class="radio-inline"><input type="radio" name="pregnant" value="yes">Yes</label>
+                  <label class="radio-inline"><input type="radio" name="pregnant" value="no">No</label>
+                  <label class="radio-inline"><input type="radio" name="pregnant" value="dk">DK</label>
+                  <label class="radio-inline"><input type="radio" name="pregnant" value="post_partum">Post Partum</label>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <label for="breastfeeding">Breastfeeding</label>
+                <div class="form-group">
+                   <label class="radio-inline"><input type="radio" name="breastfeeding" value="yes">Yes</label>
+                   <label class="radio-inline"><input type="radio" name="breastfeeding" value="no">No</label>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="breastfeeding-months">Months</label>
+                  <div class="form-control-saved" id="breastfeeding-months" >&nbsp;</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="last-period">When was the last period?</label>
+                  <div class="form-control-saved" id="last-period" >&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="age-first-period">Age at first period</label>
+                  <div class="form-control-saved" id="age-first-period" >&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label for="pap-smear">Pap smear ever</label>
+                <div class="form-group">
+                  <label class="radio-inline"><input type="radio" name="pap-smear" value="yes">Yes</label>
+                  <label class="radio-inline"><input type="radio" name="pap-smear" value="no">No</label>
+                  <label class="radio-inline"><input type="radio" name="pap-smear" value="dk">DK</label>
+                </div>
+              </div>
+              <div class="col-md-4">
+              <label for="birth-control">Birth Control</label>
+                <div class="form-group">
+                  <label class="radio-inline"><input type="radio" name="birth-control" value="yes">Yes</label>
+                  <label class="radio-inline"><input type="radio" name="birth-control" value="no">No</label>
+                  <label class="radio-inline"><input type="radio" name="birth-control" value="dk">DK</label>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="birth-control-type">Type</label>
+                  <div class="form-control-saved" id="birth-control-type" >&nbsp;</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <label class="sub-title">Other Past Gynocological History</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-4">
+                <div class="form-group">
+                  <div class="checkbox"><label><input type="checkbox" name="obgyn-hist" value="venereal_warts">Venereal Warts</label></div>
+                  <div class="checkbox"><label><input type="checkbox" name="obgyn-hist" value="herpes_genital">Herpes Genital</label></div>
+                  <div class="checkbox"><label><input type="checkbox" name="obgyn-hist" value="syphilis">Syphilis</label></div>
+                </div>
+              </div>
+              <div class="col-xs-4">
+                <div class="form-group">
+                  <div class="checkbox"><label><input type="checkbox" name="obgyn-hist" value="pid">PID</label></div>
+                  <div class="checkbox"><label><input type="checkbox" name="obgyn-hist" value="endometriosis">Endometriosis</label></div>
+                  <div class="checkbox"><label><input type="checkbox" name="obgyn-hist" value="chlamydia">Chlamydia</label></div>
+                </div>
+              </div>
+              <div class="col-xs-4">
+                <div class="form-group">
+                  <div class="checkbox"><label><input type="checkbox" name="obgyn-hist" value="gonorrhea">Gonorrhea</label></div>
+                  <div class="checkbox"><label><input type="checkbox" name="obgyn-hist" value="other">Other-specify</label></div>
+                </div>
+                <div class="form-control-saved" id="obgyn-hist-other" >&nbsp;</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="btn btn-success btn-lg" data-dismiss="modal">Save</a>
+        <a id="patient-obgyn-print" class="btn btn-primary btn-lg">Print</a>
+        <a href="#" id="btn-obgyb-close" class="btn btn-default btn-lg" data-dismiss="modal">Close</a>
+      </div>
+    </div>
+  </div>
+</div>

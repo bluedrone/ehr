@@ -1,0 +1,126 @@
+<div id="form-wrapper-basic-info">
+ <div class="page-title-background"><div class="page-title">FOLLOW UP REQUIRED</div></div>
+ <table class="form-table">
+   <tr>
+   <td colspan="2">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">TRIAGE LEVEL</span>
+       <div style="margin-top:20px">
+         <div class="form-radio"><input type="radio" {{if encounter.followUp.level == 'high'}}checked{{/if}}><label class="checkbox-label">High</label></div>
+         <div class="form-radio"><input type="radio" {{if encounter.followUp.level == 'intermediate'}}checked{{/if}}><label class="checkbox-label">Intermediate</label></div>
+         <div class="form-radio"><input type="radio" {{if encounter.followUp.level == 'low'}}checked{{/if}}><label class="checkbox-label">Low</label></div>
+       </div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">CONDITION</span>
+       <div class="basic-info-input">${encounter.followUp.condition}</div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">WHEN</span>
+       <div class="basic-info-input">${encounter.followUp.when}</div>
+     </div>
+     </td>
+  </tr>
+  <tr>
+     <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">DISPENSE RX</span>
+       <div class="basic-info-input">${encounter.followUp.dispenseRx}</div>
+     </div>
+   </td>
+   <td>
+    <div class="item-wrapper-basic-info">
+       <span class="item-label">USS</span>
+       <div class="basic-info-input">${encounter.followUp.USS}</div>
+     </div>
+     </td>
+        <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">PREGNANT</span>
+       <div class="basic-info-input">${encounter.followUp.pregnant}</div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">WOUND CARE</span>
+       <div class="basic-info-input">${encounter.followUp.woundCare}</div>
+     </div>
+     </td>
+  </tr>
+  <tr>
+     <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">REF TO SPECIALIST</span>
+       <div class="basic-info-input">${encounter.followUp.refToSpecialist}</div>
+     </div>
+   </td>
+   <td>
+    <div class="item-wrapper-basic-info">
+       <span class="item-label">DENTAL LIST</span>
+       <div class="basic-info-input">${encounter.followUp.dentalList}</div>
+     </div>
+     </td>
+        <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">PHYSIOTHERAPY</span>
+       <div class="basic-info-input">${encounter.followUp.physiotherapy}</div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">BLOOD LABS</span>
+       <div class="basic-info-input">${encounter.followUp.bloodLabs}</div>
+     </div>
+     </td>
+  </tr>
+    <tr>
+     <td colspan="2">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">OTHER</span>
+       <div class="basic-info-input">${encounter.followUp.other}</div>
+     </div>
+   </td>
+   <td>
+    <div class="item-wrapper-basic-info">
+       <span class="item-label">PULMONARY FX TEST</span>
+       <div class="basic-info-input">${encounter.followUp.pulmonaryFXTest}</div>
+     </div>
+     </td>
+        <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">VISION (glass/other)</span>
+       <div class="basic-info-input">${encounter.followUp.vision}</div>
+     </div>
+   </td>
+  </tr>
+   <tr>
+   <td colspan="2">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">FOLLOW UP COMPLETED</span>
+       <div style="margin-top:20px">
+         <div class="form-radio"><input type="radio" {{if encounter.followUp.completed == true}}checked{{/if}}><label class="checkbox-label">Yes</label></div>
+         <div class="form-radio"><input type="radio" {{if encounter.followUp.completed == false}}checked{{/if}}><label class="checkbox-label">No</label></div>
+       </div>
+     </div>
+   </td>
+   <td colspan="2">
+    <div class="item-wrapper-basic-info">
+       <span class="item-label">DATE</span>
+       <div class="basic-info-input">${encounter.followUp.followUpDate}</div>
+     </div>
+     </td>
+  </tr>
+  <tr>
+    <td colspan="4">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">NOTES</span>
+       <div class="basic-info-input">${encounter.followUp.notes}</div>
+     </div>
+     </td>
+   </tr>
+ </table>
+</div>

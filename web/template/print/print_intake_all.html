@@ -1,0 +1,877 @@
+<div id="form-wrapper-basic-info">
+ <div class="page-title-background"><div class="page-title">BASIC INFORMATION</div></div>
+ <table class="form-table">
+ <tr>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">TODAY'S DATE</span>
+       <div class="basic-info-input">${currentDate ? currentDate : '___ /___ /___'}</div>
+       <div class="item-date-input-legend" style="visibility:${currentDate ? 'hidden' : 'visible'}">
+         <span class="date-legend-month">month</span>
+         <span class="date-legend-day">day</span>
+         <span class="date-legend-year">year</span>
+       </div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">CONSULT LOCATION</span>
+       <div class="basic-info-input">${encounter.consultLocation}</div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">Patient's GOV ID # (CEDULA)</span>
+       <div class="basic-info-input">${encounter.patient.cred.govtId}</div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">DOB</span>
+       <div class="basic-info-input">${encounter.patient.demo.dob ? dateFormat(encounter.patient.demo.dob, 'mm/dd/yyyy') : '___ /___ /___'}</div>
+       <div class="item-date-input-legend" style="visibility:${encounter.patient.demo.dob ? 'hidden' : 'visible'}">
+         <span class="date-legend-month">month</span>
+         <span class="date-legend-day">day</span>
+         <span class="date-legend-year">year</span>
+       </div>
+     </div>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="2">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">NOMBRE</span>
+       <span class="item-label" style="left:100px">APELLIDO</span>
+       <span class="item-label" style="left:150px">SEGUNDO APPELIDO</span>
+       <div class="item-nombre-group">
+         <span class="basic-info-input">${encounter.patient.cred.firstName}</span>
+         <span class="basic-info-input"  style="left:100px">${encounter.patient.cred.lastName}</span>
+         <span class="basic-info-input"  style="left:200px">${encounter.patient.cred.additionalName}</span>
+       </div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">AGE IN YEARS</span> 
+       <span class="item-label" style="padding-left:100px">AGE IN MONTHS</span>
+       <div>
+         <span class="basic-info-input">${encounter.patient.demo.ageInYears}</span> 
+         <span class="basic-info-input"style="padding-left:200px">${encounter.patient.demo.ageInMonths}</span>
+       </div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">GENDER</span>
+       <div class="basic-info-input">${encounter.patient.demo.gender.code}</div>
+     </div>
+   </td>
+  </tr>
+  <tr style="min-height:100px">
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">PHONE</span>
+       <div class="basic-info-input">${encounter.patient.demo.primaryPhone}</div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">COMMUNITY LOCATION</span>
+       <div class="basic-info-input">${encounter.patient.demo.community}</div>
+     </div>
+   </td>
+   <td colspan="2"  style="max-width:650px; min-height:100px">
+     <div class="item-wrapper-basic-info" style="min-height:100px">
+       <span class="item-label">NOTES</span>
+       <div class="basic-info-input">${encounter.notes}</div>
+     </div>
+   </td>
+  </tr>
+ </table>
+ 
+ <div class="page-title-background"><div class="page-title">VITALS</div></div>
+ <table class="form-table">
+ <tr>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">HEIGHT</span>
+       <div class="basic-info-input">${encounter.vitals.height}</div>
+     </div>
+   </td>
+    <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">WEIGHT</span>
+       <div class="basic-info-input">${encounter.vitals.weight}</div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">SYS</span>
+       <div class="basic-info-input">${encounter.vitals.sys}</div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">DIA</span>
+       <div class="basic-info-input">${encounter.vitals.dia}</div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">HR</span>
+       <div class="basic-info-input">${encounter.vitals.hr}</div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">RR</span>
+       <div class="basic-info-input">${encounter.vitals.rr}</div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">TEMP (C)</span>
+       <div class="basic-info-input">${encounter.vitals.temp}</div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">ARM (CM)</span>
+       <div class="basic-info-input">${encounter.vitals.arm}</div>
+     </div>
+   </td>
+  </tr>
+
+ </table>
+ <div class="page-title-background"><div class="page-title">FAMILY</div></div>
+ <table class="form-table">
+ <tr>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">MOTHER NAME</span>
+       <div class="basic-info-input">${encounter.patient.pfsh.motherName}</div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">MOTHER DOB</span>
+       <div class="basic-info-input">${encounter.patient.pfsh.motherDob ? encounter.patient.pfsh.motherDob : '___ /___ /___'}</div>
+       <div class="item-date-input-legend" style="visibility:${encounter.patient.pfsh.motherDob ? 'hidden' : 'visible'}">
+         <span class="date-legend-month">month</span>
+         <span class="date-legend-day">day</span>
+         <span class="date-legend-year">year</span>
+       </div>
+     </div>
+   </td>
+ </tr>
+ <tr>
+    <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">FATHER NAME</span>
+       <div class="basic-info-input">${encounter.patient.pfsh.fatherName}</div>
+     </div>
+   </td>
+   <td>
+    <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">PATIENT RELATIONSHIP</span>
+       <div class="basic-info-input">${encounter.patient.pfsh.patientRelationship}</div>
+     </div>
+   </td>
+  </tr>
+ </table>
+ 
+ <div class="page-title-background"><div class="page-title">CHIEF COMPLAINT</div></div>
+ <table class="form-table">
+ <tr>
+   <td colspan="8">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">DESCRIPTION</span>
+       <div class="basic-info-input">${encounter.cc.chiefComplaint}</div>
+     </div>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="8">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">OCCURS WHEN</span>
+       <div style="margin-top:20px">
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.occursWhen && encounter.cc.occursWhen.split(",").indexOf('n-a') != -1}}checked{{/if}}><label class="checkbox-label">N/A</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.occursWhen && encounter.cc.occursWhen.split(",").indexOf('constant') != -1}}checked{{/if}}><label class="checkbox-label">Constant</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.occursWhen && encounter.cc.occursWhen.split(",").indexOf('walking') != -1}}checked{{/if}}><label class="checkbox-label">Walking</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.occursWhen && encounter.cc.occursWhen.split(",").indexOf('sitting') != -1}}checked{{/if}}><label class="checkbox-label">Sitting</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.occursWhen && encounter.cc.occursWhen.split(",").indexOf('running') != -1}}checked{{/if}}><label class="checkbox-label">Running</label></div>
+       </div>
+       <div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.occursWhen && encounter.cc.occursWhen.split(",").indexOf('standing_up') != -1}}checked{{/if}}><label class="checkbox-label">Standing Up</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.occursWhen && encounter.cc.occursWhen.split(",").indexOf('laying_down') != -1}}checked{{/if}}><label class="checkbox-label">Laying Down</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.occursWhen && encounter.cc.occursWhen.split(",").indexOf('touchedv') != -1}}checked{{/if}}><label class="checkbox-label">When Touched</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.occursWhen && encounter.cc.occursWhen.split(",").indexOf('before_eating') != -1}}checked{{/if}}><label class="checkbox-label">Before Eating</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.occursWhen && encounter.cc.occursWhen.split(",").indexOf('after_eating') != -1}}checked{{/if}}><label class="checkbox-label">After Eating</label></div>
+       </div>
+       <div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.occursWhen && encounter.cc.occursWhen.split(",").indexOf('bending') != -1}}checked{{/if}}><label class="checkbox-label">Bending</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.occursWhen && encounter.cc.occursWhen.split(",").indexOf('holding_gripping') != -1}}checked{{/if}}><label class="checkbox-label">Holding/Gripping</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.occursWhen && encounter.cc.occursWhen.split(",").indexOf('other') != -1}}checked{{/if}}><label class="checkbox-label">Other-specify</label></div>
+         <div class="form-checkbox">${encounter.cc.occursOther ? encounter.cc.occursOther : '___________________'}</div>
+       </div>
+     </div>
+   </td>
+  </tr>
+  <tr>
+    <td colspan="4">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">SPECIFIC LOCATION</span>
+       <div class="basic-info-input">${encounter.cc.specificLocation}</div>
+     </div>
+   </td>
+   <td colspan="2">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">PAIN SCALE</span>
+       <div class="basic-info-input">${encounter.cc.painScale}</div>
+     </div>
+   </td>
+   <td colspan="2">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">PAIN TYPE</span>
+       <div class="basic-info-input">${encounter.cc.painType}</div>
+     </div>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="8">
+     <div class="item-wrapper-basic-info" style="height:100px">
+       <span class="item-label">HOW LONG / SINCE WHEN</span><br>
+       <span class="item-label">HOURS</span>
+       <span class="item-label" style="left:100px">DAYS</span>
+       <span class="item-label" style="left:200px">WEEKS</span>
+       <span class="item-label" style="left:300px">MONTHS</span>
+       <span class="item-label" style="left:400px">YEARS</span>
+       <span class="item-label" style="left:500px">OTHER</span><br>
+       <span class="basic-info-input" style="left:30px">${encounter.cc.hoursSince}</span>
+       <span class="basic-info-input" style="left:160px">${encounter.cc.daysSince}</span>
+       <span class="basic-info-input" style="left:300px">${encounter.cc.weeksSince}</span>
+       <span class="basic-info-input" style="left:450px">${encounter.cc.monthsSince}</span>
+       <span class="basic-info-input" style="left:600px">${encounter.cc.yearsSince}</span>
+       <span class="basic-info-input" style="left:750px">${encounter.cc.howLongOther}</span>
+     </div>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="8">
+     <div class="item-wrapper-basic-info" style="height:100px">
+       <span class="item-label">FREQUENCY</span><br>
+       <span class="item-label">X HOUR</span>
+       <span class="item-label" style="left:100px">X DAY</span>
+       <span class="item-label" style="left:200px">X WEEK</span>
+       <span class="item-label" style="left:300px">X MONTH</span>
+       <span class="item-label" style="left:400px">DURATION</span><br>
+       <span class="basic-info-input" style="left:30px">${encounter.cc.painXHour}</span>
+       <span class="basic-info-input" style="left:160px">${encounter.cc.painXDay}</span>
+       <span class="basic-info-input" style="left:300px">${encounter.cc.painXWeek}</span>
+       <span class="basic-info-input" style="left:450px">${encounter.cc.painXMonth}</span>
+       <span class="basic-info-input" style="left:600px">${encounter.cc.painDuration}</span>
+     </div>
+   </td>
+  </tr>
+
+  <tr>
+   <td colspan="8">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">DENIES</span>
+       <div style="margin-top:20px">
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.denies && encounter.cc.denies.split(",").indexOf('n') != -1}}checked{{/if}}><label class="checkbox-label">N</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.denies && encounter.cc.denies.split(",").indexOf('v') != -1}}checked{{/if}}><label class="checkbox-label">V</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.denies && encounter.cc.denies.split(",").indexOf('d') != -1}}checked{{/if}}><label class="checkbox-label">D</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.denies && encounter.cc.denies.split(",").indexOf('ha') != -1}}checked{{/if}}><label class="checkbox-label">HA</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.denies && encounter.cc.denies.split(",").indexOf('vision_px') != -1}}checked{{/if}}><label class="checkbox-label">Vision Px</label></div>
+       </div>
+       <div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.denies && encounter.cc.denies.split(",").indexOf('dizziness') != -1}}checked{{/if}}><label class="checkbox-label">Dizziness</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.denies && encounter.cc.denies.split(",").indexOf('weakness') != -1}}checked{{/if}}><label class="checkbox-label">Weakness</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.denies && encounter.cc.denies.split(",").indexOf('parathesia') != -1}}checked{{/if}}><label class="checkbox-label">Parasthesia</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.denies && encounter.cc.denies.split(",").indexOf('syncope') != -1}}checked{{/if}}><label class="checkbox-label">Syncope</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.denies && encounter.cc.denies.split(",").indexOf('pain') != -1}}checked{{/if}}><label class="checkbox-label">Pain</label></div>
+       </div>
+       <div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.denies && encounter.cc.denies.split(",").indexOf('anorexian') != -1}}checked{{/if}}><label class="checkbox-label">Anorexia</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.denies && encounter.cc.denies.split(",").indexOf('fatigue') != -1}}checked{{/if}}><label class="checkbox-label">Fatigue</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.denies && encounter.cc.denies.split(",").indexOf('other') != -1}}checked{{/if}}><label class="checkbox-label">Other</label></div>
+         <div class="form-checkbox">${encounter.cc.deniesOther ? encounter.cc.deniesOther : '___________________'}</div>
+       </div>
+     </div>
+   </td>
+  </tr>
+ </table>
+ 
+ <div class="page-title-background"><div class="page-title">OBGYN</div></div>
+ <table class="form-table">
+   <tr>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">G</span>
+       <span class="item-label" style="left:80px">P</span>
+       <span class="item-label" style="left:160px">T</span>
+       <span class="item-label" style="left:240px">A</span>
+       <span class="item-label" style="left:320px">L</span><br>
+       <span class="basic-info-input">${encounter.obgyn.obgynG}</span>
+       <span class="basic-info-input" style="left:80px">${encounter.obgyn.obgynP}</span>
+       <span class="basic-info-input" style="left:160px">${encounter.obgyn.obgynT}</span>
+       <span class="basic-info-input" style="left:240px">${encounter.obgyn.obgynA}</span>
+       <span class="basic-info-input" style="left:320px">${encounter.obgyn.obgynL}</span>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">WHEN WAS THE LAST PERIOD?</span>
+       <div class="basic-info-input">${encounter.obgyn.lastPeriod}</div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">AGE AT FIRST PERIOD</span>
+       <div class="basic-info-input">${encounter.obgyn.ageFirstPeriod}</div>
+     </div>
+   </td>
+  </tr>
+  <tr>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">PREGNANT</span>
+       <div style="margin-top:20px">
+         <div class="form-radio"><input type="radio" {{if encounter.obgyn.pregStatus == 'yes'}}checked{{/if}}><label class="checkbox-label">Yes</label></div>
+         <div class="form-radio"><input type="radio" {{if encounter.obgyn.pregStatus == 'no'}}checked{{/if}}><label class="checkbox-label">No</label></div>
+         <div class="form-radio"><input type="radio" {{if encounter.obgyn.pregStatus == 'dk'}}checked{{/if}}><label class="checkbox-label">DK</label></div>
+         <div class="form-radio"><input type="radio" {{if encounter.obgyn.pregStatus == 'post_partum'}}checked{{/if}}><label class="checkbox-label">Post Partum</label></div>
+       </div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">BREASTFEEDING</span>
+       <div class="basic-info-input">${encounter.obgyn.breastfeeding}</div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">MONTHS</span>
+       <div class="basic-info-input">${encounter.obgyn.breastfeedingMonths}</div>
+     </div>
+   </td>
+  </tr>
+  <tr>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">PAP SMEAR EVER</span>
+       <div class="basic-info-input">${encounter.obgyn.papSmearStatus}</div>
+     </div>
+   </td>
+     <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">BIRTH CONTROL</span>
+       <div class="basic-info-input">${encounter.obgyn.birthControlStatus}</div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">TYPE</span>
+       <div class="basic-info-input">${encounter.obgyn.birthControlType}</div>
+     </div>
+   </td>
+  </tr>
+    <tr>
+     <td colspan="3">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">OTHER PAST GYNECOLOGICAL HISTORY</span>
+       <div style="margin-top:20px">
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.obgyn.history && encounter.obgyn.history.split(",").indexOf('venereal_warts') != -1}}checked{{/if}}><label class="checkbox-label">Venereal Warts</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.obgyn.history && encounter.obgyn.history.split(",").indexOf('herpes_genital') != -1}}checked{{/if}}><label class="checkbox-label">Herpes Genital</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.obgyn.history && encounter.obgyn.history.split(",").indexOf('syphilis') != -1}}checked{{/if}}><label class="checkbox-label">Syphilis</label></div>
+       </div>
+       <div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.obgyn.history && encounter.obgyn.history.split(",").indexOf('pid') != -1}}checked{{/if}}><label class="checkbox-label">PID</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.obgyn.history && encounter.obgyn.history.split(",").indexOf('endometriosis') != -1}}checked{{/if}}><label class="checkbox-label">Endometriosis</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.obgyn.history && encounter.obgyn.history.split(",").indexOf('chlamydia') != -1}}checked{{/if}}><label class="checkbox-label">Chlamydia</label></div>
+       </div>
+       <div>
+         <div class="form-checkbox"><input type="checkbox" value="gonorrhea" {{if encounter.obgyn.history && encounter.obgyn.history.split(",").indexOf('gonorrhea') != -1}}checked{{/if}}><label class="checkbox-label">Gonorrhea</label></div>
+         <div class="form-checkbox"><input type="checkbox" value="other" {{if encounter.obgyn.history && encounter.obgyn.history.split(",").indexOf('other') != -1}}checked{{/if}}><label class="checkbox-label">Other-specify</label></div>
+         <div class="form-checkbox">${encounter.obgyn.historyOther ? encounter.obgyn.historyOther : '___________________'}</div>
+       </div>
+     </div>
+   </td>
+  </tr>
+ </table>
+ 
+ <div class="page-title-background"><div class="page-title">SOCIAL & FAMILY HISTORY</div></div>
+ <table class="form-table">
+   <tr>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label"># RESIDENTS IN DOMICILE</span>
+       <div class="basic-info-input">${encounter.patient.pfsh.numResidents}</div>
+     </div>
+   </td>
+   <td colspan="2">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">TYPE OF JOB</span>
+       <div class="basic-info-input">${encounter.patient.pfsh.jobType}</div>
+     </div>
+   </td>
+  </tr>
+  <tr>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">MOTHER</span>
+       <span class="item-label" style="left:160px">REASON</span
+       <div style="margin-top:20px">
+         <div class="form-radio"><input type="radio" {{if encounter.patient.pfsh.motherAlive == true}}checked{{/if}}><label class="checkbox-label">Alive</label></div>
+         <div class="form-radio"><input type="radio" {{if encounter.patient.pfsh.motherAlive == false}}checked{{/if}}><label class="checkbox-label">Dead</label></div>
+         <div class="form-radio">${encounter.patient.pfsh.motherDeathReason}</div>
+       </div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">FATHER</span>
+       <span class="item-label" style="left:160px">REASON</span
+       <div style="margin-top:20px">
+         <div class="form-radio"><input type="radio" {{if encounter.patient.pfsh.fatherAlive == true}}checked{{/if}}><label class="checkbox-label">Alive</label></div>
+         <div class="form-radio"><input type="radio" {{if encounter.patient.pfsh.fatherAlive == false}}checked{{/if}}><label class="checkbox-label">Dead</label></div>
+         <div class="form-radio">${encounter.patient.pfsh.fatherDeathReason}</div>
+       </div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">PARTNER</span>
+       <span class="item-label" style="left:160px">REASON</span
+       <div style="margin-top:20px">
+         <div class="form-radio"><input type="radio" {{if encounter.patient.pfsh.partnerAlive == true}}checked{{/if}}><label class="checkbox-label">Alive</label></div>
+         <div class="form-radio"><input type="radio" {{if encounter.patient.pfsh.partnerAlive == false}}checked{{/if}}><label class="checkbox-label">Dead</label></div>
+         <div class="form-radio">${encounter.patient.pfsh.partnerDeathReason}</div>
+       </div>
+     </div>
+   </td>
+ </tr>
+  <tr>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">TOTAL SIBLINGS</span>
+       <div class="basic-info-input">${encounter.patient.pfsh.numSiblings}</div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label"># BROTHERS</span>
+       <div class="basic-info-input">${encounter.patient.pfsh.numBrothers}</div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label"># SISTERS</span>
+       <div class="basic-info-input">${encounter.patient.pfsh.numSisters}</div>
+     </div>
+   </td>
+  </tr>
+  <tr>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">TOTAL CHILDREN</span>
+       <div class="basic-info-input">${encounter.patient.pfsh.numChildren}</div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label"># SONS</span>
+       <div class="basic-info-input">${encounter.patient.pfsh.numSons}</div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label"># DAUGHTERS</span>
+       <div class="basic-info-input">${encounter.patient.pfsh.numDaughters}</div>
+     </div>
+   </td>
+  </tr>
+
+ </table>
+ 
+ <div class="page-title-background"><div class="page-title">MEDICAL HISTORY</div></div>
+ <table class="form-table">
+    {{each(i, item) encounter.patient.hist.intakeMedicationList}}
+   <tr>   
+     <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">MEDICATION</span>
+       <div class="basic-info-input">${medication}</div>
+     </div>
+     </td>
+     <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">DOSE</span>
+       <div class="basic-info-input">${dose}</div>
+     </div>
+     </td>
+     <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">FREQUENCY</span>
+       <div class="basic-info-input">${frequency}</div>
+     </div>
+     </td>
+   </tr>
+  {{/each}}
+   <tr>
+     <td colspan="3">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">PAST SURGERIES AND MEDICAL CONDITIONS</span>
+       <div class="basic-info-input">${encounter.patient.hist.pastSM}</div>
+     </div>
+     </td>
+   </tr>
+   <tr>
+   <td colspan="3">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">FAMILY HISTORY</span>
+       <div style="margin-top:20px">
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.patient.hist.famHist && encounter.patient.hist.famHist.split(",").indexOf('n-a') != -1}}checked{{/if}}><label class="checkbox-label">Cancer</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.patient.hist.famHist && encounter.patient.hist.famHist.split(",").indexOf('constant') != -1}}checked{{/if}}><label class="checkbox-label">Diabetes</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.patient.hist.famHist && encounter.patient.hist.famHist.split(",").indexOf('walking') != -1}}checked{{/if}}><label class="checkbox-label">Heart Problems</label></div>
+       </div>
+       <div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.patient.hist.famHist && encounter.patient.hist.famHist.split(",").indexOf('standing_up') != -1}}checked{{/if}}><label class="checkbox-label">Hepatitis</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.patient.hist.famHist && encounter.patient.hist.famHist.split(",").indexOf('laying_down') != -1}}checked{{/if}}><label class="checkbox-label">High BP</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.patient.hist.famHist && encounter.patient.hist.famHist.split(",").indexOf('touchedv') != -1}}checked{{/if}}><label class="checkbox-label">HIV</label></div>
+       </div>
+       <div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.patient.hist.famHist && encounter.patient.hist.famHist.split(",").indexOf('bending') != -1}}checked{{/if}}><label class="checkbox-label">Tuberculosis</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.patient.hist.famHist && encounter.patient.hist.famHist.split(",").indexOf('other') != -1}}checked{{/if}}><label class="checkbox-label">Other-specify</label></div>
+         <div class="form-checkbox">${encounter.patient.hist.famHistOther ? encounter.patient.hist.famHistOther : '___________________'}</div>
+       </div>
+     </div>
+   </td>
+  </tr>
+  <tr>
+     <td colspan="3">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">FAMILY HISTORY NOTES</span>
+       <div class="basic-info-input">${encounter.patient.hist.famHistNotes}</div>
+     </div>
+     </td>
+   </tr>
+   <tr>
+    <td colspan="3">
+     <div class="item-wrapper-basic-info" style="height:100px">
+       <span class="item-label">ALLERGIES</span><br>
+       <span class="item-label">FOOD</span>
+       <span class="item-label" style="left:400px">DRUG</span>
+       <span class="item-label" style="left:550px">ENVIRO</span><br>
+       <span class="basic-info-input" style="left:20px">${encounter.patient.hist.allergFood}</span>
+       <span class="basic-info-input" style="left:500px">${encounter.patient.hist.allergDrug}</span>
+       <span class="basic-info-input" style="left:700px">${encounter.patient.hist.allergEnv}</span>
+     </div>
+     </td>
+   </tr>
+   <tr>
+    <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">COMPLETED FD VACCINATION RECORD?</span>
+       <div style="margin-top:20px">
+         <div class="form-radio"><input type="radio" {{if encounter.patient.hist.vacc == true}}checked{{/if}}><label class="checkbox-label">Yes</label></div>
+         <div class="form-radio"><input type="radio" {{if encounter.patient.hist.vacc == false}}checked{{/if}}><label class="checkbox-label">No</label></div>
+       </div>
+     </div>
+   </td>
+   <td colspan="2">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">NOTES</span>
+       <div class="basic-info-input">${encounter.patient.hist.vaccNotes}</div>
+     </div>
+     </td>
+   </tr>
+   <tr>
+    <tr>
+    <td>
+     <div class="item-wrapper-basic-info" style="height:100px">
+       <span class="item-label">SMOKING</span><br>
+       <span class="item-label">PACKS/DAY</span>
+       <span class="item-label">YEARS SMOKED</span>
+       <span class="item-label">YEARS QUIT</span><br>
+       <span class="basic-info-input" style="left:20px">${encounter.patient.hist.smokePksDay}</span>
+       <span class="basic-info-input" style="left:100px">${encounter.patient.hist.yearsSmoked}</span>
+       <span class="basic-info-input" style="left:200px">${encounter.patient.hist.smokeYearsQuit}</span>
+     </div>
+     </td>
+    <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">ETOH UNITS / WEEK</span>
+       <div class="basic-info-input">${encounter.patient.hist.etohUnitsWeek}</div>
+     </div>
+     </td>
+     <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">SUBSTANCES</span>
+       <div style="margin-top:20px">
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.patient.hist.subst && encounter.patient.hist.subst.split(",").indexOf('smoke') != -1}}checked{{/if}}><label class="checkbox-label">Smoke</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.patient.hist.subst && encounter.patient.hist.subst.split(",").indexOf('drink') != -1}}checked{{/if}}><label class="checkbox-label">Drink</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.patient.hist.subst && encounter.patient.hist.subst.split(",").indexOf('drugs') != -1}}checked{{/if}}><label class="checkbox-label">Drugs</label></div>
+       </div>
+     </div>
+   </td>
+    </tr>
+   <tr>
+    <td colspan="3">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">DRUGS CURRENTLY USED</span>
+       <div class="basic-info-input">${encounter.patient.hist.currentDrugs}</div>
+     </div>
+     </td>
+   </tr>
+ </table>
+ 
+ <div class="page-title-background"><div class="page-title">SUPPLEMENTAL QUESTIONS</div></div>
+  <table class="form-table">
+   <tr>
+    <td>
+     <div class="item-wrapper-basic-info" style="height:100px">
+       <span class="item-label">CUPS PER DAY?</span><br>
+       <span class="item-label">WATER</span>
+       <span class="item-label" style="left:100px">COFFEE</span>
+       <span class="item-label" style="left:200px">TEA</span><br>
+       <span class="basic-info-input" style="left:20px">${encounter.supp.numCupsWater}</span>
+       <span class="basic-info-input" style="left:150px">${encounter.supp.numCupsCoffee}</span>
+       <span class="basic-info-input" style="left:300px">${encounter.supp.numCupsTea}</span>
+     </div>
+     </td>
+     <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">Water Source</span>
+       <div class="basic-info-input">${encounter.supp.waterSource}</div>
+     </div>
+     </td>
+   </tr>
+   {{each(i, item) encounter.supp.intakeQuestionList}}
+   <tr>   
+     <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">Question #${i+1}</span>
+       <div class="basic-info-input">${question}</div>
+     </div>
+     </td>
+     <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">Response</span>
+       <div class="basic-info-input">${response}</div>
+     </div>
+     </td>
+   </tr>
+  {{/each}}
+ </table>
+ 
+ <div class="page-title-background"><div class="page-title">EXAM</div></div>
+ 
+ <div style="margin-bottom:100px;margin-top:100px">
+  <img src="images/human-body-outline1.png" width="350">
+  <img src="images/lungs.png" width="350">
+  <img src="images/exam_shape.png" width="350">
+ </div>
+ 
+ <table class="form-table">
+ 
+   <tr>
+    <td colspan="2">
+     <div class="item-wrapper-basic-info" style="height:100px">
+       <span class="item-label">CVS</span><br>
+       <span class="item-label">HS I+II</span>
+       <div class="basic-info-input">${encounter.exam.hs}</div>
+     </td>
+     <td colspan="2">
+       <div class="item-wrapper-basic-info">
+         <span class="item-label">RHYTHM</span>
+         <div class="form-radio"><input type="radio" {{if encounter.exam.heartRhythm == 'regular'}}checked{{/if}}><label class="checkbox-label">Regular</label></div>
+         <div class="form-radio"><input type="radio" {{if encounter.exam.heartRhythm == 'irregular'}}checked{{/if}}><label class="checkbox-label">Irregular</label></div>
+       </div>
+     </td>
+   </tr> 
+   <tr>
+    <td colspan="4">
+     <div class="item-wrapper-basic-info" style="height:100px">
+       <span class="item-label">LABS</span><br>
+       <span class="item-label">Hb</span>
+       <span class="item-label" style="left:400px">GLUCOSE</span>
+       <span class="item-label" style="left:550px">URINE DIP(+)</span><br>
+       <span class="basic-info-input" style="left:20px">${encounter.lab.hb}</span>
+       <span class="basic-info-input" style="left:400px">${encounter.lab.glucose}</span>
+       <span class="basic-info-input" style="left:550px">${encounter.lab.urineDIP}</span>
+     </div>
+     </td>
+   </tr>
+     <tr>
+    <td colspan="4">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">DIAGNOSIS</span>
+       <div class="basic-info-input">${encounter.exam.diagnosis}</div>
+     </div>
+     </td>
+   </tr>
+   <tr>
+    <td colspan="2">
+    <div class="item-wrapper-basic-info">
+       <span class="item-label">DX CODE</span>
+       <div class="basic-info-input">${encounter.exam.dxCode}</div>
+     </div>
+     </td>
+     <td colspan="2">
+    <div class="item-wrapper-basic-info">
+       <span class="item-label">TX CODE</span>
+       <div class="basic-info-input">${encounter.exam.txCode}</div>
+     </div>
+     </td>
+  </tr>
+  
+  <tr>
+   <td colspan="4">
+     <div class="item-wrapper-text-area">
+       <span class="item-label">TREATMENT PLAN</span>
+       <p class="item-actions-taken-input paragraph-input">${encounter.exam.treatmentPlan}</p>
+     </div>
+   </td>
+  </tr>
+  
+     <tr>
+     <td colspan="4">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">TREATING PROVIDER NAME</span>
+       <div class="basic-info-input">${encounter.exam.providerName}</div>
+     </div>
+     </td>
+   </tr>
+ 
+ </table>
+ 
+ <div class="page-title-background"><div class="page-title">FOLLOW UP REQUIRED</div></div>
+ <table class="form-table">
+   <tr>
+   <td colspan="2">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">TRIAGE LEVEL</span>
+       <div style="margin-top:20px">
+         <div class="form-radio"><input type="radio" {{if encounter.followUp.level == 'high'}}checked{{/if}}><label class="checkbox-label">High</label></div>
+         <div class="form-radio"><input type="radio" {{if encounter.followUp.level == 'intermediate'}}checked{{/if}}><label class="checkbox-label">Intermediate</label></div>
+         <div class="form-radio"><input type="radio" {{if encounter.followUp.level == 'low'}}checked{{/if}}><label class="checkbox-label">Low</label></div>
+       </div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">CONDITION</span>
+       <div class="basic-info-input">${encounter.followUp.condition}</div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">WHEN</span>
+       <div class="basic-info-input">${encounter.followUp.when}</div>
+     </div>
+     </td>
+  </tr>
+  <tr>
+     <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">DISPENSE RX</span>
+       <div class="basic-info-input">${encounter.followUp.dispenseRx}</div>
+     </div>
+   </td>
+   <td>
+    <div class="item-wrapper-basic-info">
+       <span class="item-label">USS</span>
+       <div class="basic-info-input">${encounter.followUp.USS}</div>
+     </div>
+     </td>
+        <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">PREGNANT</span>
+       <div class="basic-info-input">${encounter.followUp.pregnant}</div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">WOUND CARE</span>
+       <div class="basic-info-input">${encounter.followUp.woundCare}</div>
+     </div>
+     </td>
+  </tr>
+  <tr>
+     <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">REF TO SPECIALIST</span>
+       <div class="basic-info-input">${encounter.followUp.refToSpecialist}</div>
+     </div>
+   </td>
+   <td>
+    <div class="item-wrapper-basic-info">
+       <span class="item-label">DENTAL LIST</span>
+       <div class="basic-info-input">${encounter.followUp.dentalList}</div>
+     </div>
+     </td>
+        <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">PHYSIOTHERAPY</span>
+       <div class="basic-info-input">${encounter.followUp.physiotherapy}</div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">BLOOD LABS</span>
+       <div class="basic-info-input">${encounter.followUp.bloodLabs}</div>
+     </div>
+     </td>
+  </tr>
+    <tr>
+     <td colspan="2">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">OTHER</span>
+       <div class="basic-info-input">${encounter.followUp.other}</div>
+     </div>
+   </td>
+   <td>
+    <div class="item-wrapper-basic-info">
+       <span class="item-label">PULMONARY FX TEST</span>
+       <div class="basic-info-input">${encounter.followUp.pulmonaryFXTest}</div>
+     </div>
+     </td>
+        <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">VISION (glass/other)</span>
+       <div class="basic-info-input">${encounter.followUp.vision}</div>
+     </div>
+   </td>
+  </tr>
+   <tr>
+   <td colspan="2">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">FOLLOW UP COMPLETED</span>
+       <div style="margin-top:20px">
+         <div class="form-radio"><input type="radio" {{if encounter.followUp.completed == true}}checked{{/if}}><label class="checkbox-label">Yes</label></div>
+         <div class="form-radio"><input type="radio" {{if encounter.followUp.completed == false}}checked{{/if}}><label class="checkbox-label">No</label></div>
+       </div>
+     </div>
+   </td>
+   <td colspan="2">
+    <div class="item-wrapper-basic-info">
+       <span class="item-label">DATE</span>
+       <div class="basic-info-input">${encounter.followUp.followUpDate}</div>
+     </div>
+     </td>
+  </tr>
+  <tr>
+    <td colspan="4">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">NOTES</span>
+       <div class="basic-info-input">${encounter.followUp.notes}</div>
+     </div>
+     </td>
+   </tr>
+ </table>
+ 
+</div>

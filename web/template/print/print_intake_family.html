@@ -1,0 +1,39 @@
+<div id="form-wrapper-basic-info">
+ <div class="page-title-background"><div class="page-title">FAMILY</div></div>
+ <table class="form-table">
+ <tr>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">MOTHER NAME</span>
+       <div class="basic-info-input">${encounter.patient.pfsh.motherName}</div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">MOTHER DOB</span>
+       <div class="basic-info-input">${encounter.patient.pfsh.motherDob ? encounter.patient.pfsh.motherDob : '___ /___ /___'}</div>
+       <div class="item-date-input-legend" style="visibility:${encounter.patient.pfsh.motherDob ? 'hidden' : 'visible'}">
+         <span class="date-legend-month">month</span>
+         <span class="date-legend-day">day</span>
+         <span class="date-legend-year">year</span>
+       </div>
+     </div>
+   </td>
+ </tr>
+ <tr>
+    <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">FATHER NAME</span>
+       <div class="basic-info-input">${encounter.patient.pfsh.fatherName}</div>
+     </div>
+   </td>
+   <td>
+    <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">PATIENT RELATIONSHIP</span>
+       <div class="basic-info-input">${encounter.patient.pfsh.patientRelationship}</div>
+     </div>
+   </td>
+  </tr>
+ </table>
+</div>

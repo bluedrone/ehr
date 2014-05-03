@@ -1,0 +1,125 @@
+<div id="form-wrapper-basic-info">
+ <div class="page-title-background"><div class="page-title">CHIEF COMPLAINT</div></div>
+ <table class="form-table">
+ <tr>
+   <td colspan="8">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">DESCRIPTION</span>
+       <div class="basic-info-input">${encounter.cc.chiefComplaint}</div>
+     </div>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="8">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">OCCURS WHEN</span>
+       <div style="margin-top:20px">
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.occursWhen && encounter.cc.occursWhen.split(",").indexOf('n-a') != -1}}checked{{/if}}><label class="checkbox-label">N/A</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.occursWhen && encounter.cc.occursWhen.split(",").indexOf('constant') != -1}}checked{{/if}}><label class="checkbox-label">Constant</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.occursWhen && encounter.cc.occursWhen.split(",").indexOf('walking') != -1}}checked{{/if}}><label class="checkbox-label">Walking</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.occursWhen && encounter.cc.occursWhen.split(",").indexOf('sitting') != -1}}checked{{/if}}><label class="checkbox-label">Sitting</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.occursWhen && encounter.cc.occursWhen.split(",").indexOf('running') != -1}}checked{{/if}}><label class="checkbox-label">Running</label></div>
+       </div>
+       <div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.occursWhen && encounter.cc.occursWhen.split(",").indexOf('standing_up') != -1}}checked{{/if}}><label class="checkbox-label">Standing Up</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.occursWhen && encounter.cc.occursWhen.split(",").indexOf('laying_down') != -1}}checked{{/if}}><label class="checkbox-label">Laying Down</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.occursWhen && encounter.cc.occursWhen.split(",").indexOf('touchedv') != -1}}checked{{/if}}><label class="checkbox-label">When Touched</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.occursWhen && encounter.cc.occursWhen.split(",").indexOf('before_eating') != -1}}checked{{/if}}><label class="checkbox-label">Before Eating</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.occursWhen && encounter.cc.occursWhen.split(",").indexOf('after_eating') != -1}}checked{{/if}}><label class="checkbox-label">After Eating</label></div>
+       </div>
+       <div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.occursWhen && encounter.cc.occursWhen.split(",").indexOf('bending') != -1}}checked{{/if}}><label class="checkbox-label">Bending</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.occursWhen && encounter.cc.occursWhen.split(",").indexOf('holding_gripping') != -1}}checked{{/if}}><label class="checkbox-label">Holding/Gripping</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.occursWhen && encounter.cc.occursWhen.split(",").indexOf('other') != -1}}checked{{/if}}><label class="checkbox-label">Other-specify</label></div>
+         <div class="form-checkbox">${encounter.cc.occursOther ? encounter.cc.occursOther : '___________________'}</div>
+       </div>
+     </div>
+   </td>
+  </tr>
+  <tr>
+    <td colspan="4">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">SPECIFIC LOCATION</span>
+       <div class="basic-info-input">${encounter.cc.specificLocation}</div>
+     </div>
+   </td>
+   <td colspan="2">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">PAIN SCALE</span>
+       <div class="basic-info-input">${encounter.cc.painScale}</div>
+     </div>
+   </td>
+   <td colspan="2">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">PAIN TYPE</span>
+       <div class="basic-info-input">${encounter.cc.painType}</div>
+     </div>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="8">
+     <div class="item-wrapper-basic-info" style="height:100px">
+       <span class="item-label">HOW LONG / SINCE WHEN</span><br>
+       <span class="item-label">HOURS</span>
+       <span class="item-label" style="left:100px">DAYS</span>
+       <span class="item-label" style="left:200px">WEEKS</span>
+       <span class="item-label" style="left:300px">MONTHS</span>
+       <span class="item-label" style="left:400px">YEARS</span>
+       <span class="item-label" style="left:500px">OTHER</span><br>
+       <span class="basic-info-input" style="left:30px">${encounter.cc.hoursSince}</span>
+       <span class="basic-info-input" style="left:160px">${encounter.cc.daysSince}</span>
+       <span class="basic-info-input" style="left:300px">${encounter.cc.weeksSince}</span>
+       <span class="basic-info-input" style="left:450px">${encounter.cc.monthsSince}</span>
+       <span class="basic-info-input" style="left:600px">${encounter.cc.yearsSince}</span>
+       <span class="basic-info-input" style="left:750px">${encounter.cc.howLongOther}</span>
+     </div>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="8">
+     <div class="item-wrapper-basic-info" style="height:100px">
+       <span class="item-label">FREQUENCY</span><br>
+       <span class="item-label">X HOUR</span>
+       <span class="item-label" style="left:100px">X DAY</span>
+       <span class="item-label" style="left:200px">X WEEK</span>
+       <span class="item-label" style="left:300px">X MONTH</span>
+       <span class="item-label" style="left:400px">DURATION</span><br>
+       <span class="basic-info-input" style="left:30px">${encounter.cc.painXHour}</span>
+       <span class="basic-info-input" style="left:160px">${encounter.cc.painXDay}</span>
+       <span class="basic-info-input" style="left:300px">${encounter.cc.painXWeek}</span>
+       <span class="basic-info-input" style="left:450px">${encounter.cc.painXMonth}</span>
+       <span class="basic-info-input" style="left:600px">${encounter.cc.painDuration}</span>
+     </div>
+   </td>
+  </tr>
+
+  <tr>
+   <td colspan="8">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">DENIES</span>
+       <div style="margin-top:20px">
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.denies && encounter.cc.denies.split(",").indexOf('n') != -1}}checked{{/if}}><label class="checkbox-label">N</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.denies && encounter.cc.denies.split(",").indexOf('v') != -1}}checked{{/if}}><label class="checkbox-label">V</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.denies && encounter.cc.denies.split(",").indexOf('d') != -1}}checked{{/if}}><label class="checkbox-label">D</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.denies && encounter.cc.denies.split(",").indexOf('ha') != -1}}checked{{/if}}><label class="checkbox-label">HA</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.denies && encounter.cc.denies.split(",").indexOf('vision_px') != -1}}checked{{/if}}><label class="checkbox-label">Vision Px</label></div>
+       </div>
+       <div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.denies && encounter.cc.denies.split(",").indexOf('dizziness') != -1}}checked{{/if}}><label class="checkbox-label">Dizziness</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.denies && encounter.cc.denies.split(",").indexOf('weakness') != -1}}checked{{/if}}><label class="checkbox-label">Weakness</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.denies && encounter.cc.denies.split(",").indexOf('parathesia') != -1}}checked{{/if}}><label class="checkbox-label">Parasthesia</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.denies && encounter.cc.denies.split(",").indexOf('syncope') != -1}}checked{{/if}}><label class="checkbox-label">Syncope</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.denies && encounter.cc.denies.split(",").indexOf('pain') != -1}}checked{{/if}}><label class="checkbox-label">Pain</label></div>
+       </div>
+       <div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.denies && encounter.cc.denies.split(",").indexOf('anorexian') != -1}}checked{{/if}}><label class="checkbox-label">Anorexia</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.denies && encounter.cc.denies.split(",").indexOf('fatigue') != -1}}checked{{/if}}><label class="checkbox-label">Fatigue</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.cc.denies && encounter.cc.denies.split(",").indexOf('other') != -1}}checked{{/if}}><label class="checkbox-label">Other</label></div>
+         <div class="form-checkbox">${encounter.cc.deniesOther ? encounter.cc.deniesOther : '___________________'}</div>
+       </div>
+     </div>
+   </td>
+  </tr>
+
+ </table>
+</div>

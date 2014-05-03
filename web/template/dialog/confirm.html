@@ -1,0 +1,27 @@
+<!--
+  WDean Medical is distributed under the
+  GNU Lesser General Public License (GNU LGPL).
+  For details see: http://www.wdeanmedical.com
+  copyright 2013-2014 WDean Medical
+--> 
+
+<div class="modal fade" id="modal-confirm" tabindex="-1" role="dialog" aria-labelledby="modal-confirm" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">${modalTitle}</h4>
+      </div>
+      <div class="modal-body">
+        <h3>${modalH3}</h3>
+        <h4>${modalH4}</h4>
+      </div>
+      <div class="modal-footer">
+      {{if cancelButton != null}}
+        <button type="button" class="btn btn-default" data-dismiss="modal">${cancelButton}</button>
+      {{/if}}
+        <button id="app-modal-confirmation-btn" type="button" data-dismiss="modal" class="btn btn-primary">${okButton}</button>
+      </div>
+    </div>
+  </div>
+</div>

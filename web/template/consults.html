@@ -1,0 +1,192 @@
+<div class="modal fade" id="modal-consults" tabindex="-1" role="dialog" aria-labelledby="modal-consults" aria-hidden="true">
+  <div id="size3" class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title"><i class="icon-user-md icon-large"></i> Consults</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row hidden-xs">
+          <div class="col-md-12">
+            <div class="chartheader">
+              <div class="col-xm-6 col-sm-3">
+                <p class="patient-chart-full-name"></p>
+              </div>
+              <div class="col-xm-6 col-sm-3">
+                <p><label>Next Appointment:</label><span class="patient-chart-next-appt"></span></p>
+                <p><label>Sex:</label><span class="patient-chart-gender"></span> 
+              </div>
+              <div class="col-xm-6 col-sm-3">
+                <p><label>ID#:</label> <span class="patient-chart-mrn"></span></p>
+                <p><label>DOB:</label><span class="patient-chart-dob"></span></p>
+              </div>
+              <div id="headshot-div" class="col-xm-6 col-sm-3">
+                <label class="pull-right">Active <i class="icon-check-sign icon-2x"></i></label>
+                <img src="images/headshot-placeholder.jpg" class="pull-right img-responsive img-rounded headshot" alt="Patient Photo">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row visible-xs">
+          <div class="panel panel-default chartheader">
+            <div class="panel-body">
+              <div class="col-xs-12">
+                <div class="col-xs-6">
+                  <p class="patient-chart-full-name"></p>
+                  <p><label>Next Appointment:</label><span class="patient-chart-next-appt"></span></p>
+                  <p><label>Sex:</label><span class="patient-chart-gender"></span> 
+                  <p><label>ID#:</label> <span class="patient-chart-mrn"></span></p>
+                  <p><label>DOB:</label><span class="patient-chart-dob"></span></p>
+                </div>
+                <div id="headshot-div2" class="col-xs-6">
+                  <p><label class="pull-right">Active <i class="icon-check-sign icon-2x"></i></label>
+                  <img src="images/headshot-placeholder.jpg" class="pull-right img-responsive img-rounded headshot" alt="Patient Photo"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="pull-right">
+	        <button id="patient-follow-up-prev-btn" class="btn btn-default intake-group-up navbar-btn navbar-link" type="button"><i class="icon-chevron-left"></i></button>
+	        <span id="patient-follow-up-date"></span>
+	        <button id="patient-follow-up-next-btn" class="btn btn-default intake-group-down navbar-btn navbar-link" type="button"><i class="icon-chevron-right"></i></button>
+        </div>
+		    <div id="req-follow" class="container-fluid">
+		      <div id="patient-follow-up-panel">
+		        <div class="row">
+		          <div class="col-md-12">
+		            <label class="modal-sub-title">Reason & Triage</label>
+		          </div>
+		        </div>
+		        <div class="row">
+		          <div class="col-md-4">
+		            <label for="follow-up-level">Level</label>
+		            <div class="form-group">
+		              <label class="radio-inline"><input type="radio" name="follow-up-level" value="high">High</label>
+		              <label class="radio-inline"><input type="radio" name="follow-up-level" value="intermediate">Intermediate</label>
+		              <label class="radio-inline"><input type="radio" name="follow-up-level" value="low">Low</label>
+		            </div>
+		          </div>
+		          <div class="col-md-8">
+		            <div class="form-group">
+		              <label for="follow-up-when">When</label>
+		              <div class="form-control-saved" id="follow-up-when">&nbsp;</div>
+		            </div>
+		          </div>
+		        </div>
+		        <div class="row">
+		          <div class="col-md-4">
+		            <div class="form-group">
+		              <label for="follow-up-condition">Condition</label>
+		              <div class="form-control-saved" id="follow-up-condition">&nbsp;</div>
+		            </div>
+		          </div>
+		          <div class="col-md-4">
+		            <div class="form-group">
+		              <label for="follow-up-dispense-rx">Dispense RX</label>
+		              <div class="form-control-saved" id="follow-up-dispense-rx">&nbsp;</div>
+		            </div>
+		          </div>
+		          <div class="col-md-4">
+		            <div class="form-group">
+		              <label for="follow-up-uss">USS</label>
+		              <div class="form-control-saved" id="follow-up-uss">&nbsp;</div>
+		            </div>
+		          </div>
+		        </div>
+		        <div class="row">
+		          <div class="col-md-4">
+		            <div class="form-group">
+		              <label for="follow-up-pregnant">Pregnant</label>
+		              <div class="form-control-saved" id="follow-up-pregnant">&nbsp;</div>
+		            </div>
+		          </div>
+		          <div class="col-md-4">
+		            <div class="form-group">
+		              <label for="follow-up-wound-care">Wound Care</label>
+		              <div class="form-control-saved" id="follow-up-wound-care">&nbsp;</div>
+		            </div>
+		          </div>
+		          <div class="col-md-4">
+		            <div class="form-group">
+		              <label for="follow-up-ref-to-specialist">Ref To Specialist</label>
+		              <div class="form-control-saved" id="follow-up-ref-to-specialist">&nbsp;</div>
+		            </div>
+		          </div>
+		        </div>
+		        <div class="row">
+		          <div class="col-md-4">
+		            <div class="form-group">
+		              <label for="follow-up-dental-list">Dental List</label>
+		              <div class="form-control-saved" id="follow-up-dental-list">&nbsp;</div>
+		            </div>
+		          </div>
+		          <div class="col-md-4">
+		            <div class="form-group">
+		              <label for="follow-up-physiotherapy">Physiotherapy</label>
+		              <div class="form-control-saved" id="follow-up-physiotherapy">&nbsp;</div>
+		            </div>
+		          </div>
+		          <div class="col-md-4">
+		            <div class="form-group">
+		              <label for="follow-up-blood-labs">Blood Labs</label>
+		              <div class="form-control-saved" id="follow-up-blood-labs">&nbsp;</div>
+		            </div>
+		          </div>
+		        </div>
+		        <div class="row">
+		          <div class="col-md-4">
+		            <div class="form-group">
+		              <label for="follow-up-other">Other</label>
+		              <div class="form-control-saved" id="follow-up-other-saved">&nbsp;</div>
+		            </div>
+		          </div>
+		          <div class="col-md-4">
+		            <div class="form-group">
+		              <label for="follow-up-pulmonary-fx-test">Pulmonary FX Test</label>
+		              <div class="form-control-saved" id="follow-up-pulmonary-fx-test">&nbsp;</div>
+		            </div>
+		          </div>
+		          <div class="col-md-4">
+		            <div class="form-group">
+		              <label for="follow-up-vision">Vision (glass/other)</label>
+		              <div class="form-control-saved" id="follow-up-vision">&nbsp;</div>
+		            </div>
+		          </div>
+		        </div>
+		        <hr>
+		        <div class="row">
+		          <div class="col-md-12">
+		            <div class="col-md-2">
+		              <label for="follow-up-completed">Follow-up Completed</label>
+		              <div class="form-group">
+		                <label class="radio-inline"><input type="radio" name="follow-up-completed" value="true">Yes</label>
+		                <label class="radio-inline"><input type="radio" name="follow-up-completed" value="false">No</label>
+		              </div>
+		            </div>
+		            <div class="col-md-2">
+		              <div class="form-group">
+		                <label for="follow-up-date">Date</label>
+		                <div class="form-control-saved" id="follow-up-date">&nbsp;</div>
+		              </div>
+		            </div>
+		            <div class="col-md-8">
+		              <div class="form-group">
+		                <label for="follow-up-notes">Notes</label>
+		                <div class="form-control-saved" id="follow-up-notes" contenteditable="true">&nbsp;</div>
+		              </div>
+		            </div>
+		          </div>
+		        </div>
+		      </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="#" id="btn-consults-ok" class="btn btn-success btn-lg" data-dismiss="modal">Save</a>
+        <a id="patient-follow-up-print" class="btn btn-primary btn-lg">Print</a>
+        <a href="#" id="btn-consults-cancel" class="btn btn-default btn-lg" data-dismiss="modal">Cancel</a>
+      </div>
+    </div>
+  </div>
+</div>

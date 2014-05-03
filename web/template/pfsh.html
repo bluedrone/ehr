@@ -1,0 +1,170 @@
+<div class="modal fade" id="modal-pfsh" tabindex="-1" role="dialog" aria-labelledby="modal-pfsh" aria-hidden="true">
+  <div id="size3" class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title"><i class="icon-group icon-2x"></i> Social & Family History</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row hidden-xs">
+          <div class="col-md-12">
+            <div class="chartheader">
+              <div class="col-xm-6 col-sm-3">
+                <p class="patient-chart-full-name"></p>
+              </div>
+              <div class="col-xm-6 col-sm-3">
+                <p><label>Next Appointment:</label><span class="patient-chart-next-appt"></span></p>
+                <p><label>Sex:</label><span class="patient-chart-gender"></span> 
+              </div>
+              <div class="col-xm-6 col-sm-3">
+                <p><label>ID#:</label> <span class="patient-chart-mrn"></span></p>
+                <p><label>DOB:</label><span class="patient-chart-dob"></span></p>
+              </div>
+              <div id="headshot-div" class="col-xm-6 col-sm-3">
+                <label class="pull-right">Active <i class="icon-check-sign icon-2x"></i></label>
+                <img src="images/headshot-placeholder.jpg" class="pull-right img-responsive img-rounded headshot" alt="Patient Photo">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row visible-xs">
+          <div class="panel panel-default chartheader">
+            <div class="panel-body">
+              <div class="col-xs-12">
+                <div class="col-xs-6">
+                  <p class="patient-chart-full-name"></p>
+                  <p><label>Next Appointment:</label><span class="patient-chart-next-appt"></span></p>
+                  <p><label>Sex:</label><span class="patient-chart-gender"></span> 
+                  <p><label>ID#:</label> <span class="patient-chart-mrn"></span></p>
+                  <p><label>DOB:</label><span class="patient-chart-dob"></span></p>
+                </div>
+                <div id="headshot-div2" class="col-xs-6">
+                  <p><label class="pull-right">Active <i class="icon-check-sign icon-2x"></i></label>
+                  <img src="images/headshot-placeholder.jpg" class="pull-right img-responsive img-rounded headshot" alt="Patient Photo"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="container-fluid">
+	        <div class="row">
+	          <div class="col-md-6">
+	            <div class="form-group">
+	              <label for="patient-num-residents"># Residents in domicile</label>
+	              <input type="text" class="form-control form-control-unsaved" id="patient-num-residents">
+	              <div class="form-control-saved edit-on-select" id="patient-num-residents-saved" contenteditable="true">&nbsp;</div>
+	            </div>
+	          </div>
+	          <div class="col-md-6">
+	            <div class="form-group">
+	              <label for="patient-type-job">Type of job</label>
+	              <input type="text" class="form-control form-control-unsaved" id="patient-job-type">
+	              <div class="form-control-saved edit-on-select" id="patient-job-type-saved" contenteditable="true">&nbsp;</div>
+	            </div>
+	          </div>
+	        </div>
+	        <div class="row">
+	          <div class="col-md-3">
+	            <label for="patient-mother-alive">Mother</label>
+	            <div class="form-group">            
+	              <label class="radio-inline"><input type="radio" name="patient-mother-alive" value="false">Dead</label>
+	              <label class="radio-inline"><input type="radio" name="patient-mother-alive" value="true">Alive</label>
+	            </div>
+	          </div>
+	          <div class="col-md-9">
+	            <div class="form-group">
+	              <label for="patient-mother-reason-death">Reason</label>
+	              <input type="text" class="form-control form-control-unsaved" id="patient-mother-death-reason">
+	              <div class="form-control-saved edit-on-select" id="patient-mother-death-reason-saved" contenteditable="true">&nbsp;</div>
+	            </div>
+	          </div>
+	        </div>
+	        <div class="row">
+	          <div class="col-md-3">
+	            <label for="patient-father-alive">Father</label>
+	            <div class="form-group">
+	              <label class="radio-inline"><input type="radio" name="patient-father-alive" value="false">Dead</label>
+	              <label class="radio-inline"><input type="radio" name="patient-father-alive" value="true">Alive</label>
+	            </div>
+	          </div>
+	          <div class="col-md-9">
+	            <div class="form-group">
+	              <label for="patient-father-reason-death">Reason</label>
+	              <input type="text" class="form-control form-control-unsaved" id="patient-father-death-reason">
+	              <div class="form-control-saved edit-on-select" id="patient-father-death-reason-saved" contenteditable="true">&nbsp;</div>
+	            </div>
+	          </div>
+	        </div>
+	        <div class="row">
+	          <div class="col-md-3">
+	          <label for="patient-partner-alive">Partner</label>
+	            <div class="form-group">
+	              <label class="radio-inline"><input type="radio" name="patient-partner-alive" value="false">Dead</label>
+	              <label class="radio-inline"><input type="radio" name="patient-partner-alive" value="true">Alive</label>
+	            </div>
+	          </div>
+	          <div class="col-md-9">
+	            <div class="form-group">
+	              <label for="patient-partner-reason-death">Reason</label>
+	              <input type="text" class="form-control form-control-unsaved" id="patient-partner-death-reason">
+	              <div class="form-control-saved edit-on-select" id="patient-partner-death-reason-saved" contenteditable="true">&nbsp;</div>
+	            </div>
+	          </div>
+	        </div>
+	        <div class="row">
+	          <div class="col-md-4">
+	            <div class="form-group">
+	              <label for="patient-total-siblings">#Total Siblings</label>
+	              <input type="text" class="form-control form-control-unsaved" id="patient-num-siblings">
+	              <div class="form-control-saved edit-on-select" id="patient-num-siblings-saved" contenteditable="true">&nbsp;</div>
+	            </div>
+	          </div>
+	          <div class="col-md-4">
+	            <div class="form-group">
+	              <label for="patient-num-brothers">#Brothers</label>
+	              <input type="text" class="form-control form-control-unsaved" id="patient-num-brothers">
+	              <div class="form-control-saved edit-on-select" id="patient-num-brothers-saved" contenteditable="true">&nbsp;</div>
+	            </div>
+	          </div>
+	          <div class="col-md-4">
+	            <div class="form-group">
+	              <label for="patient-num-sisters">#Sisters</label>
+	              <input type="text" class="form-control form-control-unsaved" id="patient-num-sisters">
+	              <div class="form-control-saved edit-on-select" id="patient-num-sisters-saved" contenteditable="true">&nbsp;</div>
+	            </div>
+	          </div>
+	        </div>
+	        <div class="row">
+	          <div class="col-md-4">
+	            <div class="form-group">
+	              <label for="patient-total-children">#Total Children</label>
+	              <input type="text" class="form-control form-control-unsaved" id="patient-num-children">
+	              <div class="form-control-saved edit-on-select" id="patient-num-children-saved" contenteditable="true">&nbsp;</div>
+	            </div>
+	          </div>
+	          <div class="col-md-4">
+	            <div class="form-group">
+	              <label for="patient-num-sons">#Sons</label>
+	              <input type="text" class="form-control form-control-unsaved" id="patient-num-sons">
+	              <div class="form-control-saved edit-on-select" id="patient-num-sons-saved" contenteditable="true">&nbsp;</div>
+	            </div>
+	          </div>
+	          <div class="col-md-4">
+	            <div class="form-group">
+	              <label for="patient-num-daughters">#Daughters</label>
+	              <input type="text" class="form-control form-control-unsaved" id="patient-num-daughters">
+	              <div class="form-control-saved edit-on-select" id="patient-num-daughters-saved" contenteditable="true">&nbsp;</div>
+	            </div>
+	          </div>              
+	        </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="#" id="btn-family-history-ok" class="btn btn-success btn-lg" data-dismiss="modal">Save</a>
+        <a id="patient-pfsh-print" class="btn btn-primary btn-lg">Print</a>
+        <a href="#" id="btn-family-history-ok" class="btn btn-default btn-lg" data-dismiss="modal">Close</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,1217 @@
+<div class="tab-pane ${isActive ? 'active' : ''} fade ${isFirst ? 'in' : ''}" id="tab-intake-${id}">
+  <form role="form">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="ttop" data-toggle="collapse" data-target="#basic-info">Patient Basic Information<i class="icon-chevron-down pull-right collapse-arrow"></i></div>
+        <div id="basic-info" class="panel panel-default collapse in">
+          <div id="intake-basic-info-panel-${id}" class="panel-body">
+            <div class="row">
+              <div class="col-md-3 pull-right">
+                  <div><img id="intake-basic-info-photo-${id}" class="img-responsive headshot-sm"></div>
+                  <div id="intake-basic-info-photo-upload-control-${id}" class="btn-group-vertical-sm">              
+                   <span class="btn btn-success fileinput-button">
+                     <div id="intake-basic-info-photo-upload-${id}"></div>
+                   </span>
+                   <br>
+                   <br>
+                   <div id="intake-basic-info-photo-upload-progress-${id}" class="progress"> 
+                     <div class="progress-bar progress-bar-success"></div> 
+                   </div>
+                  </div>
+                </div> 
+              </div> 
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="intake-todays-date-${id}">Today's Date</label>
+                  <input id="intake-todays-date-${id}" type="text" class="form-control form-control-unsaved form-control-readonly" readonly="readonly">
+                  <div class="form-control-saved form-control-readonly" id="intake-todays-date-saved-${id}"></div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="consult-location-${id}">Consult Location</label>
+                  <input id="intake-consult-location-${id}" type="text" class="form-control form-control-unsaved">
+                  <div class="form-control-saved edit-on-select" id="intake-consult-location-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="intake-govt-id-${id}">Patient's GOV ID # (CEDULA)</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-govt-id-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-govt-id-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="intake-dob-${id}">Date Of Birth</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-dob-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-dob-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="intake-nombre-${id}">Nombre *Confirm w/ PT*</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-nombre-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-nombre-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="intake-apellido-${id}">Apellido *Confirm w/ PT*</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-apellido-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-apellido-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="intake-apellido-segundo-${id}">Apellido Segundo *Confirm w/ PT*</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-apellido-segundo-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-apellido-segundo-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2">
+                <label for="intake-gender-${id}">Gender</label>
+                <input type="text" class="form-control form-control-unsaved" id="intake-gender-${id}" maxlength="1">
+                <div class="form-control-saved edit-on-select" id="intake-gender-saved-${id}" contenteditable="true">&nbsp;</div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label for="intake-age-years-${id}">Age (in years)</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-age-years-${id}" maxLength="3">
+                  <div class="form-control-saved edit-on-select" id="intake-age-years-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label for="intake-age-months-${id}">Age (in months)</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-age-months-${id}" maxlength="2">
+                  <div class="form-control-saved edit-on-select" id="intake-age-months-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label for="intake-phone-${id}">Telephone</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-phone-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-phone-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="intake-community-${id}">Community (if living elsewhere)</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-community-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-community-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="intake-notes-${id}">Notes</label>
+                  <textarea id="intake-notes-${id}" class="form-control form-control-unsaved" rows="5"></textarea>
+                  <div class="form-control-saved edit-on-select" id="intake-notes-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel-footer">
+            <button id="intake-basic-info-clear-${id}" type="button" class="btn btn-default pull-right">Clear</button>
+            <a id="intake-basic-info-save-${id}" class="btn btn-success">Save</a>
+            <a id="intake-basic-info-saved-${id}" class="btn btn-success disabled">Saved</a>
+            <a id="intake-basic-info-print-${id}" class="btn btn-primary">Print</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-md-12">
+        <div class="ttop" data-toggle="collapse" data-target="#vitals">Vitals<i class="icon-chevron-down pull-right collapse-arrow"></i></div>
+        <div id="vitals" class="panel panel-default collapse in">
+          <div id="intake-vitals-panel-${id}" class="panel-body">
+            <div class="row">
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label for="intake-height-${id}">Height (cm)</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-height-${id}" maxlength="5">
+                  <div class="form-control-saved edit-on-select" id="intake-height-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label for="intake-weight-${id}">Weight (kg)</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-weight-${id}" maxlength="5">
+                  <div class="form-control-saved edit-on-select" id="intake-weight-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-md-1">
+                <div class="form-group">
+                  <label for="intake-sys-${id}">SYS</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-sys-${id}" maxlength="3">
+                  <div class="form-control-saved edit-on-select" id="intake-sys-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-md-1">
+                <div class="form-group">
+                  <label for="intake-dia-${id}">DIA</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-dia-${id}" maxlength="3">
+                  <div class="form-control-saved edit-on-select" id="intake-dia-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-md-1">
+                <div class="form-group">
+                  <label for="intake-hr-${id}">HR</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-hr-${id}" maxlength="3">
+                  <div class="form-control-saved edit-on-select" id="intake-hr-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-md-1">
+                <div class="form-group">
+                  <label for="intake-rr-${id}">RR</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-rr-${id}" maxlength="3">
+                  <div class="form-control-saved edit-on-select" id="intake-rr-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label for="intake-temp-${id}">Temp (C)</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-temp-${id}" maxlength="4">
+                  <div class="form-control-saved edit-on-select" id="intake-temp-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label for="intake-arm-${id}">Arm (cm)</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-arm-${id}" maxlength="5">
+                  <div class="form-control-saved edit-on-select" id="intake-arm-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel-footer">
+            <button id="intake-vitals-clear-${id}" type="button" class="btn btn-default pull-right">Clear</button>
+            <a id="intake-vitals-save-${id}" class="btn btn-success">Save</a>
+            <a id="intake-vitals-saved-${id}" class="btn btn-success disabled">Saved</a>
+            <a id="intake-vitals-print-${id}" class="btn btn-primary">Print</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-md-12">
+        <div class="ttop" data-toggle="collapse" data-target="#fam-visit">Family Visit (patient less than 18 years of age)
+        <i class="icon-chevron-down pull-right collapse-arrow"></i></div>
+        <div id="fam-visit" class="panel panel-default collapse in">
+          <div id="intake-family-panel-${id}" class="panel-body">
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-group">
+                  <label for="intake-mother-name-${id}">Mother Name</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-mother-name-${id}" placeholder="Nombre, Apellido, Segundo Apellido">
+                  <div class="form-control-saved edit-on-select" id="intake-mother-name-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="intake-mother-dob-${id}">Mother DOB</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-mother-dob-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-mother-dob-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-group">
+                  <label for="intake-caretaker-name-${id}">Caretaker Name (if mother/father not present)</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-caretaker-name-${id}" placeholder="Nombre, Apellido, Segundo Apellido">
+                  <div class="form-control-saved edit-on-select" id="intake-caretaker-name-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="intake-patient-relationship-${id}">Relationship To Patient</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-patient-relationship-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-patient-relationship-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel-footer">
+            <button id="intake-family-clear-${id}" type="button" class="btn btn-default pull-right">Clear</button>
+            <a id="intake-family-save-${id}" class="btn btn-success">Save</a>
+            <a id="intake-family-saved-${id}" class="btn btn-success disabled">Saved</a>
+            <a id="intake-family-print-${id}" class="btn btn-primary">Print</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-md-6">
+        <div class="ttop" data-toggle="collapse" data-target="#chief-comp">Chief Complaint<i class="icon-chevron-down pull-right collapse-arrow"></i></div>
+        <div id="chief-comp" class="panel panel-default collapse in">
+          <div  class="panel-body" id="intake-cc-panel-${id}">
+            <label class="sub-title">Description</label>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <textarea id="intake-chief-complaint-${id}" class="form-control form-control-unsaved" rows="6"></textarea>
+                  <div class="form-control-saved edit-on-select" id="intake-chief-complaint-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+            </div>
+            <label class="sub-title">Occurs When</label>
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="col-xs-4">
+                  <div class="form-group">
+                    <div class="checkbox"><label><input type="checkbox" name="intake-occurs-when-${id}" value="n-a">N/A</label></div>
+                    <div class="checkbox"><label><input type="checkbox" name="intake-occurs-when-${id}" value="constant">Constant</label></div>
+                    <div class="checkbox"><label><input type="checkbox" name="intake-occurs-when-${id}" value="walking">Walking</label></div>
+                    <div class="checkbox"><label><input type="checkbox" name="intake-occurs-when-${id}" value="sitting">Sitting</label></div>
+                    <div class="checkbox"><label><input type="checkbox" name="intake-occurs-when-${id}" value="running">Running</label></div>
+                  </div>
+                </div>
+                <div class="col-xs-4">
+                  <div class="form-group">
+                    <div class="checkbox"><label><input type="checkbox" name="intake-occurs-when-${id}" value="standing_up">Standing Up</label></div>
+                    <div class="checkbox"><label><input type="checkbox" name="intake-occurs-when-${id}" value="laying_down">Laying Down</label></div>
+                    <div class="checkbox"><label><input type="checkbox" name="intake-occurs-when-${id}" value="touched">When Touched</label></div>
+                    <div class="checkbox"><label><input type="checkbox" name="intake-occurs-when-${id}" value="before_eating">Before Eating</label></div>
+                    <div class="checkbox"><label><input type="checkbox" name="intake-occurs-when-${id}" value="after_eating">After Eating</label></div>
+                  </div>
+                </div>
+                <div class="col-xs-4">
+                  <div class="form-group">
+                    <div class="checkbox"><label><input type="checkbox" name="intake-occurs-when-${id}" value="bending">Bending</label></div>
+                    <div class="checkbox"><label><input type="checkbox" name="intake-occurs-when-${id}" value="holding_gripping">Holding/Gripping</label></div>
+                    <div class="checkbox"><label><input type="checkbox" name="intake-occurs-when-${id}" value="other">Other-specify</label></div>
+                  </div>
+                  <input type="text" class="form-control input-sm form-control-unsaved" id="intake-occurs-other-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-occurs-other-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="intake-specific-location-${id}">Specific Location</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-specific-location-${id}" placeholder="RLB">
+                  <div class="form-control-saved edit-on-select" id="intake-specific-location-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <label class="sub-title">How Long/Since When</label>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="col-xs-2">
+                      <div class="form-group text-center">
+                        <label for="intake-hours-since-${id}">Hours</label>
+                        <input type="text" class="form-control form-control-unsaved" id="intake-hours-since-${id}">
+                       <div class="form-control-saved edit-on-select" id="intake-hours-since-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-xs-2">
+                      <div class="form-group text-center">
+                        <label for="intake-days-since-${id}">Days</label>
+                        <input type="text" class="form-control form-control-unsaved" id="intake-days-since-${id}">
+                       <div class="form-control-saved edit-on-select" id="intake-days-since-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-xs-2">
+                      <div class="form-group text-center">
+                        <label for="intake-weeks-since-${id}">Weeks</label>
+                        <input type="text" class="form-control form-control-unsaved" id="intake-weeks-since-${id}">
+                       <div class="form-control-saved edit-on-select" id="intake-weeks-since-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-xs-2">
+                      <div class="form-group text-center">
+                        <label for="intake-months-since-${id}">Months</label>
+                        <input type="text" class="form-control form-control-unsaved" id="intake-months-since-${id}">
+                       <div class="form-control-saved edit-on-select" id="intake-months-since-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-xs-2">
+                      <div class="form-group text-center">
+                        <label for="intake-years-since-${id}">Years</label>
+                        <input type="text" class="form-control form-control-unsaved" id="intake-years-since-${id}">
+                       <div class="form-control-saved edit-on-select" id="intake-years-since-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-xs-2">
+                      <div class="form-group text-center">
+                        <label for="intake-how-long-other-${id}">Other</label>
+                        <input type="text" class="form-control form-control-unsaved" id="intake-how-long-other-${id}">
+                       <div class="form-control-saved edit-on-select" id="intake-how-long-other-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <label class="sub-title">Pain</label>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="intake-pain-scale-${id}">Pain Scale: <span id="intake-pain-scale-value-${id}">0</span></label>
+                        <input type="text" class="form-control span2 input-lg" data-slider-value="0" id="intake-pain-scale-${id}" data-slider-tooltip="hide">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="intake-pain-type-${id}">Pain Type</label>
+                        <select id="intake-pain-type-${id}" class="form-control form-control-unsaved">
+                          <option></option>
+                          <option>Dull</option>
+                          <option>Tingly</option>
+                          <option>Hot</option>
+                          <option>Sharp</option>
+                          <option>Achey</option>
+                          <option>Uncomfortable</option>
+                          <option>Superficial</option>
+                          <option>Deep</option>
+                        </select>
+                       <div class="form-control-saved" id="intake-pain-type-saved-${id}">&nbsp;</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <label class="sub-title">Frequency</label>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label for="intake-pain-x-hour-${id}">X Hour</label>
+                        <input type="text" class="form-control form-control-unsaved" id="intake-pain-x-hour-${id}">
+                       <div class="form-control-saved edit-on-select" id="intake-pain-x-hour-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label for="intake-pain-x-day-${id}">X Day</label>
+                        <input type="text" class="form-control form-control-unsaved" id="intake-pain-x-day-${id}">
+                       <div class="form-control-saved edit-on-select" id="intake-pain-x-day-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label for="intake-pain-x-week-${id}">X Week</label>
+                        <input type="text" class="form-control form-control-unsaved" id="intake-pain-x-week-${id}">
+                       <div class="form-control-saved edit-on-select" id="intake-pain-x-week-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label for="intake-pain-x-month-${id}">X Month</label>
+                        <input type="text" class="form-control form-control-unsaved" id="intake-pain-x-month-${id}">
+                       <div class="form-control-saved edit-on-select" id="intake-pain-x-month-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="intake-pain-duration-${id}">Duration</label>
+                        <input type="text" class="form-control form-control-unsaved" id="intake-pain-duration-${id}">
+                       <div class="form-control-saved edit-on-select" id="intake-pain-duration-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <label class="sub-title">Denies</label>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="col-xs-4">
+                      <div class="form-group">
+                        <div class="checkbox"><label><input type="checkbox" name="intake-denies-${id}" value="n">N</label></div>
+                        <div class="checkbox"><label><input type="checkbox" name="intake-denies-${id}" value="v">V</label></div>
+                        <div class="checkbox"><label><input type="checkbox" name="intake-denies-${id}" value="d">D</label></div>
+                        <div class="checkbox"><label><input type="checkbox" name="intake-denies-${id}" value="ha">HA</label></div>
+                        <div class="checkbox"><label><input type="checkbox" name="intake-denies-${id}" value="vision_px">Vision Px</label></div>
+                      </div>
+                    </div>
+                    <div class="col-xs-4">
+                      <div class="form-group">
+                        <div class="checkbox"><label><input type="checkbox" name="intake-denies-${id}" value="dizziness">Dizziness</label></div>
+                        <div class="checkbox"><label><input type="checkbox" name="intake-denies-${id}" value="weakness">Weakness</label></div>
+                        <div class="checkbox"><label><input type="checkbox" name="intake-denies-${id}" value="parasthesia">Parasthesia</label></div>
+                        <div class="checkbox"><label><input type="checkbox" name="intake-denies-${id}" value="syncope">Syncope</label></div>
+                        <div class="checkbox"><label><input type="checkbox" name="intake-denies-${id}" value="pain">Pain</label></div>
+                      </div>
+                    </div>
+                    <div class="col-xs-4">
+                      <div class="form-group">
+                        <div class="checkbox"><label><input type="checkbox" name="intake-denies-${id}" value="anorexia">Anorexia</label></div>
+                        <div class="checkbox"><label><input type="checkbox" name="intake-denies-${id}" value="fatigue">Fatigue</label></div>
+                        <div class="checkbox"><label><input type="checkbox" name="intake-denies-${id}" value="other">Other</label></div>
+                      </div>
+                      <input type="text" class="form-control input-sm form-control-unsaved" id="intake-denies-other-${id}">
+                       <div class="form-control-saved edit-on-select" id="intake-denies-other-saved-${id}" contenteditable="true">&nbsp;</div>
+                    </div>
+                  </div>
+                </div>  
+              </div>
+            </div>
+          </div>
+          <div class="panel-footer">
+            <button id="intake-cc-clear-${id}" type="button" class="btn btn-default pull-right">Clear</button>
+            <a id="intake-cc-save-${id}" class="btn btn-success">Save</a>
+            <a id="intake-cc-saved-${id}" class="btn btn-success disabled">Saved</a>
+            <a id="intake-cc-print-${id}" class="btn btn-primary">Print</a>
+          </div>
+        </div>
+      
+        <div class="ttop" data-toggle="collapse" data-target="#med-hist">Medical History<i class="icon-chevron-down pull-right collapse-arrow"></i></div>
+        <div id="med-hist" class="panel panel-default collapse in">
+          <div class="panel-body" id="intake-hist-panel-${id}">
+            <div id="intake-medications-${id}"></div>
+            <div class="row">
+              <div class="col-md-12">
+                <a id="intake-hist-new-medication-${id}" class="btn btn-primary pull-right">New Medication</a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="intake-past-s-m-${id}">Past Surgeries Or Medical Conditions</label>
+                  <textarea id="intake-past-s-m-${id}" class="form-control form-control-unsaved" rows="3"></textarea>
+                  <div class="form-control-saved edit-on-select" id="intake-past-s-m-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <label class="sub-title">Family History</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-4">
+                <div class="form-group">
+                  <div class="checkbox"><label><input name="intake-fam-hist-${id}" type="checkbox" value="">Cancer</label></div>
+                  <div class="checkbox"><label><input name="intake-fam-hist-${id}" type="checkbox" value="">Diabetes</label></div>
+                  <div class="checkbox"><label><input name="intake-fam-hist-${id}" type="checkbox" value="">Heart problems</label></div>
+                </div>
+              </div>
+              <div class="col-xs-4">
+                <div class="form-group">
+                  <div class="checkbox"><label><input name="intake-fam-hist-${id}" type="checkbox" value="">Hepatitis</label></div>
+                  <div class="checkbox"><label><input name="intake-fam-hist-${id}" type="checkbox" value="">High BP</label></div>
+                  <div class="checkbox"><label><input name="intake-fam-hist-${id}" type="checkbox" value="">HIV</label></div>
+                </div>
+              </div>
+              <div class="col-xs-4">
+                <div class="form-group">
+                  <div class="checkbox"><label><input name="intake-fam-hist-${id}" type="checkbox" value="">Tuberculosis</label></div>
+                  <div class="checkbox"><label><input name="intake-fam-hist-${id}" type="checkbox" value="">Other-specify</label></div>
+                </div>
+                <input type="text" class="form-control input-sm" id="fam-hist-other-${id}">
+                <div class="form-control-saved edit-on-select" id="intake-fam-hist-other-saved-${id}" contenteditable="true">&nbsp;</div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="intake-fam-hist-notes">Family History Notes</label>
+                  <textarea id="intake-fam-hist-notes" class="form-control form-control-unsaved" rows="5"></textarea>
+                  <div class="form-control-saved edit-on-select" id="intake-fam-hist-notes-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label class="sub-title">Allergies</label>
+                <div class="form-group">
+                  <label for="intake-allerg-food-${id}">Food</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-allerg-food-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-allerg-food-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+                <div class="form-group">
+                  <label for="intake-allerg-drug-${id}">Drug</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-allerg-drug-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-allerg-drug-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+                <div class="form-group">
+                  <label for="intake-allerg-env-${id}">Enviro</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-allerg-env-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-allerg-env-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="sub-title">Vaccinations</label>
+                <div class="form-group">
+                  <label for="vaccinations">Completed FD Vaccination Record?</label>
+                  <label class="radio-inline"><input type="radio" name="intake-vacc-${id}" value="true">Yes</label>
+                  <label class="radio-inline"><input type="radio" name="intake-vacc-${id}" value="false">No</label>
+                </div>
+                <div class="form-group">
+                  <label for="intake-med-hist-notes-${id}">Notes</label>
+                  <textarea id="intake-vacc-notes-${id}" class="form-control form-control-unsaved" rows="4"></textarea>
+                  <div class="form-control-saved edit-on-select" id="intake-vacc-notes-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <label class="sub-title">Substances</label>
+                <div class="form-group">
+                  <label>Currently </label>
+                  <label class="checkbox-inline"><input type="checkbox" name="intake-subst-${id}" value="smoke"> Smoke</label>
+                  <label class="checkbox-inline"><input type="checkbox" name="intake-subst-${id}" value="drink"> Drink</label>
+                  <label class="checkbox-inline"><input type="checkbox" name="intake-subst-${id}" value="drugs"> Drugs</label>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="smokes-pk-day-${id}">smoke packs / day</label>
+                        <input type="text" class="form-control form-control-unsaved" id="intake-smoke-pks-day-${id}">
+                        <div class="form-control-saved edit-on-select" id="intake-smoke-pks-day-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                      <div class="form-group">
+                        <label for="intake-years-smoked-${id}">Years smoked</label>
+                        <input type="text" class="form-control form-control-unsaved" id="intake-years-smoked-${id}">
+                        <div class="form-control-saved edit-on-select" id="intake-years-smoked-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                      <div class="form-group">
+                        <label for="intake-smoke-years-quit-${id}">Years Quit smoking</label>
+                        <input type="text" class="form-control form-control-unsaved" id="intake-smoke-years-quit-${id}">
+                        <div class="form-control-saved edit-on-select" id="intake-smoke-years-quit-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="etoh-units-week-${id}">EtOH units / week</label>
+                        <input type="text" class="form-control form-control-unsaved" id="intake-etoh-units-week-${id}">
+                        <div class="form-control-saved edit-on-select" id="intake-etoh-units-week-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                      <div class="form-group">
+                        <label for="current-drugs-${id}">Drugs currently used</label>
+                        <textarea id="intake-current-drugs-${id}" class="form-control form-control-unsaved" rows="5"></textarea>
+                        <div class="form-control-saved edit-on-select" id="intake-current-drugs-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div> 
+                  </div>  
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel-footer">
+            <a id="intake-hist-save-${id}" class="btn btn-success">Save</a>
+            <a id="intake-hist-saved-${id}" class="btn btn-success disabled">Saved</a>
+            <a id="intake-hist-print-${id}" class="btn btn-primary">Print</a>
+            <button id="intake-hist-clear-${id}" type="button" class="btn btn-default pull-right">Clear</button>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-md-6">
+      <div class="ttop" data-toggle="collapse" data-target="#obgyn">
+        OBGYN (to be completed by provider)
+        <i class="icon-chevron-down pull-right collapse-arrow"></i>
+      </div>
+        <div id="obgyn" class="panel panel-default collapse in">
+          <div class="panel-body" id="intake-obgyn-panel-${id}">
+            <div class="row text-center">
+              <div class="col-xs-2">
+                <div class="form-group">
+                  <label for="intake-obgyn-g-${id}">G</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-obgyn-g-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-obgyn-g-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-xs-2">
+                <div class="form-group">
+                  <label for="intake-obgyn-p-${id}">P</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-obgyn-p-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-obgyn-p-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-xs-2">
+                <div class="form-group">
+                  <label for="intake-obgyn-t-${id}">T</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-obgyn-t-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-obgyn-t-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-xs-2">
+                <div class="form-group">
+                  <label for="intake-obgyn-a-${id}">A</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-obgyn-a-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-obgyn-a-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-xs-2">
+                <div class="form-group">
+                  <label for="intake-obgyn-l-${id}">L</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-obgyn-l-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-obgyn-l-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <label for="intake-pregnant">Pregnant</label>
+                <div class="form-group">
+                  <label class="radio-inline"><input type="radio" name="intake-pregnant-${id}" value="yes">Yes</label>
+                  <label class="radio-inline"><input type="radio" name="intake-pregnant-${id}" value="no">No</label>
+                  <label class="radio-inline"><input type="radio" name="intake-pregnant-${id}" value="dk">DK</label>
+                  <label class="radio-inline"><input type="radio" name="intake-pregnant-${id}" value="post_partum">Post Partum</label>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <label for="intake-breastfeeding">Breastfeeding</label>
+                <div class="form-group">
+                   <label class="radio-inline"><input type="radio" name="intake-breastfeeding-${id}" value="yes">Yes</label>
+                   <label class="radio-inline"><input type="radio" name="intake-breastfeeding-${id}" value="no">No</label>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="intake-breastfeeding-months-${id}">Months</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-breastfeeding-months-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-breastfeeding-months-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="intake-last-period-${id}">When was the last period?</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-last-period-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-last-period-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="intake-age-first-period-${id}">Age at first period</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-age-first-period-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-age-first-period-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label for="intake-pap-smear">Pap smear ever</label>
+                <div class="form-group">
+                  <label class="radio-inline"><input type="radio" name="intake-pap-smear-${id}" value="yes">Yes</label>
+                  <label class="radio-inline"><input type="radio" name="intake-pap-smear-${id}" value="no">No</label>
+                  <label class="radio-inline"><input type="radio" name="intake-pap-smear-${id}" value="dk">DK</label>
+                </div>
+              </div>
+              <div class="col-md-4">
+              <label for="intake-birth-control">Birth Control</label>
+                <div class="form-group">
+                  <label class="radio-inline"><input type="radio" name="intake-birth-control-${id}" value="yes">Yes</label>
+                  <label class="radio-inline"><input type="radio" name="intake-birth-control-${id}" value="no">No</label>
+                  <label class="radio-inline"><input type="radio" name="intake-birth-control-${id}" value="dk">DK</label>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="intake-birth-control-type-${id}">Type</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-birth-control-type-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-birth-control-type-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <label class="sub-title">Other Past Gynocological History</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-4">
+                <div class="form-group">
+                  <div class="checkbox"><label><input type="checkbox" name="intake-obgyn-hist-${id}" value="venereal_warts">Venereal Warts</label></div>
+                  <div class="checkbox"><label><input type="checkbox" name="intake-obgyn-hist-${id}" value="herpes_genital">Herpes Genital</label></div>
+                  <div class="checkbox"><label><input type="checkbox" name="intake-obgyn-hist-${id}" value="syphilis">Syphilis</label></div>
+                </div>
+              </div>
+              <div class="col-xs-4">
+                <div class="form-group">
+                  <div class="checkbox"><label><input type="checkbox" name="intake-obgyn-hist-${id}" value="pid">PID</label></div>
+                  <div class="checkbox"><label><input type="checkbox" name="intake-obgyn-hist-${id}" value="endometriosis">Endometriosis</label></div>
+                  <div class="checkbox"><label><input type="checkbox" name="intake-obgyn-hist-${id}" value="chlamydia">Chlamydia</label></div>
+                </div>
+              </div>
+              <div class="col-xs-4">
+                <div class="form-group">
+                  <div class="checkbox"><label><input type="checkbox" name="intake-obgyn-hist-${id}" value="gonorrhea">Gonorrhea</label></div>
+                  <div class="checkbox"><label><input type="checkbox" name="intake-obgyn-hist-${id}" value="other">Other-specify</label></div>
+                </div>
+                <input type="text" class="form-control form-control-unsaved input-sm" id="intake-obgyn-hist-other-${id}">
+                <div class="form-control-saved edit-on-select" id="intake-obgyn-hist-other-saved-${id}" contenteditable="true">&nbsp;</div>
+              </div>
+            </div>
+          </div>
+          <div class="panel-footer">
+            <button id="intake-obgyn-clear-${id}" type="button" class="btn btn-default pull-right">Clear</button>
+            <a id="intake-obgyn-save-${id}" class="btn btn-success">Save</a>
+            <a id="intake-obgyn-saved-${id}" class="btn btn-success disabled">Saved</a>
+            <a id="intake-obgyn-print-${id}" class="btn btn-primary">Print</a>
+          </div>
+        </div>
+      
+        <div class="ttop" data-toggle="collapse" data-target="#soc-fam-hist">Social & Family History<i class="icon-chevron-down pull-right collapse-arrow"></i></div>
+        <div id="soc-fam-hist" class="panel panel-default collapse in">
+          <div class="panel-body" id="intake-pfsh-panel-${id}">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="intake-num-residents-${id}"># Residents in domicile</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-num-residents-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-num-residents-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="intake-type-job-${id}">Type of job</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-job-type-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-job-type-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <label for="intake-mother-alive-${id}">Mother</label>
+                <div class="form-group">            
+                  <label class="radio-inline"><input type="radio" name="intake-mother-alive-${id}" value="false">Dead</label>
+                  <label class="radio-inline"><input type="radio" name="intake-mother-alive-${id}" value="true">Alive</label>
+                </div>
+              </div>
+              <div class="col-md-9">
+                <div class="form-group">
+                  <label for="intake-mother-reason-death-${id}">Reason</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-mother-death-reason-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-mother-death-reason-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <label for="intake-father-alive-${id}">Father</label>
+                <div class="form-group">
+                  <label class="radio-inline"><input type="radio" name="intake-father-alive-${id}" value="false">Dead</label>
+                  <label class="radio-inline"><input type="radio" name="intake-father-alive-${id}" value="true">Alive</label>
+                </div>
+              </div>
+              <div class="col-md-9">
+                <div class="form-group">
+                  <label for="intake-father-reason-death-${id}">Reason</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-father-death-reason-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-father-death-reason-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+              <label for="intake-partner-alive-${id}">Partner</label>
+                <div class="form-group">
+                  <label class="radio-inline"><input type="radio" name="intake-partner-alive-${id}" value="false">Dead</label>
+                  <label class="radio-inline"><input type="radio" name="intake-partner-alive-${id}" value="true">Alive</label>
+                </div>
+              </div>
+              <div class="col-md-9">
+                <div class="form-group">
+                  <label for="intake-partner-reason-death-${id}">Reason</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-partner-death-reason-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-partner-death-reason-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="intake-total-siblings-${id}">#Total Siblings</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-num-siblings-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-num-siblings-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="intake-num-brothers-${id}">#Brothers</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-num-brothers-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-num-brothers-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="intake-num-sisters-${id}">#Sisters</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-num-sisters-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-num-sisters-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="intake-total-children-${id}">#Total Children</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-num-children-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-num-children-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="intake-num-sons-${id}">#Sons</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-num-sons-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-num-sons-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="intake-num-daughters-${id}">#Daughters</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-num-daughters-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-num-daughters-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel-footer">
+            <button id="intake-pfsh-clear-${id}" type="button" class="btn btn-default pull-right">Clear</button>
+            <a id="intake-pfsh-save-${id}" class="btn btn-success">Save</a>
+            <a id="intake-pfsh-saved-${id}" class="btn btn-success disabled">Saved</a>
+            <a id="intake-pfsh-print-${id}" class="btn btn-primary">Print</a>
+          </div>
+        </div>
+      
+        <div class="ttop" data-toggle="collapse" data-target="#sup-quest">Supplemental Questions<i class="icon-chevron-down pull-right collapse-arrow"></i></div>
+        <div id="sup-quest" class="panel panel-default collapse in">
+          <div class="panel-body" id="intake-supp-panel-${id}">
+            <div class="row">
+              <div class="col-md-12">
+                <label class="sub-title">Cups per day?</label>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="intake-num-cups-water-${id}">Water</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-num-cups-water-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-num-cups-water-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="intake-num-cups-coffee-${id}">Coffee</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-num-cups-coffee-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-num-cups-coffee-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="intake-num-cups-tea-${id}">Tea</label>
+                  <input type="text" class="form-control form-control-unsaved" id="intake-num-cups-tea-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-num-cups-tea-saved-${id}" contenteditable="true">&nbsp;</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="intake-water-source-${id}">Water Source</label>
+                  <select class="form-control form-control-unsaved" id="intake-water-source-${id}">
+                    <option></option>
+                    <option>Well</option>
+                    <option>River</option>
+                    <option>Bottle</option>
+                    <option>Rain</option>
+                    <option>Pipe</option>
+                    <option>Other</option>
+                  </select>
+                  <div class="form-control-saved" id="intake-water-source-saved-${id}">&nbsp;</div>
+                </div>
+              </div>
+            </div>
+            <div id="intake-questions-${id}"></div>
+          </div>
+          <div class="panel-footer">
+            <button id="intake-supp-clear-${id}" type="button" class="btn btn-default pull-right">Clear</button>
+            <a id="intake-supp-save-${id}" class="btn btn-success">Save</a>
+            <a id="intake-supp-saved-${id}" class="btn btn-success disabled">Saved</a>
+            <a id="intake-supp-print-${id}" class="btn btn-primary">Print</a>
+            <a id="intake-supp-new-question-${id}" class="btn btn-primary">New Question</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="ttop" data-toggle="collapse" data-target="#exam">Exam<i class="icon-chevron-down pull-right collapse-arrow"></i></div>
+        <div id="exam" class="panel panel-default collapse in">
+          <div class="panel-body" id="intake-exam-panel-${id}">
+          <div class="row">
+            <div class="intake-exam-image-and-overlay">
+              <canvas class="intake-exam-image-overlay" id="intake-exam-image-overlay-${id}"></canvas>
+              <div class="intake-exam-image-wrapper" id="intake-exam-image-wrapper-${id}">
+                <div class="col-md-4">
+                  <img src="images/human-body-outline1.png" class="img-responsive center-block" alt="Responsive image">
+                </div>
+                <div class="col-md-4">
+                  <img src="images/lungs.png" class="img-responsive center-block" alt="Responsive image">
+                </div>
+                <div class="col-md-4">
+                  <img src="images/exam_shape.png" class="img-responsive center-block" alt="Responsive image">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="sub-title">CVS</label>
+              </div>
+              <div class="form-group">
+                <label for="intake-hs-${id}">HS I + II</label>
+                <input type="text" class="form-control form-control-unsaved" id="intake-hs-${id}">
+                <div class="form-control-saved edit-on-select" id="intake-hs-saved-${id}" contenteditable="true">&nbsp;</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <label for="intake-heart-rhythm-${id}">Rhythm</label>
+              <div class="form-group">
+                <label class="radio-inline"><input type="radio" name="intake-heart-rhythm-${id}" value="regular">Regular</label>
+                <label class="radio-inline"><input type="radio" name="intake-heart-rhythm-${id}" value="irregular">Irregular</label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="panel panel-default">
+                <div class="panel-body">
+                    <label class="sub-title">LABS</label>
+                  <div class="form-group">
+                    <label for="intake-lab-hb-${id}">Hb</label>
+                    <input type="text" class="form-control form-control-unsaved" id="intake-lab-hb-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-lab-hb-saved-${id}" contenteditable="true">&nbsp;</div>
+                  </div>
+                  <div class="form-group">
+                    <label for="intake-lab-glucose-${id}">Glucose</label>
+                    <input type="text" class="form-control form-control-unsaved" id="intake-lab-glucose-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-lab-glucose-saved-${id}" contenteditable="true">&nbsp;</div>
+                  </div>
+                  <div class="form-group">
+                    <label for="intake-lab-urine-dip-${id}">Urine DIP (+)</label>
+                    <input type="text" class="form-control form-control-unsaved" id="intake-lab-urine-dip-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-lab-urine-dip-saved-${id}" contenteditable="true">&nbsp;</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-8">
+              <div class="form-group">
+                <label for="intake-diagnosis-${id}">Diagnosis</label>
+                <textarea id="intake-diagnosis-${id}" class="form-control form-control-unsaved" rows="5"></textarea>
+                  <div class="form-control-saved edit-on-select" id="intake-diagnosis-saved-${id}" contenteditable="true">&nbsp;</div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="intake-dx-code-${id}">DX Code</label>
+                <textarea id="intake-dx-code-${id}" class="form-control form-control-unsaved" rows="5"></textarea>
+                  <div class="form-control-saved edit-on-select" id="intake-dx-code-saved-${id}" contenteditable="true">&nbsp;</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-8">
+              <div class="form-group">
+                <label for="intake-treatment-plan-${id}">Treatment Plan</label>
+                <textarea id="intake-treatment-plan-${id}" class="form-control form-control-unsaved" rows="10"></textarea>
+                  <div class="form-control-saved edit-on-select" id="intake-treatment-plan-saved-${id}" contenteditable="true">&nbsp;</div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="intake-tx-code-${id}">TX Code</label>
+                <textarea id="intake-tx-code-${id}" class="form-control form-control-unsaved" rows="10"></textarea>
+                  <div class="form-control-saved edit-on-select" id="intake-tx-code-saved-${id}" contenteditable="true">&nbsp;</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="intake-provider-name-${id}">Treating provider name</label>
+                <input type="text" class="form-control form-control-unsaved" id="intake-provider-name-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-provider-name-saved-${id}" contenteditable="true">&nbsp;</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <button id="intake-exam-clear-${id}" type="button" class="btn btn-default pull-right">Clear</button>
+          <a id="intake-exam-save-${id}" class="btn btn-success">Save</a>
+          <a id="intake-exam-saved-${id}" class="btn btn-success disabled">Saved</a>
+          <a id="intake-exam-print-${id}" class="btn btn-primary">Print</a>
+        </div>
+      </div>
+
+      <div class="ttop" data-toggle="collapse" data-target="#req-follow">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          Requires Follow-Up
+          <div class="form-group">
+            <label class="radio-inline"><input type="radio" name="intake-requires-follow-up-${id}" value="yes">Yes</label>
+            <label class="radio-inline"><input type="radio" name="intake-requires-follow-up-${id}" value="no" checked >No</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="req-follow" class="panel panel-default">
+      <div class="panel-body" id="intake-follow-up-panel-${id}">
+        <div class="row">
+          <div class="col-md-12">
+            <label class="sub-title">Reason & Triage</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <label for="intake-follow-up-level-${id}">Level</label>
+            <div class="form-group">
+              <label class="radio-inline"><input type="radio" name="intake-follow-up-level-${id}" value="high">High</label>
+              <label class="radio-inline"><input type="radio" name="intake-follow-up-level-${id}" value="intermediate">Intermediate</label>
+              <label class="radio-inline"><input type="radio" name="intake-follow-up-level-${id}" value="low">Low</label>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="form-group">
+              <label for="intake-follow-up-when-${id}">When</label>
+              <input type="text" class="form-control form-control-unsaved" id="intake-follow-up-when-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-follow-up-when-saved-${id}" contenteditable="true">&nbsp;</div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="intake-follow-up-condition-${id}">Condition</label>
+              <input type="text" class="form-control form-control-unsaved" id="intake-follow-up-condition-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-follow-up-condition-saved-${id}" contenteditable="true">&nbsp;</div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="intake-follow-up-dispense-rx-${id}">Dispense RX</label>
+              <input type="text" class="form-control form-control-unsaved" id="intake-follow-up-dispense-rx-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-follow-up-dispense-rx-saved-${id}" contenteditable="true">&nbsp;</div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="intake-follow-up-uss-${id}">USS</label>
+              <input type="text" class="form-control form-control-unsaved" id="intake-follow-up-uss-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-follow-up-uss-saved-${id}" contenteditable="true">&nbsp;</div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="intake-follow-up-pregnant-${id}">Pregnant</label>
+              <input type="text" class="form-control form-control-unsaved" id="intake-follow-up-pregnant-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-follow-up-pregnant-saved-${id}" contenteditable="true">&nbsp;</div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="intake-follow-up-wound-care-${id}">Wound Care</label>
+              <input type="text" class="form-control form-control-unsaved" id="intake-follow-up-wound-care-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-follow-up-wound-care-saved-${id}" contenteditable="true">&nbsp;</div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="intake-follow-up-ref-to-specialist-${id}">Ref To Specialist</label>
+              <input type="text" class="form-control form-control-unsaved" id="intake-follow-up-ref-to-specialist-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-follow-up-ref-to-specialist-saved-${id}" contenteditable="true">&nbsp;</div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="intake-follow-up-dental-list-${id}">Dental List</label>
+              <input type="text" class="form-control form-control-unsaved" id="intake-follow-up-dental-list-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-follow-up-dental-list-saved-${id}" contenteditable="true">&nbsp;</div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="intake-follow-up-physiotherapy-${id}">Physiotherapy</label>
+              <input type="text" class="form-control form-control-unsaved" id="intake-follow-up-physiotherapy-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-follow-up-physiotherapy-saved-${id}" contenteditable="true">&nbsp;</div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="intake-follow-up-blood-labs-${id}">Blood Labs</label>
+              <input type="text" class="form-control form-control-unsaved" id="intake-follow-up-blood-labs-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-follow-up-blood-labs-saved-${id}" contenteditable="true">&nbsp;</div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="intake-follow-up-other-${id}">Other</label>
+              <input type="text" class="form-control form-control-unsaved" id="intake-follow-up-other-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-follow-up-other-saved-${id}" contenteditable="true">&nbsp;</div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="intake-follow-up-pulmonary-fx-test-${id}">Pulmonary FX Test</label>
+              <input type="text" class="form-control form-control-unsaved" id="intake-follow-up-pulmonary-fx-test-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-follow-up-pulmonary-fx-test-saved-${id}" contenteditable="true">&nbsp;</div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="intake-follow-up-vision-${id}">Vision (glass/other)</label>
+              <input type="text" class="form-control form-control-unsaved" id="intake-follow-up-vision-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-follow-up-vision-saved-${id}" contenteditable="true">&nbsp;</div>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="col-md-2">
+              <label for="intake-follow-up-completed-${id}">Follow-up Completed</label>
+              <div class="form-group">
+                <label class="radio-inline"><input type="radio" name="intake-follow-up-completed-${id}" value="true">Yes</label>
+                <label class="radio-inline"><input type="radio" name="intake-follow-up-completed-${id}" value="false">No</label>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="intake-follow-up-date-${id}">Date</label>
+                <input type="text" class="form-control form-control-unsaved" id="intake-follow-up-date-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-follow-up-date-saved-${id}" contenteditable="true">&nbsp;</div>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="form-group">
+                <label for="intake-follow-up-notes-${id}">Notes</label>
+                <input type="text" class="form-control form-control-unsaved" id="intake-follow-up-notes-${id}">
+                  <div class="form-control-saved edit-on-select" id="intake-follow-up-notes-saved-${id}" contenteditable="true">&nbsp;</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-footer">
+        <button id="intake-follow-up-clear-${id}" type="button" class="btn btn-default pull-right">Clear</button>
+        <a id="intake-follow-up-save-${id}" class="btn btn-success">Save</a>
+        <a id="intake-follow-up-saved-${id}" class="btn btn-success disabled">Saved</a>
+        <a id="intake-follow-up-print-${id}" class="btn btn-primary">Print</a>
+      </div>
+    </div>      
+  </form>
+</div>

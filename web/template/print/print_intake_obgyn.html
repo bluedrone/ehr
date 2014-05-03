@@ -1,0 +1,100 @@
+<div id="form-wrapper-basic-info">
+ <div class="page-title-background"><div class="page-title">OBGYN</div></div>
+ <table class="form-table">
+   <tr>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">G</span>
+       <span class="item-label" style="left:80px">P</span>
+       <span class="item-label" style="left:160px">T</span>
+       <span class="item-label" style="left:240px">A</span>
+       <span class="item-label" style="left:320px">L</span><br>
+       <span class="basic-info-input">${encounter.obgyn.g}</span>
+       <span class="basic-info-input" style="left:80px">${encounter.obgyn.p}</span>
+       <span class="basic-info-input" style="left:160px">${encounter.obgyn.t}</span>
+       <span class="basic-info-input" style="left:240px">${encounter.obgyn.a}</span>
+       <span class="basic-info-input" style="left:320px">${encounter.obgyn.l}</span>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">WHEN WAS THE LAST PERIOD?</span>
+       <div class="basic-info-input">${encounter.obgyn.lastPeriod}</div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">AGE AT FIRST PERIOD</span>
+       <div class="basic-info-input">${encounter.obgyn.ageFirstPeriod}</div>
+     </div>
+   </td>
+  </tr>
+  <tr>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">PREGNANT</span>
+       <div style="margin-top:20px">
+         <div class="form-radio"><input type="radio" {{if encounter.obgyn.pregStatus == 'yes'}}checked{{/if}}><label class="checkbox-label">Yes</label></div>
+         <div class="form-radio"><input type="radio" {{if encounter.obgyn.pregStatus == 'no'}}checked{{/if}}><label class="checkbox-label">No</label></div>
+         <div class="form-radio"><input type="radio" {{if encounter.obgyn.pregStatus == 'dk'}}checked{{/if}}><label class="checkbox-label">DK</label></div>
+         <div class="form-radio"><input type="radio" {{if encounter.obgyn.pregStatus == 'post_partum'}}checked{{/if}}><label class="checkbox-label">Post Partum</label></div>
+       </div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">BREASTFEEDING</span>
+       <div class="basic-info-input">${encounter.obgyn.breastfeeding}</div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">MONTHS</span>
+       <div class="basic-info-input">${encounter.obgyn.breastfeedingMonths}</div>
+     </div>
+   </td>
+  </tr>
+  <tr>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">PAP SMEAR EVER</span>
+       <div class="basic-info-input">${encounter.obgyn.papSmearStatus}</div>
+     </div>
+   </td>
+     <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">BIRTH CONTROL</span>
+       <div class="basic-info-input">${encounter.obgyn.birthControlStatus}</div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">TYPE</span>
+       <div class="basic-info-input">${encounter.obgyn.birthControlType}</div>
+     </div>
+   </td>
+  </tr>
+    <tr>
+     <td colspan="3">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">OTHER PAST GYNECOLOGICAL HISTORY</span>
+       <div style="margin-top:20px">
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.obgyn.history && encounter.obgyn.history.split(",").indexOf('venereal_warts') != -1}}checked{{/if}}><label class="checkbox-label">Venereal Warts</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.obgyn.history && encounter.obgyn.history.split(",").indexOf('herpes_genital') != -1}}checked{{/if}}><label class="checkbox-label">Herpes Genital</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.obgyn.history && encounter.obgyn.history.split(",").indexOf('syphilis') != -1}}checked{{/if}}><label class="checkbox-label">Syphilis</label></div>
+       </div>
+       <div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.obgyn.history && encounter.obgyn.history.split(",").indexOf('pid') != -1}}checked{{/if}}><label class="checkbox-label">PID</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.obgyn.history && encounter.obgyn.history.split(",").indexOf('endometriosis') != -1}}checked{{/if}}><label class="checkbox-label">Endometriosis</label></div>
+         <div class="form-checkbox"><input type="checkbox" {{if encounter.obgyn.history && encounter.obgyn.history.split(",").indexOf('chlamydia') != -1}}checked{{/if}}><label class="checkbox-label">Chlamydia</label></div>
+       </div>
+       <div>
+         <div class="form-checkbox"><input type="checkbox" value="gonorrhea" {{if encounter.obgyn.history && encounter.obgyn.history.split(",").indexOf('gonorrhea') != -1}}checked{{/if}}><label class="checkbox-label">Gonorrhea</label></div>
+         <div class="form-checkbox"><input type="checkbox" value="other" {{if encounter.obgyn.history && encounter.obgyn.history.split(",").indexOf('other') != -1}}checked{{/if}}><label class="checkbox-label">Other-specify</label></div>
+         <div class="form-checkbox">${encounter.obgyn.historyOther ? encounter.obgyn.historyOther : '___________________'}</div>
+       </div>
+     </div>
+   </td>
+  </tr>
+ </table>
+</div>

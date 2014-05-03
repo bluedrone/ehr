@@ -1,0 +1,73 @@
+<div class="modal fade" id="modal-x-ray" tabindex="-1" role="dialog" aria-labelledby="modal-x-ray" aria-hidden="true">
+  <div id="size3" class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title"><i class="icon-film icon-large"></i> X-Ray</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row hidden-xs">
+          <div class="col-md-12">
+            <div class="chartheader">
+              <div class="col-xm-6 col-sm-3">
+                <p class="patient-chart-full-name"></p>
+              </div>
+              <div class="col-xm-6 col-sm-3">
+                <p><label>Next Appointment:</label><span class="patient-chart-next-appt"></span></p>
+                <p><label>Sex:</label><span class="patient-chart-gender"></span> 
+              </div>
+              <div class="col-xm-6 col-sm-3">
+                <p><label>ID#:</label> <span class="patient-chart-mrn"></span></p>
+                <p><label>DOB:</label><span class="patient-chart-dob"></span></p>
+              </div>
+              <div id="headshot-div" class="col-xm-6 col-sm-3">
+                <label class="pull-right">Active <i class="icon-check-sign icon-2x"></i></label>
+                <img class="pull-right img-rounded img-responsive headshot" src="images/headshot-placeholder.jpg" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row visible-xs">
+          <div class="panel panel-default chartheader">
+            <div class="panel-body">
+              <div class="col-xs-12">
+                <div class="col-xs-6">
+                  <p class="patient-chart-full-name"></p>
+                  <p><label>Next Appointment:</label><span class="patient-chart-next-appt"></span></p>
+                  <p><label>Sex:</label><span class="patient-chart-gender"></span> 
+                  <p><label>ID#:</label> <span class="patient-chart-mrn"></span></p>
+                  <p><label>DOB:</label><span class="patient-chart-dob"></span></p>
+                </div>
+                <div id="headshot-div2" class="col-xs-6">
+                  <p><label class="pull-right">Active <i class="icon-check-sign icon-2x"></i></label><img id="headshot-img2" class="pull-right img-responsive img-rounded headshot" alt="headshot" src="images/headshot-placeholder.jpg"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <class="container-fluid">
+	        <div class="row">
+	          <div class="col-sm-2">
+	            <a href="#" id="btn-x-ray-qt-auto" class="btn btn-primary btn-block" data-dismiss="modal">QT Auto</a>
+	            <a href="#" id="btn-x-ray-print" class="btn btn-info btn-block" data-dismiss="modal">Print</a>
+	            <a href="#" id="btn-x-ray-fax" class="btn btn-info btn-block" data-dismiss="modal">Fax</a>
+	            <a href="#" id="btn-x-ray-image" class="btn btn-info btn-block" data-dismiss="modal">Image</a>
+	            <a href="#" id="btn-x-ray-spelling" class="btn btn-info btn-block" data-dismiss="modal">Spelling</a>
+	            <a href="#" id="btn-x-ray-incert-table" class="btn btn-success btn-block" data-dismiss="modal">Incert Table</a>
+	            <a href="#" id="btn-x-ray-em-codes" class="btn btn-warning btn-block" data-dismiss="modal">EM Codes</a>
+	            <br>
+	          </div>
+	          <div class="col-sm-10">
+	            <textarea class="form-control" rows="20"></textarea>
+	          </div>
+	        </div>
+	      </div>
+	      <div class="modal-footer">
+	        <a href="#" id="btn-x-ray-ok" class="btn btn-success btn-lg" data-dismiss="modal">Ok</a>
+	        <a href="#" id="btn-x-ray-cancel" class="btn btn-default btn-lg" data-dismiss="modal">Cancel</a>
+	      </div>
+	    </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:p="http://www.springframework.org/schema/p" xmlns:security="http://www.springframework.org/schema/security"
+    xsi:schemaLocation="
+       http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/tx 
+       http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+       http://www.springframework.org/schema/util 
+       http://www.springframework.org/schema/util/spring-util-2.0.xsd
+       http://www.springframework.org/schema/context
+       classpath:spring-context-2.1.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security-2.0.xsd">
+
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+        destroy-method="close">
+        <property name="driverClass">
+            <value>com.mysql.jdbc.Driver</value>
+        </property>
+        <property name="jdbcUrl">
+            <value>jdbc:mysql://localhost/wdm</value>
+        </property>
+        <property name="user">
+            <value>wdm</value>
+        </property>
+        <property name="password">
+            <value>wdm</value>
+        </property>
+
+        <property name="initialPoolSize">
+            <value>5</value>
+        </property>
+        <property name="minPoolSize">
+            <value>5</value>
+        </property>
+        <property name="maxPoolSize">
+            <value>100</value>
+        </property>
+        <!-- <property name="timeout"><value>0</value></property> -->   <!-- 0 means: no timeout -->
+        <property name="idleConnectionTestPeriod">
+            <value>200</value>
+        </property>
+        <property name="acquireIncrement">
+            <value>5</value>
+        </property>
+        <property name="acquireRetryAttempts">
+            <value>10</value>
+        </property>
+        <property name="acquireRetryDelay">
+            <value>1000</value>
+        </property>
+        <property name="unreturnedConnectionTimeout">
+            <value>200</value>
+        </property>
+        <!-- unreturnedConnectionTimeout defines a limit (in seconds) to how long 
+            a Connection may remain checked out. -->
+        <!-- If set to a nozero value, unreturned, -->
+        <!-- checked-out Connections that exceed this limit will be summarily destroyed, 
+            and then replaced in the pool -->
+        <property name="debugUnreturnedConnectionStackTraces">
+            <value>true</value>
+        </property>
+
+        <property name="maxStatements">
+            <value>0</value>
+        </property>  <!-- 0 means: statement caching is turned off. -->
+        <property name="numHelperThreads">
+            <value>3</value>
+        </property>  <!-- 3 is default -->
+    </bean>
+
+    <bean id="transactionManager"
+        class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
+
+    <bean id="appDAO" class="com.wdeanmedical.ehr.persistence.AppDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
+    
+    <bean id="adminDAO" class="com.wdeanmedical.ehr.persistence.AdminDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
+    
+    <bean id="patientDAO" class="com.wdeanmedical.ehr.persistence.PatientDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
+
+
+    <!-- enable the configuration of transactional behavior based on annotations -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+    <bean id="appDAOTx"
+        class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager">
+            <ref bean="transactionManager" />
+        </property>
+        <property name="target">
+            <ref bean="appDAO" />
+        </property>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="create*">PROPAGATION_REQUIRED</prop>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+    
+    <bean id="adminDAOTx"
+      class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+      <property name="transactionManager">
+        <ref bean="transactionManager" />
+      </property>
+      <property name="target">
+        <ref bean="adminDAO" />
+      </property>
+      <property name="transactionAttributes">
+          <props>
+            <prop key="create*">PROPAGATION_REQUIRED</prop>
+            <prop key="*">PROPAGATION_REQUIRED</prop>
+          </props>
+      </property>
+  </bean>
+    
+    <bean id="patientDAOTx"
+        class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager">
+            <ref bean="transactionManager" />
+        </property>
+        <property name="target">
+            <ref bean="patientDAO" />
+        </property>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="create*">PROPAGATION_REQUIRED</prop>
+                <prop key="*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+
+    
+    <bean id="sessionFactory"
+        class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="dataSource">
+            <ref local="dataSource" />
+        </property>
+
+
+        <property name="annotatedClasses">
+          <list>
+            <value>com.wdeanmedical.ehr.entity.Allergen</value>
+            <value>com.wdeanmedical.ehr.entity.Appointment</value>
+            <value>com.wdeanmedical.ehr.entity.AppointmentType</value>
+            <value>com.wdeanmedical.ehr.entity.ChiefComplaint</value>
+            <value>com.wdeanmedical.ehr.entity.Clinician</value>
+            <value>com.wdeanmedical.ehr.entity.Clinician</value>
+            <value>com.wdeanmedical.ehr.entity.ClinicianSchedule</value>
+            <value>com.wdeanmedical.ehr.entity.ClinicianSession</value>
+            <value>com.wdeanmedical.ehr.entity.Country</value>
+            <value>com.wdeanmedical.ehr.entity.Credential</value>
+            <value>com.wdeanmedical.ehr.entity.Credentials</value>
+            <value>com.wdeanmedical.ehr.entity.Demographics</value>
+            <value>com.wdeanmedical.ehr.entity.Department</value>
+            <value>com.wdeanmedical.ehr.entity.Division</value>
+            <value>com.wdeanmedical.ehr.entity.Encounter</value>
+            <value>com.wdeanmedical.ehr.entity.EncounterType</value>
+            <value>com.wdeanmedical.ehr.entity.Ethnicity</value>
+            <value>com.wdeanmedical.ehr.entity.Exam</value>
+            <value>com.wdeanmedical.ehr.entity.Gender</value>
+            <value>com.wdeanmedical.ehr.entity.HealthIssue</value>
+            <value>com.wdeanmedical.ehr.entity.HealthTrendReport</value>
+            <value>com.wdeanmedical.ehr.entity.Immunization</value>
+            <value>com.wdeanmedical.ehr.entity.IntakeMedication</value>
+            <value>com.wdeanmedical.ehr.entity.IntakeQuestion</value>
+            <value>com.wdeanmedical.ehr.entity.Lab</value>
+            <value>com.wdeanmedical.ehr.entity.LabReview</value>
+            <value>com.wdeanmedical.ehr.entity.MaritalStatus</value>
+            <value>com.wdeanmedical.ehr.entity.MedicalProcedure</value>
+            <value>com.wdeanmedical.ehr.entity.MedicalTest</value>
+            <value>com.wdeanmedical.ehr.entity.MedicalTestStatus</value>
+            <value>com.wdeanmedical.ehr.entity.Medication</value>
+            <value>com.wdeanmedical.ehr.entity.OBGYNEncounterData</value>
+            <value>com.wdeanmedical.ehr.entity.Patient</value>
+            <value>com.wdeanmedical.ehr.entity.PatientStatus</value>
+            <value>com.wdeanmedical.ehr.entity.PatientIntakeGroup</value>
+            <value>com.wdeanmedical.ehr.entity.PatientAllergen</value>
+            <value>com.wdeanmedical.ehr.entity.PatientClinician</value>
+            <value>com.wdeanmedical.ehr.entity.PatientHealthIssue</value>
+            <value>com.wdeanmedical.ehr.entity.PatientHealthTrendReport</value>
+            <value>com.wdeanmedical.ehr.entity.PatientImmunization</value>
+            <value>com.wdeanmedical.ehr.entity.PatientLetter</value>
+            <value>com.wdeanmedical.ehr.entity.PatientLetterReason</value>
+            <value>com.wdeanmedical.ehr.entity.PatientLetterStatus</value>
+            <value>com.wdeanmedical.ehr.entity.PatientMedication</value>
+            <value>com.wdeanmedical.ehr.entity.PatientMedicalProcedure</value>
+            <value>com.wdeanmedical.ehr.entity.PatientMedicalTest</value>
+            <value>com.wdeanmedical.ehr.entity.PatientMedicalTestComponent</value>
+            <value>com.wdeanmedical.ehr.entity.PatientMessage</value>
+            <value>com.wdeanmedical.ehr.entity.PatientMessageType</value>
+            <value>com.wdeanmedical.ehr.entity.PFSH</value>
+            <value>com.wdeanmedical.ehr.entity.SuppQuestions</value>
+            <value>com.wdeanmedical.ehr.entity.MedicalHistory</value>
+            <value>com.wdeanmedical.ehr.entity.PatientFollowUp</value>
+            <value>com.wdeanmedical.ehr.entity.ProgressNote</value>
+            <value>com.wdeanmedical.ehr.entity.Race</value>
+            <value>com.wdeanmedical.ehr.entity.Role</value>
+            <value>com.wdeanmedical.ehr.entity.ToDoNote</value>
+            <value>com.wdeanmedical.ehr.entity.User</value>
+            <value>com.wdeanmedical.ehr.entity.USState</value>
+            <value>com.wdeanmedical.ehr.entity.VitalSigns</value>
+          </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+            </props>
+        </property>
+    </bean>
+
+</beans>
+

@@ -1,0 +1,96 @@
+<div id="form-wrapper">
+ <div class="page-title-background"><div class="page-title">FOLLOW-UP FORM</div></div>
+ <table class="form-table">
+ <tr>
+   <td>
+     <div class="item-wrapper">
+       <span class="item-label">TODAY'S DATE</span>
+       <div class="item-date-input">${todaysDate ? todaysDate : '___ /___ /___'}</div>
+       <div class="item-date-input-legend" style="visibility:${todaysDate ? 'hidden' : 'visible'}">
+         <span class="date-legend-month">month</span>
+         <span class="date-legend-day">day</span>
+         <span class="date-legend-year">year</span>
+       </div>
+     </div>
+   </td>
+   <td colspan="3">
+     <div class="item-wrapper">
+       <span class="item-label">LOCATION</span>
+       <div class="item-location-input">${patientLocation}</div>
+     </div>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="4">
+     <div class="item-wrapper">
+       <span class="item-label">NOMBRE</span>
+       <span class="item-label" style="left:300px">APELLIDO</span>
+       <span class="item-label" style="left:400px">SEGUNDO APPELIDO</span>
+       <div class="item-nombre-group">
+         <span class="item-nombre-input">${nombre}</span>
+         <span class="item-apellido-input">${apellido}</span>
+         <span class="item-apellido-segundo-input">${apellidoSegundo}</span>
+       </div>
+     </div>
+   </td>
+  </tr>
+  <tr>
+   <td>
+     <div class="item-wrapper">
+       <span class="item-label">AGE</span>
+       <div class="item-age-input">${age}</div>
+     </div>
+   </td>
+   <td colspan="3">
+     <div class="item-wrapper">
+       <span class="item-label">MOTHER NAME (IF APPLICABLE)</span>
+       <div class="item-mother-name-input">${motherName}</div>
+     </div>
+   </td>
+  </tr>
+  <tr>
+    <td colspan="4">
+     <div class="item-wrapper-text-area">
+       <span class="item-label">REASON FOR THIS FOLLOW-UP:</span>
+       <p class="item-reason-input paragraph-input">${reason}</p>
+     </div>
+    </td>
+  </tr>
+  <tr>
+   <td colspan="4">
+     <div class="item-wrapper-text-area">
+       <span class="item-label">ACTIONS TAKEN TODAY:</span>
+       <p class="item-actions-taken-input paragraph-input">${actionsTaken}</p>
+     </div>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="4">
+     <div class="item-wrapper-text-area">
+       <span class="item-label">TO BE DONE NEXT:</span>
+       <p class="item-actions-to-be-done-next-input paragraph-input">${toBeDoneNext}</p>
+       <span class="item-label">WHEN:</span>
+       <p class="item-actions-to-be-done-when-input paragraph-input">${toBeDoneWhen}</p>
+     </div>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="4">
+     <div class="item-wrapper">
+       <span class="item-label" style="padding-right:10px">FOLLOW-UP COMPETED: </span>
+       <span class="item-label" style="padding:5px">
+         <label><input type="radio" {{if followUpCompleted == 'yes'}}checked="checked"{{/if}} 
+                       name="follow-up-completed" style="padding:5px"/> Yes </label>
+       </span>
+       <span class="item-label" style="padding:5px">
+         <label><input type="radio" {{if followUpCompleted == 'no'}}checked="checked"{{/if}} 
+                       name="follow-up-completed" style="padding:5px"/> No </label>
+       </span>
+       <span  class="item-label" style="top:68px;font-weight:normal;font-size:14px">
+         IF NO FURTHER ACTION REQUIRED CHECK YES AND ALSO UPDATE PATIENT RECORD
+       </span>
+     </div>
+   </td>    
+  </tr>
+ </table>
+</div>

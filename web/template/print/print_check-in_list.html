@@ -1,0 +1,48 @@
+<div id="form-wrapper-check-in">
+  <table class="check-in-list-table">
+    <thead>
+      <tr>
+        <th width="50">Bio</th>
+        <th>Nombre</th>
+        <th>Primer Apellido</th>
+        <th>Segundo Apellido</th>
+        <th width="50">Sex</th>
+        <th width="40">Age</th>
+        <th width="40">Trg</th>
+        <th width="350">Notes</th>
+        <th width="50">Check</th>
+        <th width="50">Intake</th>
+        <th width="50">Prov</th>
+        <th width="40">Miss</th>
+        <th width="40">Cmp</th>
+      </tr>
+    </thead>
+    <tbody>
+   {{each(i, group) groups}}
+      <tr style="height:40px">
+        <td colspan="13" style="text-align:left;vertical-align:bottom">
+          <span style="margin-left:5px" class="table-group-name">${group.name}</span>
+        </td>
+      </tr>
+     {{each(j, encounter) encounterList}} 
+     <tr>
+       <td>${encounter.patient.demo.bioPhoto ? 'P' : ''} ${encounter.patient.demo.bioFinger ? 'F' : ''}</td>
+       <td class="patient-name">${encounter.patient.cred.firstName}</td>
+       <td class="patient-name">${encounter.patient.cred.lastName}</td>
+       <td class="patient-name">${encounter.patient.cred.additionalName}</td>
+       <td style="text-align:center">${encounter.patient.demo.gender.code}</td>
+       <td class="numeric-cell">${encounter.patient.demo.age}</td>
+       <td style="text-align:center">${encounter.triage}</td>
+       <td class="patient-notes">${encounter.notes}</td>
+       <td class="checkbox-container"><input type='checkbox' ${encounter.checkIn ? "checked='checked'" : ''}/></td>
+       <td class="checkbox-container"><input type='checkbox' ${encounter.intake ? "checked='checked'" : ''}/></td>
+       <td class="checkbox-container"><input type='checkbox' ${encounter.provider ? "checked='checked'" : ''}/></td>
+       <td class="checkbox-container"><input type='checkbox' ${encounter.missing ? "checked='checked'" : ''}/></td>
+       <td class="checkbox-container"><input type='checkbox' ${encounter.completed ? "checked='checked'" : ''}/></td>
+     </tr>
+     {{/each}}
+   {{/each}}
+   </tbody>
+  </table>
+
+</div>

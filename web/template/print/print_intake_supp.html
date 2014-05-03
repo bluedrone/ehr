@@ -1,0 +1,40 @@
+<div id="form-wrapper-basic-info">
+ <div class="page-title-background"><div class="page-title">SUPPLEMENTAL QUESTIONS</div></div>
+ <table class="form-table">
+   <tr>
+    <td>
+     <div class="item-wrapper-basic-info" style="height:100px">
+       <span class="item-label">CUPS PER DAY?</span><br>
+       <span class="item-label">WATER</span>
+       <span class="item-label" style="left:100px">COFFEE</span>
+       <span class="item-label" style="left:200px">TEA</span><br>
+       <span class="basic-info-input" style="left:20px">${encounter.supp.numCupsWater}</span>
+       <span class="basic-info-input" style="left:150px">${encounter.supp.numCupsCoffee}</span>
+       <span class="basic-info-input" style="left:300px">${encounter.supp.numCupsTea}</span>
+     </div>
+     </td>
+     <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">Water Source</span>
+       <div class="basic-info-input">${encounter.supp.waterSource}</div>
+     </div>
+     </td>
+   </tr>
+   {{each(i, item) encounter.supp.intakeQuestionList}}
+   <tr>   
+     <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">Question #${i+1}</span>
+       <div class="basic-info-input">${question}</div>
+     </div>
+     </td>
+     <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">Response</span>
+       <div class="basic-info-input">${response}</div>
+     </div>
+     </td>
+   </tr>
+  {{/each}}
+ </table>
+</div>

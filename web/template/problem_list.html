@@ -1,0 +1,260 @@
+<div class="modal fade" id="modal-problem-list" tabindex="-1" role="dialog" aria-labelledby="modal-problem-list" aria-hidden="true">
+  <div id="size4" class="modal-dialog">
+    <div id="new-problem-placement"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title"><i class="icon-flag icon-2x"></i> Problem List</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row hidden-xs">
+          <div class="col-md-12">
+            <div class="chartheader">
+              <div class="col-xm-6 col-sm-3">
+                <p class="patient-chart-full-name"></p>
+              </div>
+              <div class="col-xm-6 col-sm-3">
+                <p><label>Next Appointment:</label><span class="patient-chart-next-appt"></span></p>
+                <p><label>Sex:</label><span class="patient-chart-gender"></span> 
+              </div>
+              <div class="col-xm-6 col-sm-3">
+                <p><label>ID#:</label> <span class="patient-chart-mrn"></span></p>
+                <p><label>DOB:</label><span class="patient-chart-dob"></span></p> 
+              </div>
+              <div id="headshot-div3" class="col-xm-6 col-sm-3">
+                <label class="pull-right">Active <i class="icon-check-sign icon-2x"></i></label>
+                <img src="images/headshot-placeholder.jpg" class="pull-right img-responsive img-rounded headshot" alt="Patient Photo">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row visible-xs">
+          <div class="panel panel-default chartheader">
+            <div class="panel-body">
+              <div class="col-xs-12">
+                <div class="col-xs-6">
+                  <p class="patient-chart-full-name"></p>
+                  <p><label>Next Appointment:</label><span class="patient-chart-next-appt"></span></p>
+                  <p><label>Sex:</label><span class="patient-chart-gender"></span> 
+                  <p><label>ID#:</label> <span class="patient-chart-mrn"></span></p>
+                  <p><label>DOB:</label><span class="patient-chart-dob"></span></p> 
+                </div>
+                <div id="headshot-div4" class="col-xs-6">
+                  <p><label class="pull-right">Active <i class="icon-check-sign icon-2x"></i></label>
+                  <img src="images/headshot-placeholder.jpg" class="pull-right img-responsive img-rounded headshot" alt="Patient Photo"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="tabbable">
+              <ul class="nav nav-tabs nav-justified">
+                <li class="active"><a href="#tab1" data-toggle="tab">Major</a></li>
+                <li><a href="#tab2" data-toggle="tab">Other</a></li>
+                <li><a href="#tab3" data-toggle="tab">Proceedures</a></li>
+                <li><a href="#tab4" data-toggle="tab">Diagnoses</a></li>
+                <li><a href="#tab5" data-toggle="tab">Risks</a></li>
+                <li><a href="#tab6" data-toggle="tab">Hospitalizations</a></li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane active" id="tab1">
+                  <br>
+                  <div class="modal-sub-title">Major Problems</div>
+                  <br>
+                  <div class="table-responsive">
+                    <table class="table table-striped table-hover table-bordered table-condensed">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Status</th>
+                          <th>Major Prob</th>
+                          <th>Code 1</th>
+                          <th>Note</th>
+                          <th>Provider</th>
+                          <th>Code 2</th>
+                          <th>Lifecycle</th>
+                          <th>Date</th>
+                          <th>Date Last</th>
+                          <th>Date Resolved</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <a class="btn btn-success newer-problem">New</a>
+                  <a href="#" class="btn btn-warning">Edit</a>
+                  <a href="#" class="btn btn-info">Delete</a>
+                  <a href="#" class="btn btn-danger">Active Problem</a>
+                  <a href="#" class="btn btn-info">Move</a>
+                  <div class="checkbox pull-right"><label><input type="checkbox" value="">Hide Inactive</label></div>
+                </div>
+                <div class="tab-pane" id="tab2">
+                  <br>
+                  <div class="modal-sub-title">Other Problems</div>
+                  <br>
+                  <div class="table-responsive ">
+                    <table class="table table-striped table-hover table-bordered table-condensed">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Status</th>
+                          <th>Other Prob</th>
+                          <th>Code 1</th>
+                          <th>Note</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <a id="btn-problem-list-new-problem" class="btn btn-success newer-problem">New</a>
+                  <a href="#" class="btn btn-warning">Edit</a>
+                  <a href="#" class="btn btn-info">Delete</a>
+                  <a href="#" class="btn btn-info">Move</a>
+                  <div class="checkbox pull-right"><label><input type="checkbox" value="">Hide Inactive</label></div>
+                </div>
+                <div class="tab-pane" id="tab3">
+                  <br>
+                  <div class="modal-sub-title">Proceedures</div>
+                  <br>
+                  <div class="table-responsive ">
+                    <table class="table table-striped table-hover table-bordered table-condensed">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Proceedure</th>
+                          <th>Code 1</th>
+                          <th>Note</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr> <th></th> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <a id="btn-problem-list-new-problem" class="btn btn-success newer-problem">New</a>
+                  <a href="#" class="btn btn-warning">Edit</a>
+                  <a href="#" class="btn btn-info">Delete</a>
+                </div>
+                <div class="tab-pane" id="tab4">
+                  <br>
+                  <div class="modal-sub-title">Diagnoses</div>
+                  <br>
+                  <div class="table-responsive ">
+                    <table class="table table-striped table-hover table-bordered table-condensed">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Status</th>
+                          <th>Diagnoses</th>
+                          <th>Code 1</th>
+                          <th>Note</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <a id="btn-problem-list-new-problem" class="btn btn-success newer-problem">New</a>
+                  <a href="#" class="btn btn-warning">Edit</a>
+                  <a href="#" class="btn btn-info">Delete</a>
+                  <a href="#" class="btn btn-info">Move</a>
+                  <div class="checkbox pull-right"><label><input type="checkbox" value="">Hide Inactive</label></div>
+                </div>
+                <div class="tab-pane" id="tab5">
+                  <br>
+                  <div class="modal-sub-title">Risks</div>
+                  <br>
+                  <div class="table-responsive ">
+                    <table class="table table-striped table-hover table-bordered table-condensed">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Status</th>
+                          <th>Risks</th>
+                          <th>Code 1</th>
+                          <th>Note</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <a id="btn-problem-list-new-problem" class="btn btn-success newer-problem">New</a>
+                  <a href="#" class="btn btn-warning">Edit</a>
+                  <a href="#" class="btn btn-info">Delete</a>
+                  <a href="#" class="btn btn-info">Move</a>
+                  <div class="checkbox pull-right"><label><input type="checkbox" value="">Hide Inactive</label></div>
+                </div>
+                <div class="tab-pane" id="tab6">
+                  <br>
+                  <div class="modal-sub-title">Hospitalizations</div>
+                  <br>
+                  <div class="table-responsive ">
+                    <table class="table table-striped table-hover table-bordered table-condensed">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Hospitalizations</th>
+                          <th>Code 1</th>
+                          <th>Note</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr> <th></th> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                    <a href="#" class="btn btn-success newer-problem">New</a>
+                    <a href="#" class="btn btn-warning">Edit</a>
+                    <a href="#" class="btn btn-info">Delete</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

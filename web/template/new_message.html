@@ -1,0 +1,138 @@
+<div class="modal fade" id="modal-new-message" tabindex="-1" role="dialog" aria-labelledby="modal-new-message" aria-hidden="true">
+  <div id="size6" class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title"><i class="icon-inbox icon-2x"></i> New Message</h4>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <form class="form-horizontal" role="form">        
+            <div class="row">                  
+              <div class="col-sm-8">
+                <div class="panel panel-default">
+                  <div class="panel-body">         
+                    <div class="input-group">
+                      <span class="input-group-btn">
+                        <a class="btn btn-default btn-sm">To:</a>
+                      </span>
+                      <input type="text" class="form-control input-sm" placeholder="">
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-btn">
+                        <a class="btn btn-default btn-sm">Cc:</a>
+                      </span>
+                      <input type="text" class="form-control input-sm" id="inputCc" placeholder="">
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-btn">
+                        <a class="btn btn-default btn-sm">Bcc:</a>
+                      </span>
+                      <input type="text" class="form-control input-sm" id="inputBcc" placeholder="">
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-btn">
+                        <a class="btn btn-default btn-sm">Patient:</a>
+                      </span>
+                      <input type="text" class="form-control input-sm" placeholder="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+	            <div class="col-sm-4">
+	              <div class="panel panel-default">
+	                <div class="panel-body">
+	                  <div class="form-group">
+	                    <label for="inputType" class="col-sm-3 control-label">Type</label>
+	                    <div class="col-sm-8">
+	                      <select class="form-control" id="inputType">
+	                        <option>Arrived</option>
+	                        <option>Chart</option>
+	                        <option>Chart Summary</option>
+	                        <option>Email</option>
+	                        <option>Flow Charts</option>
+	                        <option>HM</option>
+	                        <option>IN</option>
+	                        <option>Lab</option>
+	                        <option>Lab Micro</option>
+	                        <option>Lab Micro Misc</option>
+	                        <option>Lab Most Recent</option>
+	                        <option>Letters</option>
+	                        <option>Problem List</option>
+	                        <option>Progress Notes</option>
+	                        <option>Reminder</option>
+	                        <option>RX</option>
+	                        <option>Schedule</option>
+	                        <option>Tel-Chart</option>
+	                        <option>Tel-Chart Summary</option>
+	                        <option>Tel-Progress Note</option>
+	                        <option>Vitals</option>
+	                      </select>
+	                    </div>
+	                  </div>
+	                  <div class="form-group">
+	                    <label for="inputPriority" class="col-sm-3 control-label">Priority</label>
+	                      <div class="col-sm-8">
+	                        <select class="form-control" id="inputPriority">
+	                          <option>0</option>
+	                          <option>1</option>
+	                          <option>2</option>
+	                          <option>3</option>
+	                          <option>4</option>
+	                          <option>5</option>
+	                          <option>6</option>
+	                          <option>7</option>
+	                          <option>8</option>
+	                          <option>9</option>
+	                        </select>
+	                      </div>
+	                    </div>
+	                    <div class="form-group">
+	                       <label for="inputDate2" class="col-sm-3 control-label">Date</label>
+	                       <div class="col-sm-8">
+	                        <select class="form-control" id="inputDate2">
+	                           <option>__ / __ / ____</option>
+	                        </select>
+	                       </div>
+	                    </div>
+	                  </div>
+	                </div>
+	              </div>
+	            </div>
+	          </div>                                          
+			      <div class="row">
+			        <div class="col-sm-2">
+			          <a href="#" class="btn btn-warning btn-block">Template</a>
+				        <a href="#" class="btn btn-warning btn-block">Quick Text</a>
+				        <a href="#" class="btn btn-info btn-block">Spellcheck</a>
+				        <a href="#" class="btn btn-primary btn-block">Attachments</a>
+				        <br>
+				        <div class="form-group">
+				          <div class="col-sm-12">
+				            <label id="ckb2">Return Receipt </label>
+				            <input type="checkbox" value="Return Receipt">
+				          </div>
+				        </div>
+			        </div>
+			        <div class="col-sm-10">
+			          <div class="input-group">
+			            <span class="input-group-btn">
+			              <a class="btn btn-default btn-sm">Subject</a>
+			            </span>
+			            <input type="text" class="form-control input-sm" id="inputSubject" placeholder="">
+			          </div>
+			          <div class="form-group">
+			            <textarea class="form-control" rows="20"></textarea>
+			          </div>
+			        </div>
+			      </div>
+			    </form>
+			  </div>
+			  <div class="modal-footer">
+          <a href="#" class="btn btn-success btn-lg" data-dismiss="modal">Send</a>
+          <a href="#" class="btn btn-default btn-lg" data-dismiss="modal">Cancel</a>
+        </div>
+			</div>                      
+    </div>
+  </div>
+</div>

@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+
+<!--
+  WDean Medical is distributed under the
+  GNU Lesser General Public License (GNU LGPL).
+  For details see: http://www.wdeanmedical.com
+  copyright 2013-2014 WDean Medical
+--> 
+
+<html>
+  <head>
+    <title>WDean Medical Rugged EHR &nbsp;&nbsp; version 0.7.6 &nbsp;&nbsp;&nbsp;&nbsp;12-APR-2014</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="images/wdm.ico">
+    <link href="css/all.css" rel="stylesheet" media="screen">
+    <!--[if lt IE 9]> <script src="js/lib/html5shiv.js"></script> <script src="js/lib/respond.min.js"></script> <![endif]-->
+  </head>  
+  <body>
+  
+    <!-- HEADER --> 
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+	      <div class="navbar-header">
+	        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+	          <span class="sr-only">Toggle navigation</span>
+	          <span class="icon-bar"></span>
+	          <span class="icon-bar"></span>
+	          <span class="icon-bar"></span>
+	        </button>
+	        <a class="navbar-brand" href="http://www.wdeanmedical.com" target="_blank">
+	        <img src="images/WDM-Header.png" class="img-responsive" alt="wdm-icon"></a>
+	      </div>
+	      <div class="collapse navbar-collapse navbar-ex1-collapse">
+	        <ul class="nav navbar-nav"></ul>
+	        <ul class="nav navbar-nav navbar-right">
+	          <li><p id='wdm-notification' class="navbar-text"><span id='wdm-notification-text'></span></p></li>
+	          <li><a href="../pm" target="_blank"> Practice Manager</a></li>
+	          <li id="app-dropdown-signin" class="dropdown">
+	            <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
+	            <div class="dropdown-menu">
+	              <form role="form">
+	                <input type="text" placeholder="Username" id="app-signin-username" name="username" value="nick">
+	                <input type="password" placeholder="Password" id="app-signin-password" name="password" value="Njs2101$">
+	                <a id="app-signin-submit" class="btn btn-primary btn-block">Sign In</a>
+	              </form>
+	            </div>
+	          </li>
+	          <li id="app-dropdown-settings" class="dropdown">
+	            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog icon-large"></i> <b class="caret"></b></a>
+	            <ul class="dropdown-menu">
+	              <li id="app-dropdown-logout"><a href="#" class="app-exit">Log Out</a></li>
+	              <li><a id="admin" href="#">Admin</a></li>
+	              <li><a id="about" href="#">About</a></li>
+	            </ul>
+	          </li>
+	        </ul>
+	      </div>
+      </div>
+    </nav>
+    
+    <nav class="navbar navbar-default navbar-fixed-top sub-navbar" role="navigation" id='section-notification'>
+      <div class="container-fluid">
+        <div class="clear-stop">
+          <a id="app-close-chart" class="btn btn-default navbar-btn navbar-link patient-navbar-btn"><i class="icon-remove icon-lg"></i> Close Chart</a>
+          <a id="app-change-patient" class="btn btn-default navbar-btn navbar-link patient-navbar-btn"><i class="icon-user icon-lg"></i> Change Patient</a>
+          <button id="app-check-in-add-group-link" type="button" class="btn btn-default navbar-btn navbar-link check-in-navbar-btn">
+            <i class="icon-user icon-lg"></i> Add Group
+          </button>
+          <button id="app-check-in-print" type="button" class="btn btn-default navbar-btn navbar-link check-in-navbar-btn pull-right">
+            <i class="icon-print icon-lg"></i> Print List
+          </button>
+          <a id="app-intake-acquire-record" class="btn btn-default navbar-btn navbar-link intake-navbar-btn"><i class="icon-file-text icon-lg"></i> Acquire Record</a>
+          <a id="app-intake-release-record" class="btn btn-default navbar-btn navbar-link intake-navbar-btn"><i class="icon-file-text icon-lg"></i> Release Record</a>
+          <a id="app-intake-override-record" class="btn btn-default navbar-btn navbar-link intake-navbar-btn"><i class="icon-file-text icon-lg"></i> Override Record</a>
+          <a id="app-intake-close-record" class="btn btn-default navbar-btn navbar-link intake-navbar-btn"><i class="icon-file-text icon-lg"></i> Close Record</a>
+          <button id="app-intake-print-all" type="button" class="btn btn-default navbar-btn navbar-link intake-navbar-btn pull-right">
+            <i class="icon-print icon-lg"></i> Print Form
+          </button>
+        </div>
+      </div>
+    </nav>
+    <!-- HEADER --> 
+    
+    <!-- MAIN-NAVIGATION -->                
+    <nav id="main-navigation" class="container-fluid">     
+      <div id="main-nav-exit" class="col-sm-2 col-md-1">
+         <a href="#" class="btn btn-default btn-block app-exit hidden-xs nav"><p><i class="icon-remove icon-2x"></i></p><p>Exit</p></a>
+         <a href="#" class="app-exit visible-xs nav-xm"><i class="icon-remove icon-2x"></i> Exit<i class="icon-chevron-right icon-2x pull-right"></i></a>
+      </div>
+      <div id="main-nav-park" class="col-sm-2 col-md-1">
+        <a  href="#" class="btn btn-default btn-block app-park-link hidden-xs nav"> <p><i class="icon-lock icon-2x"></i></p> <p>Park</p> </a>
+        <a  href="#" class="app-park-link visible-xs nav-xm"><i class="icon-lock icon-2x"></i> Park <i class="icon-chevron-right icon-2x pull-right"></i></a>
+      </div>
+      <div id="main-nav-dashboard" class="col-sm-2 col-md-1">
+        <a href="#" class="btn btn-default btn-block toggle-selectable hidden-xs app-dashboard-link nav"> <p><i class="icon-dashboard icon-2x"></i></p> <p>Dash</p> </a>
+        <a href="#" class="toggle-selectable visible-xs app-dashboard-link nav-xm"><i class="icon-dashboard icon-2x"></i> Dash<i class="icon-chevron-right icon-2x pull-right"></i></a>
+      </div>
+      <div id="main-nav-patient" class="col-sm-2 col-md-1 patient-button-group">
+        <a  href="#" class="btn btn-default btn-block toggle-selectable hidden-xs nav"> <p><i class="icon-bar-chart icon-2x"></i></p> <p>Chart</p> </a>
+        <a  href="#" class="toggle-selectable visible-xs nav-xm"><i class="icon-bar-chart icon-2x"></i> Chart <i class="icon-chevron-right icon-2x pull-right"></i></a>
+      </div>
+      <div id="main-nav-schedule" class="col-sm-2 col-md-1">
+        <a href="#" class="btn btn-default btn-block toggle-selectable hidden-xs app-schedule-link nav"> <p><i class="icon-calendar icon-2x"></i></p> <p>Schedule</p> </a>
+        <a href="#" class="toggle-selectable visible-xs app-schedule-link nav-xm"><i class="icon-calendar icon-2x"></i> Schedule<i class="icon-chevron-right icon-2x pull-right"></i></a>
+      </div>
+      <div id="main-nav-messages" class="col-sm-2 col-md-1">
+        <a href="#" class="btn btn-default btn-block toggle-selectable hidden-xs app-messages-link nav"> <p><i class="icon-inbox icon-2x"></i></p> <p>Messages</p> </a>
+        <a href="#" class="toggle-selectable visible-xs app-messages-link nav-xm"><i class="icon-inbox icon-2x"></i> Messages<i class="icon-chevron-right icon-2x pull-right"></i></a>
+      </div>
+      <div id="main-nav-letters" class="col-sm-2 col-md-1">
+        <a href="#" class="btn btn-default btn-block toggle-selectable hidden-xs app-letters-link nav"> <p><i class="icon-envelope icon-2x"></i></p> <p>Letters</p> </a>
+        <a href="#" class="toggle-selectable visible-xs app-letters-link nav-xm"><i class="icon-envelope icon-2x"></i> Letters<i class="icon-chevron-right icon-2x pull-right"></i></a>
+      </div>
+      <div id="main-nav-help" class="col-sm-2 col-md-1">
+        <a href="#" class="btn btn-default btn-block toggle-selectable hidden-xs app-help-link nav"> <p><i class="icon-question-sign icon-2x"></i></p> <p>Help</p> </a>
+        <a href="#" class="toggle-selectable visible-xs app-help-link nav-xm"><i class="icon-question-sign icon-2x"></i> Help<i class="icon-chevron-right icon-2x pull-right"></i></a>
+      </div>
+      <div class="col-sm-8 col-md-4">
+        <h1 class="page-name pull-right"><span id="app-page-name"></span></h1>
+      </div>
+    </nav>
+    <!-- MAIN-NAVIGATION -->     
+
+    <!-- SIGN IN SCREEN -->
+    <div id="signin-screen">
+      <div class="container-fluid">
+        <div class="panel-top">Electronic Health Records</div>
+        <div class="panel panel-default main-panel">
+          <div class="panel-body">
+		          <div class="panel panel-default background-op">
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="col-sm-1">
+			                <img src="images/wdm-ehr-sm.jpg" class="img-responsive img-circle icon" alt="rugged ehr logo">
+			              </div>
+	                  <div class="col-sm-6 col-lg-5">
+	                    <br class="visible-lg">
+		                  <h1 class="page-title visible-lg">EHR <small>Your Patient's Chart.</small></h1>
+		                  <h1 class="page-title-sm hidden-lg">EHR <small>Your Patient's Chart.</small></h1>
+		                  <div class="page-head">
+		                    <p>Our EHR System is the CDA and HL7 standards based core of your medical practice. Our core product's objective is to make coding and documentation a natural and integral component of providing patients' medical care. We do this by using an innovative approach that puts emphasis on both the clinician's desire for optimal patient care with that of supportive compliance tools. It is central to the physicians' mission to do what is in the best interest of their patients while being sure that the medical record reflects that care.</p>
+		                    <a class="btn btn-primary btn-block" id="get-started-btn">Start Live Demo</a>
+		                    <a target="_blank" href="http://wdeanmedical.com/corp/products_details.html#products-details-ehr" class="btn btn-info btn-block">Learn More</a>
+		                    <a target="_blank" href="http://wdeanmedical.com/corp/shopping_cart.html#sign-up" class="btn btn-success btn-block">Start 30-day Free Trial</a>
+		                  </div>
+			              </div>
+			              <br class="visible-xs">
+			              <div class="col-sm-5 col-lg-offset-1"> 
+			                <h3 class="news">News & Updates</h3>
+			                <a class="twitter-timeline" href="https://twitter.com/WDeanMedical" data-widget-id="451944201047928832">Tweets by @WDeanMedical</a>
+										  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+			              </div>
+			            </div>
+		            </div>
+              </div>
+              </div>
+          </div>
+          <div class="panel-bottom"></div>
+      </div>
+    </div>
+    <!-- SIGN IN SCREEN -->
+
+    <!-- DASHBOARD SCREEN -->
+    <div id="dashboard-screen" class="initially-no-display">
+      <div class="container-fluid">
+        <div class="row">
+		      <div class="col-sm-12">
+		        <div class="panel-top">Schedule</div>
+		        <div id="clinician-dashboard-schedule" class="table-responsive container-scroll-200"></div>
+		      </div>
+		    </div>
+		    <div class="row">
+		      <div class="col-sm-6">
+		        <div class="panel-top">Messages</div>
+		        <div id="clinician-dashboard-messages" class="table-responsive container-scroll-200"></div>
+		      </div>    
+		      <div class="col-sm-6">
+		        <div class="panel-top">To Do</div>
+		        <div id="clinician-dashboard-to-do-notes" class="table-responsive container-scroll-200"></div>
+		      </div>
+		    </div>
+		    <div class="row">
+		      <div class="col-sm-6">
+		        <div class="panel-top">Lab Review</div>
+		        <div id="clinician-dashboard-lab-review" class="table-responsive container-scroll-200"></div>
+		      </div>      
+		      <div class="col-sm-6">
+		        <div class="panel-top">Note Review</div>
+		        <div id="clinician-dashboard-progress-notes" class="table-responsive container-scroll-200"></div>
+		      </div>
+        </div>
+      </div>
+    </div>
+    <!-- DASHBOARD SCREEN -->
+  
+    <!-- PATIENT CHART SCREEN -->
+    <div id="patient-chart-screen" class="initially-no-display">   
+      <div class="container-fluid">
+        <div class="row hidden-xs">
+          <div class="col-md-12">
+            <div class="chartheader">
+              <div class="col-xm-6 col-sm-3">
+                <p class="patient-chart-full-name"></p>
+              </div>
+              <div class="col-xm-6 col-sm-3">
+                <p><label>Next Appointment:</label><span class="patient-chart-next-appt"></span></p>
+                <p><label>Sex:</label><span class="patient-chart-gender"></span> 
+              </div>
+              <div class="col-xm-6 col-sm-3">
+                <p><label>ID#:</label> <span class="patient-chart-mrn"></span></p>
+                <p><label>DOB:</label><span class="patient-chart-dob"></span></p> 
+              </div>
+              <div id="headshot-div5" class="col-xm-6 col-sm-3">
+                <label class="pull-right">Active <i class="icon-check-sign icon-2x"></i></label>
+                <img src="images/headshot-placeholder.jpg" class="pull-right img-responsive img-rounded headshot" alt="Patient Photo">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row visible-xs">
+          <div class="panel panel-default chartheader">
+            <div class="panel-body">
+              <div class="col-xs-12">
+                <div class="col-xs-6">
+                  <p class="patient-chart-full-name"></p>
+                  <p><label>Next Appointment:</label><span class="patient-chart-next-appt"></span></p>
+                  <p><label>Sex:</label><span class="patient-chart-gender"></span></p> 
+                  <p><label>ID#:</label> <span class="patient-chart-mrn"></span></p>
+                  <p><label>DOB:</label><span class="patient-chart-dob"></span></p> 
+                </div>
+                <div id="headshot-div6" class="col-xs-6">
+                  <p><label>Active <i class="icon-check-sign icon-2x"></i></label>
+                  <img src="images/headshot-placeholder.jpg" class="img-responsive img-rounded" alt="Patient Photo"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3">
+            <a id="patient-chart-summary-link" href="#" class="pc-tile">
+              <div class="panel panel-default color2">
+                <div class="panel-body hidden-sm">
+                  <i class="icon-bar-chart icon-large"></i> Chart Summary<i class="icon-circle pull-right"></i>
+                </div>
+                <div class="panel-body visible-sm">
+                  <i class="icon-bar-chart icon-large"></i> Chart Summary<i class="icon-circle pull-right"></i>
+                </div>          
+              </div>
+            </a>
+          </div>
+          <div class="col-sm-3">
+            <a id="app-problem-list-link" href="#" class="pc-tile">
+              <div class="panel panel-default color4">
+                <div class="panel-body hidden-sm">
+                  <i class="icon-flag icon-large"></i> Problem List<i class="icon-circle pull-right"></i>
+                </div>
+                <div class="panel-body visible-sm">
+                  <i class="icon-flag icon-large"></i> Problem List<i class="icon-circle pull-right"></i>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-sm-3">
+            <a id="app-progress-notes-link" href="#" class="pc-tile">
+              <div class="panel panel-default color6">
+                <div class="panel-body hidden-sm">
+                  <i class="icon-pencil icon-large"></i> Progress Notes<i class="icon-circle pull-right"></i>
+                </div>
+                <div class="panel-body visible-sm">
+                  <i class="icon-pencil icon-large"></i> Progress Notes<i class="icon-circle pull-right"></i>
+                </div>        
+              </div>
+            </a>
+          </div>
+          <div class="col-sm-3">
+            <a id="health-maintenance-summary-link" href="#" class="pc-tile">
+              <div class="panel panel-default color6 ">
+                <div class="panel-body hidden-sm">
+                  <i class="icon-medkit icon-large"></i> Health Maintenance<i class="icon-circle pull-right"></i>
+                </div>
+                <div class="panel-body visible-sm">
+                  <i class="icon-medkit icon-large"></i> Health Maintenance<i class="icon-circle pull-right"></i>
+                </div>        
+              </div>
+            </a>
+          </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-3">
+              <a id="medical-history-link" href="#" class="pc-tile">
+                <div class="panel panel-default color2">
+                  <div class="panel-body hidden-sm">
+                    <i class="icon-h-sign icon-large"></i> Medical History<i class="icon-circle pull-right"></i>
+                  </div>
+                  <div class="panel-body visible-sm">
+                    <i class="icon-h-sign icon-large"></i> Medical History<i class="icon-circle pull-right"></i>
+                  </div>          
+                </div>
+              </a>
+            </div>
+            <div class="col-sm-3">
+              <a id="rx-medications-link" href="#" class="pc-tile">
+                <div class="panel panel-default color6">
+                  <div class="panel-body hidden-sm">
+                    <i class="icon-beer icon-large"></i> RX/Medications<i class="icon-circle pull-right"></i>
+                  </div>
+                  <div class="panel-body visible-sm">
+                    <i class="icon-beer icon-large"></i> RX/Medications<i class="icon-circle pull-right"></i>
+                  </div>          
+                </div>
+              </a>
+            </div>
+            <div class="col-sm-3">
+              <a id="vital-signs-link" href="#" class="pc-tile">
+                <div class="panel panel-default color6">
+                  <div class="panel-body hidden-sm">
+                    <i class="icon-stethoscope icon-large"></i> Vital Signs<i class="icon-circle pull-right"></i>
+                  </div>
+                  <div class="panel-body visible-sm">
+                    <i class="icon-stethoscope icon-large"></i> Vital Signs<i class="icon-circle pull-right"></i>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-sm-3">
+              <a id="laboratory-data-link" href="#" class="pc-tile">
+                <div class="panel panel-default color6">
+                  <div class="panel-body hidden-sm">
+                    <i class="icon-beaker icon-large"></i> Laboratory Data<i class="icon-circle-blank pull-right"></i>
+                  </div>
+                  <div class="panel-body visible-sm">
+                    <i class="icon-beaker icon-large"></i> Laboratory Data<i class="icon-circle-blank pull-right"></i>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-3">
+              <a id="pfsh-link" href="#" class="pc-tile">
+                <div class="panel panel-default color2">
+                  <div class="panel-body hidden-sm">
+                    <i class="icon-group icon-large"></i> Family History<i id="act" class="icon-circle pull-right"></i>
+                  </div>
+                  <div class="panel-body visible-sm">
+                    <i class="icon-group icon-large"></i> Family History<i id="act" class="icon-circle pull-right"></i>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-sm-3">
+              <a id="images-all-chart-sections-link" href="#" class="pc-tile">
+                <div class="panel panel-default color6">
+                  <div class="panel-body hidden-sm">
+                    <i class="icon-picture icon-large"></i> Images<i class="icon-circle-blank pull-right"></i>
+                  </div>
+                  <div class="panel-body visible-sm">
+                    <i class="icon-picture icon-large"></i> Images<i class="icon-circle-blank pull-right"></i>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-sm-3">
+              <a id="x-ray-link" href="#" class="pc-tile">
+                <div class="panel panel-default color6">
+                  <div class="panel-body hidden-sm">
+                    <i class="icon-film icon-large"></i> X-Ray<i class="icon-circle-blank pull-right"></i>
+                  </div>
+                  <div class="panel-body visible-sm">
+                    <i class="icon-film icon-large"></i> X-Ray<i class="icon-circle-blank pull-right"></i>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-sm-3">
+              <a id="ekg-link" href="#" class="pc-tile">
+                <div class="panel panel-default color6">
+                  <div class="panel-body hidden-sm">
+                    <i class="icon-bolt icon-large"></i> EKG<i class="icon-circle-blank pull-right"></i>
+                  </div>
+                  <div class="panel-body visible-sm">
+                    <i class="icon-bolt icon-large"></i> EKG<i class="icon-circle-blank pull-right"></i>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-3">
+              <a id="unused-link" href="#" class="pc-tile">
+                <div class="panel panel-default color2">
+                  <div class="panel-body hidden-sm">
+                    <i class="icon-sitemap icon-large"></i> Custom<i class="icon-circle-blank pull-right"></i>
+                  </div>
+                  <div class="panel-body visible-sm">
+                    <i class="icon-sitemap icon-large"></i> Custom<i class="icon-circle-blank pull-right"></i>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-sm-3">
+              <a id="supp-link" href="#" class="pc-tile">
+                <div class="panel panel-default color6">
+                  <div class="panel-body hidden-sm">
+                    <i class="icon-question-sign icon-large"></i> Sup Questions<i class="icon-circle-blank pull-right"></i>
+                  </div>
+                  <div class="panel-body visible-sm">
+                    <i class="icon-question-sign icon-large"></i> Sup Questions<i class="icon-circle-blank pull-right"></i>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-sm-3">
+              <a id="exam-link" href="#" class="pc-tile">
+                <div class="panel panel-default color6">
+                  <div class="panel-body hidden-sm">
+                    <i class="icon-check icon-large"></i> Exam<i class="icon-circle-blank pull-right"></i>
+                  </div>
+                  <div class="panel-body visible-sm">
+                    <i class="icon-check icon-large"></i> Exam<i class="icon-circle-blank pull-right"></i>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-sm-3">
+              <a id="attending-notes-link" href="#" class="pc-tile">
+                <div class="panel panel-default color6">
+                  <div class="panel-body hidden-sm">
+                    <i class="icon-pencil icon-large"></i> Attending Notes<i class="icon-circle-blank pull-right"></i>
+                  </div>
+                  <div class="panel-body visible-sm">
+                    <i class="icon-pencil icon-large"></i> Attending Notes<i class="icon-circle-blank pull-right"></i>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-3">
+              <a id="consults-link" href="#" class="pc-tile">
+                <div class="panel panel-default color6">
+                  <div class="panel-body hidden-sm">
+                    <i class="icon-user-md icon-large"></i> Consults<i class="icon-circle-blank pull-right"></i>
+                  </div>
+                  <div class="panel-body visible-sm">
+                    <i class="icon-user-md icon-large"></i> Consults<i class="icon-circle-blank pull-right"></i>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-sm-3">
+              <a id="chief-complaints-link" href="#" class="pc-tile">
+                <div class="panel panel-default color6">
+                  <div class="panel-body hidden-sm">
+                    <i class="icon-exclamation-sign icon-large"></i> Chief Complaint<i class="icon-circle-blank pull-right"></i>
+                  </div>
+                  <div class="panel-body visible-sm">
+                    <i class="icon-exclamation-sign icon-large"></i> Chief Complaint<i class="icon-circle-blank pull-right"></i>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-sm-3">
+              <a href="#" class="app-letters-link pc-tile">
+                <div class="panel panel-default color6">
+                  <div class="panel-body hidden-sm">
+                    <i class="icon-envelope icon-large"></i> Letters<i class="icon-circle pull-right"></i>
+                  </div>
+                  <div class="panel-body visible-sm">
+                    <i class="icon-envelope icon-large"></i> Letters<i class="icon-circle pull-right"></i>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-sm-3">
+              <a id="follow-up-link" href="#" class="pc-tile">
+                <div class="panel panel-default color1">
+                  <div class="panel-body hidden-sm">
+                    <i class="icon-reply icon-large"></i> Follow-Up<i class="icon-circle pull-right"></i>
+                  </div>
+                  <div class="panel-body visible-sm">
+                    <i class="icon-reply icon-large"></i> Follow-Up<i class="icon-circle pull-right"></i>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-3">
+              <a id="flow-charts-link" href="#" class="pc-tile">
+                <div class="panel panel-default color6">
+                  <div class="panel-body hidden-sm">
+                    <i class="icon-bar-chart icon-large"></i> Flow Charts<i class="icon-circle-blank pull-right"></i>
+                  </div>
+                  <div class="panel-body visible-sm">
+                    <i class="icon-bar-chart icon-large"></i> Flow Charts<i class="icon-circle-blank pull-right"></i>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-sm-3">
+              <a id="obgyn-link" href="#" class="pc-tile">
+                <div class="panel panel-default color6">
+                  <div class="panel-body hidden-sm">
+                    <i class="icon-female icon-large"></i> OB/GYN<i class="icon-circle pull-right"></i>
+                  </div>
+                  <div class="panel-body visible-sm">
+                    <i class="icon-female icon-large"></i> OB/GYN<i class="icon-circle pull-right"></i>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-sm-3">
+              <a href="#" class="pc-tile">
+                <div class="panel panel-default color3">
+                  <div class="panel-body hidden-sm">
+                    <i class="icon-file-text icon-large"></i> Orders <i class="icon-circle-blank pull-right"></i>
+                  </div>
+                  <div class="panel-body visible-sm">
+                    <i class="icon-file-text icon-large"></i> Orders <i class="icon-circle-blank pull-right"></i>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-sm-3">
+              <a id="continuation-link" href="#" class="pc-tile">
+                <div class="panel panel-default color1">
+                  <div class="panel-body hidden-sm">
+                    <i class="icon-user icon-large"></i> Continuation<i class="icon-circle pull-right"></i>
+                  </div>
+                  <div class="panel-body visible-sm">
+                    <i class="icon-user icon-large"></i> Continuation<i class="icon-circle pull-right"></i>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-3">
+              <a id="misc-docs-link" href="#" class="pc-tile">
+                <div class="panel panel-default color6">
+                  <div class="panel-body hidden-sm">
+                    <i class="icon-tasks icon-large"></i> Misc Info<i class="icon-circle-blank pull-right"></i>
+                  </div>
+                  <div class="panel-body visible-sm">
+                    <i class="icon-tasks icon-large"></i> Misc Info<i class="icon-circle-blank pull-right"></i>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-sm-3">
+              <a href="#" class="pc-tile">
+                <div class="panel panel-default color6">
+                  <div class="panel-body hidden-sm">
+                    <i class="icon-bug icon-large"></i> Prenatal<i class="icon-circle-blank pull-right"></i>
+                  </div>
+                  <div class="panel-body visible-sm">
+                    <i class="icon-bug icon-large"></i> Prenatal<i class="icon-circle-blank pull-right"></i>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-sm-3">
+              <a id="link" href="#" class="pc-tile">
+                <div class="panel panel-default color3">
+                  <div class="panel-body hidden-sm">
+                    <i class="icon-file-text icon-large"></i> Orders Blank<i class="icon-circle-blank pull-right"></i>
+                  </div>
+                  <div class="panel-body visible-sm">
+                    <i class="icon-file-text icon-large"></i> Orders Blank<i class="icon-circle-blank pull-right"></i>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div id="patient-messages-link" class="col-sm-3">
+              <a href="#" class="pc-tile">
+                <div class="panel panel-default color1">
+                  <div class="panel-body hidden-sm">
+                    <i class="icon-user icon-large"></i> Patient Messages<i class="icon-circle-blank pull-right"></i>
+                  </div>
+                  <div class="panel-body visible-sm">
+                    <i class="icon-user icon-large"></i> Patient Messages<i class="icon-circle-blank pull-right"></i>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="panel-top">Quick Notes</div>
+              <div id="npanel" class="panel panel-default">
+                <div class="panel-body">
+                  <form role="form">
+                    <div id="notes"><textarea class="form-control input-sm" rows="5"></textarea></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="panel-top">Contact Information</div>
+              <div id="contact" class="panel panel-default">
+                <div class="panel-body">
+                  <div class="col-md-6">
+                    <p><label>Primary Phone:</label><span class="patient-chart-primary-phone"></span></p>
+                    <p><label>Secondary Phone:</label><span class="patient-chart-secondary-phone"></span></p>
+                  </div>
+                  <div class="col-md-6">
+                    <p><label>Last Appointment:</label><span id="patient-last-appt"></span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+    <!-- PATIENT CHART SCREEN -->
+  
+    <!-- SCHEDULE SCREEN -->
+    <div id="schedule-screen" class="initially-no-display">
+      <div class="container-fluid">
+        <div class="panel-top">Calendar</div>
+        <div class="panel panel-default">
+          <div class="panel-body">    
+            <div id='app-calendar' class="app-calendar"></div>
+          </div>
+        </div>      
+      </div>
+    </div>
+    <!-- SCHEDULE SCREEN -->
+  
+    <!-- MESSAGES SCREEN -->
+    <div id="messages-screen" class="initially-no-display">
+      <div class="container-fluid">
+        <div class="panel-top">Messages</div>
+        <div class="panel panel-default">
+          <div class="panel-body">                
+            <div class="col-sm-2">
+              <a id="new-message" href="#modal-new-message" class="btn btn-success btn-block">Compose New</a>
+              <h5>User Name</h5>
+              <ul class="nav nav-pills nav-stacked msg-sidebar">
+                <li class="active"><a href="#msg-inbox" data-toggle="tab">Inbox</a></li>
+                <li><a href="#msg-deleted" data-toggle="tab">Deleted</a></li>
+                <li><a href="#msg-archived" data-toggle="tab">Archived</a></li>
+                <li><a href="#msg-pending" data-toggle="tab">Pending</a></li>
+                <li><a href="#msg-selected" data-toggle="tab">Selected</a></li>
+                <li><a href="#msg-sent" data-toggle="tab">Sent</a></li>
+              </ul>
+            </div>
+            <div class="col-sm-10">
+              <div class="tab-content">
+                <div id="msg-inbox" class="tab-pane active">
+                  <div id="messages-inbox-header" class="panel-top"></div>
+                  <div id="messages-inbox" class="table-responsive container-scroll"></div>
+                  <div id="messages-view">
+                    <div class="panel panel-default">
+                      <div class="panel-body"><div id="message-content"></div></div>
+                    </div>
+                  </div>
+                </div>
+                <div id="msg-deleted" class="tab-pane">
+                  <div class="panel-top">Deleted</div>
+                  <div class="table-responsive">
+                    <table class="table table-striped table-hover table-bordered table-condensed">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>alt</th>
+                          <th>From</th>
+                          <th>Patient</th>
+                          <th>Subject</th>
+                          <th>Received</th>
+                          <th>Type</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>          
+                <div id="msg-archived" class="tab-pane">
+                  <div class="panel-top">Archived</div>
+                  <div class="table-responsive">
+                    <table class="table table-striped table-hover table-bordered table-condensed">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>alt</th>
+                          <th>From</th>
+                          <th>Patient</th>
+                          <th>Subject</th>
+                          <th>Received</th>
+                          <th>Type</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div id="msg-pending" class="tab-pane">
+                  <div class="panel-top">Pending</div>
+                  <div class="table-responsive">
+                    <table class="table table-striped table-hover table-bordered table-condensed">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>alt</th>
+                          <th>From</th>
+                          <th>Patient</th>
+                          <th>Subject</th>
+                          <th>Received</th>
+                          <th>Type</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div id="msg-selected" class="tab-pane">
+                  <div class="panel-top">Selected</div>
+                  <div class="table-responsive">
+                    <table class="table table-striped table-hover table-bordered table-condensed">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>alt</th>
+                          <th>From</th>
+                          <th>Patient</th>
+                          <th>Subject</th>
+                          <th>Received</th>
+                          <th>Type</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div id="msg-sent" class="tab-pane">
+                  <div class="panel-top">Sent</div>
+                  <div class="table-responsive">
+                    <table class="table table-striped table-hover table-bordered table-condensed">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>alt</th>
+                          <th>From</th>
+                          <th>Patient</th>
+                          <th>Subject</th>
+                          <th>Received</th>
+                          <th>Type</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div><!-- tab-content-end -->
+              <hr>
+            </div><!-- col-10-end -->                         
+            <div class="pull-right">             
+              <a href="#" id="message-close-button" class="btn btn-default">Close</a>
+              <a href="#" class="btn btn-default">Delete</a>
+              <a href="#" id="message-view-button" class="btn btn-default">View</a>
+              <a href="#" class="btn btn-default">Link</a>
+              <a href="#" class="btn btn-default">Change Op</a>
+              <a href="#" class="btn btn-default">Print</a>
+              <a href="#" class="btn btn-default">Select</a>
+           </div>
+         </div><!-- col-12-end -->
+        </div><!-- end row -->
+      </div>
+    </div>
+    <!-- MESSAGES SCREEN -->
+ 
+    <!-- LETTERS SCREEN -->
+    <div id="letters-screen" class="initially-no-display">
+      <div class="container-fluid">
+        <div class="panel-top">Letters</div>
+        <div class="panel panel-default">
+          <div class="panel-body">      
+            <div class="col-sm-2">
+              <a data-toggle="modal" href="#modal-new-message" class="btn btn-success btn-block">Compose New</a>
+              <h5>User Name</h5>
+              <ul class="nav nav-pills nav-stacked msg-sidebar">
+                <li class="active"><a href="#ltr-inbox" data-toggle="tab">Inbox</a></li>
+                <li><a href="#ltr-deleted" data-toggle="tab">Deleted</a></li>
+                <li><a href="#ltr-archived" data-toggle="tab">Archived</a></li>
+                <li><a href="#ltr-pending" data-toggle="tab">Pending</a></li>
+                <li><a href="#ltr-selected" data-toggle="tab">Selected</a></li>
+                <li><a href="#ltr-sent" data-toggle="tab">Sent</a></li>
+              </ul>
+            </div><!-- col-2-end -->
+            <div class="col-sm-10">
+              <div class="tab-content">
+                <div id="ltr-inbox" class="tab-pane active">
+                  <div class="panel-top">Inbox</div>
+                  <div class="table-responsive">
+                    <table class="table table-striped table-hover table-bordered table-condensed">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>alt</th>
+                          <th>From</th>
+                          <th>Patient</th>
+                          <th>Subject</th>
+                          <th>Received</th>
+                          <th>Type</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div id="ltr-deleted" class="tab-pane">
+                  <div class="panel-top">Deleted</div>
+                  <div class="table-responsive">
+                    <table class="table table-striped table-hover table-bordered table-condensed">
+                      <thead>
+	                      <tr>
+	                        <th>#</th>
+	                        <th>alt</th>
+	                        <th>From</th>
+	                        <th>Patient</th>
+	                        <th>Subject</th>
+	                        <th>Received</th>
+	                        <th>Type</th>
+	                      </tr>
+                      </thead>
+	                    <tbody>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                    </tbody>
+	                  </table>
+	                </div>
+	              </div>          
+	              <div id="ltr-archived" class="tab-pane">
+	                <div class="panel-top">Archived</div>
+	                <div class="table-responsive">
+	                  <table class="table table-striped table-hover table-bordered table-condensed">
+	                    <thead>
+	                      <tr>
+	                        <th>#</th>
+	                        <th>alt</th>
+	                        <th>From</th>
+	                        <th>Patient</th>
+	                        <th>Subject</th>
+	                        <th>Received</th>
+	                        <th>Type</th>
+	                      </tr>
+	                    </thead>
+	                    <tbody>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                    </tbody>
+	                  </table>
+	                </div>
+	              </div>
+	              <div id="ltr-pending" class="tab-pane">
+	                <div class="panel-top">Pending</div>
+	                <div class="table-responsive ">
+	                  <table class="table table-striped table-hover table-bordered table-condensed">
+	                    <thead>
+	                      <tr>
+	                        <th>#</th>
+	                        <th>alt</th>
+	                        <th>From</th>
+	                        <th>Patient</th>
+	                        <th>Subject</th>
+	                        <th>Received</th>
+	                        <th>Type</th>
+	                      </tr>
+	                    </thead>
+	                    <tbody>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                    </tbody>
+	                  </table>
+	                </div>
+	              </div>
+	              <div id="ltr-selected" class="tab-pane">
+	                <div class="panel-top">Selected</div>
+	                <div class="table-responsive ">
+	                  <table class="table table-striped table-hover table-bordered table-condensed">
+	                    <thead>
+	                      <tr>
+	                        <th>#</th>
+	                        <th>alt</th>
+	                        <th>From</th>
+	                        <th>Patient</th>
+	                        <th>Subject</th>
+	                        <th>Received</th>
+	                        <th>Type</th>
+	                      </tr>
+	                    </thead>
+	                    <tbody>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                    </tbody>
+	                  </table>
+	                </div>
+	              </div>
+	              <div id="ltr-sent" class="tab-pane">
+	                <div class="panel-top">Sent</div>
+	                <div class="table-responsive">
+	                  <table class="table table-striped table-hover table-bordered table-condensed">
+	                    <thead>
+	                      <tr>
+	                        <th>#</th>
+	                        <th>alt</th>
+	                        <th>From</th>
+	                        <th>Patient</th>
+	                        <th>Subject</th>
+	                        <th>Received</th>
+	                        <th>Type</th>
+	                      </tr>
+	                    </thead>
+	                    <tbody>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                      <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+	                    </tbody>
+	                  </table>
+	                </div>
+	              </div>
+	            </div><!-- tab-content-end -->
+	          </div><!-- col-10-end -->            
+	          <div class="pull-right">
+	            <a href="#" class="btn btn-default">Close</a>
+	            <a href="#" class="btn btn-default">Delete</a>
+	            <a href="#" class="btn btn-default">View</a>
+	            <a href="#" class="btn btn-default">Link</a>
+	            <a href="#" class="btn btn-default">Change Op</a>
+	            <a href="#" class="btn btn-default">Print</a>
+	            <a href="#" class="btn btn-default">Select</a>
+	          </div>
+	        </div>
+        </div>
+      </div>
+    </div>
+    <!-- LETTERS SCREEN -->
+    
+    <!-- PATIENT INTAKE SCREEN -->
+    <div id="patient-intake-screen" class="initially-no-display"></div>
+    <!-- PATIENT INTAKE SCREEN -->
+    
+    <!-- PATIENT CONTINUATION SCREEN -->
+    <div id="patient-continuation-screen" class="initially-no-display">
+      <div class="container-fluid">
+        <div class="panel-top">Patient Continuation</div>
+        <div class="panel panel-default">
+          <div class="panel-body">                
+            <div class="col-sm-2">
+              <a id="app-new-continuation-btn" class="btn btn-success btn-block">New Continuation</a>
+              <h5>User Name</h5>
+              <ul class="nav nav-pills nav-stacked msg-sidebar">
+                <li class="active"><a href="#msg-inbox" data-toggle="tab">Inbox</a></li>
+                <li><a href="#pcs-msg-deleted" data-toggle="tab">Deleted</a></li>
+                <li><a href="#pcs-msg-archived" data-toggle="tab">Archived</a></li>
+                <li><a href="#pcs-msg-pending" data-toggle="tab">Pending</a></li>
+                <li><a href="#pcs-msg-selected" data-toggle="tab">Selected</a></li>
+                <li><a href="#pcs-msg-sent" data-toggle="tab">Sent</a></li>
+              </ul>
+            </div>
+            <div class="col-sm-10">
+              <div class="tab-content">
+                <div id="chart-encounters" class="tab-pane active">
+                  <div id="chart-encounters-header" class="panel-top">Intake and Continuation</div>
+                  <div id="chart-encounters-list" class="table-responsive"></div>
+                </div>
+                <div id="pcs-msg-deleted" class="tab-pane">
+                  <div class="panel-top">Deleted</div>
+                  <div class="table-responsive">
+                    <table class="table table-striped table-hover table-bordered table-condensed">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>alt</th>
+                          <th>From</th>
+                          <th>Patient</th>
+                          <th>Subject</th>
+                          <th>Received</th>
+                          <th>Type</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>          
+                <div id="pcs-msg-archived" class="tab-pane">
+                  <div class="panel-top">Archived</div>
+                  <div class="table-responsive">
+                    <table class="table table-striped table-hover table-bordered table-condensed">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>alt</th>
+                          <th>From</th>
+                          <th>Patient</th>
+                          <th>Subject</th>
+                          <th>Received</th>
+                          <th>Type</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div id="pcs-msg-pending" class="tab-pane">
+                  <div class="panel-top">Pending</div>
+                  <div class="table-responsive">
+                    <table class="table table-striped table-hover table-bordered table-condensed">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>alt</th>
+                          <th>From</th>
+                          <th>Patient</th>
+                          <th>Subject</th>
+                          <th>Received</th>
+                          <th>Type</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div id="pcs-msg-selected" class="tab-pane">
+                  <div class="panel-top">Selected</div>
+                  <div class="table-responsive">
+                    <table class="table table-striped table-hover table-bordered table-condensed">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>alt</th>
+                          <th>From</th>
+                          <th>Patient</th>
+                          <th>Subject</th>
+                          <th>Received</th>
+                          <th>Type</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div id="pcs-msg-sent" class="tab-pane">
+                  <div class="panel-top">Sent</div>
+                  <div class="table-responsive">
+                    <table class="table table-striped table-hover table-bordered table-condensed">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>alt</th>
+                          <th>From</th>
+                          <th>Patient</th>
+                          <th>Subject</th>
+                          <th>Received</th>
+                          <th>Type</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                        <tr> <th></th> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <hr>
+            </div>
+            <div class="pull-right">             
+              <a href="#" id="pcs-message-close-button" class="btn btn-default">Close</a>
+              <a href="#" class="btn btn-default">Delete</a>
+              <a href="#" id="encounter-view-button" class="btn btn-default">View</a>
+              <a href="#" class="btn btn-default">Link</a>
+              <a href="#" class="btn btn-default">Change Op</a>
+              <a href="#" class="btn btn-default">Print</a>
+              <a href="#" class="btn btn-default">Select</a>
+           </div>
+         </div>
+        </div>
+      </div>
+    </div>
+    <!-- PATIENT CONTINUATION SCREEN -->
+    
+    
+    <!-- USER ADMIN SCREEN -->
+    <div id="user-admin-screen" class="initially-no-display">
+      <div class="container-fluid">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <h1 class="hidden-xs">
+              <i class="fa fa-gears"></i> Admin <small class="pull-right"><i class="fa fa-user fa-lg"></i> User Manager</small>
+            </h1>
+            <h4 class="visible-xs">
+              <i class="fa fa-gears"></i> Admin <small class="pull-right"><i class="fa fa-user fa-lg"></i> User Manager</small>
+            </h4>
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <button id="user-admin-print-all-lg" type="button" class="btn btn-default hidden-xs">
+                  <i class="fa fa-print fa-lg"></i> Print All
+                </button>
+                <button id="user-admin-new-user-lg" type="button" class="btn btn-primary pull-right button-pad hidden-xs">
+                  <i class="fa fa-user fa-lg"></i><i class="fa fa-plus"></i> Create New User
+                </button>
+                <button id="user-admin-print-all-sm" type="button" class="btn btn-default btn-block visible-xs">
+                  <i class="fa fa-print fa-lg"></i> Print All
+                </button>
+                <button id="user-admin-new-user-sm" type="button" class="btn btn-primary pull-right button-pad btn-block visible-xs">
+                  <i class="fa fa-user fa-lg"></i><i class="fa fa-plus"></i> Create New User
+                </button>
+                <div id="user-admin-clinicians-list" class="table-responsive container-scroll"></div> 
+              </div>
+            </div>
+          </div>
+        </div>  
+      </div>  
+    </div>  
+    <!-- USER ADMIN SCREEN -->
+    
+
+    <!-- FOOTER -->
+    <footer class="container-fluid">
+      <div class="row">
+        <div class="hidden-xs hidden-sm col-md-2 sitemap">
+          <h6>Corp Site</h6>
+          <ul>
+            <li><a href="index.html#top">Home Page</a></li>
+            <li><a href="products_details.html#products">Products Page</a></li>
+            <li><a href="products_details.html#products-details-cloud">The Cloud</a></li>
+            <li><a href="shopping_cart.html#pricing-plans-intro">Product Pricing</a></li>
+            <li><a href="index.html#contact">Contact Us</a></li>        
+          </ul>
+        </div>
+        <div class="hidden-xs col-sm-3 hidden-md hidden-lg sitemap-sm">
+          <h6>Corp Site</h6>
+          <ul>
+            <li><a href="index.html#top">Home Page</a></li>
+            <li><a target="_blank" href="http://wdeanmedical.com/corp/products_details.html#ehr-top">Products Page</a></li>
+            <li><a target="_blank" href="http://wdeanmedical.com/corp/products_details.html#products-details-cloud">The Cloud</a></li>
+            <li><a target="_blank" href="http://wdeanmedical.com/corp/shopping_cart.html#pricing-plans-intro">Product Pricing</a></li>
+            <li><a target="_blank" href="http://wdeanmedical.com/corp/index.html#contact">Contact Us</a></li>        
+          </ul>
+        </div>
+        <div class="visible-xs col-xs-6 sitemap-xs">
+          <h6>Site Map</h6>
+          <ul>
+            <li><a target="_blank" href="http://www.wdeanmedical.com">Home Page</a></li>
+            <li><a target="_blank" href="http://wdeanmedical.com/corp/products_details.html#ehr-top">Products Page</a></li>
+            <li><a target="_blank" href="http://wdeanmedical.com/corp/products_details.html#products-details-cloud">The Cloud</a></li>
+            <li><a target="_blank" href="http://wdeanmedical.com/corp/shopping_cart.html#pricing-plans-intro">Product Pricing</a></li>
+            <li><a target="_blank" href="http://wdeanmedical.com/corp/index.html#contact">Contact Us</a></li>        
+          </ul>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-2">
+          <h6>Help Forums</h6>
+          <ul>
+            <li><a target="_blank" href="http://wdeanbill.discussioncommunity.com/">Community</a></li>
+            <li><a target="_blank" href="http://wdeanbill.discussioncommunity.com/?forum=311612">Patient Portal</a></li>
+            <li><a target="_blank" href="http://wdeanbill.discussioncommunity.com/?forum=311611">Rugged EHR</a></li>
+            <li><a target="_blank" href="http://wdeanbill.discussioncommunity.com/?forum=311613">Practice Manager</a></li>
+            <li><a target="_blank" href="http://wdeanbill.discussioncommunity.com/?forum=311614">Medical Websites</a></li>        
+          </ul>
+        </div>
+        <div class="hidden-xs col-sm-3 col-md-2">
+          <h6>Software Demos</h6>
+          <ul>
+            <li><a target="_blank" href="http://wdeanmedical.com/ehr/">Electronic Health Records</a></li>
+            <li><a target="_blank" href="http://wdeanmedical.com/pm/">Practice Manager</a></li>  
+            <li><a target="_blank" href="http://wdeanmedical.com/portal/">Patient Portal</a></li>
+            <li><a target="_blank" href="http://wdeanmedical.com/portal/">Pleasantville Medical</a></li>
+            <li class="hidden-md hidden-lg"><a target="_blank" href="#">White Papers</a></li>      
+          </ul>
+        </div>
+        <div class="visible-xs col-xs-6 softdemo-xs">
+          <h6>Software Demos</h6>
+          <ul>
+            <li><a target="_blank" href="http://wdeanmedical.com/ehr/">Electronic Health Records</a></li>
+            <li><a target="_blank" href="http://wdeanmedical.com/pm/">Practice Manager</a></li>  
+            <li><a target="_blank" href="http://wdeanmedical.com/portal/">Patient Portal</a></li>
+            <li><a target="_blank" href="http://wdeanmedical.com/portal/">Pleasantville Medical</a></li>
+            <li class="hidden-md hidden-lg"><a target="_blank" href="#">White Papers</a></li>      
+          </ul>
+        </div>
+        <div class="col-md-2 hidden-xs hidden-sm">
+          <h6>White Papers</h6>
+          <ul class="map-4">
+            <li><a target="_blank" href="http://wdeanmedical.com/docs/wdm_overview.pdf">General</a></li>
+            <li><a target="_blank" href="http://wdeanmedical.com/docs/wdm_pp.pdf">Patient Portal</a></li>
+            <li><a target="_blank" href="http://wdeanmedical.com/docs/wdm_ehr.pdf">Rugged EHR</a></li>
+            <li><a target="_blank" href="http://wdeanmedical.com/docs/wdm_pm.pdf">Practice Manager</a></li>         
+          </ul>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-2">
+          <h6>Social Media</h6>
+          <ul>
+            <li><a target="_blank" href="https://www.facebook.com/WDeanMedical">Facebook Page</a></li>
+            <li><a target="_blank" href="https://twitter.com/WDeanMedical">Twitter Page</a></li>
+            <li><a target="_blank" href="https://www.linkedin.com/company/wdean-medical">Linkedin Page</a></li>
+            <li><a target="_blank" href="https://plus.google.com/+Wdeanmedical/posts">Google+ Page</a></li>
+            <li><a target="_blank" href="http://www.pinterest.com/wdeanmedical">Pinterest Page</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2 hidden-xs hidden-sm">
+          <img src="images/WDM-icon120.png" class="img-responsive center-block" alt="Responsive image">
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-12 hidden-md hidden-lg">
+          <img src="images/WDM-icon120.png" class="img-responsive center-block" alt="Responsive image">
+          <p class="text-center">Copyright© WDean Medical 2014</p>
+        </div>
+        <div class="col-sm-12 hidden-xs hidden-sm">
+          <p class="text-center">Copyright© WDean Medical 2014</p>
+        </div>
+      </div>
+    </footer>    
+    <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+      <p class="navbar-text">
+        <a target="_blank" href="https://www.facebook.com/WDeanMedical"><i class="icon-facebook-sign icon-2x"></i></a> 
+        <a target="_blank" href="https://twitter.com/WDeanMedical"><i class="icon-twitter-sign icon-2x"></i></a> 
+        <a target="_blank" href="http://www.linkedin.com/company/wdean-medical"><i class="icon-linkedin-sign icon-2x"></i></a>
+        <a target="_blank" href="http://www.wdeanmedical.com">www.wdeanmedical.com</a>
+      </p>
+    </nav>
+    <!-- FOOTER -->
+    
+    <!-- MODALS -->
+    <div id="modals-placement"></div>
+    <!-- MODALS -->
+  
+  <script src="js/lib/head.min.js"></script>
+  <script src="js/load_scripts.js"></script>
+  
+  </body>
+</html>
