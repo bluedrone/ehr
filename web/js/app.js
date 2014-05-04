@@ -78,11 +78,12 @@ var app_groupOrderArray = [];
 var app_newPatientIntakeGroup = undefined;
 var app_oldLockStatus;
 
-/***********      @JQUERY INIT    *******************/
+/************      @JQUERY INIT    *******************/
 $(document).ready(function() {
   if (INITIALIZED == false) {
     INITIALIZED = true;
     $(function () { $("[data-toggle='popover']").popover({ trigger: "hover" }); });
+
     app_viewStack('signin-screen', DO_SCROLL);
     $('.dropdown-menu').find('form').click(function (e) { e.stopPropagation();});
     
