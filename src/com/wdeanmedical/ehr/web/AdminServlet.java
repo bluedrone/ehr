@@ -27,10 +27,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.wdeanmedical.ehr.dto.AdminDTO;
 import com.wdeanmedical.ehr.dto.PatientDTO;
-import com.wdeanmedical.ehr.dto.PatientDTO;
 import com.wdeanmedical.ehr.entity.Encounter;
 import com.wdeanmedical.ehr.entity.Patient;
-import com.wdeanmedical.ehr.entity.PatientIntakeGroup;
 import com.wdeanmedical.ehr.service.AdminService;
 import com.wdeanmedical.ehr.service.PatientService;
 import com.wdeanmedical.ehr.core.Core;

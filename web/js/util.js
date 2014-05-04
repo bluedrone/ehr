@@ -161,3 +161,7 @@ function util_printForm(template, object, title) {
     print_openPrintWindow('print.html', s, title);
   });
 }
+
+function util_isNumber(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}

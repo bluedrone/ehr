@@ -32,6 +32,7 @@ public class OBGYNEncounterData extends BaseEntity implements Serializable {
   private String birthControlType;
   private String history;
   private String historyOther;
+  private Date date;
 
   public OBGYNEncounterData() {
   }
@@ -48,6 +49,11 @@ public class OBGYNEncounterData extends BaseEntity implements Serializable {
   @Column(name = "clinician_id")
   public Integer getClinicianId() { return clinicianId; }
   public void setClinicianId(Integer clinicianId) { this.clinicianId = clinicianId; }
+  
+  @Column(name = "date")
+  public Date getDate() { return date; }
+  public void setDate(Date date) { this.date = date; }
+
 
   @Column(name = "g")
   public String getG() { return g; }

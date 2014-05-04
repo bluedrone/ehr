@@ -36,7 +36,7 @@ public class PatientFollowUp extends BaseEntity implements Serializable {
   private String other; 
   private String pulmonaryFXTest; 
   private String vision; 
-  private boolean completed; 
+  private Boolean completed; 
   private String notes; 
 
   public PatientFollowUp() {
@@ -119,8 +119,8 @@ public class PatientFollowUp extends BaseEntity implements Serializable {
   public void setVision(String vision) { this.vision = vision; }
 
   @Column(name = "complete")
-  public boolean isCompleted() { return completed; }
-  public void setCompleted(boolean completed) { this.completed = completed; }
+  public Boolean isCompleted() { return completed; }
+  public void setCompleted(Boolean completed) { this.completed = completed; }
 
   @Column(name = "notes")
   public String getNotes() { return notes; }

@@ -13,7 +13,7 @@ import javax.persistence.Table;
 public class PatientAllergen extends BaseEntity implements Serializable {
   private static final long serialVersionUID = 3930862315213189346L;
   
-  private Integer patientId;
+  private Patient patient;
   private Allergen allergen;
   private String comment;
 
@@ -21,10 +21,10 @@ public class PatientAllergen extends BaseEntity implements Serializable {
   }
 
 
-
-  @Column(name = "patient_id")
-  public Integer getPatientId() { return patientId; }
-  public void setPatientId(Integer patientId) { this.patientId = patientId; }
+  @JoinColumn(name = "patient", referencedColumnName = "id")
+  @ManyToOne(optional = false)
+  public Patient getPatient() { return patient; }
+  public void setPatient(Patient patient) { this.patient = patient; }
 
   @JoinColumn(name = "allergen", referencedColumnName = "id")
   @ManyToOne(optional = false)

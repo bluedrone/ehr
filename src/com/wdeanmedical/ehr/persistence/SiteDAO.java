@@ -18,12 +18,14 @@ public abstract class SiteDAO {
 
     protected void createEntity(BaseEntity entity) throws Exception {
       Session session = this.getSession();
+      entity.setLastAccessed(new Date());
       entity.setLastUpdated(new Date());
       session.save(entity);
     }
 
     protected void updateEntity(BaseEntity entity) throws Exception {
       Session session = this.getSession();
+      entity.setLastAccessed(new Date());
       entity.setLastUpdated(new Date());
       session.update(entity);
     }

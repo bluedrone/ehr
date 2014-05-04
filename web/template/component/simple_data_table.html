@@ -21,7 +21,7 @@
       data-table-name="${tableName}" 
     >
     {{each(j, column) columns}} 
-      <td>${getColumnValue(column, item)}</td>
+      <td style='text-align:${column.type == 'numeric' ? "right" : "left"}'>${getColumnValue(column, item)}</td>
     {{/each}}
     </tr>
   {{/each}}

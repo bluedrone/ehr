@@ -22,7 +22,7 @@
               </div>
               <div id="headshot-div" class="col-xm-6 col-sm-3">
                 <label class="pull-right">Active <i class="icon-check-sign icon-2x"></i></label>
-                <img src="images/headshot-placeholder.jpg" class="pull-right img-responsive img-rounded headshot" alt="Patient Photo">
+                <img src="images/headshot-placeholder.jpg" class="pull-right img-responsive img-rounded headshot patient-chart-headshot" alt="Patient Photo">
               </div>
             </div>
           </div>
@@ -40,7 +40,7 @@
                 </div>
                 <div id="headshot-div2" class="col-xs-6">
                   <p><label class="pull-right">Active <i class="icon-check-sign icon-2x"></i></label>
-                  <img src="images/headshot-placeholder.jpg" class="pull-right img-responsive img-rounded headshot" alt="Patient Photo"></p>
+                  <img src="images/headshot-placeholder.jpg" class="pull-right img-responsive img-rounded headshot patient-chart-headshot" alt="Patient Photo"></p>
                 </div>
               </div>
             </div>
@@ -153,20 +153,8 @@
                   <div class="col-md-12">
                     <div class="col-md-3">
                       <div class="form-group">
-                        <label for="pain-scale">Pain Scale</label>
-                        <select id="pain-scale" class="form-control form-control-saved">
-                          <option></option>
-                          <option>01</option>
-                          <option>02</option>
-                          <option>03</option>
-                          <option>04</option>
-                          <option>05</option>
-                          <option>06</option>
-                          <option>07</option>
-                          <option>08</option>
-                          <option>09</option>
-                          <option>10</option>
-                        </select>
+                        <label for="intake-pain-scale">Pain Scale: <span id="intake-pain-scale-value">0</span></label>
+                        <input type="text" class="form-control span2 input-lg" data-slider-value="0" id="intake-pain-scale" data-slider-tooltip="hide">
                       </div>
                     </div>
                     <div class="col-md-3">
@@ -174,14 +162,14 @@
                         <label for="pain-type">Pain Type</label>
                         <select id="pain-type" class="form-control form-control-saved">
                           <option></option>
-                          <option>Dull</option>
-                          <option>Tingly</option>
-                          <option>Hot</option>
-                          <option>Sharp</option>
-                          <option>Achey</option>
-                          <option>Uncomfortable</option>
-                          <option>Superficial</option>
-                          <option>Deep</option>
+                          <option value="dull">Dull</option>
+                          <option value="tingly">Tingly</option>
+                          <option value="hot">Hot</option>
+                          <option value="sharp">Sharp</option>
+                          <option value="achey">Achey</option>
+                          <option value="uncomfortable">Uncomfortable</option>
+                          <option value="superficial">Superficial</option>
+                          <option value="deep">Deep</option>
                         </select>
                        <div class="form-control-saved" id="pain-type">&nbsp;</div>
                       </div>

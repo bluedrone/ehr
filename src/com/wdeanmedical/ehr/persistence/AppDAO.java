@@ -125,7 +125,7 @@ public class AppDAO extends SiteDAO {
   public  List<ProgressNote> getProgressNotes(Clinician clinician) throws Exception {
     Session session = this.getSession();
     Criteria crit = session.createCriteria(ProgressNote.class);
-    crit.add(Restrictions.eq("clinicianId", clinician.getId()));
+    crit.add(Restrictions.eq("clinician", clinician));
     crit.addOrder(Order.desc("date"));
     List<ProgressNote> list =  crit.list();
     return list;

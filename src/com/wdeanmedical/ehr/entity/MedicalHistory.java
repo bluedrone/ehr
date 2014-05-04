@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name = "medical_history")
+@Table(name = "patient_medical_history")
 public class MedicalHistory extends BaseEntity implements Serializable {
 
   private static final long serialVersionUID = 795401034269323351L;
@@ -29,10 +29,10 @@ public class MedicalHistory extends BaseEntity implements Serializable {
   private String vacc; 
   private String vaccNotes; 
   private String subst; 
-  private float smokePksDay; 
-  private float yearsSmoked; 
-  private float smokeYearsQuit; 
-  private float etohUnitsWeek; 
+  private Float smokePksDay; 
+  private Float yearsSmoked; 
+  private Float smokeYearsQuit; 
+  private Float etohUnitsWeek; 
   private String currentDrugs;
   private List<IntakeMedication> intakeMedicationList;
 
@@ -88,20 +88,20 @@ public class MedicalHistory extends BaseEntity implements Serializable {
   public void setSubst(String subst) { this.subst = subst; }
 
   @Column(name = "smoke_pks_day")
-  public float getSmokePksDay() { return smokePksDay; }
-  public void setSmokePksDay(float smokePksDay) { this.smokePksDay = smokePksDay; }
+  public Float getSmokePksDay() { return smokePksDay; }
+  public void setSmokePksDay(Float smokePksDay) { this.smokePksDay = smokePksDay; }
 
   @Column(name = "years_smoked")
-  public float getYearsSmoked() { return yearsSmoked; }
-  public void setYearsSmoked(float yearsSmoked) { this.yearsSmoked = yearsSmoked; }
+  public Float getYearsSmoked() { return yearsSmoked; }
+  public void setYearsSmoked(Float yearsSmoked) { this.yearsSmoked = yearsSmoked; }
 
   @Column(name = "smoke_years_quit")
-  public float getSmokeYearsQuit() { return smokeYearsQuit; }
-  public void setSmokeYearsQuit(float smokeYearsQuit) { this.smokeYearsQuit = smokeYearsQuit; }
+  public Float getSmokeYearsQuit() { return smokeYearsQuit; }
+  public void setSmokeYearsQuit(Float smokeYearsQuit) { this.smokeYearsQuit = smokeYearsQuit; }
 
   @Column(name = "etoh_units_week")
-  public float getEtohUnitsWeek() { return etohUnitsWeek; }
-  public void setEtohUnitsWeek(float etohUnitsWeek) { this.etohUnitsWeek = etohUnitsWeek; }
+  public Float getEtohUnitsWeek() { return etohUnitsWeek; }
+  public void setEtohUnitsWeek(Float etohUnitsWeek) { this.etohUnitsWeek = etohUnitsWeek; }
 
   @Column(name = "current_drugs")
   public String getCurrentDrugs() { return currentDrugs; }

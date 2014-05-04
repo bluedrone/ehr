@@ -23,7 +23,7 @@ var CLINICIAN_STATUS_INVALID_PASSWORD = -1;
 var CLINICIAN_STATUS_INACTIVE = -2;
 var RETURN_CODE_DUP_USERNAME = -1;
 var DEFAULT_TABLE_WIDTH = 772;
-var DEMO_USERNAME = 'nick';
+var DEMO_USERNAME = 'jdoyle';
 var DEMO_PASSWORD = 'Njs2101$';
 var app_templates = {};
 var app_lockIcons = {0:'icon-unlock', 1:'icon-lock', 2:'icon-bolt', 3:'icon-user-md'};
@@ -78,12 +78,11 @@ var app_groupOrderArray = [];
 var app_newPatientIntakeGroup = undefined;
 var app_oldLockStatus;
 
-/************      @JQUERY INIT    *******************/
+/***********      @JQUERY INIT    *******************/
 $(document).ready(function() {
   if (INITIALIZED == false) {
     INITIALIZED = true;
     $(function () { $("[data-toggle='popover']").popover({ trigger: "hover" }); });
-
     app_viewStack('signin-screen', DO_SCROLL);
     $('.dropdown-menu').find('form').click(function (e) { e.stopPropagation();});
     
@@ -229,8 +228,8 @@ function getRecentPatients() {
       tableName:'patient-search-results', 
       clickable:true, 
       columns:[
-        {title:'Full Name', field:'cred.firstName', type:'double-patient'},
-        {title:'Date of Birth', field:'dob', type:'date'},
+        {title:'Full Name', field:'cred.firstName', type:'double-person'},
+        {title:'Date of Birth', field:'demo.dob', type:'double-date'},
         {title:'Gender', field:'demo.gender.name', type:'triple'},
         {title:'Region', field:'demo.region', type:'double'}
       ]}, function(s) {
@@ -259,8 +258,8 @@ function patientSearch() {
       tableName:'patient-search-results', 
       clickable:true, 
       columns:[
-        {title:'Full Name', field:'cred.firstName', type:'double-patient'},
-        {title:'Date of Birth', field:'dob', type:'date'},
+        {title:'Full Name', field:'cred.firstName', type:'double-person'},
+        {title:'Date of Birth', field:'demo.dob', type:'double-date'},
         {title:'Gender', field:'demo.gender.name', type:'triple'},
         {title:'Region', field:'demo.region', type:'double'}
       ]}, function(s) {
@@ -287,7 +286,7 @@ function getClinicianDashboard() {
       clickable:true, 
       columns:[
         {title:'Date', field:'date', type:'date'}, 
-        {title:'From', field:'patient.firstName', type:'patient'}, 
+        {title:'From', field:'patient.cred.firstName', type:'triple-person'}, 
         {title:'Subject', field:'subject', type:'simple'}
       ]}, function(s) {
         $('#clinician-dashboard-messages').html(s);
@@ -302,7 +301,7 @@ function getClinicianDashboard() {
         clickable:true, 
         columns:[
           {title:'Date', field:'date', type:'date'}, 
-          {title:'Patient', field:'patient.firstName', type:'patient'}, 
+          {title:'Patient', field:'patient.cred.firstName', type:'triple-person'}, 
           {title:'Subject', field:'subject', type:'simple'}
         ]}, function(s) {
         $('#clinician-dashboard-progress-notes').html(s);
@@ -317,7 +316,7 @@ function getClinicianDashboard() {
         clickable:true, 
         columns:[
           {title:'Date', field:'date', type:'date'}, 
-          {title:'Patient', field:'patient.firstName', type:'patient'}, 
+          {title:'Patient', field:'patient.cred.firstName', type:'triple-person'}, 
           {title:'Subject', field:'subject', type:'simple'}
         ]}, function(s) {
         $('#clinician-dashboard-to-do-notes').html(s);
@@ -332,9 +331,9 @@ function getClinicianDashboard() {
         clickable:true, 
         columns:[
           {title:'Date', field:'date', type:'date'}, 
-          {title:'Patient', field:'patient.firstName', type:'patient'}, 
+          {title:'Patient', field:'patient.cred.firstName', type:'triple-person'}, 
           {title:'Lab', field:'name', type:'simple'},
-          {title:'Value', field:'value', type:'simple'}
+          {title:'Value', field:'value', type:'numeric'}
         ]}, function(s) {
         $('#clinician-dashboard-lab-review').html(s);
         $('.clickable-table-row').click( function(e){ 
@@ -348,17 +347,17 @@ function getClinicianDashboard() {
         clickable:true, 
         columns:[
           {title:'Time', field:'date', type:'date'}, 
-          {title:'Length', field:'length', type:'simple'},
-          {title:'Age', field:'age', type:'simple'},
-          {title:'Gender', field:'gender.name', type:'name'}, 
-          {title:'Patient', field:'patient.firstName', type:'patient'}, 
+          {title:'Length', field:'length', type:'numeric'},
+          {title:'Age', field:'age', type:'numeric'},
+          {title:'Gender', field:'patient.demo.gender.name', type:'quad'},
+          {title:'Patient', field:'patient.cred.firstName', type:'triple-person'}, 
           {title:'Reason', field:'reason', type:'simple'},
           {title:'Comments', field:'comments', type:'simple'},
           {title:'Status', field:'status', type:'simple'},
           {title:'Patient Location', field:'patientLocation', type:'simple'},
           {title:'Room', field:'room', type:'simple'},
           {title:'Checked In', field:'checkedIn', type:'simple'},
-          {title:'Wait Time', field:'waitTime', type:'simple'},
+          {title:'Wait Time', field:'waitTime', type:'numeric'},
           {title:'Progress Note Status', field:'progressNoteStatus', type:'simple'}
         ]}, function(s) {
         $('#clinician-dashboard-schedule').html(s);
@@ -455,6 +454,9 @@ $('#supp-link').click(function(){
     $('#modals-placement').html(s);
     $('#modal-supp').modal('show'); 
     loadPatientInfo();
+    loadCurrentSuppScreen();
+    $('#patient-supp-next-btn').click(function(){changeSuppScreen(1)}); 
+    $('#patient-supp-prev-btn').click(function(){changeSuppScreen(-1)});
   });
 });
 
@@ -621,7 +623,7 @@ function getClinicianMessages() {
       clickable:true, 
       columns:[
         {title:'Date', field:'date', type:'date'},
-        {title:'From', field:'patient.firstName', type:'clinician'},
+        {title:'From', field:'patient.cred.firstName', type:'triple-person'},
         {title:'Subject', field:'subject', type:'simple'}
       ]}, function (s) {
       $('#messages-inbox').html(s);
@@ -723,7 +725,7 @@ function viewClinicianMessage() {
       var fullName = util_buildFullName(parsedData.firstName, parsedData.middleName, parsedData.lastName);
       app_patientChartFullName = fullName;
       app_patientChartDOB = dateFormat(parsedData.dob, 'mm/dd/yyyy');
-      app_patientChartGender = parsedData.gender.name;
+      app_patientChartGender = parsedData.gender;
       app_patientChartMRN = parsedData.mrn;
       app_patientChartPrimaryPhone = parsedData.primaryPhone;
       app_patientChartSecondaryPhone = parsedData.secondaryPhone;
@@ -757,7 +759,7 @@ function viewClinicianMessage() {
         clickable:true, 
         columns:[
           {title:'Date', field:'date', type:'date'},
-          {title:'Title', field:'title', type:'simple'}
+          {title:'Type', field:'encounterType.name', type:'double'}
         ]}, function(s) {
         $('#patient-chart-summary-visits').html(s);
         $('.clickable-table-row').click( function(e){ 
@@ -770,16 +772,16 @@ function viewClinicianMessage() {
         title:'Vital Signs', 
         clickable:true, 
         columns:[
-          {title:'Height', field:'height', type:'simple'},
-          {title:'Weight', field:'weight', type:'simple'},
-          {title:'BMI', field:'bmi', type:'simple'},
-          {title:'OFC', field:'ofc', type:'simple'},
-          {title:'Temp', field:'temperature', type:'simple'},
-          {title:'Pulse', field:'pulse', type:'simple'},
-          {title:'Resp', field:'respiration', type:'simple'},
-          {title:'Syst', field:'systolic', type:'simple'},
-          {title:'Dia', field:'diastolic', type:'simple'},
-          {title:'Ox', field:'oximetry', type:'simple'}
+          {title:'Height', field:'height', type:'numeric'},
+          {title:'Weight', field:'weight', type:'numeric'},
+          {title:'BMI', field:'bmi', type:'numeric'},
+          {title:'OFC', field:'ofc', type:'numeric'},
+          {title:'Temp', field:'temperature', type:'numeric'},
+          {title:'Pulse', field:'pulse', type:'numeric'},
+          {title:'Resp', field:'respiration', type:'numeric'},
+          {title:'Syst', field:'systolic', type:'numeric'},
+          {title:'Dia', field:'diastolic', type:'numeric'},
+          {title:'Ox', field:'oximetry', type:'numeric'}
         ]}, function(s) {
         $('#patient-chart-summary-vital-signs').html(s);
         $('.clickable-table-row').click( function(e){ 
@@ -792,7 +794,7 @@ function viewClinicianMessage() {
         title:'Health Maintenance', 
         clickable:true, 
         columns:[
-         {title:'Health Issue', field:'healthIssue.name', type:'name'}, 
+         {title:'Health Issue', field:'healthIssue.name', type:'double'}, 
          {title:'Date', field:'date', type:'date'}
         ]}, function(s) {
         $('#patient-chart-summary-hm').html(s);
@@ -806,7 +808,7 @@ function viewClinicianMessage() {
         title:'Allergens', 
         clickable:true, 
         columns:[
-          {title:'Allergen', field:'allergen.name', type:'name'}, 
+          {title:'Allergen', field:'allergen.name', type:'double'}, 
           {title:'Reaction', field:'comment', type:'simple'}
         ]}, function(s) {
         $('#patient-chart-summary-allergens').html(s);
@@ -820,7 +822,7 @@ function viewClinicianMessage() {
         title:'Medication', 
         clickable:true, 
         columns:[
-          {title:'Medication', field:'medication.name', type:'name'}, 
+          {title:'Medication', field:'medication.name', type:'double'}, 
           {title:'Date', field:'date', type:'date'},
           {title:'Unit', field:'unit', type:'simple'},
           {title:'Instructions', field:'instructions', type:'simple'}
@@ -836,9 +838,9 @@ function viewClinicianMessage() {
         title:'Procedures', 
         clickable:true, 
         columns:[
-          {title:'Procedure', field:'medicalProcedure.name', type:'name'}, 
+          {title:'Procedure', field:'medicalProcedure.name', type:'double'}, 
           {title:'Due Date', field:'date', type:'date'},
-          {title:'Status', field:'status.name', type:'name'},
+          {title:'Status', field:'status.name', type:'double'},
           {title:'Last Done', field:'date', type:'date'}
         ]}, function(s) {
         $('#patient-chart-summary-procedures').html(s);
@@ -853,9 +855,13 @@ function viewClinicianMessage() {
 
   function getColumnValue(column, item) {
     var value = '';
+    
+    if (item === undefined) {
+      return value; 
+    }
     var columnFields = column.field.split('.'); 
     
-    if (column.type == 'simple') {
+    if (column.type == 'simple' || column.type == 'numeric') {
       value = item[column.field];
     }
     else if (column.type == 'date') {
@@ -867,32 +873,64 @@ function viewClinicianMessage() {
     else if (column.type == 'double') {
       var field0 = columnFields[0];
       var field1 = columnFields[1];
+      if (item[field0] === undefined) {
+        return value; 
+      }
       value = item[field0][field1];
     }  
-    else if (column.type == 'double-patient') {
+    else if (column.type == 'double-person') {
+
       var field0 = columnFields[0];
       var field1 = columnFields[1];
-      value = item[field0][field1];
+      if (item[field0] === undefined) {
+        return value; 
+      }
       value = util_buildFullName(item[field0]['firstName'], item[field0]['middleName'], item[field0]['lastName'])
-
-      /*
-      else if (column.type == 'patients') {
-        value = util_buildFullName(item['firstName'], item['lastName'], item['additionalName'])
-      }
-      else if (column.type == 'description') {
-        value = item['appointmentType']['name'] + " with " + util_buildFullName(item[columnField]['firstName'], item[columnField]['middleName'], item[columnField]['lastName'])
-      }
-      else if (column.type == 'streetAddress') {
-        value = util_nullCheck(item['streetAddress1']) + " " + util_nullCheck(item['streetAddress2']);
-      }
-      */
     }
-    else if (column.type == 'triple') {
-      var columnFields = column.field.split('.'); 
+    else if (column.type == 'double-date') {
+      var field0 = columnFields[0];
+      var field1 = columnFields[1];
+      if (item[field0] === undefined) {
+        return value; 
+      }	
+      value = dateFormat(item[field0][field1], 'mm/dd/yyyy')
+    }
+    else if (column.type == 'triple-person') {
       var field0 = columnFields[0];
       var field1 = columnFields[1];
       var field2 = columnFields[2];
+      if (item[field0] === undefined || item[field0][field1] === undefined) {
+        return value; 
+      }	
+      value = util_buildFullName(item[field0][field1]['firstName'], item[field0][field1]['middleName'], item[field0][field1]['lastName'])
+    }
+    else if (column.type == 'triple') {
+      var field0 = columnFields[0];
+      var field1 = columnFields[1];
+      var field2 = columnFields[2];
+      if (item[field0] === undefined || item[field0][field1] === undefined) {
+        return value; 
+      }	
       value = item[field0][field1][field2];
+    }
+    else if (column.type == 'triple-date') {
+      var field0 = columnFields[0];
+      var field1 = columnFields[1];
+      var field2 = columnFields[2];
+      if (item[field0] === undefined || item[field0][field1] === undefined) {
+        return value; 
+      }	
+      value = dateFormat(item[field0][field1][field2], 'mm/dd/yyyy')
+    }
+    else if (column.type == 'quad') {
+      var field0 = columnFields[0];
+      var field1 = columnFields[1];
+      var field2 = columnFields[2];
+      var field3 = columnFields[3];
+      if (item[field0] === undefined || item[field0][field1] === undefined || item[field0][field1][field2] === undefined) {
+        return value; 
+      }	
+      value = item[field0][field1][field2][field3];
     }
     return value;
   }

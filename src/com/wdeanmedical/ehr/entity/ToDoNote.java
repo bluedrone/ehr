@@ -15,8 +15,8 @@ public class ToDoNote extends BaseEntity implements Serializable {
 
   private static final long serialVersionUID = 124835074057048599L;
   
-  private Integer patientId;
-  private Integer clinicianId;
+  private Patient patient;
+  private Clinician clinician;
   private Date date;
   private String subject;
   private String content;
@@ -25,17 +25,19 @@ public class ToDoNote extends BaseEntity implements Serializable {
   public ToDoNote() {
   }
   
-  @Column(name = "patient_id")
-  public Integer getPatientId() { return patientId; }
-  public void setPatientId(Integer patientId) { this.patientId = patientId; }
-
-  @Column(name = "clinician_id")
-  public Integer getClinicianId() { return clinicianId; }
-  public void setClinicianId(Integer clinicianId) { this.clinicianId = clinicianId; }
+  @JoinColumn(name = "patient", referencedColumnName = "id")
+  @ManyToOne(optional = false)
+  public Patient getPatient() { return patient; }
+  public void setPatient(Patient patient) { this.patient = patient; }
   
   @Column(name = "date")
   public Date getDate() { return date; }
   public void setDate(Date date) { this.date = date; }
+
+  @JoinColumn(name = "clinician", referencedColumnName = "id")
+  @ManyToOne(optional = false)
+  public Clinician getClinician() { return clinician; }
+  public void setClinician(Clinician clinician) { this.clinician = clinician; }
 
   @Column(name = "content")
   public String getContent() { return content; }

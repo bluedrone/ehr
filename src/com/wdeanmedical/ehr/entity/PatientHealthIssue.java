@@ -14,16 +14,17 @@ import javax.persistence.Table;
 public class PatientHealthIssue extends BaseEntity implements Serializable {
 
   private static final long serialVersionUID = 2004851625871696041L;
-  private Integer patientId;
+  private Patient patient;
   private HealthIssue healthIssue;
   private Date date;
 
   public PatientHealthIssue() {
   }
 
-  @Column(name = "patient_id")
-  public Integer getPatientId() { return patientId; }
-  public void setPatientId(Integer patientId) { this.patientId = patientId; }
+  @JoinColumn(name = "patient", referencedColumnName = "id")
+  @ManyToOne(optional = false)
+  public Patient getPatient() { return patient; }
+  public void setPatient(Patient patient) { this.patient = patient; }
   
   @JoinColumn(name = "health_issue", referencedColumnName = "id")
   @ManyToOne(optional = false)

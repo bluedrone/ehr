@@ -17,8 +17,8 @@ public class VitalSigns extends BaseEntity implements Serializable {
   
   private Integer encounterId; 
   private Date date;
-  private Integer patientId;
-  private Integer clinicianId;
+  private Patient patient;
+  private Clinician clinician;
   private Float height;
   private Float weight;
   private Float bmi;
@@ -38,17 +38,19 @@ public class VitalSigns extends BaseEntity implements Serializable {
   public Integer getEncounterId() { return encounterId; }
   public void setEncounterId(Integer encounterId) { this.encounterId = encounterId; }
   
+  @JoinColumn(name = "patient", referencedColumnName = "id")
+  @ManyToOne(optional = false)
+  public Patient getPatient() { return patient; }
+  public void setPatient(Patient patient) { this.patient = patient; }
+  
   @Column(name = "date")
   public Date getDate() { return date; }
   public void setDate(Date date) { this.date = date; }
-  
-  @Column(name = "patient_id")
-  public Integer getPatientId() { return patientId; }
-  public void setPatientId(Integer patientId) { this.patientId = patientId; }
 
-  @Column(name = "clinician_id")
-  public Integer getClinicianId() { return clinicianId; }
-  public void setClinicianId(Integer clinicianId) { this.clinicianId = clinicianId; }
+  @JoinColumn(name = "clinician", referencedColumnName = "id")
+  @ManyToOne(optional = false)
+  public Clinician getClinician() { return clinician; }
+  public void setClinician(Clinician clinician) { this.clinician = clinician; }
 
   @Column(name = "height")
   public Float getHeight() { return height; }

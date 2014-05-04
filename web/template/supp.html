@@ -22,7 +22,7 @@
               </div>
               <div id="headshot-div" class="col-xm-6 col-sm-3">
                 <label class="pull-right">Active <i class="icon-check-sign icon-2x"></i></label>
-                <img src="images/headshot-placeholder.jpg" class="pull-right img-responsive img-rounded headshot" alt="Patient Photo">
+                <img src="images/headshot-placeholder.jpg" class="pull-right img-responsive img-rounded headshot patient-chart-headshot" alt="Patient Photo">
               </div>
             </div>
           </div>
@@ -40,13 +40,18 @@
                 </div>
                 <div id="headshot-div2" class="col-xs-6">
                   <p><label class="pull-right">Active <i class="icon-check-sign icon-2x"></i></label>
-                  <img src="images/headshot-placeholder.jpg" class="pull-right img-responsive img-rounded headshot" alt="Patient Photo"></p>
+                  <img src="images/headshot-placeholder.jpg" class="pull-right img-responsive img-rounded headshot patient-chart-headshot" alt="Patient Photo"></p>
                 </div>
               </div>
             </div>
           </div>
         </div>
         <br>
+         <div class="pull-right">
+          <button id="patient-supp-prev-btn" class="btn btn-default intake-group-up navbar-btn navbar-link" type="button"><i class="icon-chevron-left"></i></button>
+          <span id="patient-supp-date"></span>
+          <button id="patient-supp-next-btn" class="btn btn-default intake-group-down navbar-btn navbar-link" type="button"><i class="icon-chevron-right"></i></button>
+        </div>
         <div class="container-fluid">
           <div class="row">
 	          <div class="col-md-12">
@@ -57,25 +62,25 @@
 	          <div class="col-md-3">
 	            <div class="form-group">
 	              <label for="num-cups-water">Water</label>
-	              <div class="form-control-saved" id="num-cups-water-saved" >&nbsp;</div>
+	              <div class="form-control-saved" id="num-cups-water"></div>
 	            </div>
 	          </div>
 	          <div class="col-md-3">
 	            <div class="form-group">
 	              <label for="num-cups-coffee">Coffee</label>
-	              <div class="form-control-saved" id="num-cups-coffee-saved" >&nbsp;</div>
+	              <div class="form-control-saved" id="num-cups-coffee"></div>
 	            </div>
 	          </div>
 	          <div class="col-md-3">
 	            <div class="form-group">
 	              <label for="num-cups-tea">Tea</label>
-	              <div class="form-control-saved" id="num-cups-tea-saved" >&nbsp;</div>
+	              <div class="form-control-saved" id="num-cups-tea"></div>
 	            </div>
 	          </div>
 	          <div class="col-md-3">
 	            <div class="form-group">
 	              <label for="water-source">Water Source</label>
-	              <div class="form-control-saved" id="water-source-saved">&nbsp;</div>
+	              <div class="form-control-saved" id="water-source"></div>
 	            </div>
 	          </div>
 	        </div>

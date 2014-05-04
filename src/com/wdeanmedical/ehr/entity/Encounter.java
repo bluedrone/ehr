@@ -22,7 +22,6 @@ public class Encounter extends BaseEntity implements Serializable {
   private Date date;
   private Patient patient;
   private Clinician clinician;
-  private Department department;
   private EncounterType encounterType;
   private ChiefComplaint cc;
   private VitalSigns vitals;
@@ -32,18 +31,11 @@ public class Encounter extends BaseEntity implements Serializable {
   private OBGYNEncounterData obgyn;
   private PatientFollowUp followUp;
   private Integer lockStatus;
-  private Integer triage;
-  private String notes;
   private Boolean completed = false;
-  private Boolean checkIn = false;
-  private Boolean intake = false;
-  private Boolean provider = false;
-  private Boolean missing = false;
   private String consultLocation;
   private Integer ageInYears;
   private Integer ageInMonths;
   private String community;
-  private Integer patientIntakeGroupId;
   private Boolean basicInfoSaved = false;
   private Boolean vitalsSaved = false;
   private Boolean familySaved = false;
@@ -54,7 +46,6 @@ public class Encounter extends BaseEntity implements Serializable {
   private Boolean histSaved = false; 
   private Boolean examSaved = false; 
   private Boolean followUpSaved = false; 
-  private Boolean intakeCompleted = false;
 
   
   public Encounter() {
@@ -78,11 +69,6 @@ public class Encounter extends BaseEntity implements Serializable {
   @ManyToOne(optional = true)
   public Clinician getClinician() { return clinician; }
   public void setClinician(Clinician clinician) { this.clinician = clinician; }
-  
-  @JoinColumn(name = "department", referencedColumnName = "id")
-  @ManyToOne(optional = true)
-  public Department getDepartment() { return department; }
-  public void setDepartment(Department department) { this.department = department; }
 
   @JoinColumn(name = "vital_signs", referencedColumnName = "id")
   @ManyToOne(optional = true)
@@ -123,33 +109,6 @@ public class Encounter extends BaseEntity implements Serializable {
   public Integer getLockStatus() { return lockStatus; }
   public void setLockStatus(Integer lockStatus) { this.lockStatus = lockStatus; }
 
-  @Column(name = "triage")
-  public Integer getTriage() { return triage; }
-  public void setTriage(Integer triage) { this.triage = triage; }
-
-  @Column(name = "notes")
-  public String getNotes() { return notes; }
-  public void setNotes(String notes) { this.notes = notes; }
-
-  @Column(name = "check_in")
-  public Boolean getCheckIn() { return checkIn; }
-  public void setCheckIn(Boolean checkIn) { this.checkIn = checkIn; }
-
-  @Column(name = "intake")
-  public Boolean getIntake() { return intake; }
-  public void setIntake(Boolean intake) { this.intake = intake; }
-
-  @Column(name = "provider")
-  public Boolean getProvider() { return provider; }
-  public void setProvider(Boolean provider) { this.provider = provider; }
-
-  @Column(name = "missing")
-  public Boolean getMissing() { return missing; }
-  public void setMissing(Boolean missing) { this.missing = missing; }
-
-  @Column(name = "intake_completed")
-  public Boolean getIntakeCompleted() { return intakeCompleted; }
-  public void setIntakeCompleted(Boolean intakeCompleted) { this.intakeCompleted = intakeCompleted; }
 
   @Column(name = "consult_location")
   public String getConsultLocation() { return consultLocation; }
@@ -172,10 +131,6 @@ public class Encounter extends BaseEntity implements Serializable {
   public SuppQuestions getSupp() { return supp; }
   public void setSupp(SuppQuestions supp) { this.supp = supp; }
   
-  @Column(name = "patient_intake_group_id")
-  public Integer getPatientIntakeGroupId() { return patientIntakeGroupId; }
-  public void setPatientIntakeGroupId(Integer patientIntakeGroupId) { this.patientIntakeGroupId = patientIntakeGroupId; }
-
   @Column(name = "basic_info_saved")
   public Boolean getBasicInfoSaved() { return basicInfoSaved; }
   public void setBasicInfoSaved(Boolean basicInfoSaved) { this.basicInfoSaved = basicInfoSaved; }

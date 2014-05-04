@@ -19,7 +19,7 @@
           <div id="intake-basic-info-panel-${id}" class="panel-body">
             <div class="row">
               <div class="col-md-3 pull-right">
-                  <div><img id="intake-basic-info-photo-${id}" class="img-responsive headshot-sm"></div>
+                  <div><img id="intake-basic-info-photo-${id}" class="img-responsive headshot-sm img-rounded headshot"></div>
                   <div id="intake-basic-info-photo-upload-control-${id}" class="btn-group-vertical-sm">              
                    <span class="btn btn-success fileinput-button">
                      <div id="intake-basic-info-photo-upload-${id}"></div>
@@ -381,14 +381,14 @@
                         <label for="intake-pain-type-${id}">Pain Type</label>
                         <select id="intake-pain-type-${id}" class="form-control form-control-unsaved">
                           <option></option>
-                          <option>Dull</option>
-                          <option>Tingly</option>
-                          <option>Hot</option>
-                          <option>Sharp</option>
-                          <option>Achey</option>
-                          <option>Uncomfortable</option>
-                          <option>Superficial</option>
-                          <option>Deep</option>
+                          <option value="dull">Dull</option>
+                          <option value="tingly">Tingly</option>
+                          <option value="hot">Hot</option>
+                          <option value="sharp">Sharp</option>
+                          <option value="achey">Achey</option>
+                          <option value="uncomfortable">Uncomfortable</option>
+                          <option value="superficial">Superficial</option>
+                          <option value="deep">Deep</option>
                         </select>
                        <div class="form-control-saved" id="intake-pain-type-saved-${id}">&nbsp;</div>
                       </div>
@@ -504,22 +504,22 @@
             <div class="row">
               <div class="col-xs-4">
                 <div class="form-group">
-                  <div class="checkbox"><label><input name="intake-fam-hist-${id}" type="checkbox" value="">Cancer</label></div>
-                  <div class="checkbox"><label><input name="intake-fam-hist-${id}" type="checkbox" value="">Diabetes</label></div>
-                  <div class="checkbox"><label><input name="intake-fam-hist-${id}" type="checkbox" value="">Heart problems</label></div>
+                  <div class="checkbox"><label><input name="intake-fam-hist-${id}" type="checkbox" value="cancer">Cancer</label></div>
+                  <div class="checkbox"><label><input name="intake-fam-hist-${id}" type="checkbox" value="diabetes">Diabetes</label></div>
+                  <div class="checkbox"><label><input name="intake-fam-hist-${id}" type="checkbox" value="heart_problems">Heart problems</label></div>
                 </div>
               </div>
               <div class="col-xs-4">
                 <div class="form-group">
-                  <div class="checkbox"><label><input name="intake-fam-hist-${id}" type="checkbox" value="">Hepatitis</label></div>
-                  <div class="checkbox"><label><input name="intake-fam-hist-${id}" type="checkbox" value="">High BP</label></div>
-                  <div class="checkbox"><label><input name="intake-fam-hist-${id}" type="checkbox" value="">HIV</label></div>
+                  <div class="checkbox"><label><input name="intake-fam-hist-${id}" type="checkbox" value="hepatitis">Hepatitis</label></div>
+                  <div class="checkbox"><label><input name="intake-fam-hist-${id}" type="checkbox" value="high_bp">High BP</label></div>
+                  <div class="checkbox"><label><input name="intake-fam-hist-${id}" type="checkbox" value="hiv">HIV</label></div>
                 </div>
               </div>
               <div class="col-xs-4">
                 <div class="form-group">
-                  <div class="checkbox"><label><input name="intake-fam-hist-${id}" type="checkbox" value="">Tuberculosis</label></div>
-                  <div class="checkbox"><label><input name="intake-fam-hist-${id}" type="checkbox" value="">Other-specify</label></div>
+                  <div class="checkbox"><label><input name="intake-fam-hist-${id}" type="checkbox" value="tb">Tuberculosis</label></div>
+                  <div class="checkbox"><label><input name="intake-fam-hist-${id}" type="checkbox" value="other">Other-specify</label></div>
                 </div>
                 <input type="text" class="form-control input-sm" id="fam-hist-other-${id}">
                 <div class="form-control-saved edit-on-select" id="intake-fam-hist-other-saved-${id}" contenteditable="true">&nbsp;</div>
@@ -924,12 +924,12 @@
                   <label for="intake-water-source-${id}">Water Source</label>
                   <select class="form-control form-control-unsaved" id="intake-water-source-${id}">
                     <option></option>
-                    <option>Well</option>
-                    <option>River</option>
-                    <option>Bottle</option>
-                    <option>Rain</option>
-                    <option>Pipe</option>
-                    <option>Other</option>
+                    <option value="well">Well</option>
+                    <option value="river">River</option>
+                    <option value="bottle">Bottle</option>
+                    <option value="rain">Rain</option>
+                    <option value="pipe">Pipe</option>
+                    <option value="other">Other</option>
                   </select>
                   <div class="form-control-saved" id="intake-water-source-saved-${id}">&nbsp;</div>
                 </div>

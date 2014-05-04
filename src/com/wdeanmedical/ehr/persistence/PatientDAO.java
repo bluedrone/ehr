@@ -32,7 +32,6 @@ import com.wdeanmedical.ehr.entity.PatientFollowUp;
 import com.wdeanmedical.ehr.entity.PatientHealthIssue;
 import com.wdeanmedical.ehr.entity.PatientHealthTrendReport;
 import com.wdeanmedical.ehr.entity.PatientImmunization;
-import com.wdeanmedical.ehr.entity.PatientIntakeGroup;
 import com.wdeanmedical.ehr.entity.PatientLetter;
 import com.wdeanmedical.ehr.entity.MedicalHistory;
 import com.wdeanmedical.ehr.entity.PatientMedicalProcedure;
@@ -117,7 +116,7 @@ public class PatientDAO extends SiteDAO {
     Session session = this.getSession();
     Criteria crit = session.createCriteria(Encounter.class);
     crit.add(Restrictions.eq("patientIntakeGroupId", patientIntakeGroupId));
-    crit.add(Restrictions.eq("intakeCompleted", false));
+    crit.add(Restrictions.eq("completed", false));
     crit.addOrder(Order.asc("id"));
     List<Encounter> list = crit.list();
     for (Encounter encounter : list) {
@@ -156,25 +155,15 @@ public class PatientDAO extends SiteDAO {
   }
   
   
-  public  List<ProgressNote> findProgressNotesByPatientId(Integer patientId) throws Exception {
+  public  List<ProgressNote> findProgressNotesByPatient(Patient patient) throws Exception {
     Session session = this.getSession();
     Criteria crit = session.createCriteria(ProgressNote.class);
-    crit.add(Restrictions.eq("patientId", patientId));
+    crit.add(Restrictions.eq("patient", patient));
     crit.addOrder(Order.desc("date"));
     List<ProgressNote> list = crit.list();
     return list;
   }
-  
-  public  List<PatientIntakeGroup> getPatientIntakeGroups() throws Exception {
-    Session session = this.getSession();
-    Criteria crit = session.createCriteria(PatientIntakeGroup.class);
-    crit.addOrder(Order.asc("sortOrder"));
-    List<PatientIntakeGroup> list = crit.list();
-    for (PatientIntakeGroup patientIntakeGroup : list) {
-      patientIntakeGroup.setEncounterList(getEncountersByGroupId(patientIntakeGroup.getId()));
-    }
-    return list;
-  }
+
   
   public void updateIntakeMedication(IntakeMedication intakeMedication) throws Exception {
     Session session = this.getSession();
@@ -192,22 +181,21 @@ public class PatientDAO extends SiteDAO {
     session.save(patient);
   }
   
-  public ProgressNote createProgressNote(Integer patientId, Integer clinicianId) throws Exception {
+  public ProgressNote createProgressNote(Patient patient, Clinician clinician) throws Exception {
     Session session = this.getSession();
     ProgressNote note = new ProgressNote(); 
-    note.setPatientId(patientId);
-    note.setClinicianId(clinicianId);
+    note.setPatient(patient);
+    note.setClinician(clinician);
     note.setDate(new Date());
     session.save(note);
     return note;
   }
   
-  public Encounter createEncounter(Integer groupId, Patient patient) throws Exception {
+  public Encounter createEncounter(Patient patient, Clinician clinician) throws Exception {
     Session session = this.getSession();
     
     Encounter encounter = new Encounter(); 
     encounter.setEncounterType(findEncounterTypeById(EncounterType.CHECK_UP)); 
-    encounter.setPatientIntakeGroupId(groupId);
     encounter.setLastAccessed(new Date());
     encounter.setCreatedDate(new Date());
     encounter.setDate(new Date());
@@ -221,7 +209,8 @@ public class PatientDAO extends SiteDAO {
     encounter.setCc(cc);
     
     VitalSigns vitals = new VitalSigns();
-    vitals.setPatientId(patient.getId());
+    vitals.setPatient(patient);
+    vitals.setClinician(clinician);
     vitals.setEncounterId(encounter.getId());
     session.save(vitals);
     encounter.setVitals(vitals);
@@ -259,46 +248,13 @@ public class PatientDAO extends SiteDAO {
     session.update(encounter);
     return encounter;
   }
-  
-  
-  public void createPatientIntakeGroup(PatientIntakeGroup group) throws Exception {
-    int sortOrder = getNewSortOrderMax();
-    group.setSortOrder(sortOrder);
-    create(group);
-  }
-  
-  public int getNewSortOrderMax() throws Exception {
-    Session session = getSession(); 
-    Criteria crit = session.createCriteria(PatientIntakeGroup.class);
-    ProjectionList proj = Projections.projectionList();
-    proj = proj.add(Projections.max("sortOrder"));
-    crit = crit.setProjection(proj);
-    Integer result = (Integer)crit.uniqueResult();
-    if (result == null) {
-      return 1;
-    }
-    return result + 1;
-  } 
-  
-  public void updateSortOrder(PatientIntakeGroup group) throws Exception {
-    Session session = getSession();
-    session.save(group);
-    String queryString = "update PatientIntakeGroup set sortOrder = sortOrder + 1 where sortOrder >= :newInsertIndex";
-    Query query = session.createQuery(queryString);
-    query.setInteger("newInsertIndex", group.getSortOrder());
-    query.executeUpdate();
-  }
-  
-   public PatientIntakeGroup findPatientIntakeGroupById(int id) throws Exception {
-    PatientIntakeGroup group = (PatientIntakeGroup) this.findById(PatientIntakeGroup.class, id);
-    return group;
-  }
+
   
   public Encounter findCurrentEncounterByPatient(Patient patient) throws Exception {
     Session session = getSession();
     Criteria crit = session.createCriteria(Encounter.class);
     crit.add(Restrictions.eq("patient", patient));
-    crit.add(Restrictions.eq("intakeCompleted", false));
+    crit.add(Restrictions.eq("completed", false));
     return (Encounter)crit.uniqueResult();
   }
   

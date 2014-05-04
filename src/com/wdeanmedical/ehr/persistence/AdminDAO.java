@@ -40,7 +40,6 @@ import com.wdeanmedical.ehr.entity.PatientFollowUp;
 import com.wdeanmedical.ehr.entity.PatientHealthIssue;
 import com.wdeanmedical.ehr.entity.PatientHealthTrendReport;
 import com.wdeanmedical.ehr.entity.PatientImmunization;
-import com.wdeanmedical.ehr.entity.PatientIntakeGroup;
 import com.wdeanmedical.ehr.entity.PatientLetter;
 import com.wdeanmedical.ehr.entity.MedicalHistory;
 import com.wdeanmedical.ehr.entity.PatientMedicalProcedure;

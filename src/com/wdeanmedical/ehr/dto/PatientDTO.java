@@ -23,7 +23,6 @@ import com.wdeanmedical.ehr.entity.PatientClinician;
 import com.wdeanmedical.ehr.entity.PatientHealthIssue;
 import com.wdeanmedical.ehr.entity.PatientHealthTrendReport;
 import com.wdeanmedical.ehr.entity.PatientImmunization;
-import com.wdeanmedical.ehr.entity.PatientIntakeGroup;
 import com.wdeanmedical.ehr.entity.PatientLetter;
 import com.wdeanmedical.ehr.entity.PatientMedicalProcedure;
 import com.wdeanmedical.ehr.entity.PatientMedicalTest;
@@ -89,8 +88,6 @@ public class PatientDTO extends AuthorizedDTO {
   private boolean completed;
   private int patientIntakeGroupId;
   private int patientIntakeId;
-  private List<PatientIntakeGroup> patientIntakeGroups;
-  private PatientIntakeGroup newPatientIntakeGroup;
   private int swapGroupId;
   private String updateProperty;
   private String updatePropertyValue;
@@ -387,12 +384,6 @@ public class PatientDTO extends AuthorizedDTO {
   
   public int getPatientIntakeId() { return patientIntakeId; }
   public void setPatientIntakeId(int patientIntakeId) { this.patientIntakeId = patientIntakeId; }
-  
-  public List<PatientIntakeGroup> getPatientIntakeGroups() { return patientIntakeGroups; }
-  public void setPatientIntakeGroups(List<PatientIntakeGroup> patientIntakeGroups) { this.patientIntakeGroups = patientIntakeGroups; }
-  
-  public PatientIntakeGroup getNewPatientIntakeGroup() { return newPatientIntakeGroup; }
-  public void setNewPatientIntakeGroup(PatientIntakeGroup newPatientIntakeGroup) { this.newPatientIntakeGroup = newPatientIntakeGroup; }
   
   public int getSwapGroupId() { return swapGroupId; }
   public void setSwapGroupId(int swapGroupId) { this.swapGroupId = swapGroupId; }

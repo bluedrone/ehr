@@ -163,14 +163,14 @@ function changeSuppScreen(adjustment) {
 function loadSuppScreenForm() {
   var date = dateFormat(app_patientSupp[app_patientSuppIndex].date, 'mm/dd/yyyy')
   $('#patient-supp-date').html(date);
-  $('#num-cups-water'+id).html(encounter.supp.numCupsWater);
-  $('#num-cups-coffee-'+id).html(encounter.supp.numCupsCoffee);
-  $('#num-cups-tea-'+id).html(encounter.supp.numCupsTea);
-  $('#water-source-'+id).html(encounter.supp.waterSource);
+  $('#num-cups-water').html(app_patientSupp[app_patientSuppIndex].numCupsWater);
+  $('#num-cups-coffee').html(app_patientSupp[app_patientSuppIndex].numCupsCoffee);
+  $('#num-cups-tea').html(app_patientSupp[app_patientSuppIndex].numCupsTea);
+  $('#water-source').html(app_patientSupp[app_patientSuppIndex].waterSource);
       
-  RenderUtil.render('component/intake_questions', {encounter:encounter}, function(s) { 
+  RenderUtil.render('component/intake_questions', {encounter:app_patientEncounters[app_patientSuppIndex]}, function(s) { 
     $("#questions").html(s); 
-    setIntakeFormMode(id, section, savedState, hasOwnership);
+    //setIntakeFormMode(id, section, savedState, hasOwnership);
   });
 }
 
@@ -392,8 +392,10 @@ function newProgressNotesForm() {
 function loadCurrentExamScreen() {
   app_patientExam = []; 	
   for (i=0;i<app_patientEncounters.length;i++) {
+    app_patientEncounters[i].exam.hb =  app_patientEncounters[i].lab.hb;
+    app_patientEncounters[i].exam.glucose =  app_patientEncounters[i].lab.glucose;
+    app_patientEncounters[i].exam.urineDip =  app_patientEncounters[i].lab.urineDip;
     app_patientExam.push(app_patientEncounters[i].exam); 
-    app_patientExam.push(app_patientEncounters[i].lab); 
   }
   if (app_patientExam.length == 0) {
     return;
@@ -451,6 +453,8 @@ function changeOBGYNScreen(adjustment) {
 }
 
 function loadOBGYNScreenForm() {
+  var date = dateFormat(app_patientOBGYN[app_patientOBGYNIndex].date, 'mm/dd/yyyy')
+  $('#patient-obgyn-date').html(date);
   $('#obgyn-g').html(app_patientOBGYN[app_patientOBGYNIndex].g);
   $('#obgyn-p').html(app_patientOBGYN[app_patientOBGYNIndex].p);
   $('#obgyn-t').html(app_patientOBGYN[app_patientOBGYNIndex].t);
@@ -482,8 +486,8 @@ function getPatientEncountersListing() {
       clickable:true, 
       columns:[
         {title:'Date', field:'date', type:'date'},
-        {title:'Clinician', field:'clinician.firstName', type:'patients'},
-        {title:'Completed', field:'intakeCompleted', type:'simple'},
+        {title:'Clinician', field:'clinician.firstName', type:'double-patient'},
+        {title:'Completed', field:'completed', type:'simple'},
         {title:'Notes', field:'notes', type:'simple'}
       ]}, function(s) {
       $('#chart-encounters-list').html(s);
@@ -519,7 +523,7 @@ function viewPatientEncounter(encounterId) {
     RenderUtil.render('encounter', args, function(s) { 
       $('#modals-placement').html(s);
       $('#modal-encounter').modal('show'); 
-      $('#app-encounter-close-record').css("display", (app_currentEncounter.intakeCompleted ? "none" : "inline-block"));
+      $('#app-encounter-close-record').css("display", (app_currentEncounter.completed ? "none" : "inline-block"));
       setupCloseRecordButton();
       renderPatientIntakeForm(app_currentEncounter, true); 
       $('#app-encounter-print-all').click(function(){
@@ -550,7 +554,7 @@ function newEncounterFormDialog() {
     var parsedData = $.parseJSON(data);
     app_oldEncounter = parsedData.encounter;
 	
-    if (app_oldEncounter == undefined || app_oldEncounter.intakeCompleted == true) {
+    if (app_oldEncounter == undefined || app_oldEncounter.completed == true) {
       newEncounterForm();
       return;
     }	  
@@ -568,7 +572,7 @@ function newEncounterFormDialog() {
         $.post("patient/closeEncounter", {data:jsonData}, function(data) {
           var parsedData = $.parseJSON(data);
           displayNotification('Patient Intake Record Closed');
-          app_oldEncounter.intakeCompleted = true;
+          app_oldEncounter.completed = true;
           $('#modal-encounter').modal('hide'); 
           getPatientEncounters();
           newEncounterForm();
@@ -589,7 +593,7 @@ function newEncounterForm() {
     RenderUtil.render('encounter', args, function(s) { 
       $('#modals-placement').html(s);
       $('#modal-encounter').modal('show'); 
-      $('#app-encounter-close-record').css("display", (app_currentEncounter.intakeCompleted ? "none" : "inline-block"));
+      $('#app-encounter-close-record').css("display", (app_currentEncounter.completed ? "none" : "inline-block"));
       setupCloseRecordButton();
       renderPatientIntakeForm(app_currentEncounter, true); 
       $('#app-encounter-print-all').click(function(){
@@ -619,7 +623,7 @@ $('#app-encounter-close-record').click(function() {
       $.post("patient/closeEncounter", {data:jsonData}, function(data) {
         var parsedData = $.parseJSON(data);
         displayNotification('Patient Intake Record Closed');
-        app_currentEncounter.intakeCompleted = true;
+        app_currentEncounter.completed = true;
         $('#modal-encounter').modal('hide'); 
         getPatientEncounters();
       });

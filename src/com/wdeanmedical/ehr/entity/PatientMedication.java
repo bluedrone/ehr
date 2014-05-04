@@ -14,7 +14,7 @@ import javax.persistence.Table;
 public class PatientMedication extends BaseEntity implements Serializable {
   private static final long serialVersionUID = 3194585819435273679L;
   
-  private Integer patientId;
+  private Patient patient;
   private Medication medication;
   private String unit;
   private String instructions;
@@ -24,9 +24,10 @@ public class PatientMedication extends BaseEntity implements Serializable {
   public PatientMedication() {
   }
 
-  @Column(name = "patient_id")
-  public Integer getPatientId() { return patientId; }
-  public void setPatientId(Integer patientId) { this.patientId = patientId; }
+  @JoinColumn(name = "patient", referencedColumnName = "id")
+  @ManyToOne(optional = false)
+  public Patient getPatient() { return patient; }
+  public void setPatient(Patient patient) { this.patient = patient; }
   
   @JoinColumn(name = "medication", referencedColumnName = "id")
   @ManyToOne(optional = false)

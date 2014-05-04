@@ -26,10 +26,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.wdeanmedical.ehr.dto.PatientDTO;
-import com.wdeanmedical.ehr.dto.PatientDTO;
 import com.wdeanmedical.ehr.entity.Encounter;
 import com.wdeanmedical.ehr.entity.Patient;
-import com.wdeanmedical.ehr.entity.PatientIntakeGroup;
 import com.wdeanmedical.ehr.entity.ProgressNote;
 import com.wdeanmedical.ehr.service.PatientService;
 import com.wdeanmedical.ehr.core.Core;
@@ -82,9 +80,6 @@ public class PatientServlet extends AppServlet  {
         else if (pathInfo.equals("/addIntakeQuestion")) {
           returnString = addIntakeQuestion(request, response);  
         }
-        else if (pathInfo.equals("/getPatientIntakeGroups")) {
-          returnString = getPatientIntakeGroups(request, response);  
-        }
         else if (pathInfo.equals("/closeEncounter")) {
           returnString = closeEncounter(request, response);  
         }
@@ -115,16 +110,10 @@ public class PatientServlet extends AppServlet  {
         else if (pathInfo.equals("/deletePatient")) {
           returnString = deletePatient(request, response);  
         }
-        else if (pathInfo.equals("/createPatientIntakeGroup")) {
-          returnString = createPatientIntakeGroup(request, response);  
-        } 
         if (pathInfo.equals("/releasePatient")) {
           returnString = releasePatient(request, response);  
         }
-        else if (pathInfo.equals("/swapSortOrder")) {
-          returnString = swapSortOrder(request, response);  
-        } 
-        else if (pathInfo.equals("/createBasicInfo")) {
+        if (pathInfo.equals("/createBasicInfo")) {
           returnString = createBasicInfo(request, response);  
         }
         else if (pathInfo.equals("/createCC")) {
@@ -216,15 +205,7 @@ public class PatientServlet extends AppServlet  {
     String json = gson.toJson(dto);
     return json;
   }
-  
-  public String createPatientIntakeGroup(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.createPatientIntakeGroup(dto);
-    String json = gson.toJson(dto);
-    return json;
-  }
+
   
   public String deletePatient(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String data = request.getParameter("data");
@@ -371,16 +352,6 @@ public class PatientServlet extends AppServlet  {
     return json;
   }
   
-  public String getPatientIntakeGroups(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    List<PatientIntakeGroup> patientIntakeGroups =  patientService.getPatientIntakeGroups(dto);
-    dto.setPatientIntakeGroups(patientIntakeGroups);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
   public String newEncounter(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String data = request.getParameter("data");
     Gson gson = new Gson();
@@ -442,16 +413,7 @@ public class PatientServlet extends AppServlet  {
     String json = gson.toJson(dto);
     return json;
   }
-  
-  public String swapSortOrder(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.swapSortOrder(dto);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
+
   public String acquirePatient(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String data = request.getParameter("data");
     Gson gson = new Gson();

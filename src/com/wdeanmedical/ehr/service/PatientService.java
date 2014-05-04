@@ -42,7 +42,6 @@ import com.wdeanmedical.ehr.entity.PatientFollowUp;
 import com.wdeanmedical.ehr.entity.PatientHealthIssue;
 import com.wdeanmedical.ehr.entity.PatientHealthTrendReport;
 import com.wdeanmedical.ehr.entity.PatientImmunization;
-import com.wdeanmedical.ehr.entity.PatientIntakeGroup;
 import com.wdeanmedical.ehr.entity.PatientLetter;
 import com.wdeanmedical.ehr.entity.MedicalHistory;
 import com.wdeanmedical.ehr.entity.PatientMedicalProcedure;
@@ -82,18 +81,14 @@ public class PatientService {
     appDAO = (AppDAO) wac.getBean("appDAO");
   }
   
-  public List<PatientIntakeGroup> getPatientIntakeGroups(PatientDTO dto) throws Exception {
-    return patientDAO.getPatientIntakeGroups();
-  }
-  
-  
   public List<Encounter> getPatientEncounters(PatientDTO dto) throws Exception {
     return patientDAO.findEncountersByPatient(dto.getPatientId());
   }
   
   
   public List<ProgressNote> getProgressNotes(PatientDTO dto) throws Exception {
-    return patientDAO.findProgressNotesByPatientId(dto.getPatientId());
+    Patient patient = patientDAO.findPatientById(dto.getPatientId());
+    return patientDAO.findProgressNotesByPatient(patient);
   }
   
   
@@ -103,10 +98,6 @@ public class PatientService {
     patient.getCred().setStatus(status);
     patientDAO.update(patient.getCred());
     Encounter encounter = getCurrentEncounter(patient, dto);
-    PatientIntakeGroup group = patientDAO.findPatientIntakeGroupById(encounter.getPatientIntakeGroupId());
-    if (patientDAO.getEncountersByGroupId(group.getId()).size() == 0) {
-      patientDAO.delete(group);
-    }
     patientDAO.delete(encounter);
   }
   
@@ -210,18 +201,7 @@ public class PatientService {
     patientDAO.update(intakeQuestion);
   }
   
-    
-  public void createPatientIntakeGroup(PatientDTO dto) throws Exception {
-    PatientIntakeGroup group = dto.getNewPatientIntakeGroup();
-    patientDAO.createPatientIntakeGroup(group);
-    for (Encounter encounter : group.getEncounterList()) {
-      encounter.setPatientIntakeGroupId(group.getId());
-      dto.setEncounter(encounter);
-      createPatientAndEncounter(dto);
-    }
-  }
-  
-  
+
   
   public void getCurrentPatientEncounter(PatientDTO dto) throws Exception {
     Encounter encounter = patientDAO.findCurrentEncounterByPatientId(dto.getPatientId());
@@ -231,12 +211,11 @@ public class PatientService {
   
   
   public void createPatientAndEncounter(PatientDTO dto) throws Exception {
-  
+    Clinician clinician = appDAO.findClinicianBySessionId(dto.getSessionId());
     Patient patient = new Patient();
     patientDAO.create(patient);
     
-    Integer groupId = dto.getEncounter().getPatientIntakeGroupId();
-    Encounter encounter = patientDAO.createEncounter(groupId, patient);
+    Encounter encounter = patientDAO.createEncounter(patient, clinician);
     patient.setCurrentEncounterId(encounter.getId());
     
     Demographics demo = new Demographics();
@@ -269,14 +248,7 @@ public class PatientService {
     patientDAO.update(patient);
 
     encounter.setFollowUp(dto.getEncounter().getFollowUp());
-    encounter.setNotes(dto.getEncounter().getNotes());
-    encounter.setCheckIn(dto.getEncounter().getCheckIn());
-    encounter.setIntake(dto.getEncounter().getIntake());
-    encounter.setProvider(dto.getEncounter().getProvider());
-    encounter.setMissing(dto.getEncounter().getMissing());
     encounter.setCompleted(dto.getEncounter().getCompleted());
-    encounter.setTriage(dto.getEncounter().getTriage());
-    encounter.setPatientIntakeGroupId(dto.getEncounter().getPatientIntakeGroupId());
     encounter.setLockStatus(dto.getEncounter().getLockStatus());
     patientDAO.update(encounter);
     
@@ -343,7 +315,6 @@ public class PatientService {
   
   public void closeEncounter(PatientDTO dto) throws Exception {
     Encounter encounter = patientDAO.findEncounterById(dto.getEncounterId());
-    encounter.setIntakeCompleted(true);
     patientDAO.update(encounter);
   }
   
@@ -354,20 +325,10 @@ public class PatientService {
   }
   
   
-  public void swapSortOrder(PatientDTO dto) throws Exception {
-    PatientIntakeGroup group = patientDAO.findPatientIntakeGroupById(dto.getPatientIntakeGroupId());
-    PatientIntakeGroup swapGroup = patientDAO.findPatientIntakeGroupById(dto.getSwapGroupId());
-    int oldSwapGroupSortOrder = swapGroup.getSortOrder();  
-    swapGroup.setSortOrder(group.getSortOrder());
-    group.setSortOrder(oldSwapGroupSortOrder);
-    patientDAO.update(group);
-    patientDAO.update(swapGroup);
-  }
-  
-  
   public Encounter newEncounter(PatientDTO dto) throws Exception {
     Patient patient = patientDAO.findPatientById(dto.getPatientId());
-    Encounter encounter = patientDAO.createEncounter(null, patient);
+    Clinician clinician = appDAO.findClinicianBySessionId(dto.getSessionId());
+    Encounter encounter = patientDAO.createEncounter(patient, clinician);
     for (int i=0; i<3; i++) {
       addIntakeQuestion(encounter.getId()); // encounter.supp
       addIntakeMedication(patient.getId()); // patient.hist
@@ -378,12 +339,12 @@ public class PatientService {
   
   public ProgressNote newProgressNote(PatientDTO dto) throws Exception {
     Clinician clinician = appDAO.findClinicianBySessionId(dto.getSessionId());
-    ProgressNote note = patientDAO.createProgressNote(dto.getPatientId(), clinician.getId());
+    Patient patient = appDAO.findPatientById(dto.getPatientId());
+    ProgressNote note = patientDAO.createProgressNote(patient, clinician);
     return note;
   }
   
   public ProgressNote updateProgressNote(PatientDTO dto) throws Exception {
-    Clinician clinician = appDAO.findClinicianBySessionId(dto.getSessionId());
     ProgressNote note = patientDAO.findProgressNoteById(dto.getProgressNote().getId());
     note.setSubject(dto.getProgressNote().getSubject());
     note.setContent(dto.getProgressNote().getContent());
@@ -493,14 +454,7 @@ public class PatientService {
     if (property.equals("nombre")) {cred.setFirstName(value);updateClass = "Credentials";} 
     else if (property.equals("apellido")) {cred.setLastName(value);updateClass = "Credentials";} 
     else if (property.equals("apellidoSegundo")) {cred.setAdditionalName(value);updateClass = "Credentials";} 
-    else if (property.equals("notes")) {encounter.setNotes(value);updateClass = "Encounter";} 
     else if (property.equals("gender")) {demo.setGender(patientDAO.findGenderByCode(value));updateClass = "Demographics";} 
-    else if (property.equals("triage")) {encounter.setTriage(new Integer(value));updateClass = "Encounter";} 
-    else if (property.equals("checkIn")) {encounter.setCheckIn(new Boolean(value));updateClass = "Encounter";} 
-    else if (property.equals("intake")) {encounter.setIntake(new Boolean(value));updateClass = "Encounter";} 
-    else if (property.equals("provider")) {encounter.setProvider(new Boolean(value));updateClass = "Encounter";} 
-    else if (property.equals("missing")) {encounter.setMissing(new Boolean(value));updateClass = "Encounter";} 
-    else if (property.equals("completed")) {encounter.setIntakeCompleted(new Boolean(value));updateClass = "Encounter";} 
     else if (property.equals("consultLocation")) {encounter.setConsultLocation(value);updateClass = "Encounter";} 
     else if (property.equals("community")) {encounter.setCommunity(value);updateClass = "Encounter";} 
     else if (property.equals("govtId")) {cred.setGovtId(value);updateClass = "Credentials";} 
@@ -513,11 +467,6 @@ public class PatientService {
     else if (property.equals("ageInMonths")) {
       Integer ageInMonths; try { ageInMonths = new Integer(value); } catch (NumberFormatException nfe) {ageInMonths = null;}
       encounter.setAgeInMonths(ageInMonths);
-      updateClass = "Encounter";
-    }
-    else if (property.equals("triage")) {
-      Integer triage; try { triage = new Integer(value); } catch (NumberFormatException nfe) {triage = null;}
-      encounter.setTriage(triage);
       updateClass = "Encounter";
     }
     else if (property.equals("dob")) {

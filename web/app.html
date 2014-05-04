@@ -9,7 +9,7 @@
 
 <html>
   <head>
-    <title>WDean Medical Rugged EHR &nbsp;&nbsp; version 0.7.6 &nbsp;&nbsp;&nbsp;&nbsp;12-APR-2014</title>
+    <title>WDean Medical Rugged EHR &nbsp;&nbsp; version 0.8.0 &nbsp;&nbsp;&nbsp;&nbsp;03-MAY-2014</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="images/wdm.ico">
@@ -40,7 +40,7 @@
 	            <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
 	            <div class="dropdown-menu">
 	              <form role="form">
-	                <input type="text" placeholder="Username" id="app-signin-username" name="username" value="nick">
+	                <input type="text" placeholder="Username" id="app-signin-username" name="username" value="jdoyle">
 	                <input type="password" placeholder="Password" id="app-signin-password" name="password" value="Njs2101$">
 	                <a id="app-signin-submit" class="btn btn-primary btn-block">Sign In</a>
 	              </form>
@@ -149,7 +149,6 @@
 			              <div class="col-sm-5 col-lg-offset-1"> 
 			                <h3 class="news">News & Updates</h3>
 			                <a class="twitter-timeline" href="https://twitter.com/WDeanMedical" data-widget-id="451944201047928832">Tweets by @WDeanMedical</a>
-										  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 			              </div>
 			            </div>
 		            </div>
@@ -205,7 +204,7 @@
               </div>
               <div class="col-xm-6 col-sm-3">
                 <p><label>Next Appointment:</label><span class="patient-chart-next-appt"></span></p>
-                <p><label>Sex:</label><span class="patient-chart-gender"></span> 
+                <p><label>Gender:</label><span class="patient-chart-gender"></span> 
               </div>
               <div class="col-xm-6 col-sm-3">
                 <p><label>ID#:</label> <span class="patient-chart-mrn"></span></p>
@@ -213,7 +212,7 @@
               </div>
               <div id="headshot-div5" class="col-xm-6 col-sm-3">
                 <label class="pull-right">Active <i class="icon-check-sign icon-2x"></i></label>
-                <img src="images/headshot-placeholder.jpg" class="pull-right img-responsive img-rounded headshot" alt="Patient Photo">
+                <img src="images/headshot-placeholder.jpg" class="pull-right img-responsive img-rounded headshot patient-chart-headshot" alt="Patient Photo">
               </div>
             </div>
           </div>
@@ -225,13 +224,13 @@
                 <div class="col-xs-6">
                   <p class="patient-chart-full-name"></p>
                   <p><label>Next Appointment:</label><span class="patient-chart-next-appt"></span></p>
-                  <p><label>Sex:</label><span class="patient-chart-gender"></span></p> 
+                  <p><label>Gender:</label><span class="patient-chart-gender"></span></p> 
                   <p><label>ID#:</label> <span class="patient-chart-mrn"></span></p>
                   <p><label>DOB:</label><span class="patient-chart-dob"></span></p> 
                 </div>
                 <div id="headshot-div6" class="col-xs-6">
                   <p><label>Active <i class="icon-check-sign icon-2x"></i></label>
-                  <img src="images/headshot-placeholder.jpg" class="img-responsive img-rounded" alt="Patient Photo"></p>
+                  <img src="images/headshot-placeholder.jpg" class="patient-chart-headshot img-responsive img-rounded" alt="Patient Photo"></p>
                 </div>
               </div>
             </div>
@@ -404,10 +403,10 @@
               <a id="supp-link" href="#" class="pc-tile">
                 <div class="panel panel-default color6">
                   <div class="panel-body hidden-sm">
-                    <i class="icon-question-sign icon-large"></i> Sup Questions<i class="icon-circle-blank pull-right"></i>
+                    <i class="icon-question-sign icon-large"></i> Supplemental Questions<i class="icon-circle-blank pull-right"></i>
                   </div>
                   <div class="panel-body visible-sm">
-                    <i class="icon-question-sign icon-large"></i> Sup Questions<i class="icon-circle-blank pull-right"></i>
+                    <i class="icon-question-sign icon-large"></i> Supplemental Questions<i class="icon-circle-blank pull-right"></i>
                   </div>
                 </div>
               </a>
@@ -528,10 +527,10 @@
               <a id="continuation-link" href="#" class="pc-tile">
                 <div class="panel panel-default color1">
                   <div class="panel-body hidden-sm">
-                    <i class="icon-user icon-large"></i> Continuation<i class="icon-circle pull-right"></i>
+                    <i class="icon-user icon-large"></i> Encounters<i class="icon-circle pull-right"></i>
                   </div>
                   <div class="panel-body visible-sm">
-                    <i class="icon-user icon-large"></i> Continuation<i class="icon-circle pull-right"></i>
+                    <i class="icon-user icon-large"></i> Encounters<i class="icon-circle pull-right"></i>
                   </div>
                 </div>
               </a>
@@ -1023,11 +1022,11 @@
     <!-- PATIENT CONTINUATION SCREEN -->
     <div id="patient-continuation-screen" class="initially-no-display">
       <div class="container-fluid">
-        <div class="panel-top">Patient Continuation</div>
+        <div class="panel-top">Patient Encounters</div>
         <div class="panel panel-default">
           <div class="panel-body">                
             <div class="col-sm-2">
-              <a id="app-new-continuation-btn" class="btn btn-success btn-block">New Continuation</a>
+              <a id="app-new-continuation-btn" class="btn btn-success btn-block">New Encounter</a>
               <h5>User Name</h5>
               <ul class="nav nav-pills nav-stacked msg-sidebar">
                 <li class="active"><a href="#msg-inbox" data-toggle="tab">Inbox</a></li>
@@ -1041,7 +1040,7 @@
             <div class="col-sm-10">
               <div class="tab-content">
                 <div id="chart-encounters" class="tab-pane active">
-                  <div id="chart-encounters-header" class="panel-top">Intake and Continuation</div>
+                  <div id="chart-encounters-header" class="panel-top">Patient Encounters</div>
                   <div id="chart-encounters-list" class="table-responsive"></div>
                 </div>
                 <div id="pcs-msg-deleted" class="tab-pane">

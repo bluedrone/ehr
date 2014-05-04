@@ -24,11 +24,11 @@ public class PFSH extends BaseEntity implements Serializable {
   private String caretakerRelationship;
   private Integer numResidents; 
   private String jobType; 
-  private boolean motherAlive; 
+  private Boolean motherAlive; 
   private String motherDeathReason; 
-  private boolean fatherAlive; 
+  private Boolean fatherAlive; 
   private String fatherDeathReason; 
-  private boolean partnerAlive; 
+  private Boolean partnerAlive; 
   private String partnerDeathReason; 
   private Integer numSiblings; 
   private Integer numBrothers; 
@@ -78,24 +78,24 @@ public class PFSH extends BaseEntity implements Serializable {
   public void setJobType(String jobType) { this.jobType = jobType; }
 
   @Column(name = "mother_alive")
-  public boolean isMotherAlive() { return motherAlive; }
-  public void setMotherAlive(boolean motherAlive) { this.motherAlive = motherAlive; }
+  public Boolean isMotherAlive() { return motherAlive; }
+  public void setMotherAlive(Boolean motherAlive) { this.motherAlive = motherAlive; }
 
   @Column(name = "mother_death_reason")
   public String getMotherDeathReason() { return motherDeathReason; }
   public void setMotherDeathReason(String motherDeathReason) { this.motherDeathReason = motherDeathReason; }
 
   @Column(name = "father_alive")
-  public boolean isFatherAlive() { return fatherAlive; }
-  public void setFatherAlive(boolean fatherAlive) { this.fatherAlive = fatherAlive; }
+  public Boolean isFatherAlive() { return fatherAlive; }
+  public void setFatherAlive(Boolean fatherAlive) { this.fatherAlive = fatherAlive; }
 
   @Column(name = "father_death_reason")
   public String getFatherDeathReason() { return fatherDeathReason; }
   public void setFatherDeathReason(String fatherDeathReason) { this.fatherDeathReason = fatherDeathReason; }
 
   @Column(name = "partner_alive")
-  public boolean isPartnerAlive() { return partnerAlive; }
-  public void setPartnerAlive(boolean partnerAlive) { this.partnerAlive = partnerAlive; }
+  public Boolean isPartnerAlive() { return partnerAlive; }
+  public void setPartnerAlive(Boolean partnerAlive) { this.partnerAlive = partnerAlive; }
 
   @Column(name = "partner_death_reason")
   public String getPartnerDeathReason() { return partnerDeathReason; }
