@@ -20,30 +20,34 @@
               <div class="row">
                 <div class="col-sm-6">
 		              <div class="form-group">
-		                <label for="patient-search-nombre" class="col-sm-4 control-label">First Name</label>
+		                <label for="patient-search-first-name" class="col-sm-4 control-label">First Name</label>
 		                <div class="col-sm-7">
-		                  <input type="text" class="form-control input-sm" id="patient-search-nombre">
+		                  <input type="text" class="form-control input-sm" id="patient-search-first-name">
 		                </div>
 		              </div>
 		              <div class="form-group">
-		                <label for="patient-search-apellido" class="col-sm-4 control-label">Middle</label>
+		                <label for="patient-search-middle-name" class="col-sm-4 control-label">Middle</label>
 		                <div class="col-sm-7">
-		                  <input type="text" class="form-control input-sm" id="patient-search-apellido">
+		                  <input type="text" class="form-control input-sm" id="patient-search-middle-name">
 		                </div>
 		              </div>
 		              <div class="form-group">
-			              <label for="patient-search-gender" class="col-sm-4 control-label">Last Name</label>
+			              <label for="patient-search-last-name" class="col-sm-4 control-label">Last Name</label>
 			              <div class="col-sm-7">
-			                <input type="text" class="form-control input-sm" id="patient-search-segundo">
+		                  <input type="text" class="form-control input-sm" id="patient-search-last-name">
 			              </div>
 			            </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group">
 		                <label for="patient-search-apellido" class="col-sm-4 control-label">Gender</label>
-		                <div class="col-sm-7">
-		                  <input type="text" class="form-control input-sm" id="patient-search-gender">
-		                </div>
+                    <div class="col-sm-7">
+                      <select class="form-control" id="patient-search-gender">
+                        <option value="">Choose</option>
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                      </select>
+                    </div>
 		              </div>
 			            <div class="form-group">
 		                <label for="patient-search-dob" class="col-sm-4 control-label">Date of Birth</label>
@@ -52,9 +56,9 @@
 		                </div>
 		              </div>
 			            <div class="form-group">
-			              <label for="patient-search-region" class="col-sm-4 control-label">City</label>
+			              <label for="patient-search-city" class="col-sm-4 control-label">City</label>
 			              <div class="col-sm-7">
-			                <input type="text" class="form-control input-sm" id="patient-search-region">
+			                <input type="text" class="form-control input-sm" id="patient-search-city">
 			                <a id="btn-patient-search-search" class="btn btn-primary btn-block search-btn pull-right">Search</a>
 			              </div>                
 			            </div>
@@ -67,6 +71,7 @@
         <div id="patient-search-results" class="table-responsive"></div>        			         
       </div>
       <div class="modal-footer">
+        <a id="btn-patient-search-clear" href="#" class="app-dashboard-link btn btn-default btn-lg">Clear</a>
         <a id="btn-patient-search-cancel" href="#" class="app-dashboard-link btn btn-default btn-lg" data-dismiss="modal">Cancel</a>
       </div>
     </div>

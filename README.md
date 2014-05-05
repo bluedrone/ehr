@@ -1,10 +1,10 @@
 # WDean Medical EHR
-# version 0.8.0  03-MAY-2014
+# version 0.8.1  05-MAY-2014
 
 Improvements:
+Work on Patient Search form.
 
 Bug Fixes:
-Fucntional repairs to Patient Chart subsections.
 
 
 wdeanmedical.com/ehr

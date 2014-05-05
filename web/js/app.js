@@ -231,7 +231,7 @@ function getRecentPatients() {
         {title:'Full Name', field:'cred.firstName', type:'double-person'},
         {title:'Date of Birth', field:'demo.dob', type:'double-date'},
         {title:'Gender', field:'demo.gender.name', type:'triple'},
-        {title:'Region', field:'demo.region', type:'double'}
+        {title:'City', field:'demo.city', type:'double'}
       ]}, function(s) {
       $('#patient-search-results').html(s);
       $('#patient-search-results-title').html("Recent Patients");
@@ -261,7 +261,7 @@ function patientSearch() {
         {title:'Full Name', field:'cred.firstName', type:'double-person'},
         {title:'Date of Birth', field:'demo.dob', type:'double-date'},
         {title:'Gender', field:'demo.gender.name', type:'triple'},
-        {title:'Region', field:'demo.region', type:'double'}
+        {title:'City', field:'demo.city', type:'double'}
       ]}, function(s) {
       $('#patient-search-results').html(s);
       $('#patient-search-results-title').html("Patient Search");
