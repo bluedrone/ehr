@@ -216,6 +216,14 @@ function initPatientSearchTypeAheads() {
     });
 }
 
+function clearPatientSearchForm() {
+  $('#patient-search-first-name').val('');
+  $('#patient-search-middle-name').val('');
+  $('#patient-search-last-name').val('');
+  $('#patient-search-city').val('');
+  $('#patient-search-gender').val('');
+  $('#patient-search-dob').val('');
+}
 
 function patientSearchDialog() {
   RenderUtil.render('patient_search', {}, function(s) {
@@ -225,7 +233,9 @@ function patientSearchDialog() {
     $('#btn-patient-search-ok').addClass('disabled');
     $('.clickable-table-row').removeClass('table-row-highlight');
     $('#btn-patient-search-search').click(function(){ patientSearch(); });
+    $('#btn-patient-search-clear').click(function(){ clearPatientSearchForm(); });
     $('#btn-patient-search-ok').click(function(){ getPatientChart(); });
+    $('#patient-search-dob').mask("99/99/9999");
     getRecentPatients();
   
     $('#btn-patient-search-new-patient').click(function() { 
