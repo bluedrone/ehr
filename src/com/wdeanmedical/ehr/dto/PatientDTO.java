@@ -219,6 +219,11 @@ public class PatientDTO extends AuthorizedDTO {
   private String followUpNotes; 
   private int lockStatus; 
   private int patientEncounterId; 
+  private String firstNameFilter; 
+  private String middleNameFilter; 
+  private String lastNameFilter; 
+  private String cityFilter; 
+  private String dobFilter; 
 
   public PatientDTO() {
   }
@@ -785,6 +790,24 @@ public class PatientDTO extends AuthorizedDTO {
   public void setProgressNotes(List<ProgressNote> progressNotes) { this.progressNotes = progressNotes; }
 
   public int getProgressNoteId() { return progressNoteId; }
-  public void setProgressNoteId(int progressNoteId) { this.progressNoteId = progressNoteId; }   
+  public void setProgressNoteId(int progressNoteId) { this.progressNoteId = progressNoteId; }
+
+  public Map<String, List> getPatientChartSummary() { return patientChartSummary; }
+  public void setPatientChartSummary(Map<String, List> patientChartSummary) { this.patientChartSummary = patientChartSummary; }
+
+  public String getFirstNameFilter() { return firstNameFilter; }
+  public void setFirstNameFilter(String firstNameFilter) { this.firstNameFilter = firstNameFilter; }
+
+  public String getMiddleNameFilter() { return middleNameFilter; }
+  public void setMiddleNameFilter(String middleNameFilter) { this.middleNameFilter = middleNameFilter; }
+
+  public String getLastNameFilter() { return lastNameFilter; }
+  public void setLastNameFilter(String lastNameFilter) { this.lastNameFilter = lastNameFilter; }
+
+  public String getCityFilter() { return cityFilter; }
+  public void setCityFilter(String cityFilter) { this.cityFilter = cityFilter; }
+
+  public String getDobFilter() { return dobFilter; }
+  public void setDobFilter(String dobFilter) { this.dobFilter = dobFilter; }   
   
 }

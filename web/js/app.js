@@ -216,6 +216,45 @@ function initPatientSearchTypeAheads() {
     });
 }
 
+
+
+function patientSearch() {
+  
+  var dob = util_processDate("#patient-search-dob", dob);
+  var jsonData = JSON.stringify({ 
+    id: clinician.id, 
+    firstNameFilter: $.trim($("#patient-search-first-name").val()),
+    middleNameFilter: $.trim($("#patient-search-middle-name").val()),
+    lastNameFilter: $.trim($("#patient-search-last-name").val()),
+    cityFilter: $.trim($("#patient-search-city").val()),
+    dobFilter: dob,
+    sessionId: clinician.sessionId 
+  });
+  clearPatientSearchForm();
+  $.post("app/patientSearch", {data:jsonData}, function(data) {
+    var parsedData = $.parseJSON(data);
+    patients = parsedData.patients;
+    RenderUtil.render('component/simple_data_table', 
+     {items:patients, 
+      title:'Patients', 
+      tableName:'patient-search-results', 
+      clickable:true, 
+      columns:[
+        {title:'Full Name', field:'cred.firstName', type:'double-person'},
+        {title:'Date of Birth', field:'demo.dob', type:'double-date'},
+        {title:'Gender', field:'demo.gender.name', type:'triple'},
+        {title:'City', field:'demo.city', type:'double'}
+      ]}, function(s) {
+      $('#patient-search-results').html(s);
+      $('#patient-search-results-title').html("Patient Search");
+      $('.clickable-table-row').click( function(e){ 
+        $(this).addClass('table-row-highlight').siblings().removeClass('table-row-highlight');
+        handleClickableRow(e); 
+      });
+    });
+  });
+}
+
 function clearPatientSearchForm() {
   $('#patient-search-first-name').val('');
   $('#patient-search-middle-name').val('');
@@ -282,32 +321,6 @@ function getRecentPatients() {
   });
 }
 
-
-function patientSearch() {
-  var jsonData = JSON.stringify({ id: clinician.id, sessionId: clinician.sessionId });
-  $.post("app/patientSearch", {data:jsonData}, function(data) {
-    var parsedData = $.parseJSON(data);
-    patients = parsedData.patients;
-    RenderUtil.render('component/simple_data_table', 
-     {items:patients, 
-      title:'Patients', 
-      tableName:'patient-search-results', 
-      clickable:true, 
-      columns:[
-        {title:'Full Name', field:'cred.firstName', type:'double-person'},
-        {title:'Date of Birth', field:'demo.dob', type:'double-date'},
-        {title:'Gender', field:'demo.gender.name', type:'triple'},
-        {title:'City', field:'demo.city', type:'double'}
-      ]}, function(s) {
-      $('#patient-search-results').html(s);
-      $('#patient-search-results-title').html("Patient Search");
-      $('.clickable-table-row').click( function(e){ 
-        $(this).addClass('table-row-highlight').siblings().removeClass('table-row-highlight');
-        handleClickableRow(e); 
-      });
-    });
-  });
-}
 
 
 function getClinicianDashboard() {
@@ -754,7 +767,7 @@ function viewClinicianMessage() {
   }
   
   function getPatientChart() {
-	getPatientEncounters();
+  getPatientEncounters();
     var jsonData = JSON.stringify({ id: app_currentPatientId, sessionId: clinician.sessionId });
     $.post("app/getPatientChart", {data:jsonData}, function(data) {
       var parsedData = $.parseJSON(data);
@@ -928,7 +941,7 @@ function viewClinicianMessage() {
       var field1 = columnFields[1];
       if (item[field0] === undefined) {
         return value; 
-      }	
+      }  
       value = dateFormat(item[field0][field1], 'mm/dd/yyyy')
     }
     else if (column.type == 'triple-person') {
@@ -937,7 +950,7 @@ function viewClinicianMessage() {
       var field2 = columnFields[2];
       if (item[field0] === undefined || item[field0][field1] === undefined) {
         return value; 
-      }	
+      }  
       value = util_buildFullName(item[field0][field1]['firstName'], item[field0][field1]['middleName'], item[field0][field1]['lastName'])
     }
     else if (column.type == 'triple') {
@@ -946,7 +959,7 @@ function viewClinicianMessage() {
       var field2 = columnFields[2];
       if (item[field0] === undefined || item[field0][field1] === undefined) {
         return value; 
-      }	
+      }  
       value = item[field0][field1][field2];
     }
     else if (column.type == 'triple-date') {
@@ -955,7 +968,7 @@ function viewClinicianMessage() {
       var field2 = columnFields[2];
       if (item[field0] === undefined || item[field0][field1] === undefined) {
         return value; 
-      }	
+      }  
       value = dateFormat(item[field0][field1][field2], 'mm/dd/yyyy')
     }
     else if (column.type == 'quad') {
@@ -965,7 +978,7 @@ function viewClinicianMessage() {
       var field3 = columnFields[3];
       if (item[field0] === undefined || item[field0][field1] === undefined || item[field0][field1][field2] === undefined) {
         return value; 
-      }	
+      }  
       value = item[field0][field1][field2][field3];
     }
     return value;
