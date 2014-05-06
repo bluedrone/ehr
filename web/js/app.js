@@ -230,7 +230,6 @@ function patientSearch() {
     dobFilter: dob,
     sessionId: clinician.sessionId 
   });
-  clearPatientSearchForm();
   $.post("app/patientSearch", {data:jsonData}, function(data) {
     var parsedData = $.parseJSON(data);
     patients = parsedData.patients;
@@ -266,6 +265,7 @@ function clearPatientSearchForm() {
 
 function patientSearchDialog() {
   RenderUtil.render('patient_search', {}, function(s) {
+    clearPatientSearchForm();
     $('#modals-placement').html(s);
     $('#modal-patient-search').modal('show'); 
     $('#btn-patient-search-ok').prop('disabled', true);

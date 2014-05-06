@@ -62,6 +62,16 @@ public class AppService {
     appDAO = (AppDAO) wac.getBean("appDAO");
   }
   
+  public  List<Patient> getFilteredPatients(PatientDTO dto) throws Exception {
+    return appDAO.getFilteredPatients(
+      dto.getFirstNameFilter(), 
+      dto.getMiddleNameFilter(), 
+      dto.getLastNameFilter(),
+      dto.getCityFilter(),
+      dto.getDobFilter()
+    );
+  }
+  
   public  List<Patient> getPatients(PatientDTO dto) throws Exception {
     return appDAO.getPatients();
   }

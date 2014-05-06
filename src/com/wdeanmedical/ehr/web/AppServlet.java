@@ -213,7 +213,7 @@ public void doGet(HttpServletRequest request, HttpServletResponse response) {
     String data = request.getParameter("data");
     Gson gson = new Gson();
     PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    List<Patient> patients = appService.getPatients(dto); 
+    List<Patient> patients = appService.getFilteredPatients(dto); 
     dto.setPatients(patients);
     String json = gson.toJson(dto);
     return json;
