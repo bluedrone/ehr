@@ -55,6 +55,7 @@ var patients;
 var clinicians;
 var patientChartSummary;
 var clinicianDashboard;
+var patientSearchTypeAheads;
 var clinicianMessages;
 var clinicianFullName;
 var patientVitalSigns;
@@ -189,7 +190,18 @@ $('.patient-button-group').click(function(){
     return;
   }
   patientSearchDialog();
+  initPatientSearchTypeAheads();
 });
+
+
+function initPatientSearchTypeAheads() {
+  var jsonData = JSON.stringify({ clinicianId: clinician.id, sessionId: clinician.sessionId });
+  $.post("app/getPatientSearchTypeAheads", {data:jsonData}, function(data) {
+    var parsedData = $.parseJSON(data);
+    patientSearchTypeAheads = parsedData.patientSearchTypeAheads;
+  });
+}
+
 
 function patientSearchDialog() {
   RenderUtil.render('patient_search', {}, function(s) {

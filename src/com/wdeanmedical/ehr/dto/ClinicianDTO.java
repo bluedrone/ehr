@@ -14,6 +14,7 @@ public class ClinicianDTO extends AuthorizedDTO {
   private List<PatientMessage> patientMessages;
   private List<Appointment> appointments;
   public Map<String,List> dashboard = new HashMap<String,List>();
+  public Map<String,List> patientSearchTypeAheads = new HashMap<String,List>();
 
   public ClinicianDTO() {
   }

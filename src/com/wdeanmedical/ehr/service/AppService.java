@@ -9,6 +9,7 @@ package com.wdeanmedical.ehr.service;
 
 import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +22,7 @@ import com.wdeanmedical.ehr.dto.ClinicianDTO;
 import com.wdeanmedical.ehr.dto.LoginDTO;
 import com.wdeanmedical.ehr.dto.PatientDTO;
 import com.wdeanmedical.ehr.entity.Appointment;
+import com.wdeanmedical.ehr.entity.IntakeQuestion;
 import com.wdeanmedical.ehr.entity.Patient;
 import com.wdeanmedical.ehr.entity.PatientAllergen;
 import com.wdeanmedical.ehr.entity.PatientClinician;
@@ -117,6 +119,28 @@ public class AppService {
     dto.dashboard.put("toDoNotes", appDAO.getToDoNotes(clinician));
     dto.dashboard.put("labReview", appDAO.getLabReview(clinician));
     dto.dashboard.put("clinicianSchedule", appDAO.getClinicianSchedule(clinician));
+    return true;
+  }
+  
+  
+  public  boolean getPatientSearchTypeAheads(ClinicianDTO dto) throws Exception {
+    List<Patient> patients = appDAO.getPatients();
+    List<String> firstNames = new ArrayList<String>();
+    List<String> middleNames = new ArrayList<String>();
+    List<String> lastNames = new ArrayList<String>();
+    List<String> cities = new ArrayList<String>();
+    
+    for (Patient patient : patients) {
+      firstNames.add(patient.getCred().getFirstName());
+      middleNames.add(patient.getCred().getMiddleName());
+      lastNames.add(patient.getCred().getLastName());
+      cities.add(patient.getDemo().getCity());
+    }
+    
+    dto.patientSearchTypeAheads.put("firstNames", firstNames);
+    dto.patientSearchTypeAheads.put("middleNames", middleNames);
+    dto.patientSearchTypeAheads.put("lastNames", lastNames);
+    dto.patientSearchTypeAheads.put("cities", cities);
     return true;
   }
   

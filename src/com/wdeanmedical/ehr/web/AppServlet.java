@@ -113,6 +113,9 @@ public void doPost( HttpServletRequest request, HttpServletResponse response) {
           else if (pathInfo.equals("/getPatientHealthIssues")) {
             returnString = getPatientHealthIssues(request, response);  
           }
+          else if (pathInfo.equals("/getPatientSearchTypeAheads")) {
+            returnString = getPatientSearchTypeAheads(request, response);  
+          }
           else if (pathInfo.equals("/park")) {
             returnString = park(request, response);  
           }
@@ -162,6 +165,16 @@ public void doGet(HttpServletRequest request, HttpServletResponse response) {
     Gson gson = new Gson();
     ClinicianDTO dto = gson.fromJson(data, ClinicianDTO.class); 
     appService.getClinicianDashboard(dto); 
+    String json = gson.toJson(dto);
+    return json;
+  }
+  
+  
+  public String getPatientSearchTypeAheads(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String data = request.getParameter("data");
+    Gson gson = new Gson();
+    ClinicianDTO dto = gson.fromJson(data, ClinicianDTO.class); 
+    appService.getPatientSearchTypeAheads(dto); 
     String json = gson.toJson(dto);
     return json;
   }

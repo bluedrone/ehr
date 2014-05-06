@@ -70,7 +70,7 @@ public class Core {
     clinicianPermissionsMap.put("/getPatientChartSummary",       new boolean[] {true,true});
     clinicianPermissionsMap.put("/getPatientVitalSigns",         new boolean[] {true,true});
     clinicianPermissionsMap.put("/getRecentPatients",            new boolean[] {true,true});
-    clinicianPermissionsMap.put("/getPatientIntakeGroups",       new boolean[] {true,true});
+    clinicianPermissionsMap.put("/getPatientSearchTypeAheads",   new boolean[] {true,true});
     clinicianPermissionsMap.put("/overridePatient",              new boolean[] {true,true});
     clinicianPermissionsMap.put("/park",                         new boolean[] {true,true});
     clinicianPermissionsMap.put("/purgeClinician",               new boolean[] {true,true});
