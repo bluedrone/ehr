@@ -227,6 +227,7 @@ function patientSearch() {
     middleNameFilter: $.trim($("#patient-search-middle-name").val()),
     lastNameFilter: $.trim($("#patient-search-last-name").val()),
     cityFilter: $.trim($("#patient-search-city").val()),
+    genderFilter: $.trim($("#patient-search-gender").val()),
     dobFilter: dob,
     sessionId: clinician.sessionId 
   });

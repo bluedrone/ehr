@@ -223,6 +223,7 @@ public class PatientDTO extends AuthorizedDTO {
   private String middleNameFilter; 
   private String lastNameFilter; 
   private String cityFilter; 
+  private String genderFilter; 
   private String dobFilter; 
 
   public PatientDTO() {
@@ -808,6 +809,9 @@ public class PatientDTO extends AuthorizedDTO {
   public void setCityFilter(String cityFilter) { this.cityFilter = cityFilter; }
 
   public String getDobFilter() { return dobFilter; }
-  public void setDobFilter(String dobFilter) { this.dobFilter = dobFilter; }   
+  public void setDobFilter(String dobFilter) { this.dobFilter = dobFilter; }
+
+  public String getGenderFilter() { return genderFilter; }
+  public void setGenderFilter(String genderFilter) { this.genderFilter = genderFilter; }   
   
 }

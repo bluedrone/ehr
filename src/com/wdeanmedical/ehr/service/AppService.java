@@ -68,6 +68,7 @@ public class AppService {
       dto.getMiddleNameFilter(), 
       dto.getLastNameFilter(),
       dto.getCityFilter(),
+      dto.getGenderFilter(),
       dto.getDobFilter()
     );
   }
