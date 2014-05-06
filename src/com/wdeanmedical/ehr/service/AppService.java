@@ -12,6 +12,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.servlet.ServletContext;
 
@@ -125,14 +127,16 @@ public class AppService {
   
   public  boolean getPatientSearchTypeAheads(ClinicianDTO dto) throws Exception {
     List<Patient> patients = appDAO.getPatients();
-    List<String> firstNames = new ArrayList<String>();
-    List<String> middleNames = new ArrayList<String>();
-    List<String> lastNames = new ArrayList<String>();
-    List<String> cities = new ArrayList<String>();
+    Set<String> firstNames = new TreeSet<String>();
+    Set<String> middleNames = new TreeSet<String>();
+    Set<String> lastNames = new TreeSet<String>();
+    Set<String> cities = new TreeSet<String>();
     
     for (Patient patient : patients) {
       firstNames.add(patient.getCred().getFirstName());
-      middleNames.add(patient.getCred().getMiddleName());
+      if (patient.getCred().getMiddleName() != null) {
+        middleNames.add(patient.getCred().getMiddleName());
+      }
       lastNames.add(patient.getCred().getLastName());
       cities.add(patient.getDemo().getCity());
     }

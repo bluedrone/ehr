@@ -199,7 +199,11 @@ function initPatientSearchTypeAheads() {
   $.post("app/getPatientSearchTypeAheads", {data:jsonData}, function(data) {
     var parsedData = $.parseJSON(data);
     patientSearchTypeAheads = parsedData.patientSearchTypeAheads;
-  });
+    
+    $('#patient-search-first-name').typeahead(
+      { hint: true, highlight: true, minLength: 1 },
+      { name: 'firstNames', displayKey: 'value', source: util_substringMatcher(patientSearchTypeAheads.firstNames) }); 
+    });
 }
 
 

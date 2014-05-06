@@ -3,6 +3,7 @@ package com.wdeanmedical.ehr.dto;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.wdeanmedical.ehr.entity.Appointment;
 import com.wdeanmedical.ehr.entity.Clinician;
@@ -14,7 +15,7 @@ public class ClinicianDTO extends AuthorizedDTO {
   private List<PatientMessage> patientMessages;
   private List<Appointment> appointments;
   public Map<String,List> dashboard = new HashMap<String,List>();
-  public Map<String,List> patientSearchTypeAheads = new HashMap<String,List>();
+  public Map<String,Set> patientSearchTypeAheads = new HashMap<String,Set>();
 
   public ClinicianDTO() {
   }
