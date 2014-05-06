@@ -59,8 +59,11 @@
 			              <label for="patient-search-city" class="col-sm-4 control-label">City</label>
 			              <div class="col-sm-7">
 			                <input type="text" class="form-control input-sm" id="patient-search-city">
-			                <a id="btn-patient-search-search" class="btn btn-primary btn-block search-btn pull-right">Search</a>
 			              </div>                
+                    <div class="col-sm-7">
+                      <a id="btn-patient-search-search" class="btn btn-primary pull-right">Search</a>
+                      <a id="btn-patient-search-clear" class="btn btn-default pull-right">Clear</a>
+                    </div>   
 			            </div>
 			          </div>
 			        </div>
@@ -71,7 +74,6 @@
         <div id="patient-search-results" class="table-responsive"></div>        			         
       </div>
       <div class="modal-footer">
-        <a id="btn-patient-search-clear" href="#" class="app-dashboard-link btn btn-default btn-lg">Clear</a>
         <a id="btn-patient-search-cancel" href="#" class="app-dashboard-link btn btn-default btn-lg" data-dismiss="modal">Cancel</a>
       </div>
     </div>

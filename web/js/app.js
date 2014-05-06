@@ -203,6 +203,16 @@ function initPatientSearchTypeAheads() {
     $('#patient-search-first-name').typeahead(
       { hint: true, highlight: true, minLength: 1 },
       { name: 'firstNames', displayKey: 'value', source: util_substringMatcher(patientSearchTypeAheads.firstNames) }); 
+    $('#patient-search-middle-name').typeahead(
+      { hint: true, highlight: true, minLength: 1 },
+      { name: 'middleNames', displayKey: 'value', source: util_substringMatcher(patientSearchTypeAheads.middleNames) }); 
+    $('#patient-search-last-name').typeahead(
+      { hint: true, highlight: true, minLength: 1 },
+      { name: 'lastNames', displayKey: 'value', source: util_substringMatcher(patientSearchTypeAheads.lastNames) }); 
+    $('#patient-search-city').typeahead(
+      { hint: true, highlight: true, minLength: 1 },
+      { name: 'cities', displayKey: 'value', source: util_substringMatcher(patientSearchTypeAheads.cities) }); 
+    
     });
 }
 
