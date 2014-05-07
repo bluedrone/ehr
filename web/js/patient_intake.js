@@ -12,16 +12,16 @@ var uploader;
 
 
 function setIntakeFormModes(hasOwnership) {
-  setIntakeFormMode(app_currentEncounter.id, 'basic-info', app_currentEncounter.basicInfoSaved, hasOwnership);
-  setIntakeFormMode(app_currentEncounter.id, 'vitals', app_currentEncounter.vitalsSaved, hasOwnership);
-  setIntakeFormMode(app_currentEncounter.id, 'family', app_currentEncounter.familySaved, hasOwnership);
-  setIntakeFormMode(app_currentEncounter.id, 'cc', app_currentEncounter.ccSaved, hasOwnership);
-  setIntakeFormMode(app_currentEncounter.id, 'obgyn', app_currentEncounter.obgynSaved, hasOwnership);
-  setIntakeFormMode(app_currentEncounter.id, 'pfsh', app_currentEncounter.pfshSaved, hasOwnership);
-  setIntakeFormMode(app_currentEncounter.id, 'supp', app_currentEncounter.suppSaved, hasOwnership);
-  setIntakeFormMode(app_currentEncounter.id, 'hist', app_currentEncounter.histSaved, hasOwnership);
-  setIntakeFormMode(app_currentEncounter.id, 'exam', app_currentEncounter.examSaved, hasOwnership);
-  setIntakeFormMode(app_currentEncounter.id, 'follow-up', app_currentEncounter.followUpSaved, hasOwnership);
+  setIntakeFormMode(app_currentEncounter, 'basic-info', app_currentEncounter.basicInfoSaved, hasOwnership);
+  setIntakeFormMode(app_currentEncounter, 'vitals', app_currentEncounter.vitalsSaved, hasOwnership);
+  setIntakeFormMode(app_currentEncounter, 'family', app_currentEncounter.familySaved, hasOwnership);
+  setIntakeFormMode(app_currentEncounter, 'cc', app_currentEncounter.ccSaved, hasOwnership);
+  setIntakeFormMode(app_currentEncounter, 'obgyn', app_currentEncounter.obgynSaved, hasOwnership);
+  setIntakeFormMode(app_currentEncounter, 'pfsh', app_currentEncounter.pfshSaved, hasOwnership);
+  setIntakeFormMode(app_currentEncounter, 'supp', app_currentEncounter.suppSaved, hasOwnership);
+  setIntakeFormMode(app_currentEncounter, 'hist', app_currentEncounter.histSaved, hasOwnership);
+  setIntakeFormMode(app_currentEncounter, 'exam', app_currentEncounter.examSaved, hasOwnership);
+  setIntakeFormMode(app_currentEncounter, 'follow-up', app_currentEncounter.followUpSaved, hasOwnership);
 }
 
 
@@ -305,7 +305,7 @@ function renderIntakeFormSection (encounter, section, savedState, hasOwnership) 
   var id = encounter.id;
   var currentDate = dateFormat(new Date(), 'mm/dd/yyyy');
   var notEditable = true; 
-  setIntakeFormMode(id, section, savedState, hasOwnership);
+  setIntakeFormMode(encounter, section, savedState, hasOwnership);
   
   if (savedState == false) {
 
@@ -339,24 +339,24 @@ function renderIntakeFormSection (encounter, section, savedState, hasOwnership) 
     else if (section == 'pfsh') {
     }
     else if (section == 'supp') {
-      RenderUtil.render('component/intake_questions', {encounter:encounter}, function(s) { $("#intake-questions-"+id).html(s); setIntakeFormMode(id, section, savedState, hasOwnership);});
+      RenderUtil.render('component/intake_questions', {encounter:encounter}, function(s) { $("#intake-questions-"+id).html(s); setIntakeFormMode(encounter, section, savedState, hasOwnership);});
       $('#intake-supp-new-question-'+id).click(function() { 
        var jsonData = JSON.stringify({sessionId: clinician.sessionId, encounterId: id});
         $.post("patient/addIntakeQuestion", {data:jsonData}, function(data) {
         var parsedData = $.parseJSON(data);
           var numQuestions = $("#intake-questions-"+id).children().length + 2;
-          RenderUtil.render('component/intake_question', {ordinal:numQuestions, id: parsedData.intakeQuestionId}, function(s) { $("#intake-questions-"+id).append(s); setIntakeFormMode(id, section, savedState, hasOwnership);});
+          RenderUtil.render('component/intake_question', {ordinal:numQuestions, id: parsedData.intakeQuestionId}, function(s) { $("#intake-questions-"+id).append(s); setIntakeFormMode(encounter, section, savedState, hasOwnership);});
         });
       });
     }
     else if (section == 'hist') {
-      RenderUtil.render('component/intake_medications', {encounter:encounter}, function(s) { $("#intake-medications-"+id).html(s); setIntakeFormMode(id, section, savedState, hasOwnership);});
+      RenderUtil.render('component/intake_medications', {encounter:encounter}, function(s) { $("#intake-medications-"+id).html(s); setIntakeFormMode(encounter, section, savedState, hasOwnership);});
       $('#intake-hist-new-medication-'+id).click(function() { 
        var jsonData = JSON.stringify({sessionId: clinician.sessionId, patientId: encounter.patient.id});
         $.post("patient/addIntakeMedication", {data:jsonData}, function(data) {
         var parsedData = $.parseJSON(data);
           var numMedications = $("#intake-medications-"+id).children().length + 2;
-          RenderUtil.render('component/intake_medication', {ordinal:numMedications, id: parsedData.intakeMedicationId}, function(s) { $("#intake-medications-"+id).append(s); setIntakeFormMode(id, section, savedState, hasOwnership);});
+          RenderUtil.render('component/intake_medication', {ordinal:numMedications, id: parsedData.intakeMedicationId}, function(s) { $("#intake-medications-"+id).append(s); setIntakeFormMode(encounter, section, savedState, hasOwnership);});
         });
       });
     }
@@ -580,7 +580,7 @@ function renderIntakeFormSection (encounter, section, savedState, hasOwnership) 
       
       RenderUtil.render('component/intake_questions', {encounter:encounter}, function(s) { 
         $("#intake-questions-"+id).html(s); 
-        setIntakeFormMode(id, section, savedState, hasOwnership);
+        setIntakeFormMode(encounter, section, savedState, hasOwnership);
         $('.intake-question-editable').blur(function(e) { 
           getCurrentQuestionId(e);
           updateIntakeQuestion("question", $(this).html(), app_currentQuestionId); 
@@ -599,7 +599,7 @@ function renderIntakeFormSection (encounter, section, savedState, hasOwnership) 
           var numQuestions = $("#intake-questions-"+id).children().length + 2;
           RenderUtil.render('component/intake_question', {ordinal:numQuestions, id: intakeQuestionId}, function(s) { 
             $("#intake-questions-"+id).append(s); 
-            setIntakeFormMode(id, section, savedState, hasOwnership);
+            setIntakeFormMode(encounter, section, savedState, hasOwnership);
             $('.intake-question-editable').blur(function(e) { 
               getCurrentQuestionId(e);
               updateIntakeQuestion("question", $(this).html(), intakeQuestionId); 
@@ -615,7 +615,7 @@ function renderIntakeFormSection (encounter, section, savedState, hasOwnership) 
     else if (section == 'hist') {
       RenderUtil.render('component/intake_medications', {encounter:encounter}, function(s) { 
         $("#intake-medications-"+id).html(s); 
-        setIntakeFormMode(id, section, savedState, hasOwnership);
+        setIntakeFormMode(encounter, section, savedState, hasOwnership);
         $('.intake-med-editable').blur(function(e) { 
           getCurrentMedicationId(e);
           updateIntakeMedication("medication", $(this).html(), app_currentMedicationId); 
@@ -653,7 +653,7 @@ function renderIntakeFormSection (encounter, section, savedState, hasOwnership) 
           var numMedications = $("#intake-medications-"+id).children().length + 2;
           RenderUtil.render('component/intake_medication', {ordinal:numMedications, id: intakeMedicationId}, function(s) { 
             $("#intake-medications-"+id).append(s); 
-            setIntakeFormMode(id, section, savedState, hasOwnership);
+            setIntakeFormMode(encounter, section, savedState, hasOwnership);
             $('.intake-med-editable').blur(function(e) { 
               getCurrentMedicationId(e);
               updateIntakeMedication("medication", $(this).html(), intakeMedicationId); 
@@ -1157,7 +1157,20 @@ function drawIntakeExamCanvas() {
   ctx.closePath();
 }
 
-function setIntakeFormMode(id, section, isSaved, hasOwnership) {
+function setIntakeFormMode(encounter, section, isSaved, hasOwnership) {
+  var id = encounter.id;
+  
+  if (encounter.completed == true) {
+    $('#intake-'+section+'-panel-'+id+' .form-control-unsaved').css({display: "none"});
+    $('#intake-'+section+'-panel-'+id+' .form-control-saved').css({display: "block"});
+    $('#intake-'+section+'-save-'+id).css({display: "none"});
+    $('#intake-'+section+'-saved-'+id).css({display: "none"});
+    $('#intake-'+section+'-clear-'+id).css({display: "none"});
+    $('#intake-'+section+'-panel-'+id+' .form-control-saved').removeAttr('contenteditable').blur();
+    $('#intake-basic-info-photo-upload-control-'+id).css({display:"none"});
+    return;
+  }
+  
   $('#intake-'+section+'-panel-'+id+' .form-control-unsaved').css({display: (isSaved == true ? "none" : "block")});
   $('#intake-'+section+'-panel-'+id+' .form-control-saved').css({display: (isSaved == true ? "block" : "none")});
   $('#intake-'+section+'-save-'+id).css({display: (hasOwnership == true && isSaved == false ? "inline-block" : "none")});
