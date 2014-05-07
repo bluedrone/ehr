@@ -198,3 +198,24 @@ var util_substringMatcher = function(strs) {
     cb(matches);
   };
 };
+
+
+
+function createGender(code) {
+  var gender = new Gender();
+  gender.code = code; 
+  if (!code) {
+    gender.id = 5;
+    gender.name = 'Unreported';
+    gender.code = 'U'; 
+  }
+  else if (code == 'M') {
+    gender.id = 1;
+    gender.name = 'Male';
+  }
+  else if (code == 'F') {
+    gender.id = 2;
+    gender.name = 'Female';
+  }
+  return gender;
+}

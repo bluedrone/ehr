@@ -25,7 +25,6 @@ head.js (
    "js/util.js",
    "js/app.js",           
    "js/admin.js",           
-   "js/patient_check-in.js",           
    "js/patient_intake.js",           
    "js/patient.js",           
    "js/view_stacks.js",           

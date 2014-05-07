@@ -633,15 +633,15 @@ $('.app-exit').click(function(){ logout(); });
 
 $('.app-dashboard-link').click(function(){ viewDashboard(); });
 $('.app-messages-link').click(function(){ viewMessages(); });
-$('#continuation-link').click(function(){ viewPatientContinuation(); });
+$('#encounter-link').click(function(){ viewPatientEncounters(); });
 $('.app-letters-link').click(function(){ viewLetters(); });
 $('.app-schedule-link').click(function(){ viewSchedule(); });
 $('#message-view-button').click(function(){ viewClinicianMessage(); });
 $('#message-close-button').click(function(){ viewMessages(); });
 
-function viewPatientContinuation() {
-  app_viewStack('patient-continuation-screen', DO_SCROLL);
-  $('#app-new-continuation-btn').click(function(){ newEncounterFormDialog(); });
+function viewPatientEncounters() {
+  app_viewStack('patient-encounters-screen', DO_SCROLL);
+  $('#app-new-encounter-btn').click(function(){ newEncounterFormDialog(); });
   getPatientEncountersListing();
 }
 

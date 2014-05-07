@@ -334,7 +334,7 @@ function renderIntakeFormSection (encounter, section, savedState, hasOwnership) 
       });
       $('#intake-pain-scale-value-'+id).html(encounter.cc.painScale);
     }
-    else if (section == 'obgyn') {
+    else if (section == 'obgyn' && encounter.obgyn) {
     }
     else if (section == 'pfsh') {
     }
@@ -497,7 +497,7 @@ function renderIntakeFormSection (encounter, section, savedState, hasOwnership) 
       });
       $('#intake-denies-other-saved-'+id).blur(function() { updateSavedPatientIntake("deniesOther", $(this).html(), id); });
     }
-    else if (section == 'obgyn') {
+    else if (section == 'obgyn' && encounter.obgyn) {
       $('#intake-obgyn-g-saved-'+id).html(encounter.obgyn.g);
       $('#intake-obgyn-p-saved-'+id).html(encounter.obgyn.p);
       $('#intake-obgyn-t-saved-'+id).html(encounter.obgyn.t);

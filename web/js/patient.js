@@ -538,7 +538,7 @@ function viewPatientEncounter(encounterId) {
 }
 
 
-function getCurrentEncounterFromContinuation() {
+function getCurrentEncounterFromEncounters() {
   var jsonData = JSON.stringify({ sessionId: clinician.sessionId, patientId: app_currentPatientId});
   $.post("patient/getCurrentPatientEncounter", {data:jsonData}, function(data) {
     var parsedData = $.parseJSON(data);
