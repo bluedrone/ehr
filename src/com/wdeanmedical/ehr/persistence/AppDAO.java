@@ -391,7 +391,7 @@ public class AppDAO extends SiteDAO {
     String lastNameFilter,
     String cityFilter,
     String genderFilter,
-    String dobFilter
+    Date dobFilter
   ) throws Exception {
     Session session = this.getSession();
     Criteria crit = session.createCriteria(Patient.class, "patient");
@@ -402,6 +402,7 @@ public class AppDAO extends SiteDAO {
     if (middleNameFilter.length() > 0) {crit.add(Restrictions.eq("cred.middleName", middleNameFilter));}
     if (lastNameFilter.length() > 0) {crit.add(Restrictions.eq("cred.lastName", lastNameFilter));}
     if (cityFilter.length() > 0) {crit.add(Restrictions.eq("demo.city", cityFilter));}
+    if (dobFilter != null) {crit.add(Restrictions.eq("demo.dob", dobFilter));}
     if (genderFilter.length() > 0) {crit.add(Restrictions.eq("gender.code", genderFilter));}
     List<Patient> list =  crit.list();
     return list;

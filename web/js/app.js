@@ -220,7 +220,7 @@ function initPatientSearchTypeAheads() {
 
 function patientSearch() {
   
-  var dob = util_processDate("#patient-search-dob", dob);
+  var dob = util_processDob("#patient-search-dob", dob);
   var jsonData = JSON.stringify({ 
     id: clinician.id, 
     firstNameFilter: $.trim($("#patient-search-first-name").val()),

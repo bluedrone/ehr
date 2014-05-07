@@ -8,6 +8,7 @@
 package com.wdeanmedical.ehr.service;
 
 import java.net.MalformedURLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -63,13 +64,18 @@ public class AppService {
   }
   
   public  List<Patient> getFilteredPatients(PatientDTO dto) throws Exception {
+    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+    Date dobFilter = null; 
+    if (dto.getDobFilter() != null) {
+      try { dobFilter = sdf.parse(dto.getDobFilter()); } catch (ParseException pe) {dobFilter = null;}
+    }
     return appDAO.getFilteredPatients(
       dto.getFirstNameFilter(), 
       dto.getMiddleNameFilter(), 
       dto.getLastNameFilter(),
       dto.getCityFilter(),
       dto.getGenderFilter(),
-      dto.getDobFilter()
+      dobFilter
     );
   }
   

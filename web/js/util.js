@@ -28,6 +28,14 @@ function util_processDate(selector, property) {
   return property;
 }
 
+function util_processDob(selector, property) {
+  var date = $.trim($(selector).val());
+  if (date.length > 0) {
+    property = dateFormat(date, "mm/dd/yyyy"); 
+  }
+  return property;
+}
+
 
 function util_checkRegexp(s, regexp) {
   return regexp.test(s);
