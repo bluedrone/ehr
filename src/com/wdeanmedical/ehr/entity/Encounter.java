@@ -33,6 +33,7 @@ public class Encounter extends BaseEntity implements Serializable {
   private Integer lockStatus;
   private Boolean completed = false;
   private String consultLocation;
+  private String notes;
   private Integer ageInYears;
   private Integer ageInMonths;
   private String community;
@@ -170,5 +171,9 @@ public class Encounter extends BaseEntity implements Serializable {
   @Column(name = "follow_up_saved")
   public Boolean getFollowUpSaved() { return followUpSaved; }
   public void setFollowUpSaved(Boolean followUpSaved) { this.followUpSaved = followUpSaved; }
+
+  @Column(name = "notes")
+  public String getNotes() { return notes; }
+  public void setNotes(String notes) { this.notes = notes; }
 
 }

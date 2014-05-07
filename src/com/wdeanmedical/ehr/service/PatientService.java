@@ -456,6 +456,7 @@ public class PatientService {
     else if (property.equals("apellidoSegundo")) {cred.setAdditionalName(value);updateClass = "Credentials";} 
     else if (property.equals("gender")) {demo.setGender(patientDAO.findGenderByCode(value));updateClass = "Demographics";} 
     else if (property.equals("consultLocation")) {encounter.setConsultLocation(value);updateClass = "Encounter";} 
+    else if (property.equals("notes")) {encounter.setNotes(value);updateClass = "Encounter";} 
     else if (property.equals("community")) {encounter.setCommunity(value);updateClass = "Encounter";} 
     else if (property.equals("govtId")) {cred.setGovtId(value);updateClass = "Credentials";} 
     
