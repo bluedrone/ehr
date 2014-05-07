@@ -199,6 +199,7 @@ public class PatientDAO extends SiteDAO {
     encounter.setLastAccessed(new Date());
     encounter.setCreatedDate(new Date());
     encounter.setDate(new Date());
+    encounter.setClinician(clinician);
     encounter.setPatient(patient);
     session.save(encounter);
     

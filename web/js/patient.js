@@ -486,7 +486,7 @@ function getPatientEncountersListing() {
       clickable:true, 
       columns:[
         {title:'Date', field:'date', type:'date'},
-        {title:'Clinician', field:'clinician.firstName', type:'double-patient'},
+        {title:'Clinician', field:'clinician.firstName', type:'double-person'},
         {title:'Completed', field:'completed', type:'simple'},
         {title:'Notes', field:'notes', type:'simple'}
       ]}, function(s) {
