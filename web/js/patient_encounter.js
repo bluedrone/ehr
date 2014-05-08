@@ -1163,10 +1163,12 @@ function setEncounterFormMode(encounter, section, isSaved, hasOwnership) {
   if (encounter.completed == true) {
     $('#encounter-'+section+'-panel-'+id+' .form-control-unsaved').css({display: "none"});
     $('#encounter-'+section+'-panel-'+id+' .form-control-saved').css({display: "block"});
+    $('#encounter-'+section+'-panel-'+id+' input:checkbox').prop("readonly", true);
+    $('#encounter-'+section+'-panel-'+id+' input:radio').prop("readonly", true);
     $('#encounter-'+section+'-save-'+id).css({display: "none"});
     $('#encounter-'+section+'-saved-'+id).css({display: "none"});
     $('#encounter-'+section+'-clear-'+id).css({display: "none"});
-    $('#encounter-'+section+'-panel-'+id+' .form-control-saved').removeAttr('contenteditable').blur();
+    $('#encounter-'+section+'-panel-'+id+' .form-control-saved').removeAttr('contenteditable');
     $('#encounter-basic-info-photo-upload-control-'+id).css({display:"none"});
     return;
   }
