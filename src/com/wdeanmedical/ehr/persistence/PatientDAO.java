@@ -20,8 +20,8 @@ import com.wdeanmedical.ehr.entity.Encounter;
 import com.wdeanmedical.ehr.entity.EncounterType;
 import com.wdeanmedical.ehr.entity.Exam;
 import com.wdeanmedical.ehr.entity.Gender;
-import com.wdeanmedical.ehr.entity.IntakeMedication;
-import com.wdeanmedical.ehr.entity.IntakeQuestion;
+import com.wdeanmedical.ehr.entity.EncounterMedication;
+import com.wdeanmedical.ehr.entity.EncounterQuestion;
 import com.wdeanmedical.ehr.entity.Lab;
 import com.wdeanmedical.ehr.entity.LabReview;
 import com.wdeanmedical.ehr.entity.OBGYNEncounterData;
@@ -93,36 +93,36 @@ public class PatientDAO extends SiteDAO {
     this.deleteEntity(item);
   }
   
-  public List<IntakeQuestion> getIntakeQuestionsByEncounter(int encounterId) throws Exception {
+  public List<EncounterQuestion> getEncounterQuestionsByEncounter(int encounterId) throws Exception {
     Session session = this.getSession();
-    Criteria crit = session.createCriteria(IntakeQuestion.class);
+    Criteria crit = session.createCriteria(EncounterQuestion.class);
     crit.add(Restrictions.eq("encounterId", encounterId));
     crit.addOrder(Order.asc("id"));
-    List<IntakeQuestion> list = crit.list();
+    List<EncounterQuestion> list = crit.list();
     return list;
   }
   
-  public List<IntakeMedication> getIntakeMedicationsByPatient(int patientId) throws Exception {
+  public List<EncounterMedication> getEncounterMedicationsByPatient(int patientId) throws Exception {
     Session session = this.getSession();
-    Criteria crit = session.createCriteria(IntakeMedication.class);
+    Criteria crit = session.createCriteria(EncounterMedication.class);
     crit.add(Restrictions.eq("patientId", patientId));
     crit.addOrder(Order.asc("id"));
-    List<IntakeMedication> list = crit.list();
+    List<EncounterMedication> list = crit.list();
     return list;
   }
   
   
-  public List<Encounter> getEncountersByGroupId(int patientIntakeGroupId) throws Exception {
+  public List<Encounter> getEncountersByGroupId(int patientEncounterGroupId) throws Exception {
     Session session = this.getSession();
     Criteria crit = session.createCriteria(Encounter.class);
-    crit.add(Restrictions.eq("patientIntakeGroupId", patientIntakeGroupId));
+    crit.add(Restrictions.eq("patientEncounterGroupId", patientEncounterGroupId));
     crit.add(Restrictions.eq("completed", false));
     crit.addOrder(Order.asc("id"));
     List<Encounter> list = crit.list();
     for (Encounter encounter : list) {
-      encounter.getSupp().setIntakeQuestionList(getIntakeQuestionsByEncounter(encounter.getId()));
+      encounter.getSupp().setEncounterQuestionList(getEncounterQuestionsByEncounter(encounter.getId()));
       Patient patient = encounter.getPatient();
-      patient.getHist().setIntakeMedicationList(getIntakeMedicationsByPatient(patient.getId()));
+      patient.getHist().setEncounterMedicationList(getEncounterMedicationsByPatient(patient.getId()));
     }
     return list;
   }
@@ -165,14 +165,14 @@ public class PatientDAO extends SiteDAO {
   }
 
   
-  public void updateIntakeMedication(IntakeMedication intakeMedication) throws Exception {
+  public void updateEncounterMedication(EncounterMedication encounterMedication) throws Exception {
     Session session = this.getSession();
-    session.update(intakeMedication);
+    session.update(encounterMedication);
   }
   
-  public void updateIntakeQuestion(IntakeQuestion intakeQuestion) throws Exception {
+  public void updateEncounterQuestion(EncounterQuestion encounterQuestion) throws Exception {
     Session session = this.getSession();
-    session.update(intakeQuestion);
+    session.update(encounterQuestion);
   }
   
   public void createPatient(Patient patient) throws Exception {
@@ -324,14 +324,14 @@ public class PatientDAO extends SiteDAO {
     session.update(d);
   }
   
-  public IntakeMedication findIntakeMedicationById(int id) throws Exception {
-    IntakeMedication intakeMedication = (IntakeMedication) this.findById(IntakeMedication.class, id);
-    return intakeMedication;
+  public EncounterMedication findEncounterMedicationById(int id) throws Exception {
+    EncounterMedication encounterMedication = (EncounterMedication) this.findById(EncounterMedication.class, id);
+    return encounterMedication;
   }
   
-  public IntakeQuestion findIntakeQuestionById(int id) throws Exception {
-    IntakeQuestion intakeQuestion = (IntakeQuestion) this.findById(IntakeQuestion.class, id);
-    return intakeQuestion;
+  public EncounterQuestion findEncounterQuestionById(int id) throws Exception {
+    EncounterQuestion encounterQuestion = (EncounterQuestion) this.findById(EncounterQuestion.class, id);
+    return encounterQuestion;
   }
   
   public Gender findGenderByCode(String code) throws Exception {

@@ -188,8 +188,8 @@
             <value>com.wdeanmedical.ehr.entity.HealthIssue</value>
             <value>com.wdeanmedical.ehr.entity.HealthTrendReport</value>
             <value>com.wdeanmedical.ehr.entity.Immunization</value>
-            <value>com.wdeanmedical.ehr.entity.IntakeMedication</value>
-            <value>com.wdeanmedical.ehr.entity.IntakeQuestion</value>
+            <value>com.wdeanmedical.ehr.entity.EncounterMedication</value>
+            <value>com.wdeanmedical.ehr.entity.EncounterQuestion</value>
             <value>com.wdeanmedical.ehr.entity.Lab</value>
             <value>com.wdeanmedical.ehr.entity.LabReview</value>
             <value>com.wdeanmedical.ehr.entity.MaritalStatus</value>

@@ -25,7 +25,7 @@ import com.wdeanmedical.ehr.dto.ClinicianDTO;
 import com.wdeanmedical.ehr.dto.LoginDTO;
 import com.wdeanmedical.ehr.dto.PatientDTO;
 import com.wdeanmedical.ehr.entity.Appointment;
-import com.wdeanmedical.ehr.entity.IntakeQuestion;
+import com.wdeanmedical.ehr.entity.EncounterQuestion;
 import com.wdeanmedical.ehr.entity.Patient;
 import com.wdeanmedical.ehr.entity.PatientAllergen;
 import com.wdeanmedical.ehr.entity.PatientClinician;

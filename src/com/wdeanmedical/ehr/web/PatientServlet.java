@@ -74,11 +74,11 @@ public class PatientServlet extends AppServlet  {
         else if (pathInfo.equals("/overridePatient")) {
           returnString = overridePatient(request, response);  
         }
-        else if (pathInfo.equals("/addIntakeMedication")) {
-          returnString = addIntakeMedication(request, response);  
+        else if (pathInfo.equals("/addEncounterMedication")) {
+          returnString = addEncounterMedication(request, response);  
         }
-        else if (pathInfo.equals("/addIntakeQuestion")) {
-          returnString = addIntakeQuestion(request, response);  
+        else if (pathInfo.equals("/addEncounterQuestion")) {
+          returnString = addEncounterQuestion(request, response);  
         }
         else if (pathInfo.equals("/closeEncounter")) {
           returnString = closeEncounter(request, response);  
@@ -128,11 +128,11 @@ public class PatientServlet extends AppServlet  {
         else if (pathInfo.equals("/createHist")) {
           returnString = createHist(request, response);  
         }
-        else if (pathInfo.equals("/updateIntakeMedication")) {
-          returnString = updateIntakeMedication(request, response);  
+        else if (pathInfo.equals("/updateEncounterMedication")) {
+          returnString = updateEncounterMedication(request, response);  
         }
-        else if (pathInfo.equals("/updateIntakeQuestion")) {
-          returnString = updateIntakeQuestion(request, response);  
+        else if (pathInfo.equals("/updateEncounterQuestion")) {
+          returnString = updateEncounterQuestion(request, response);  
         }
         else if (pathInfo.equals("/updatePatient")) {
           returnString = updatePatient(request, response);  
@@ -226,20 +226,20 @@ public class PatientServlet extends AppServlet  {
   }
   
   
-  public String updateIntakeMedication(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String updateEncounterMedication(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String data = request.getParameter("data");
     Gson gson = new Gson();
     PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.updateIntakeMedication(dto);
+    patientService.updateEncounterMedication(dto);
     String json = gson.toJson(dto);
     return json;
   }
   
-  public String updateIntakeQuestion(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String updateEncounterQuestion(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String data = request.getParameter("data");
     Gson gson = new Gson();
     PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.updateIntakeQuestion(dto);
+    patientService.updateEncounterQuestion(dto);
     String json = gson.toJson(dto);
     return json;
   }
@@ -334,20 +334,20 @@ public class PatientServlet extends AppServlet  {
     return json;
   }
   
-  public String addIntakeMedication(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String addEncounterMedication(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String data = request.getParameter("data");
     Gson gson = new Gson();
     PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.addIntakeMedication(dto.getPatientId());
+    patientService.addEncounterMedication(dto.getPatientId());
     String json = gson.toJson(dto);
     return json;
   }
   
-  public String addIntakeQuestion(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String addEncounterQuestion(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String data = request.getParameter("data");
     Gson gson = new Gson();
     PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.addIntakeQuestion(dto.getEncounterId());
+    patientService.addEncounterQuestion(dto.getEncounterId());
     String json = gson.toJson(dto);
     return json;
   }

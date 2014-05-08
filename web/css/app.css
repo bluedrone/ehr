@@ -431,7 +431,7 @@ a.pc-tile:hover {
   padding: 10px 0px 20px 0px;
   font-size: 1em;
 }
-#patient-intake-screen {
+#patient-encounter-screen {
   margin-bottom: 200px;
 }
 .collapse-arrow {
@@ -448,13 +448,13 @@ a.pc-tile:hover {
   padding-top: 5px;
 }
 
-#intake-groups .nav-tabs.nav-justified > li > a {
+#encounter-groups .nav-tabs.nav-justified > li > a {
   text-align: left;
 }
-#intake-groups .nav-tabs a:hover {
+#encounter-groups .nav-tabs a:hover {
   color: #fff;
 }
-#intake-groups .nav-tabs > li > a {
+#encounter-groups .nav-tabs > li > a {
   background-color: #f0ad4e;
   color: #fff;
   padding: 5px 8px 8px 8px;
@@ -462,12 +462,12 @@ a.pc-tile:hover {
   margin-top: 5px;
   border: 1px solid #dddddd;
 }
-#intake-groups .nav-tabs > li > a:hover {
+#encounter-groups .nav-tabs > li > a:hover {
   background-color: #563d7c;
   color: #fff;
   padding: 5px 8px 3px 8px;
 }
-#intake-groups .nav-tabs > li.active > a {
+#encounter-groups .nav-tabs > li.active > a {
   background-color: #563d7c;
 }
 
@@ -621,7 +621,7 @@ i {
   font-weight: bold;    
 }
 
-table.intake-form td {
+table.encounter-form td {
   text-align:center;  
 }
 
@@ -637,11 +637,11 @@ table.intake-form td {
   width:60px;
 }
 
-.intake-exam-image-wrapper {
+.encounter-exam-image-wrapper {
   position: relative;
 }
 
-.intake-exam-image-overlay {
+.encounter-exam-image-overlay {
   position: absolute;
   top: 30px;
   left: 5px;
@@ -651,8 +651,8 @@ table.intake-form td {
   z-index: 1000;
 }
 
-#app-intake-acquire-record {display:none}
-#app-intake-release-record {display:none}
+#app-encounter-acquire-record {display:none}
+#app-encounter-release-record {display:none}
 
 
 .fileinput-button {

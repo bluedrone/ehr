@@ -24,7 +24,7 @@ function Patient() {
   this.bioPhoto = undefined;
   this.gender = undefined;
   this.age = undefined;
-  this.patientIntakeGroupId = undefined;
+  this.patientEncounterGroupId = undefined;
 }
 
 function Demographics() {
@@ -33,7 +33,7 @@ function Demographics() {
 function Credentials() {
 }
 
-function PatientIntakeGroup() {
+function PatientEncounterGroup() {
   this.id = 0;
   this.name = undefined;
   this.sortOrder = 0;
@@ -52,7 +52,7 @@ function Encounter() {
   this.encounter = undefined;
   this.notes = undefined;
   this.checkIn = undefined;
-  this.intake = undefined;
+  this.encounter = undefined;
   this.provider = undefined;
   this.missing = undefined;
   this.completed = undefined;

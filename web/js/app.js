@@ -5,10 +5,10 @@
  * copyright 2013-2014 WDean Medical
  */
 
-var INTAKE_FREE =  0;
-var INTAKE_LOCKED = 1;
-var INTAKE_OVERRIDDEN =  2;
-var INTAKE_OWNED =  3;
+var ENCOUNTER_FREE =  0;
+var ENCOUNTER_LOCKED = 1;
+var ENCOUNTER_OVERRIDDEN =  2;
+var ENCOUNTER_OWNED =  3;
 var DO_SCROLL = true;
 var DONT_SCROLL = false;
 var DO_AUTO_LOGOUT = true;
@@ -28,7 +28,7 @@ var DEMO_PASSWORD = 'Njs2101$';
 var app_templates = {};
 var app_lockIcons = {0:'icon-unlock', 1:'icon-lock', 2:'icon-bolt', 3:'icon-user-md'};
 
-var DEST_INTAKE = 'intake';
+var DEST_ENCOUNTER = 'encounter';
 var app_patientEncounters;
 var app_progressNotes;
 var app_progressNotesIndex = 0;
@@ -74,9 +74,9 @@ var app_patientChartMRN;
 var app_patientChartPrimaryPhone;
 var app_patientChartSecondaryPhone;
 var app_patientChartHeadshot;
-var app_patientIntakeGroups = [];
+var app_patientEncounterGroups = [];
 var app_groupOrderArray = [];
-var app_newPatientIntakeGroup = undefined;
+var app_newPatientEncounterGroup = undefined;
 var app_oldLockStatus;
 
 /***********      @JQUERY INIT    *******************/
@@ -95,16 +95,16 @@ $(document).ready(function() {
     $('#section-notification-text').html("");
     
     $('#app-check-in-print').click(function(){
-      RenderUtil.render('print/print_check-in_list',  {groups:app_patientIntakeGroups}, function(obj) {
+      RenderUtil.render('print/print_check-in_list',  {groups:app_patientEncounterGroups}, function(obj) {
         var s = obj[0].outerHTML;
         print_openPrintWindow('print.html', s, 'PATIENT CHECK-IN LIST');
       });
     });
-    $('#app-intake-print-all').click(function(){
+    $('#app-encounter-print-all').click(function(){
       var currentDate = dateFormat(new Date(), 'mm/dd/yyyy');
-      RenderUtil.render('print/print_intake_all',  {encounter:app_currentEncounter, currentDate:currentDate}, function(obj) {
+      RenderUtil.render('print/print_encounter_all',  {encounter:app_currentEncounter, currentDate:currentDate}, function(obj) {
         var s = obj[0].outerHTML;
-        print_openPrintWindow('print.html', s, 'INTAKE FORM');
+        print_openPrintWindow('print.html', s, 'ENCOUNTER FORM');
       });
     });
     $('#app-check-in-add-group-link').click(function(){ showAddGroupForm(); });
@@ -627,7 +627,7 @@ $('#app-problem-list-link').click(function(){
 
 
 $('#app-signin-submit').click(function(){ login(DEMO_MODE_OFF); });
-$('#app-signin-intake-submit').click(function(){ login(DEMO_MODE_OFF, DEST_INTAKE); });
+$('#app-signin-encounter-submit').click(function(){ login(DEMO_MODE_OFF, DEST_ENCOUNTER); });
 $('#get-started-btn').click(function(){ login(DEMO_MODE_ON); });
 $('.app-exit').click(function(){ logout(); });
 
@@ -790,7 +790,7 @@ function viewClinicianMessage() {
       $('#section-notification').css("visibility", "visible");
       $('.patient-navbar-btn').css("display", "inline-block");
       $('.check-in-navbar-btn').css("display", "none");
-      $('.intake-navbar-btn').css("display", "none");
+      $('.encounter-navbar-btn').css("display", "none");
       $('#section-notification-text').html("Patient: " + app_patientChartFullName);
       viewPatientChart();
     });
@@ -1073,7 +1073,7 @@ function login(demoMode, destination) {
         clinicianFullName = util_buildFullName(clinician.firstName, clinician.middleName, clinician.lastName);
         notificationText = clinicianFullName + ' logged in.';
         
-        if (destination == DEST_INTAKE) {
+        if (destination == DEST_ENCOUNTER) {
           viewPatientCheckInList();
         }
         else {

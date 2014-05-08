@@ -6,15 +6,15 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "intake_question")
-public class IntakeQuestion extends BaseEntity implements Serializable {
+@Table(name = "encounter_question")
+public class EncounterQuestion extends BaseEntity implements Serializable {
 
   private static final long serialVersionUID = -5235097606726399045L;
   private String question = "&nbsp;";
   private String response = "&nbsp;";
   private int encounterId;
 
-  public IntakeQuestion() {
+  public EncounterQuestion() {
   }
 
   @Column(name = "question")

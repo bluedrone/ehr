@@ -499,7 +499,7 @@
  
  <div class="page-title-background"><div class="page-title">MEDICAL HISTORY</div></div>
  <table class="form-table">
-    {{each(i, item) encounter.patient.hist.intakeMedicationList}}
+    {{each(i, item) encounter.patient.hist.encounterMedicationList}}
    <tr>   
      <td>
      <div class="item-wrapper-basic-info">
@@ -650,7 +650,7 @@
      </div>
      </td>
    </tr>
-   {{each(i, item) encounter.supp.intakeQuestionList}}
+   {{each(i, item) encounter.supp.encounterQuestionList}}
    <tr>   
      <td>
      <div class="item-wrapper-basic-info">

@@ -29,8 +29,8 @@ import com.wdeanmedical.ehr.entity.ChiefComplaint;
 import com.wdeanmedical.ehr.entity.Credentials;
 import com.wdeanmedical.ehr.entity.Demographics;
 import com.wdeanmedical.ehr.entity.Exam;
-import com.wdeanmedical.ehr.entity.IntakeMedication;
-import com.wdeanmedical.ehr.entity.IntakeQuestion;
+import com.wdeanmedical.ehr.entity.EncounterMedication;
+import com.wdeanmedical.ehr.entity.EncounterQuestion;
 import com.wdeanmedical.ehr.entity.Lab;
 import com.wdeanmedical.ehr.entity.OBGYNEncounterData;
 import com.wdeanmedical.ehr.entity.Patient;
@@ -134,8 +134,8 @@ public class PatientService {
   
   
   public void createSupp(PatientDTO dto) throws Exception {
-    for (IntakeQuestion intakeQuestion : dto.getEncounter().getSupp().getIntakeQuestionList()) {
-      patientDAO.updateIntakeQuestion(intakeQuestion);
+    for (EncounterQuestion encounterQuestion : dto.getEncounter().getSupp().getEncounterQuestionList()) {
+      patientDAO.updateEncounterQuestion(encounterQuestion);
     }
     patientDAO.update(dto.getEncounter().getSupp());
     patientDAO.update(dto.getEncounter());
@@ -155,8 +155,8 @@ public class PatientService {
   
   
   public void createHist(PatientDTO dto) throws Exception {
-    for (IntakeMedication intakeMedication : dto.getEncounter().getPatient().getHist().getIntakeMedicationList()) {
-      patientDAO.updateIntakeMedication(intakeMedication);
+    for (EncounterMedication encounterMedication : dto.getEncounter().getPatient().getHist().getEncounterMedicationList()) {
+      patientDAO.updateEncounterMedication(encounterMedication);
     }
     patientDAO.update(dto.getEncounter().getPatient().getHist());
     patientDAO.update(dto.getEncounter().getPatient());
@@ -172,33 +172,33 @@ public class PatientService {
   }
   
   
-  public  void updateIntakeMedication(PatientDTO dto) throws Exception {
-    IntakeMedication intakeMedication = patientDAO.findIntakeMedicationById(dto.getIntakeMedicationId());
+  public  void updateEncounterMedication(PatientDTO dto) throws Exception {
+    EncounterMedication encounterMedication = patientDAO.findEncounterMedicationById(dto.getEncounterMedicationId());
     String property = dto.getUpdateProperty();
     String value = dto.getUpdatePropertyValue();
     if (property.equals("medication")) {
-      intakeMedication.setMedication(value);
+      encounterMedication.setMedication(value);
     }
     else if (property.equals("dose")) {
-      intakeMedication.setDose(value);
+      encounterMedication.setDose(value);
     }
     else if (property.equals("frequency")) {
-      intakeMedication.setFrequency(value);
+      encounterMedication.setFrequency(value);
     }
-    patientDAO.update(intakeMedication);
+    patientDAO.update(encounterMedication);
   }
   
-  public  void updateIntakeQuestion(PatientDTO dto) throws Exception {
-    IntakeQuestion intakeQuestion = patientDAO.findIntakeQuestionById(dto.getIntakeQuestionId());
+  public  void updateEncounterQuestion(PatientDTO dto) throws Exception {
+    EncounterQuestion encounterQuestion = patientDAO.findEncounterQuestionById(dto.getEncounterQuestionId());
     String property = dto.getUpdateProperty();
     String value = dto.getUpdatePropertyValue();
     if (property.equals("question")) {
-      intakeQuestion.setQuestion(value);
+      encounterQuestion.setQuestion(value);
     }
     else if (property.equals("response")) {
-      intakeQuestion.setResponse(value);
+      encounterQuestion.setResponse(value);
     }
-    patientDAO.update(intakeQuestion);
+    patientDAO.update(encounterQuestion);
   }
   
 
@@ -253,8 +253,8 @@ public class PatientService {
     patientDAO.update(encounter);
     
     for (int i=0; i<3; i++) {
-      addIntakeQuestion(encounter.getId()); // encounter.supp
-      addIntakeMedication(patient.getId()); // patient.hist
+      addEncounterQuestion(encounter.getId()); // encounter.supp
+      addEncounterMedication(patient.getId()); // patient.hist
     }
 
     Runtime runtime = Runtime.getRuntime();
@@ -265,17 +265,17 @@ public class PatientService {
   }
   
   
-  public  void addIntakeMedication(Integer patientId) throws Exception {
-    IntakeMedication intakeMedication = new IntakeMedication();
-    intakeMedication.setPatientId(patientId);
-    patientDAO.create(intakeMedication);
+  public  void addEncounterMedication(Integer patientId) throws Exception {
+    EncounterMedication encounterMedication = new EncounterMedication();
+    encounterMedication.setPatientId(patientId);
+    patientDAO.create(encounterMedication);
   }
   
   
-  public  void addIntakeQuestion(Integer encounterId) throws Exception {
-    IntakeQuestion intakeQuestion = new IntakeQuestion();
-    intakeQuestion.setEncounterId(encounterId);
-    patientDAO.create(intakeQuestion);
+  public  void addEncounterQuestion(Integer encounterId) throws Exception {
+    EncounterQuestion encounterQuestion = new EncounterQuestion();
+    encounterQuestion.setEncounterId(encounterId);
+    patientDAO.create(encounterQuestion);
   }
   
   public void acquirePatient(PatientDTO dto) throws Exception {
@@ -330,8 +330,8 @@ public class PatientService {
     Clinician clinician = appDAO.findClinicianBySessionId(dto.getSessionId());
     Encounter encounter = patientDAO.createEncounter(patient, clinician);
     for (int i=0; i<3; i++) {
-      addIntakeQuestion(encounter.getId()); // encounter.supp
-      addIntakeMedication(patient.getId()); // patient.hist
+      addEncounterQuestion(encounter.getId()); // encounter.supp
+      addEncounterMedication(patient.getId()); // patient.hist
     }
     return encounter;
   }

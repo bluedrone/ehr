@@ -25,7 +25,7 @@ public class SuppQuestions extends BaseEntity implements Serializable {
   private Integer numCupsCoffee; 
   private Integer numCupsTea; 
   private String waterSource; 
-  private List<IntakeQuestion> intakeQuestionList;
+  private List<EncounterQuestion> encounterQuestionList;
 
 
   public SuppQuestions() {
@@ -64,7 +64,7 @@ public class SuppQuestions extends BaseEntity implements Serializable {
   public void setWaterSource(String waterSource) { this.waterSource = waterSource; }
   
   @Transient
-  public List<IntakeQuestion> getIntakeQuestionList() { return intakeQuestionList; }
-  public void setIntakeQuestionList(List<IntakeQuestion> intakeQuestionList) { this.intakeQuestionList = intakeQuestionList; }
+  public List<EncounterQuestion> getEncounterQuestionList() { return encounterQuestionList; }
+  public void setEncounterQuestionList(List<EncounterQuestion> encounterQuestionList) { this.encounterQuestionList = encounterQuestionList; }
 
 }

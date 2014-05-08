@@ -6,8 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "intake_medication")
-public class IntakeMedication extends BaseEntity implements Serializable {
+@Table(name = "encounter_medication")
+public class EncounterMedication extends BaseEntity implements Serializable {
 
   private static final long serialVersionUID = 548926604494760704L;
   
@@ -16,7 +16,7 @@ public class IntakeMedication extends BaseEntity implements Serializable {
   private String frequency;
   private int patientId;
 
-  public IntakeMedication() {
+  public EncounterMedication() {
   }
 
   @Column(name = "medication")

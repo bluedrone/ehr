@@ -34,7 +34,7 @@ public class MedicalHistory extends BaseEntity implements Serializable {
   private Float smokeYearsQuit; 
   private Float etohUnitsWeek; 
   private String currentDrugs;
-  private List<IntakeMedication> intakeMedicationList;
+  private List<EncounterMedication> encounterMedicationList;
 
   public MedicalHistory() {
   }
@@ -108,7 +108,7 @@ public class MedicalHistory extends BaseEntity implements Serializable {
   public void setCurrentDrugs(String currentDrugs) { this.currentDrugs = currentDrugs; }
 
   @Transient
-  public List<IntakeMedication> getIntakeMedicationList() { return intakeMedicationList; }
-  public void setIntakeMedicationList(List<IntakeMedication> intakeMedicationList) { this.intakeMedicationList = intakeMedicationList; }
+  public List<EncounterMedication> getEncounterMedicationList() { return encounterMedicationList; }
+  public void setEncounterMedicationList(List<EncounterMedication> encounterMedicationList) { this.encounterMedicationList = encounterMedicationList; }
 
 }

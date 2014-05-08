@@ -48,12 +48,12 @@ public class Core {
     clinicianPermissionsMap.put("/acquirePatient",               new boolean[] {true,true});
     clinicianPermissionsMap.put("/activateClinician",            new boolean[] {true,true});
     clinicianPermissionsMap.put("/deactivateClinician",          new boolean[] {true,true});
-    clinicianPermissionsMap.put("/addIntakeMedication",          new boolean[] {true,true});
-    clinicianPermissionsMap.put("/addIntakeQuestion",            new boolean[] {true,true});
+    clinicianPermissionsMap.put("/addEncounterMedication",          new boolean[] {true,true});
+    clinicianPermissionsMap.put("/addEncounterQuestion",            new boolean[] {true,true});
     clinicianPermissionsMap.put("/closeEncounter",               new boolean[] {true,true});
     clinicianPermissionsMap.put("/closePatientNote",             new boolean[] {true,true});
     clinicianPermissionsMap.put("/createPatientAndEncounter",    new boolean[] {true,true});
-    clinicianPermissionsMap.put("/createPatientIntakeGroup",     new boolean[] {true,true});
+    clinicianPermissionsMap.put("/createPatientEncounterGroup",     new boolean[] {true,true});
     clinicianPermissionsMap.put("/deletePatient",                new boolean[] {true,true});
     clinicianPermissionsMap.put("/getClinicianDashboard",        new boolean[] {true,true});
     clinicianPermissionsMap.put("/getClinicianMessage",          new boolean[] {true,true});
@@ -88,8 +88,8 @@ public class Core {
     clinicianPermissionsMap.put("/createPFSH",                   new boolean[] {true,true});
     clinicianPermissionsMap.put("/createSupp",                   new boolean[] {true,true});
     clinicianPermissionsMap.put("/createVitals",                 new boolean[] {true,true});
-    clinicianPermissionsMap.put("/updateIntakeMedication",       new boolean[] {true,true});
-    clinicianPermissionsMap.put("/updateIntakeQuestion",         new boolean[] {true,true});
+    clinicianPermissionsMap.put("/updateEncounterMedication",       new boolean[] {true,true});
+    clinicianPermissionsMap.put("/updateEncounterQuestion",         new boolean[] {true,true});
     clinicianPermissionsMap.put("/uploadProfileImage",           new boolean[] {true ,true});
     clinicianPermissionsMap.put("/updatePatient",                new boolean[] {true,true});
     clinicianPermissionsMap.put("/updateClinician",              new boolean[] {true,true});

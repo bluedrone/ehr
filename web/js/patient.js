@@ -19,19 +19,19 @@ function loadHistScreenForm() {
   var id = app_patientEncounters[0].id; 
   object = app_patientEncounters[0].patient.hist; 
   $('#modal-medical-history .form-control-unsaved').css({display: "none"});
-      RenderUtil.render('component/intake_medications', {encounter: app_currentEncounter}, function(s) { 
+      RenderUtil.render('component/encounter_medications', {encounter: app_currentEncounter}, function(s) { 
         $("#patient-medications-").html(s); 
         $('.patient-med-editable').blur(function(e) { 
           getCurrentMedicationId(e);
-          updateIntakeMedication("medication", $(this).html(), app_currentMedicationId); 
+          updateEncounterMedication("medication", $(this).html(), app_currentMedicationId); 
         });
         $('.patient-dose-editable').blur(function(e) { 
           getCurrentMedicationId(e);
-          updateIntakeMedication("dose", $(this).html(), app_currentMedicationId); 
+          updateEncounterMedication("dose", $(this).html(), app_currentMedicationId); 
         });
         $('.patient-freq-editable').blur(function(e) { 
           getCurrentMedicationId(e);
-          updateIntakeMedication("frequency", $(this).html(), app_currentMedicationId); 
+          updateEncounterMedication("frequency", $(this).html(), app_currentMedicationId); 
         });
       });
       
@@ -52,49 +52,49 @@ function loadHistScreenForm() {
       $('#patient-current-drugs-saved').html(object.currentDrugs);
       $('#patient-hist-new-medication').click(function() { 
         var jsonData = JSON.stringify({sessionId: clinician.sessionId, patientId:  app_currentEncounter.patient.id});
-        $.post("patient/addIntakeMedication", {data:jsonData}, function(data) {
+        $.post("patient/addEncounterMedication", {data:jsonData}, function(data) {
           var parsedData = $.parseJSON(data);
-          var intakeMedicationId = parsedData.intakeMedicationId;
+          var encounterMedicationId = parsedData.encounterMedicationId;
           var numMedications = $("#patient-medications").children().length + 2;
-          RenderUtil.render('component/intake_medication', {ordinal:numMedications, id: intakeMedicationId}, function(s) { 
+          RenderUtil.render('component/encounter_medication', {ordinal:numMedications, id: encounterMedicationId}, function(s) { 
             $("#patient-medications").append(s); 
-            setIntakeFormMode(id, section, savedState, hasOwnership);
+            setEncounterFormMode(id, section, savedState, hasOwnership);
             $('.patient-med-editable').blur(function(e) { 
               getCurrentMedicationId(e);
-              updateIntakeMedication("medication", $(this).html(), intakeMedicationId); 
+              updateEncounterMedication("medication", $(this).html(), encounterMedicationId); 
             });
             $('.patient-dose-editable').blur(function(e) { 
               getCurrentQuestionId(e);
-              updateIntakeMedication("dose", $(this).html(), intakeMedicationId); 
+              updateEncounterMedication("dose", $(this).html(), encounterMedicationId); 
              });
              $('.patient-freq-editable').blur(function(e) { 
               getCurrentQuestionId(e);
-              updateIntakeMedication("frequency", $(this).html(), intakeMedicationId); 
+              updateEncounterMedication("frequency", $(this).html(), encounterMedicationId); 
              });
            });
        });
       });
-      $('#patient-past-s-m-saved').blur(function() { updateSavedPatientIntake("pastSM", $(this).html(), id); });
+      $('#patient-past-s-m-saved').blur(function() { updateSavedPatientEncounter("pastSM", $(this).html(), id); });
       $('input[name=patient-fam-hist-'+']').click(function() { 
         var famHist = $('input[name=patient-fam-hist-'+']:checked').map(function() {return this.value;}).get().join(',');
-        updateSavedPatientIntake("famHist", famHist, id); 
+        updateSavedPatientEncounter("famHist", famHist, id); 
       });
-      $('#patient-fam-hist-notes-saved').blur(function() { updateSavedPatientIntake("famHistNotes", $(this).html(), id); });
-      $('#patient-fam-hist-other-saved').blur(function() { updateSavedPatientIntake("famHistOther", $(this).html(), id); });
-      $('#patient-allerg-food-saved').blur(function() { updateSavedPatientIntake("allergFood", $(this).html(), id); });
-      $('#patient-allerg-drug-saved').blur(function() { updateSavedPatientIntake("allergDrug", $(this).html(), id); });
-      $('#patient-allerg-env-saved').blur(function() { updateSavedPatientIntake("allergEnv", $(this).html(), id); });
-      $('input[name=patient-vacc]').click(function() { updateSavedPatientIntake("vacc", $(this).val() == 'true', id); });
-      $('#patient-vacc-notes-saved').blur(function() { updateSavedPatientIntake("vaccNotes", $(this).html(), id); });
+      $('#patient-fam-hist-notes-saved').blur(function() { updateSavedPatientEncounter("famHistNotes", $(this).html(), id); });
+      $('#patient-fam-hist-other-saved').blur(function() { updateSavedPatientEncounter("famHistOther", $(this).html(), id); });
+      $('#patient-allerg-food-saved').blur(function() { updateSavedPatientEncounter("allergFood", $(this).html(), id); });
+      $('#patient-allerg-drug-saved').blur(function() { updateSavedPatientEncounter("allergDrug", $(this).html(), id); });
+      $('#patient-allerg-env-saved').blur(function() { updateSavedPatientEncounter("allergEnv", $(this).html(), id); });
+      $('input[name=patient-vacc]').click(function() { updateSavedPatientEncounter("vacc", $(this).val() == 'true', id); });
+      $('#patient-vacc-notes-saved').blur(function() { updateSavedPatientEncounter("vaccNotes", $(this).html(), id); });
       $('input[name=patient-subst]').click(function() { 
         var subst = $('input[name=patient-subst]:checked').map(function() {return this.value;}).get().join(',');
-        updateSavedPatientIntake("subst", subst, id); 
+        updateSavedPatientEncounter("subst", subst, id); 
       });
-      $('#patient-smoke-pks-day-saved').blur(function() { updateSavedPatientIntake("smokePksDay", $(this).html(), id); });
-      $('#patient-years-smoked-saved').blur(function() { updateSavedPatientIntake("yearsSmoked", $(this).html(), id); });
-      $('#patient-smoke-years-quit-saved').blur(function() { updateSavedPatientIntake("smokeYearsQuit", $(this).html(), id); });
-      $('#patient-etoh-units-week-saved').blur(function() { updateSavedPatientIntake("etohUnitsWeek", $(this).html(), id); });
-      $('#patient-current-drugs-saved').blur(function() { updateSavedPatientIntake("currentDrugs", $(this).html(), id); });
+      $('#patient-smoke-pks-day-saved').blur(function() { updateSavedPatientEncounter("smokePksDay", $(this).html(), id); });
+      $('#patient-years-smoked-saved').blur(function() { updateSavedPatientEncounter("yearsSmoked", $(this).html(), id); });
+      $('#patient-smoke-years-quit-saved').blur(function() { updateSavedPatientEncounter("smokeYearsQuit", $(this).html(), id); });
+      $('#patient-etoh-units-week-saved').blur(function() { updateSavedPatientEncounter("etohUnitsWeek", $(this).html(), id); });
+      $('#patient-current-drugs-saved').blur(function() { updateSavedPatientEncounter("currentDrugs", $(this).html(), id); });
   $('#patient-hist-print').click(function() { printPatientForm('print_patient_hist', 'SOCIAL & FAMILY HISTORY', object)});
 }
 
@@ -118,20 +118,20 @@ function loadPFSHScreenForm() {
   $('#patient-num-children-saved').html(object.numChildren);
   $('#patient-num-sons-saved').html(object.numSons);
   $('#patient-num-daughters-saved').html(object.numDaughters);
-  $('#patient-num-residents-saved').blur(function() { updateSavedPatientIntake("numResidents", $(this).html(), id); });
-  $('#patient-job-type-saved').blur(function() { updateSavedPatientIntake("jobType", $(this).html(), id); });
-  $('input[name=patient-mother-alive]').click(function() { updateSavedPatientIntake("motherAlive", $(this).val() == 'true', id); });
-  $('#patient-mother-death-reason-saved').blur(function() { updateSavedPatientIntake("motherDeathReason", $(this).html(), id); });
-  $('input[name=patient-father-alive]').click(function() { updateSavedPatientIntake("fatherAlive", $(this).val() == 'true', id); });
-  $('#patient-father-death-reason-saved').blur(function() { updateSavedPatientIntake("fatherDeathReason", $(this).html(), id); });
-  $('input[name=patient-partner-alive]').click(function() { updateSavedPatientIntake("partnerAlive", $(this).val() == 'true', id); });
-  $('#patient-partner-death-reason-saved').blur(function() { updateSavedPatientIntake("partnerDeathReason", $(this).html(), id); });
-  $('#patient-num-siblings-saved').blur(function() { updateSavedPatientIntake("numSiblings", $(this).html(), id); });
-  $('#patient-num-brothers-saved').blur(function() { updateSavedPatientIntake("numBrothers", $(this).html(), id); });
-  $('#patient-num-sisters-saved').blur(function() { updateSavedPatientIntake("numSisters", $(this).html(), id); });
-  $('#patient-num-children-saved').blur(function() { updateSavedPatientIntake("numChildren", $(this).html(), id); });
-  $('#patient-num-sons-saved').blur(function() { updateSavedPatientIntake("numSons", $(this).html(), id); });
-  $('#patient-num-daughters-saved').blur(function() { updateSavedPatientIntake("numDaughters", $(this).html(), id); });
+  $('#patient-num-residents-saved').blur(function() { updateSavedPatientEncounter("numResidents", $(this).html(), id); });
+  $('#patient-job-type-saved').blur(function() { updateSavedPatientEncounter("jobType", $(this).html(), id); });
+  $('input[name=patient-mother-alive]').click(function() { updateSavedPatientEncounter("motherAlive", $(this).val() == 'true', id); });
+  $('#patient-mother-death-reason-saved').blur(function() { updateSavedPatientEncounter("motherDeathReason", $(this).html(), id); });
+  $('input[name=patient-father-alive]').click(function() { updateSavedPatientEncounter("fatherAlive", $(this).val() == 'true', id); });
+  $('#patient-father-death-reason-saved').blur(function() { updateSavedPatientEncounter("fatherDeathReason", $(this).html(), id); });
+  $('input[name=patient-partner-alive]').click(function() { updateSavedPatientEncounter("partnerAlive", $(this).val() == 'true', id); });
+  $('#patient-partner-death-reason-saved').blur(function() { updateSavedPatientEncounter("partnerDeathReason", $(this).html(), id); });
+  $('#patient-num-siblings-saved').blur(function() { updateSavedPatientEncounter("numSiblings", $(this).html(), id); });
+  $('#patient-num-brothers-saved').blur(function() { updateSavedPatientEncounter("numBrothers", $(this).html(), id); });
+  $('#patient-num-sisters-saved').blur(function() { updateSavedPatientEncounter("numSisters", $(this).html(), id); });
+  $('#patient-num-children-saved').blur(function() { updateSavedPatientEncounter("numChildren", $(this).html(), id); });
+  $('#patient-num-sons-saved').blur(function() { updateSavedPatientEncounter("numSons", $(this).html(), id); });
+  $('#patient-num-daughters-saved').blur(function() { updateSavedPatientEncounter("numDaughters", $(this).html(), id); });
   $('#patient-pfsh-print').click(function() { printPatientForm('print_patient_pfsh', 'SOCIAL & FAMILY HISTORY', object)});
 }
 
@@ -168,9 +168,9 @@ function loadSuppScreenForm() {
   $('#num-cups-tea').html(app_patientSupp[app_patientSuppIndex].numCupsTea);
   $('#water-source').html(app_patientSupp[app_patientSuppIndex].waterSource);
       
-  RenderUtil.render('component/intake_questions', {encounter:app_patientEncounters[app_patientSuppIndex]}, function(s) { 
+  RenderUtil.render('component/encounter_questions', {encounter:app_patientEncounters[app_patientSuppIndex]}, function(s) { 
     $("#questions").html(s); 
-    //setIntakeFormMode(id, section, savedState, hasOwnership);
+    //setEncounterFormMode(id, section, savedState, hasOwnership);
   });
 }
 
@@ -525,12 +525,12 @@ function viewPatientEncounter(encounterId) {
       $('#modal-encounter').modal('show'); 
       $('#app-encounter-close-record').css("display", (app_currentEncounter.completed ? "none" : "inline-block"));
       setupCloseRecordButton();
-      renderPatientIntakeForm(app_currentEncounter, true); 
+      renderPatientEncounterForm(app_currentEncounter, true); 
       $('#app-encounter-print-all').click(function(){
         var currentDate = dateFormat(new Date(), 'mm/dd/yyyy');
-        RenderUtil.render('print/print_intake_all',  {encounter:app_currentEncounter, currentDate:currentDate}, function(obj) {
+        RenderUtil.render('print/print_encounter_all',  {encounter:app_currentEncounter, currentDate:currentDate}, function(obj) {
           var s = obj[0].outerHTML;
-          print_openPrintWindow('print.html', s, 'INTAKE FORM');
+          print_openPrintWindow('print.html', s, 'ENCOUNTER FORM');
         });
       });
     });
@@ -571,7 +571,7 @@ function newEncounterFormDialog() {
         var jsonData = JSON.stringify({ sessionId: clinician.sessionId, encounterId: app_oldEncounter.id});
         $.post("patient/closeEncounter", {data:jsonData}, function(data) {
           var parsedData = $.parseJSON(data);
-          displayNotification('Patient Intake Record Closed');
+          displayNotification('Patient Encounter Record Closed');
           app_oldEncounter.completed = true;
           $('#modal-encounter').modal('hide'); 
           getPatientEncounters();
@@ -595,12 +595,12 @@ function newEncounterForm() {
       $('#modal-encounter').modal('show'); 
       $('#app-encounter-close-record').css("display", (app_currentEncounter.completed ? "none" : "inline-block"));
       setupCloseRecordButton();
-      renderPatientIntakeForm(app_currentEncounter, true); 
+      renderPatientEncounterForm(app_currentEncounter, true); 
       $('#app-encounter-print-all').click(function(){
         var currentDate = dateFormat(new Date(), 'mm/dd/yyyy');
-        RenderUtil.render('print/print_intake_all',  {encounter:app_currentEncounter, currentDate:currentDate}, function(obj) {
+        RenderUtil.render('print/print_encounter_all',  {encounter:app_currentEncounter, currentDate:currentDate}, function(obj) {
           var s = obj[0].outerHTML;
-          print_openPrintWindow('print.html', s, 'INTAKE FORM');
+          print_openPrintWindow('print.html', s, 'ENCOUNTER FORM');
         });
       });
     });
@@ -622,7 +622,7 @@ $('#app-encounter-close-record').click(function() {
       var jsonData = JSON.stringify({ sessionId: clinician.sessionId, encounterId: app_currentEncounter.id});
       $.post("patient/closeEncounter", {data:jsonData}, function(data) {
         var parsedData = $.parseJSON(data);
-        displayNotification('Patient Intake Record Closed');
+        displayNotification('Patient Encounter Record Closed');
         app_currentEncounter.completed = true;
         $('#modal-encounter').modal('hide'); 
         getPatientEncounters();

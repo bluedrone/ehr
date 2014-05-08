@@ -16,7 +16,7 @@ function app_viewStack(screen, doScroll) {
       $('#schedule-screen').css({display: "none"});
       $('#messages-screen').css({display: "none"});
       $('#letters-screen').css({display: "none"});
-      $('#patient-intake-screen').css({display: "none"});
+      $('#patient-encounter-screen').css({display: "none"});
       $('#patient-encounters-screen').css({display: "none"});
       $('#user-admin-screen').css({display: "none"});
       $('#app-dropdown-logout').css({display: "none"});
@@ -32,7 +32,7 @@ function app_viewStack(screen, doScroll) {
       $('#schedule-screen').css({display: "none"});
       $('#messages-screen').css({display: "none"});
       $('#letters-screen').css({display: "none"});
-      $('#patient-intake-screen').css({display: "none"});
+      $('#patient-encounter-screen').css({display: "none"});
       $('#patient-encounters-screen').css({display: "none"});
       $('#user-admin-screen').css({display: "none"});
       $('#app-dropdown-settings').css({display: "block"});
@@ -49,7 +49,7 @@ function app_viewStack(screen, doScroll) {
       $('#schedule-screen').css({display: "none"});
       $('#messages-screen').css({display: "none"});
       $('#letters-screen').css({display: "none"});
-      $('#patient-intake-screen').css({display: "none"});
+      $('#patient-encounter-screen').css({display: "none"});
       $('#patient-encounters-screen').css({display: "none"});
       $('#user-admin-screen').css({display: "none"});
       $('#app-dropdown-settings').css({display: "block"});
@@ -65,7 +65,7 @@ function app_viewStack(screen, doScroll) {
       $('#schedule-screen').css({display: "block"});
       $('#messages-screen').css({display: "none"});
       $('#letters-screen').css({display: "none"});
-      $('#patient-intake-screen').css({display: "none"});
+      $('#patient-encounter-screen').css({display: "none"});
       $('#patient-encounters-screen').css({display: "none"});
       $('#user-admin-screen').css({display: "none"});
       $('#app-dropdown-settings').css({display: "block"});
@@ -81,7 +81,7 @@ function app_viewStack(screen, doScroll) {
       $('#schedule-screen').css({display: "none"});
       $('#messages-screen').css({display: "block"});
       $('#letters-screen').css({display: "none"});
-      $('#patient-intake-screen').css({display: "none"});
+      $('#patient-encounter-screen').css({display: "none"});
       $('#patient-encounters-screen').css({display: "none"});
       $('#user-admin-screen').css({display: "none"});
       $('#app-dropdown-settings').css({display: "block"});
@@ -99,7 +99,7 @@ function app_viewStack(screen, doScroll) {
       $('#schedule-screen').css({display: "none"});
       $('#messages-screen').css({display: "none"});
       $('#letters-screen').css({display: "block"});
-      $('#patient-intake-screen').css({display: "none"});
+      $('#patient-encounter-screen').css({display: "none"});
       $('#patient-encounters-screen').css({display: "none"});
       $('#user-admin-screen').css({display: "none"});
       $('#app-dropdown-settings').css({display: "block"});
@@ -107,15 +107,15 @@ function app_viewStack(screen, doScroll) {
       $('#app-dropdown-signin').css({display: "none"});
       $('#main-navigation').css({display: "block"});
     break;
-    case 'patient-intake-screen':
-      $('#app-page-name').html('Patient Intake');
+    case 'patient-encounter-screen':
+      $('#app-page-name').html('Patient Encounter');
       $('#signin-screen').css({display: "none"});
       $('#dashboard-screen').css({display: "none"});
       $('#patient-chart-screen').css({display: "none"});
       $('#schedule-screen').css({display: "none"});
       $('#messages-screen').css({display: "none"});
       $('#letters-screen').css({display: "none"});
-      $('#patient-intake-screen').css({display: "block"});
+      $('#patient-encounter-screen').css({display: "block"});
       $('#patient-encounters-screen').css({display: "none"});
       $('#user-admin-screen').css({display: "none"});
       $('#app-dropdown-settings').css({display: "block"});
@@ -124,14 +124,14 @@ function app_viewStack(screen, doScroll) {
       $('#main-navigation').css({display: "block"});
     break;
     case 'patient-encounters-screen':
-      $('#app-page-name').html('Patient Intake');
+      $('#app-page-name').html('Patient Encounter');
       $('#signin-screen').css({display: "none"});
       $('#dashboard-screen').css({display: "none"});
       $('#patient-chart-screen').css({display: "none"});
       $('#schedule-screen').css({display: "none"});
       $('#messages-screen').css({display: "none"});
       $('#letters-screen').css({display: "none"});
-      $('#patient-intake-screen').css({display: "none"});
+      $('#patient-encounter-screen').css({display: "none"});
       $('#patient-encounters-screen').css({display: "block"});
       $('#user-admin-screen').css({display: "none"});
       $('#app-dropdown-settings').css({display: "block"});
@@ -147,7 +147,7 @@ function app_viewStack(screen, doScroll) {
       $('#schedule-screen').css({display: "none"});
       $('#messages-screen').css({display: "none"});
       $('#letters-screen').css({display: "none"});
-      $('#patient-intake-screen').css({display: "none"});
+      $('#patient-encounter-screen').css({display: "none"});
       $('#patient-encounters-screen').css({display: "none"});
       $('#user-admin-screen').css({display: "block"});
       $('#app-dropdown-settings').css({display: "block"});

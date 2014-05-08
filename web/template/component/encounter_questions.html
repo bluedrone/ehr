@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-md-12">
+     <div class="form-group"><label class="sub-title">Q & A</label></div>
+  </div>
+</div>
+<div id="encounter-questions-${id}">
+{{each(i, item) encounter.supp.encounterQuestionList}}
+<div class="row">
+  <div class="col-md-4">
+    <div class="form-group">
+      <label for="encounter-question-${id}">Question #${i+1}</label>
+      <input type="text" class="form-control form-control-unsaved" id="encounter-question-${id}">
+      <div data-id="${id}" class="form-control-saved edit-on-select encounter-question-editable" id="encounter-question-saved-${id}" contenteditable="true">${question}</div>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="form-group">
+      <label for="encounter-response-${id}">Response</label>
+      <input type="text" class="form-control form-control-unsaved" id="encounter-response-${id}">
+      <div data-id="${id}" class="form-control-saved edit-on-select encounter-response-editable" id="encounter-response-saved-${id}" contenteditable="true">${response}</div>
+    </div>
+  </div>
+</div>
+{{/each}}
+</div>

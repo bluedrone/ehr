@@ -1,4 +1,4 @@
-<div class="modal fade" id="modal-add-patient-intake-to-group" tabindex="-1" role="dialog" aria-labelledby="modal-add-patient-intake-to-group" aria-hidden="true">
+<div class="modal fade" id="modal-add-patient-encounter-to-group" tabindex="-1" role="dialog" aria-labelledby="modal-add-patient-encounter-to-group" aria-hidden="true">
   <div id="size3" class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -7,7 +7,7 @@
       </div>
       <div class="modal-body">
        <div class="table-responsive">
-         <table class="table table-bordered intake-form">
+         <table class="table table-bordered encounter-form">
            <thead>
              <tr>
                <th width="80">Biometrics</th>
@@ -19,7 +19,7 @@
                <th width="40">Triage</th>
                <th width="250">Notes</th>
                <th width="80">Check In</th>
-               <th width="60">Intake</th>
+               <th width="60">Encounter</th>
                <th width="70">Provider</th>
                <th width="60">Missing</th>
                <th width="40">Cmp</th>
@@ -27,27 +27,27 @@
             </thead>
             <tbody>
               <tr>
-	              <td><input type="text" class="form-control" id="patient-intake-biometrics" style="width:40px;margin:auto" maxlength="3"></td>
-	              <td><input type="text" class="form-control" id="patient-intake-nombre"></td>
-	              <td><input type="text" class="form-control" id="patient-intake-apellido"></td>
-	              <td><input type="text" class="form-control" id="patient-intake-apellido-segundo"></td>
-	              <td><input type="text" class="form-control" id="patient-intake-gender" maxlength="1"></td>
-	              <td><input type="text" class="form-control" id="patient-intake-age" maxlength="3"></td>
-	              <td><input type="text" class="form-control" id="patient-intake-triage" style="width:25px;margin:auto" maxlength="1"></td>
-	              <td class="patient-notes"><textarea id="patient-intake-notes" class="form-control input-sm" rows="2"></textarea></td>
-	              <td><span id="patient-intake-check-in" class="badge badge-primary toggle-badge"><i class="icon-ok icon-hidden"></i></span></td>
-	              <td><span id="patient-intake-intake" class="badge badge-primary toggle-badge"><i class="icon-ok"></i></span></td>
-	              <td><span id="patient-intake-provider" class="badge badge-primary toggle-badge"><i class="icon-ok"></i></span></td>
-	              <td id="patient-intake-missing" class="patient-missing-control"><input class="patient-missing-checkbox" type="checkbox" name="missing" style="toggle-missing"></td>
-	              <td><span id="patient-intake-completed" class="badge badge-success toggle-badge"><i class="icon-ok"></i></span></td>
+	              <td><input type="text" class="form-control" id="patient-encounter-biometrics" style="width:40px;margin:auto" maxlength="3"></td>
+	              <td><input type="text" class="form-control" id="patient-encounter-nombre"></td>
+	              <td><input type="text" class="form-control" id="patient-encounter-apellido"></td>
+	              <td><input type="text" class="form-control" id="patient-encounter-apellido-segundo"></td>
+	              <td><input type="text" class="form-control" id="patient-encounter-gender" maxlength="1"></td>
+	              <td><input type="text" class="form-control" id="patient-encounter-age" maxlength="3"></td>
+	              <td><input type="text" class="form-control" id="patient-encounter-triage" style="width:25px;margin:auto" maxlength="1"></td>
+	              <td class="patient-notes"><textarea id="patient-encounter-notes" class="form-control input-sm" rows="2"></textarea></td>
+	              <td><span id="patient-encounter-check-in" class="badge badge-primary toggle-badge"><i class="icon-ok icon-hidden"></i></span></td>
+	              <td><span id="patient-encounter-encounter" class="badge badge-primary toggle-badge"><i class="icon-ok"></i></span></td>
+	              <td><span id="patient-encounter-provider" class="badge badge-primary toggle-badge"><i class="icon-ok"></i></span></td>
+	              <td id="patient-encounter-missing" class="patient-missing-control"><input class="patient-missing-checkbox" type="checkbox" name="missing" style="toggle-missing"></td>
+	              <td><span id="patient-encounter-completed" class="badge badge-success toggle-badge"><i class="icon-ok"></i></span></td>
 	            </tr>
             </tbody>
           </table>
         </div>
       </div>
       <div class="modal-footer">
-        <button id="btn-patient-intake-save-new-patient" type="button" class="btn btn-success" data-dismiss="modal">Save</button>
-        <button id="btn-patient-intake-cancel-new-patient" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button id="btn-patient-encounter-save-new-patient" type="button" class="btn btn-success" data-dismiss="modal">Save</button>
+        <button id="btn-patient-encounter-cancel-new-patient" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>

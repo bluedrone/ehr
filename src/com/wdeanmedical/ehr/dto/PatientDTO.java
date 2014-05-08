@@ -15,8 +15,8 @@ import java.util.Map;
 import com.wdeanmedical.ehr.entity.Appointment;
 import com.wdeanmedical.ehr.entity.Encounter;
 import com.wdeanmedical.ehr.entity.Gender;
-import com.wdeanmedical.ehr.entity.IntakeMedication;
-import com.wdeanmedical.ehr.entity.IntakeQuestion;
+import com.wdeanmedical.ehr.entity.EncounterMedication;
+import com.wdeanmedical.ehr.entity.EncounterQuestion;
 import com.wdeanmedical.ehr.entity.Patient;
 import com.wdeanmedical.ehr.entity.PatientAllergen;
 import com.wdeanmedical.ehr.entity.PatientClinician;
@@ -82,12 +82,10 @@ public class PatientDTO extends AuthorizedDTO {
   private String notes;
   private String gender;
   private boolean checkIn;
-  private boolean intake;
   private boolean provider;
   private boolean missing;
   private boolean completed;
-  private int patientIntakeGroupId;
-  private int patientIntakeId;
+  private int patientEncounterGroupId;
   private int swapGroupId;
   private String updateProperty;
   private String updatePropertyValue;
@@ -168,10 +166,10 @@ public class PatientDTO extends AuthorizedDTO {
   private String numCupsCoffee; 
   private String numCupsTea; 
   private String waterSource; 
-  private List<IntakeQuestion> intakeQuestionList;
-  private List<IntakeMedication> intakeMedicationList;
-  private int intakeQuestionId;
-  private int intakeMedicationId;
+  private List<EncounterQuestion> encounterQuestionList;
+  private List<EncounterMedication> encounterMedicationList;
+  private int encounterQuestionId;
+  private int encounterMedicationId;
   private boolean histSaved; 
   private String pastSM; 
   private String famHist; 
@@ -373,9 +371,6 @@ public class PatientDTO extends AuthorizedDTO {
   public boolean isCheckIn() { return checkIn; }
   public void setCheckIn(boolean checkIn) { this.checkIn = checkIn; }
   
-  public boolean isIntake() { return intake; }
-  public void setIntake(boolean intake) { this.intake = intake; }
-  
   public boolean isProvider() { return provider; }
   public void setProvider(boolean provider) { this.provider = provider; }
   
@@ -385,11 +380,8 @@ public class PatientDTO extends AuthorizedDTO {
   public boolean isCompleted() { return completed; }
   public void setCompleted(boolean completed) { this.completed = completed; }
   
-  public int getPatientIntakeGroupId() { return patientIntakeGroupId; }
-  public void setPatientIntakeGroupId(int patientIntakeGroupId) { this.patientIntakeGroupId = patientIntakeGroupId; }
-  
-  public int getPatientIntakeId() { return patientIntakeId; }
-  public void setPatientIntakeId(int patientIntakeId) { this.patientIntakeId = patientIntakeId; }
+  public int getPatientEncounterGroupId() { return patientEncounterGroupId; }
+  public void setPatientEncounterGroupId(int patientEncounterGroupId) { this.patientEncounterGroupId = patientEncounterGroupId; }
   
   public int getSwapGroupId() { return swapGroupId; }
   public void setSwapGroupId(int swapGroupId) { this.swapGroupId = swapGroupId; }
@@ -631,17 +623,17 @@ public class PatientDTO extends AuthorizedDTO {
   public String getWaterSource() { return waterSource; }
   public void setWaterSource(String waterSource) { this.waterSource = waterSource; }
   
-  public List<IntakeQuestion> getIntakeQuestionList() { return intakeQuestionList; }
-  public void setIntakeQuestionList(List<IntakeQuestion> intakeQuestionList) { this.intakeQuestionList = intakeQuestionList; }
+  public List<EncounterQuestion> getEncounterQuestionList() { return encounterQuestionList; }
+  public void setEncounterQuestionList(List<EncounterQuestion> encounterQuestionList) { this.encounterQuestionList = encounterQuestionList; }
 
-  public List<IntakeMedication> getIntakeMedicationList() { return intakeMedicationList; }
-  public void setIntakeMedicationList(List<IntakeMedication> intakeMedicationList) { this.intakeMedicationList = intakeMedicationList; }
+  public List<EncounterMedication> getEncounterMedicationList() { return encounterMedicationList; }
+  public void setEncounterMedicationList(List<EncounterMedication> encounterMedicationList) { this.encounterMedicationList = encounterMedicationList; }
   
-  public int getIntakeQuestionId() { return intakeQuestionId; }
-  public void setIntakeQuestionId(int intakeQuestionId) { this.intakeQuestionId = intakeQuestionId; }
+  public int getEncounterQuestionId() { return encounterQuestionId; }
+  public void setEncounterQuestionId(int encounterQuestionId) { this.encounterQuestionId = encounterQuestionId; }
   
-  public int getIntakeMedicationId() { return intakeMedicationId; }
-  public void setIntakeMedicationId(int intakeMedicationId) { this.intakeMedicationId = intakeMedicationId; }
+  public int getEncounterMedicationId() { return encounterMedicationId; }
+  public void setEncounterMedicationId(int encounterMedicationId) { this.encounterMedicationId = encounterMedicationId; }
   
   public boolean isHistSaved() { return histSaved; }
   public void setHistSaved(boolean histSaved) { this.histSaved = histSaved; }
