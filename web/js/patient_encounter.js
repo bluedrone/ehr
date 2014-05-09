@@ -144,71 +144,8 @@ function viewPatientEncounterFormGroup(e) {
   viewPatientEncounterFormGroupWithId();
 }
    
-function viewPatientEncounterFormGroupWithId() {
-  RenderUtil.render('patient_encounter_groups', {}, function(s) { 
-    $('#patient-encounter-screen').html(s);
-    app_viewStack('patient-encounter-screen', DO_SCROLL);
-    $('#section-notification').css("visibility", "visible");
-    $('.patient-navbar-btn').css("display", "none");
-    $('.check-in-navbar-btn').css("display", "none");
-    $('.encounter-navbar-btn').css("display", "inline-block");
-    
-    var group = getPatientEncounterGroup(app_currentGroupId);
-    app_currentGroup = group; 
-    
-    for (i=0;i<group.encounterList.length;i++) {
-      var encounter = group.encounterList[i];
-      if (i == 0) { app_currentEncounter = encounter; }
-      var fullName = util_buildFullName(encounter.patient.cred.firstName, encounter.patient.cred.LastName, encounter.patient.cred.additionalName);
-      addPatientEncounterTabContent(encounter, i==0, fullName.trunc(30, false), encounter.lockStatus, i==0);
-    }
-  });
-} 
 
 
-function addPatientEncounterTabContent(encounter, isActive, patientFullName, lockStatus, isFirst) {
-  if (lockStatus == ENCOUNTER_LOCKED && encounter.clinician.id == clinician.id) {
-    lockStatus = ENCOUNTER_OWNED;
-  } 
-  if (isFirst == true) { 
-    app_currentEncounter = encounter;
-    setEncounterButtons();
-  }
-  addPatientEncounterTab(encounter,isActive, patientFullName, lockStatus);
-  var args = {isActive:isActive, id:encounter.id, isFirst:isFirst};
-  RenderUtil.render('patient_encounter', args, function(s) { 
-    $("#app-encounter-group-tabs-content").append(s);
-    var hasOwnership = lockStatus == ENCOUNTER_OWNED || (lockStatus == ENCOUNTER_OVERRIDDEN && encounter.clinician.id == clinician.id);
-    renderPatientEncounterForm(encounter, hasOwnership); 
-  });
-}
-
-
-function addPatientEncounterTab(encounter, isActive, patientFullName, lockStatus) {
-  if (lockStatus == ENCOUNTER_LOCKED && app_currentEncounter.clinician != undefined && app_currentEncounter.clinician.id == clinician.id) {
-    lockStatus = ENCOUNTER_OWNED;
-  } 
-  var lockStatusIcon = app_lockIcons[lockStatus];
-  var args = {isActive:isActive, id:encounter.id, patientFullName:patientFullName, lockStatus:lockStatus, lockStatusIcon:lockStatusIcon};
-  RenderUtil.render('component/encounter_group_tab', args, function(s) { 
-    $("#app-encounter-group-tabs").append(s);
-    $('.tab-header-encounter').on('show.bs.tab', function(){ onEncounterTabSelect(this); });
-  });
-}  
-
-
-function onEncounterTabSelect(that) {
-  var encounterId = $(that).attr('data-id'); 
-  for (i=0;i<app_currentGroup.encounterList.length;i++) {
-    var encounter = app_currentGroup.encounterList[i];
-    if (encounter.id == encounterId) {
-      app_currentEncounter = encounter;
-      console.log('tab id: ' + encounterId + ', encounter.id: ' + encounter.id); 
-      setEncounterButtons();
-      break;
-    }
-  }
-}
 
 function updateEncounterButtons(lockStatus, clinicianId) {
   if (lockStatus == ENCOUNTER_FREE) {

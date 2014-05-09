@@ -523,7 +523,7 @@ function viewPatientEncounter(encounterId) {
     RenderUtil.render('encounter', args, function(s) { 
       $('#modals-placement').html(s);
       $('#modal-encounter').modal('show'); 
-      $('#app-encounter-close-record').css("display", (app_currentEncounter.completed ? "none" : "inline-block"));
+      $('#app-encounter-close-record').css({display: (app_currentEncounter.completed ? "none" : "inline-block")}); 
       setupCloseRecordButton();
       renderPatientEncounterForm(app_currentEncounter, true); 
       $('#app-encounter-print-all').click(function(){
@@ -593,7 +593,7 @@ function newEncounterForm() {
     RenderUtil.render('encounter', args, function(s) { 
       $('#modals-placement').html(s);
       $('#modal-encounter').modal('show'); 
-      $('#app-encounter-close-record').css("display", (app_currentEncounter.completed ? "none" : "inline-block"));
+      $('#app-encounter-close-record').css({display: "inline-block"});
       setupCloseRecordButton();
       renderPatientEncounterForm(app_currentEncounter, true); 
       $('#app-encounter-print-all').click(function(){
