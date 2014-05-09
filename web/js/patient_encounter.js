@@ -334,7 +334,8 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
       });
       $('#encounter-pain-scale-value-'+id).html(encounter.cc.painScale);
     }
-    else if (section == 'obgyn' && encounter.obgyn) {
+    else if (section == 'obgyn' && !encounter.obgyn) {
+      $('#obgyn-form, #obgyn-header').hide();
     }
     else if (section == 'pfsh') {
     }
@@ -497,40 +498,46 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
       });
       $('#encounter-denies-other-saved-'+id).blur(function() { updateSavedPatientEncounter("deniesOther", $(this).html(), id); });
     }
-    else if (section == 'obgyn' && encounter.obgyn) {
-      $('#encounter-obgyn-g-saved-'+id).html(encounter.obgyn.g);
-      $('#encounter-obgyn-p-saved-'+id).html(encounter.obgyn.p);
-      $('#encounter-obgyn-t-saved-'+id).html(encounter.obgyn.t);
-      $('#encounter-obgyn-a-saved-'+id).html(encounter.obgyn.a);
-      $('#encounter-obgyn-l-saved-'+id).html(encounter.obgyn.l);
-      $('input[name=encounter-pregnant-'+id+'][value='+encounter.obgyn.pregStatus+']').attr("checked", true);
-      $('input[name=encounter-breastfeeding-'+id+'][value='+encounter.obgyn.breastfeeding+']').attr("checked", true);
-      $('#encounter-breastfeeding-months-saved-'+id).html(encounter.obgyn.breastfeedingMonths);
-      $('#encounter-last-period-saved-'+id).html(encounter.obgyn.lastPeriod);
-      $('#encounter-age-first-period-saved-'+id).html(encounter.obgyn.ageFirstPeriod);
-      $('input[name=encounter-pap-smear-'+id+'][value='+encounter.obgyn.papSmearStatus+']').attr("checked", true);
-      $('input[name=encounter-birth-control-'+id+'][value='+encounter.obgyn.birthControlStatus+']').attr("checked", true);
-      $('#encounter-birth-control-type-saved-'+id).html(encounter.obgyn.birthControlType);
-      util_selectCheckboxesFromList(encounter.obgyn.obgynHistory, 'encounter-obgyn-hist-'+id);
-      $('#encounter-obgyn-hist-other-saved-'+id).html(encounter.obgyn.obgynHistoryOther);
-      $('#encounter-obgyn-g-saved-'+id).blur(function() { updateSavedPatientEncounter("obgynG", $(this).html(), id); });
-      $('#encounter-obgyn-p-saved-'+id).blur(function() { updateSavedPatientEncounter("obgynP", $(this).html(), id); });
-      $('#encounter-obgyn-t-saved-'+id).blur(function() { updateSavedPatientEncounter("obgynT", $(this).html(), id); });
-      $('#encounter-obgyn-a-saved-'+id).blur(function() { updateSavedPatientEncounter("obgynA", $(this).html(), id); });
-      $('#encounter-obgyn-l-saved-'+id).blur(function() { updateSavedPatientEncounter("obgynL", $(this).html(), id); });
-      $('input[name=encounter-pregnant-'+id+']').click(function() { updateSavedPatientEncounter("pregStatus", $(this).val(), id); });
-      $('input[name=encounter-breastfeeding-'+id+']').click(function() { updateSavedPatientEncounter("breastfeeding", $(this).val(), id); });
-      $('#encounter-breastfeeding-months-saved-'+id).blur(function() { updateSavedPatientEncounter("breastfeedingMonths", $(this).html(), id); });
-      $('#encounter-last-period-saved-'+id).blur(function() { updateSavedPatientEncounter("lastPeriod", $(this).html(), id); });
-      $('#encounter-age-first-period-saved-'+id).blur(function() { updateSavedPatientEncounter("ageFirstPeriod", $(this).html(), id); });
-      $('input[name=encounter-pap-smear-'+id+']').click(function() { updateSavedPatientEncounter("papSmearStatus", $(this).val(), id); });
-      $('input[name=encounter-birth-control-'+id+']').click(function() { updateSavedPatientEncounter("birthControlStatus", $(this).val(), id); });
-      $('#encounter-birth-control-type-saved-'+id).blur(function() { updateSavedPatientEncounter("birthControlType", $(this).html(), id); });
-      $('input[name=encounter-obgyn-hist-'+id+']').click(function() { 
-        var obgynHist = $('input[name=encounter-obgyn-hist-'+id+']:checked').map(function() {return this.value;}).get().join(',');
-        updateSavedPatientEncounter("obgynHistory", obgynHist, id); 
-      });
-      $('#encounter-obgyn-hist-other-saved-'+id).blur(function() { updateSavedPatientEncounter("obgynHistoryOther", $(this).html(), id); });
+    else if (section == 'obgyn') {
+      if (!encounter.obgyn) {
+        $('#obgyn-form, #obgyn-header').hide();
+      }
+      else {
+        $('#obgyn-form, #obgyn-header').show();
+        $(  '#encounter-obgyn-g-saved-'+id).html(encounter.obgyn.g);
+        $('#encounter-obgyn-p-saved-'+id).html(encounter.obgyn.p);
+        $('#encounter-obgyn-t-saved-'+id).html(encounter.obgyn.t);
+        $('#encounter-obgyn-a-saved-'+id).html(encounter.obgyn.a);
+        $('#encounter-obgyn-l-saved-'+id).html(encounter.obgyn.l);
+        $('input[name=encounter-pregnant-'+id+'][value='+encounter.obgyn.pregStatus+']').attr("checked", true);
+        $('input[name=encounter-breastfeeding-'+id+'][value='+encounter.obgyn.breastfeeding+']').attr("checked", true);
+        $('#encounter-breastfeeding-months-saved-'+id).html(encounter.obgyn.breastfeedingMonths);
+        $('#encounter-last-period-saved-'+id).html(encounter.obgyn.lastPeriod);
+        $('#encounter-age-first-period-saved-'+id).html(encounter.obgyn.ageFirstPeriod);
+        $('input[name=encounter-pap-smear-'+id+'][value='+encounter.obgyn.papSmearStatus+']').attr("checked", true);
+        $('input[name=encounter-birth-control-'+id+'][value='+encounter.obgyn.birthControlStatus+']').attr("checked", true);
+        $('#encounter-birth-control-type-saved-'+id).html(encounter.obgyn.birthControlType);
+        util_selectCheckboxesFromList(encounter.obgyn.obgynHistory, 'encounter-obgyn-hist-'+id);
+        $('#encounter-obgyn-hist-other-saved-'+id).html(encounter.obgyn.obgynHistoryOther);
+        $('#encounter-obgyn-g-saved-'+id).blur(function() { updateSavedPatientEncounter("obgynG", $(this).html(), id); });
+        $('#encounter-obgyn-p-saved-'+id).blur(function() { updateSavedPatientEncounter("obgynP", $(this).html(), id); });
+        $('#encounter-obgyn-t-saved-'+id).blur(function() { updateSavedPatientEncounter("obgynT", $(this).html(), id); });
+        $('#encounter-obgyn-a-saved-'+id).blur(function() { updateSavedPatientEncounter("obgynA", $(this).html(), id); });
+        $('#encounter-obgyn-l-saved-'+id).blur(function() { updateSavedPatientEncounter("obgynL", $(this).html(), id); });
+        $('input[name=encounter-pregnant-'+id+']').click(function() { updateSavedPatientEncounter("pregStatus", $(this).val(), id); });
+        $('input[name=encounter-breastfeeding-'+id+']').click(function() { updateSavedPatientEncounter("breastfeeding", $(this).val(), id); });
+        $('#encounter-breastfeeding-months-saved-'+id).blur(function() { updateSavedPatientEncounter("breastfeedingMonths", $(this).html(), id); });
+        $('#encounter-last-period-saved-'+id).blur(function() { updateSavedPatientEncounter("lastPeriod", $(this).html(), id); });
+        $('#encounter-age-first-period-saved-'+id).blur(function() { updateSavedPatientEncounter("ageFirstPeriod", $(this).html(), id); });
+        $('input[name=encounter-pap-smear-'+id+']').click(function() { updateSavedPatientEncounter("papSmearStatus", $(this).val(), id); });
+        $('input[name=encounter-birth-control-'+id+']').click(function() { updateSavedPatientEncounter("birthControlStatus", $(this).val(), id); });
+        $('#encounter-birth-control-type-saved-'+id).blur(function() { updateSavedPatientEncounter("birthControlType", $(this).html(), id); });
+        $('input[name=encounter-obgyn-hist-'+id+']').click(function() { 
+          var obgynHist = $('input[name=encounter-obgyn-hist-'+id+']:checked').map(function() {return this.value;}).get().join(',');
+          updateSavedPatientEncounter("obgynHistory", obgynHist, id); 
+        });
+        $('#encounter-obgyn-hist-other-saved-'+id).blur(function() { updateSavedPatientEncounter("obgynHistoryOther", $(this).html(), id); });
+      }
     }
     else if (section == 'pfsh') {
       $('#encounter-num-residents-saved-'+id).html(encounter.patient.pfsh.numResidents);
