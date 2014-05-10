@@ -17,9 +17,9 @@ function Clinician() {
 
 function Patient() {
   this.id = 0;
-  this.nombre = undefined;
-  this.apellido = undefined;
-  this.apellidoSegundo = undefined;
+  this.firstName = undefined;
+  this.middleName = undefined;
+  this.lastName = undefined;
   this.bioFinger = undefined;
   this.bioPhoto = undefined;
   this.gender = undefined;

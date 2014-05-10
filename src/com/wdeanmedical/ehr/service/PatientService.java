@@ -452,9 +452,9 @@ public class PatientService {
     
     String property = dto.getUpdateProperty();
     String value = dto.getUpdatePropertyValue();
-    if (property.equals("nombre")) {cred.setFirstName(value);updateClass = "Credentials";} 
-    else if (property.equals("apellido")) {cred.setLastName(value);updateClass = "Credentials";} 
-    else if (property.equals("apellidoSegundo")) {cred.setAdditionalName(value);updateClass = "Credentials";} 
+    if (property.equals("firstName")) {cred.setFirstName(value);updateClass = "Credentials";} 
+    else if (property.equals("middleName")) {cred.setMiddleName(value);updateClass = "Credentials";} 
+    else if (property.equals("lastName")) {cred.setLastName(value);updateClass = "Credentials";} 
     else if (property.equals("gender")) {demo.setGender(patientDAO.findGenderByCode(value));updateClass = "Demographics";} 
     else if (property.equals("consultLocation")) {encounter.setConsultLocation(value);updateClass = "Encounter";} 
     else if (property.equals("notes")) {encounter.setNotes(value);updateClass = "Encounter";} 

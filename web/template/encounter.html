@@ -4,7 +4,7 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title" style="display:inline">Encounter</h4>
-        <a id="app-encounter-close-record" class="btn btn-default navbar-btn navbar-link encounter-navbar-btn"><i class="icon-file-text icon-lg"></i> Close Record</a>
+        <a id="app-encounter-close-record" class="btn btn-default navbar-btn navbar-link encounter-navbar-btn"><i class="icon-file-text icon-lg"></i> Complete Encounter</a>
         <button id="app-encounter-print-all" type="button" class="btn btn-default navbar-btn navbar-link encounter-navbar-btn pull-right">
           <i class="icon-print icon-lg"></i> Print Form
         </button>
@@ -49,7 +49,7 @@
               </div>
               <div class="col-md-3">
                 <div class="form-group">
-                  <label for="encounter-govt-id-${id}">Patient's GOV ID # (CEDULA)</label>
+                  <label for="encounter-govt-id-${id}">GOV ID #</label>
                   <input type="text" class="form-control form-control-unsaved" id="encounter-govt-id-${id}">
                   <div class="form-control-saved edit-on-select" id="encounter-govt-id-saved-${id}" contenteditable="true">&nbsp;</div>
                 </div>
@@ -65,23 +65,23 @@
             <div class="row">
               <div class="col-md-4">
                 <div class="form-group">
-                  <label for="encounter-nombre-${id}">Nombre *Confirm w/ PT*</label>
-                  <input type="text" class="form-control form-control-unsaved" id="encounter-nombre-${id}">
-                  <div class="form-control-saved edit-on-select" id="encounter-nombre-saved-${id}" contenteditable="true">&nbsp;</div>
+                  <label for="encounter-first-name-${id}">First Name</label>
+                  <input type="text" class="form-control form-control-unsaved" id="encounter-first-name-${id}">
+                  <div class="form-control-saved edit-on-select" id="encounter-first-name-saved-${id}" contenteditable="true">&nbsp;</div>
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="form-group">
-                  <label for="encounter-apellido-${id}">Apellido *Confirm w/ PT*</label>
-                  <input type="text" class="form-control form-control-unsaved" id="encounter-apellido-${id}">
-                  <div class="form-control-saved edit-on-select" id="encounter-apellido-saved-${id}" contenteditable="true">&nbsp;</div>
+                  <label for="encounter-middle-name-${id}">Middle Name</label>
+                  <input type="text" class="form-control form-control-unsaved" id="encounter-middle-name-${id}">
+                  <div class="form-control-saved edit-on-select" id="encounter-middle-name-saved-${id}" contenteditable="true">&nbsp;</div>
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="form-group">
-                  <label for="encounter-apellido-segundo-${id}">Apellido Segundo *Confirm w/ PT*</label>
-                  <input type="text" class="form-control form-control-unsaved" id="encounter-apellido-segundo-${id}">
-                  <div class="form-control-saved edit-on-select" id="encounter-apellido-segundo-saved-${id}" contenteditable="true">&nbsp;</div>
+                  <label for="encounter-last-name-${id}">Last Name</label>
+                  <input type="text" class="form-control form-control-unsaved" id="encounter-last-name-${id}">
+                  <div class="form-control-saved edit-on-select" id="encounter-last-name-saved-${id}" contenteditable="true">&nbsp;</div>
                 </div>
               </div>
             </div>
@@ -224,7 +224,7 @@
               <div class="col-md-8">
                 <div class="form-group">
                   <label for="encounter-mother-name-${id}">Mother Name</label>
-                  <input type="text" class="form-control form-control-unsaved" id="encounter-mother-name-${id}" placeholder="Nombre, Apellido, Segundo Apellido">
+                  <input type="text" class="form-control form-control-unsaved" id="encounter-mother-name-${id}">
                   <div class="form-control-saved edit-on-select" id="encounter-mother-name-saved-${id}" contenteditable="true">&nbsp;</div>
                 </div>
               </div>
@@ -240,7 +240,7 @@
               <div class="col-md-8">
                 <div class="form-group">
                   <label for="encounter-caretaker-name-${id}">Caretaker Name (if mother/father not present)</label>
-                  <input type="text" class="form-control form-control-unsaved" id="encounter-caretaker-name-${id}" placeholder="Nombre, Apellido, Segundo Apellido">
+                  <input type="text" class="form-control form-control-unsaved" id="encounter-caretaker-name-${id}">
                   <div class="form-control-saved edit-on-select" id="encounter-caretaker-name-saved-${id}" contenteditable="true">&nbsp;</div>
                 </div>
               </div>

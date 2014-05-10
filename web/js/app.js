@@ -126,9 +126,9 @@ $('#follow-up-link').click(function() {
       RenderUtil.render('print/print_follow-up', {
         todaysDate:currentDate,
         patientLocation:$('#follow-up-location').val(),
-        nombre:$('#follow-up-nombre').val(),
-        apellido:$('#follow-up-apellido').val(),
-        apellidoSegundo:$('#follow-up-apellido-segundo').val(),
+        firstName:$('#follow-up-first-name').val(),
+        middleName:$('#follow-up-middle-name').val(),
+        lastName:$('#follow-up-last-name').val(),
         age:$('#follow-up-age').val(),
         motherName:$('#follow-up-mother-name').val(),
         reason:$('#follow-up-reason').val(),

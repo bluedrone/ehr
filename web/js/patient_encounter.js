@@ -118,9 +118,9 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
 
     if (section == 'basic-info') {
       $("#encounter-basic-info-photo-"+id).attr("src","files/patients/"+encounter.patient.id+"/"+encounter.patient.demo.profileImagePath);
-      $('#encounter-nombre-'+id).val(encounter.patient.cred.firstName);
-      $('#encounter-apellido-'+id).val(encounter.patient.cred.lasstName);
-      $('#encounter-apellido-segundo-'+id).val(encounter.patient.cred.additionalName);
+      $('#encounter-first-name-'+id).val(encounter.patient.cred.firstName);
+      $('#encounter-middle-name-'+id).val(encounter.patient.cred.middleName);
+      $('#encounter-last-name-'+id).val(encounter.patient.cred.lastName);
       $('#encounter-todays-date-'+id).val(currentDate);
       $('#encounter-dob-'+id).mask("99/99/9999");
       $("#encounter-gender-"+id).keydown(function(e) { util_filterGenderInput(e); });
@@ -189,9 +189,9 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
 
     if (section == 'basic-info') {
       $("#encounter-basic-info-photo-"+id).attr("src","files/patients/"+encounter.patient.id+"/"+encounter.patient.demo.profileImagePath);
-      $('#encounter-nombre-'+id).val(encounter.patient.cred.firstName);
-      $('#encounter-apellido-'+id).val(encounter.patient.cred.lasstName);
-      $('#encounter-apellido-segundo-'+id).val(encounter.patient.cred.additionalName);
+      $('#encounter-first-name-'+id).val(encounter.patient.cred.firstName);
+      $('#encounter-middle-name-'+id).val(encounter.patient.cred.middleName);
+      $('#encounter-last-name-'+id).val(encounter.patient.cred.lastName);
       $('#encounter-todays-date-saved-'+id).html(currentDate);
       $('#encounter-consult-location-saved-'+id).html(encounter.consultLocation);
       $('#encounter-govt-id-saved-'+id).html(encounter.patient.cred.govtId);
@@ -203,9 +203,9 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
       $('#encounter-phone-saved-'+id).html(encounter.patient.demo.primaryPhone);
       $('#encounter-community-saved-'+id).html(encounter.community);
       $('#encounter-notes-saved-'+id).html(encounter.notes);
-      $('#encounter-nombre-saved-'+id).blur(function() { updateSavedPatientEncounter("firstName", $(this).html(), id); });
-      $('#encounter-apellido-saved-'+id).blur(function() { updateSavedPatientEncounter("lastName", $(this).html(), id); });
-      $('#encounter-apellido-segundo-saved-'+id).blur(function() { updateSavedPatientEncounter("additionalName", $(this).html(), id); });
+      $('#encounter-first-name-saved-'+id).blur(function() { updateSavedPatientEncounter("firstName", $(this).html(), id); });
+      $('#encounter-middle-name-saved-'+id).blur(function() { updateSavedPatientEncounter("middleName", $(this).html(), id); });
+      $('#encounter-last-name-saved-'+id).blur(function() { updateSavedPatientEncounter("lastName", $(this).html(), id); });
       $('#encounter-consult-location-saved-'+id).blur(function() { updateSavedPatientEncounter("consultLocation", $(this).html(), id); });
       $('#encounter-govt-id-saved-'+id).blur(function() { updateSavedPatientEncounter("govtId", $(this).html(), id); });
       $('#encounter-gender-saved-'+id).blur(function() { updateSavedPatientEncounter("gender", $(this).html(), id); });
@@ -582,9 +582,9 @@ function saveBasicInfoEncounterForm(encounter) {
   encounter.consultLocation = $.trim($("#encounter-consult-location-"+id).val());
   encounter.patient.cred.govtId = $.trim($("#encounter-govt-id-"+id).val());
   encounter.patient.demo.dob = util_processDate("#encounter-dob-"+id, encounter.patient.demo.dob); //"Mar 17, 2014 10:01:12 PM";
-  encounter.patient.cred.firstName = $.trim($("#encounter-nombre-"+id).val());
-  encounter.patient.cred.lastName = $.trim($("#encounter-apellido-"+id).val());
-  encounter.patient.cred.additionalName = $.trim($("#encounter-apellido-segundo-"+id).val());
+  encounter.patient.cred.firstName = $.trim($("#encounter-first-name-"+id).val());
+  encounter.patient.cred.middleName = $.trim($("#encounter-middle-name-"+id).val());
+  encounter.patient.cred.lastName = $.trim($("#encounter-last-name-"+id).val());
   encounter.patient.demo.gender = createGender($.trim($("#encounter-gender-"+id).val().toUpperCase()));
   encounter.ageInMonths = util_processNumber("#encounter-age-months-"+id, encounter.ageInMonths);
   encounter.ageInYears = util_processNumber("#encounter-age-years-"+id, encounter.ageInYears);

@@ -72,9 +72,6 @@ public class PatientDTO extends AuthorizedDTO {
   private Patient patient;
   private int patientId;
   private int clinicianId;
-  private String nombre;
-  private String apellido;
-  private String apellidoSegundo;
   private boolean bioFinger;
   private boolean bioPhoto;
   private String age;
@@ -340,15 +337,6 @@ public class PatientDTO extends AuthorizedDTO {
   
   public Patient getPatient() { return patient; }
   public void setPatient(Patient patient) { this.patient = patient; }
-  
-  public String getNombre() { return nombre; }
-  public void setNombre(String nombre) { this.nombre = nombre; }
-  
-  public String getApellido() { return apellido; }
-  public void setApellido(String apellido) { this.apellido = apellido; }
-  
-  public String getApellidoSegundo() { return apellidoSegundo; }
-  public void setApellidoSegundo(String apellidoSegundo) { this.apellidoSegundo = apellidoSegundo; }
   
   public boolean isBioFinger() { return bioFinger; }
   public void setBioFinger(boolean bioFinger) { this.bioFinger = bioFinger; }

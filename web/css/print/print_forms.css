@@ -49,21 +49,21 @@ div.item-wrapper-text-area {
   font-size: 36px;
 }
 
-.item-nombre-input {
+.item-first-name-input {
   position:relative;
   left:10px; 
   top:15px; 
   font-size: 36px;
 }
 
-.item-apellido-input {
+.item-middle-name-input {
   position:relative;
   left:270px; 
   top:15px; 
   font-size: 36px;
 }
 
-.item-apellido-segundo-input {
+.item-last-name-input {
   position:relative;
   left:370px; 
   top:15px; 
