@@ -348,9 +348,9 @@ function newProgressNotesFormDialog() {
     return;
   }	  
   var args = {
-    modalTitle:"Close Progress Note Confirmation", 
-    modalH3:"Ready To Close The Currently Open Progress Note?", 
-    modalH4:"In order to start a new progress note the current one needs to be closed.",
+    modalTitle:"Complete Progress Note Confirmation", 
+    modalH3:"Ready To Complete The Currently Open Progress Note?", 
+    modalH4:"In order to start a new progress note the current one needs to be completed.",
     cancelButton: 'Cancel',
     okButton: 'Confirm'
   };
@@ -361,7 +361,7 @@ function newProgressNotesFormDialog() {
       var jsonData = JSON.stringify({ sessionId: clinician.sessionId, progressNoteId: app_progressNotes[app_progressNotesIndex].id});
       $.post("patient/closeProgressNote", {data:jsonData}, function(data) {
         var parsedData = $.parseJSON(data);
-        displayNotification('Progress Note Closed');
+        displayNotification('Progress Note Completed');
         app_progressNotes[app_progressNotesIndex].completed = true;
         newProgressNotesForm();
       });
@@ -563,9 +563,9 @@ function newEncounterFormDialog() {
     }	  
     
     var args = {
-      modalTitle:"Close Encounter Confirmation", 
-      modalH3:"Ready To Close The Currently Open Encounter?", 
-      modalH4:"In order to start a new encounter the current one needs to be closed.",
+      modalTitle:"Complete Encounter Confirmation", 
+      modalH3:"Ready To Complete The Currently Open Encounter?", 
+      modalH4:"In order to start a new encounter the current one needs to be completed.",
       cancelButton: 'Cancel',
       okButton: 'Confirm'
     };
@@ -576,7 +576,7 @@ function newEncounterFormDialog() {
         var jsonData = JSON.stringify({ sessionId: clinician.sessionId, encounterId: app_oldEncounter.id});
         $.post("patient/closeEncounter", {data:jsonData}, function(data) {
           var parsedData = $.parseJSON(data);
-          displayNotification('Patient Encounter Record Closed');
+          displayNotification('Patient Encounter Record Completed');
           app_oldEncounter.completed = true;
           $('#modal-encounter').modal('hide'); 
           getPatientEncountersListing();
@@ -616,9 +616,9 @@ function newEncounterForm() {
 function setupCloseRecordButton() {
 $('#app-encounter-close-record').click(function() { 
   var args = {
-    modalTitle:"Close Encounter Confirmation", 
-    modalH3:"Ready To Close The Encounter?", 
-    modalH4:"Once closed, the encounter is considered locked and complete.",
+    modalTitle:"Complete Encounter Confirmation", 
+    modalH3:"Ready To Complete The Encounter?", 
+    modalH4:"Once completed, the encounter is locked.",
     cancelButton: 'Cancel',
     okButton: 'Confirm'
   };
@@ -629,7 +629,7 @@ $('#app-encounter-close-record').click(function() {
       var jsonData = JSON.stringify({ sessionId: clinician.sessionId, encounterId: app_currentEncounter.id});
       $.post("patient/closeEncounter", {data:jsonData}, function(data) {
         var parsedData = $.parseJSON(data);
-        displayNotification('Patient Encounter Record Closed');
+        displayNotification('Patient Encounter Record Completed');
         app_currentEncounter.completed = true;
         $('#modal-encounter').modal('hide'); 
         app_oldEncounter.completed = true;

@@ -42,7 +42,7 @@ $('#app-encounter-close-record').click(function() {
       var jsonData = JSON.stringify({ sessionId: clinician.sessionId, encounterId: app_currentEncounter.id});
       $.post("patient/closeEncounter", {data:jsonData}, function(data) {
         var parsedData = $.parseJSON(data);
-        displayNotification('Patient Encounter Record Closed');
+        displayNotification('Patient Encounter Record Completed');
         var jsonData = JSON.stringify({ sessionId: clinician.sessionId });
         $.post("patient/getPatientEncounterGroups", {data:jsonData}, function(data) {
           var parsedData = $.parseJSON(data);
@@ -968,13 +968,23 @@ function setEncounterFormMode(encounter, section, isSaved, hasOwnership) {
   if (encounter.completed == true) {
     $('#encounter-'+section+'-panel-'+id+' .form-control-unsaved').css({display: "none"});
     $('#encounter-'+section+'-panel-'+id+' .form-control-saved').css({display: "block"});
-    $('#encounter-'+section+'-panel-'+id+' input:checkbox').prop("readonly", true);
-    $('#encounter-'+section+'-panel-'+id+' input:radio').prop("readonly", true);
+    $('#encounter-'+section+'-panel-'+id+' input:checkbox').attr("disabled", "disabled");
+    $('#encounter-'+section+'-panel-'+id+' input:checkbox').attr("readonly", "readonly");
+    $('#encounter-'+section+'-panel-'+id+' input:radio').attr("disabled", "disabled");
+    $('#encounter-'+section+'-panel-'+id+' input:radio').attr("readonly", "readonly");
     $('#encounter-'+section+'-save-'+id).css({display: "none"});
     $('#encounter-'+section+'-saved-'+id).css({display: "none"});
     $('#encounter-'+section+'-clear-'+id).css({display: "none"});
     $('#encounter-'+section+'-panel-'+id+' .form-control-saved').removeAttr('contenteditable');
     $('#encounter-basic-info-photo-upload-control-'+id).css({display:"none"});
+    
+    $('#encounter-pain-scale-value-'+id).css({display: "inline"});
+    $("#encounter-pain-type-"+id).css({display: "none"});
+    $(".slider-track").css({display: "none"});
+    $("#encounter-pain-type-saved-"+id).css({display: "inline"});
+    $("#encounter-pain-type-saved-"+id).off( "click");
+    
+    
     return;
   }
   

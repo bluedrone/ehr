@@ -695,10 +695,13 @@ function viewClinicianMessage() {
   $.post("app/getClinicianMessage", {data:jsonData}, function(data) {
     var parsedData = $.parseJSON(data);
     var content = parsedData.content;
-    var patientFullName = util_buildFullName(patient.firstName, patient.middleName, patient.lastName);
-    var patientName = parsedData.patient.fullName;
+    var patient = parsedData.patient;
+    if (patient) { 
+      var patientFullName = util_buildFullName(patient.cred.firstName, patient.cred.middleName, patient.cred.lastName);
+      $('#messages-inbox-header').html("Message from: " + patientFullName);
+    }
+    
     $('#message-content').html("<pre>"+content+"</pre>");
-    $('#messages-inbox-header').html("Message from: " + patientName);
   });
 }
 
