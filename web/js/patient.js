@@ -350,7 +350,9 @@ function newProgressNotesFormDialog() {
   var args = {
     modalTitle:"Close Progress Note Confirmation", 
     modalH3:"Ready To Close The Currently Open Progress Note?", 
-    modalH4:"In order to start a new progress note the current one needs to be closed."
+    modalH4:"In order to start a new progress note the current one needs to be closed.",
+    cancelButton: 'Cancel',
+    okButton: 'Confirm'
   };
   RenderUtil.render('dialog/confirm', args, function(s) { 
     $('#modals-placement').append(s);
@@ -555,6 +557,7 @@ function newEncounterFormDialog() {
     app_oldEncounter = parsedData.encounter;
 	
     if (app_oldEncounter == undefined || app_oldEncounter.completed == true) {
+      getPatientEncountersListing();
       newEncounterForm();
       return;
     }	  
@@ -562,7 +565,9 @@ function newEncounterFormDialog() {
     var args = {
       modalTitle:"Close Encounter Confirmation", 
       modalH3:"Ready To Close The Currently Open Encounter?", 
-      modalH4:"In order to start a new encounter the current one needs to be closed."
+      modalH4:"In order to start a new encounter the current one needs to be closed.",
+      cancelButton: 'Cancel',
+      okButton: 'Confirm'
     };
     RenderUtil.render('dialog/confirm', args, function(s) { 
       $('#modals-placement').append(s);
@@ -574,7 +579,7 @@ function newEncounterFormDialog() {
           displayNotification('Patient Encounter Record Closed');
           app_oldEncounter.completed = true;
           $('#modal-encounter').modal('hide'); 
-          getPatientEncounters();
+          getPatientEncountersListing();
           newEncounterForm();
         });
       });
@@ -613,7 +618,9 @@ $('#app-encounter-close-record').click(function() {
   var args = {
     modalTitle:"Close Encounter Confirmation", 
     modalH3:"Ready To Close The Encounter?", 
-    modalH4:"Once closed, the encounter is considered locked and complete."
+    modalH4:"Once closed, the encounter is considered locked and complete.",
+    cancelButton: 'Cancel',
+    okButton: 'Confirm'
   };
   RenderUtil.render('dialog/confirm', args, function(s) { 
     $('#modals-placement').append(s);
@@ -625,7 +632,8 @@ $('#app-encounter-close-record').click(function() {
         displayNotification('Patient Encounter Record Closed');
         app_currentEncounter.completed = true;
         $('#modal-encounter').modal('hide'); 
-        getPatientEncounters();
+        app_oldEncounter.completed = true;
+        getPatientEncountersListing();
       });
     });
   });

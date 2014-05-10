@@ -34,37 +34,6 @@ function updateLockStatusIcon(lockStatus) {
 }
 
 
-$('#app-encounter-override-record').click(function() { 
-  RenderUtil.render('override_patient_encounter', {}, function(s) { 
-    $('#modals-placement').html(s);
-    $('#modal-override-patient-encounter').modal('show'); 
-    $('#app-overrride-patient-encounter-submit').click(function(){ 
-      app_oldLockStatus = app_currentEncounter.lockStatus;
-      var jsonData = JSON.stringify({ 
-        sessionId: clinician.sessionId, 
-        encounterId: app_currentEncounter.id
-      });
-      $.post("patient/overridePatient", {data:jsonData}, function(data) {
-        var parsedData = $.parseJSON(data);
-        var clinicianId = parsedData.clinicianId;
-        var lockStatus = parsedData.lockStatus;
-        $('#modal-override-patient-encounter').modal('hide'); 
-        
-        if (lockStatus == ENCOUNTER_OVERRIDDEN) {
-          updateLockStatusIcon(lockStatus);
-          updateEncounterButtons(lockStatus, clinicianId);
-          displayNotification('Patient Encounter Record Overridden');
-          setEncounterFormModes(true);
-        }
-        else {
-          displayNotification('Unable to Override Patient Encounter Record');
-        }
-      });
-    });
-  });
-});
-
-
 $('#app-encounter-close-record').click(function() { 
   RenderUtil.render('dialog/close_encounter', {}, function(s) { 
     $('#modals-placement').html(s);
@@ -88,106 +57,7 @@ $('#app-encounter-close-record').click(function() {
 });
 
 
-$('#app-encounter-release-record').click(function() { 
-  var lockStatus = app_currentEncounter.lockStatus;
-  if (lockStatus == ENCOUNTER_LOCKED && app_currentEncounter.clinician.id == clinician.id) {
-    lockStatus = ENCOUNTER_OWNED;
-  } 
-  app_oldLockStatus = lockStatus;
-  var jsonData = JSON.stringify({ 
-    sessionId: clinician.sessionId, 
-    encounterId: app_currentEncounter.id
-  });
-  $.post("patient/releasePatient", {data:jsonData}, function(data) {
-    var parsedData = $.parseJSON(data);
-    var clinicianId = parsedData.clinicianId;
-    if (parsedData.lockStatus == ENCOUNTER_FREE) {
-      updateLockStatusIcon(parsedData.lockStatus);
-      updateEncounterButtons(parsedData.lockStatus, clinicianId);
-      displayNotification('Patient Encounter Record Released');
-      setEncounterFormModes(false);
-    }
-    else {
-      displayNotification('Unable to Release Patient Encounter Record');
-    }
-  });
-});
 
-$('#app-encounter-acquire-record').click(function() { 
-  app_oldLockStatus = app_currentEncounter.lockStatus;
-  var jsonData = JSON.stringify({ 
-    sessionId: clinician.sessionId, 
-    encounterId: app_currentEncounter.id
-  });
-  $.post("patient/acquirePatient", {data:jsonData}, function(data) {
-    var parsedData = $.parseJSON(data);
-    var clinicianId = parsedData.clinicianId;
-    if (parsedData.lockStatus == ENCOUNTER_LOCKED || parsedData.lockStatus == ENCOUNTER_OVERRIDDEN) {
-      var lockStatus = parsedData.lockStatus;
-      if (parsedData.lockStatus == ENCOUNTER_LOCKED && clinician.id == clinicianId) {
-        lockStatus = ENCOUNTER_OWNED;
-      } 
-      updateLockStatusIcon(lockStatus);
-      updateEncounterButtons(lockStatus, clinicianId);
-      displayNotification('Patient Encounter Record Acquired');
-      setEncounterFormModes(true);
-    }
-    else {
-      displayNotification('Unable to Acquire Patient Encounter Record');
-    }
-  });
-});
-
-
-function viewPatientEncounterFormGroup(e) {
-  getCurrentGroupId(e);
-  viewPatientEncounterFormGroupWithId();
-}
-   
-
-
-
-function updateEncounterButtons(lockStatus, clinicianId) {
-  if (lockStatus == ENCOUNTER_FREE) {
-    $('#app-encounter-acquire-record').css("display", "inline-block");
-    $('#app-encounter-release-record').css("display", "none");
-    $('#app-encounter-override-record').css("display", "none");
-    $('#app-encounter-close-record').css("display", "none");
-  }
-  else if (lockStatus != ENCOUNTER_FREE && clinicianId == clinician.id) {
-    $('#app-encounter-acquire-record').css("display", "none");
-    $('#app-encounter-release-record').css("display", "inline-block");
-    $('#app-encounter-override-record').css("display", "none");
-    $('#app-encounter-close-record').css("display", "inline-block");
-  }
-  else if (lockStatus != ENCOUNTER_FREE && clinicianId != clinician.id) {
-    $('#app-encounter-acquire-record').css("display", "none");
-    $('#app-encounter-release-record').css("display", "none");
-    $('#app-encounter-override-record').css("display", "inline-block");
-    $('#app-encounter-close-record').css("display", "none");
-  }
-}
-
-function setEncounterButtons() {
-  if (app_currentEncounter.clinician == undefined) {
-    $('#app-encounter-acquire-record').css("display", "inline-block");
-    $('#app-encounter-release-record').css("display", "none");
-    $('#app-encounter-override-record').css("display", "none");
-    $('#app-encounter-close-record').css("display", "none");
-  }
-  else if (app_currentEncounter.clinician != undefined && app_currentEncounter.clinician.id == clinician.id) {
-    $('#app-encounter-acquire-record').css("display", "none");
-    $('#app-encounter-release-record').css("display", "inline-block");
-    $('#app-encounter-override-record').css("display", "none");
-    $('#app-encounter-close-record').css("display", "inline-block");
-  }
-  else if (app_currentEncounter.clinician != undefined && app_currentEncounter.clinician.id != clinician.id) {
-    $('#app-encounter-acquire-record').css("display", "none");
-    $('#app-encounter-release-record').css("display", "none");
-    $('#app-encounter-override-record').css("display", "inline-block");
-    $('#app-encounter-close-record').css("display", "none");
-  }
-}
 
 
 function printEncounterForm(template, title) { 
@@ -966,15 +836,6 @@ function saveFollowUpEncounterForm(encounter) {
   });
 }
 
-
-function getPatientEncounter(id) {
-  var group = getPatientEncounterGroup(app_currentGroupId);
-  for (i=0;i<group.encounterList.length;i++) {
-    if (group.encounterList[i].id == id) {
-      return group.encounterList[i];
-    }
-  }
-}
 
 function updateLocalPatientEncounter(property, value, patientId) {
   app_currentEncounter[property] = value;  

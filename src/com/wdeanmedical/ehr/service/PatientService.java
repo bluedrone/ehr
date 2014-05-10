@@ -315,6 +315,7 @@ public class PatientService {
   
   public void closeEncounter(PatientDTO dto) throws Exception {
     Encounter encounter = patientDAO.findEncounterById(dto.getEncounterId());
+    encounter.setCompleted(true);
     patientDAO.update(encounter);
   }
   
