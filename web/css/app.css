@@ -101,6 +101,7 @@ a {
   color: #fff;
   opacity: 0.95;
   border: 1px solid transparent;
+  z-index: 999;
 }
 button .clear-stop, button .clear-stop i {
   opacity: 1.0;
@@ -174,6 +175,10 @@ ul.nav-tabs {
   font-weight: 300;
   background-color: #999999;
   border: 1px solid #ddd;
+}
+.encounter-navbar-btn {
+  margin-right: 10px;
+  margin-top: 15px;
 }
 
 
@@ -447,7 +452,9 @@ a.pc-tile:hover {
 .follow {
   padding-top: 5px;
 }
-
+#chart-encounters-list table {
+  background-color: #fff;
+}
 #encounter-groups .nav-tabs.nav-justified > li > a {
   text-align: left;
 }
