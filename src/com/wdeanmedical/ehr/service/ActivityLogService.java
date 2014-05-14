@@ -167,6 +167,7 @@ public class ActivityLogService {
 				}
 			}
 		} else {
+			outer:
 			for (Method oldEntityMethod : oldEntityMethods) {
 				Object oldEntityReturnedValue = null;
 				Object newEntityReturnedValue = null;
@@ -185,15 +186,16 @@ public class ActivityLogService {
 							if (oldEntityMethodName.equals(newEntityMethodName)) {
 								newEntityReturnedValue = newEntityMethod.invoke(newEntity);
 								if (newEntityReturnedValue == null) {
-									continue;
+									continue outer;
 								}
 								if (oldEntityReturnedValue.equals(newEntityReturnedValue)) {
-									continue;
+									continue outer;
 								} else if (newEntityMethod.getName().startsWith("get")) {
 									hashSet.add(newEntityMethod.getName().substring(3));
 								} else if (newEntityMethod.getName().startsWith("is")) {
 									hashSet.add(newEntityMethod.getName().substring(2));
-								}
+								}							
+								continue outer;								
 							}
 						}
 					}
