@@ -11,7 +11,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -72,6 +74,7 @@ public class PatientService {
   private WebApplicationContext wac;
   private PatientDAO patientDAO;
   private AppDAO appDAO;
+  private ActivityLogService activityLogService;
 
 
   public PatientService() throws MalformedURLException {
@@ -79,6 +82,7 @@ public class PatientService {
     wac = WebApplicationContextUtils.getRequiredWebApplicationContext(context);
     patientDAO = (PatientDAO) wac.getBean("patientDAO");
     appDAO = (AppDAO) wac.getBean("appDAO");
+    activityLogService = new ActivityLogService();
   }
   
   public List<Encounter> getPatientEncounters(PatientDTO dto) throws Exception {
@@ -99,37 +103,48 @@ public class PatientService {
     patientDAO.update(patient.getCred());
     Encounter encounter = getCurrentEncounter(patient, dto);
     patientDAO.delete(encounter);
+    activityLogService.logDeletePatient(dto.getUsername(), patient.getId(), dto.getClinicianId(), encounter.getId()); 
   }
   
   
   public void createVitals(PatientDTO dto) throws Exception {
+	Set<String> fieldSetVitals = activityLogService.getListOfChangedFields(dto.getEncounter().getVitals());
     patientDAO.update(dto.getEncounter().getVitals());
     patientDAO.update(dto.getEncounter());
+    activityLogService.logEditEncounter(dto.getUsername(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSetVitals); 
   }
   
   
   public void createCC(PatientDTO dto) throws Exception {
+	Set<String> fieldSetCc = activityLogService.getListOfChangedFields(dto.getEncounter().getCc());
     patientDAO.update(dto.getEncounter().getCc());
     patientDAO.update(dto.getEncounter());
+    activityLogService.logEditEncounter(dto.getUsername(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSetCc); 
   }
   
   public void createOBGYN(PatientDTO dto) throws Exception {
+	Set<String> fieldSetObgyn = activityLogService.getListOfChangedFields(dto.getEncounter().getObgyn());
     patientDAO.update(dto.getEncounter().getObgyn());
     patientDAO.update(dto.getEncounter());
+    activityLogService.logEditEncounter(dto.getUsername(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSetObgyn); 
   }
   
   
   public void createFamily(PatientDTO dto) throws Exception {
+	Set<String> fieldSetPfsh = activityLogService.getListOfChangedFields(dto.getEncounter().getPatient().getPfsh());
     patientDAO.update(dto.getEncounter().getPatient().getPfsh());
     patientDAO.update(dto.getEncounter().getPatient());
     patientDAO.update(dto.getEncounter());
+    activityLogService.logEditEncounter(dto.getUsername(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSetPfsh);
   }
   
   
   public void createPFSH(PatientDTO dto) throws Exception {
+	Set<String> fieldSetPfsh = activityLogService.getListOfChangedFields(dto.getEncounter().getPatient().getPfsh());
     patientDAO.update(dto.getEncounter().getPatient().getPfsh());
     patientDAO.update(dto.getEncounter().getPatient());
     patientDAO.update(dto.getEncounter());
+    activityLogService.logEditEncounter(dto.getUsername(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSetPfsh); 
   }
   
   
@@ -137,20 +152,26 @@ public class PatientService {
     for (EncounterQuestion encounterQuestion : dto.getEncounter().getSupp().getEncounterQuestionList()) {
       patientDAO.updateEncounterQuestion(encounterQuestion);
     }
+    Set<String> fieldSetSupp = activityLogService.getListOfChangedFields(dto.getEncounter().getSupp());
     patientDAO.update(dto.getEncounter().getSupp());
     patientDAO.update(dto.getEncounter());
+    activityLogService.logEditEncounter(dto.getUsername(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSetSupp); 
   }
   
   
   public void createExam(PatientDTO dto) throws Exception {
+	Set<String> fieldSetExam = activityLogService.getListOfChangedFields(dto.getEncounter().getExam());
     patientDAO.update(dto.getEncounter().getExam());
     patientDAO.update(dto.getEncounter());
+    activityLogService.logEditEncounter(dto.getUsername(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSetExam); 
   }
   
   
   public void createFollowUp(PatientDTO dto) throws Exception {
+	Set<String> fieldSetFollowUp = activityLogService.getListOfChangedFields(dto.getEncounter().getFollowUp());
     patientDAO.update(dto.getEncounter().getFollowUp());
     patientDAO.update(dto.getEncounter());
+    activityLogService.logEditEncounter(dto.getUsername(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSetFollowUp);
   }
   
   
@@ -158,17 +179,25 @@ public class PatientService {
     for (EncounterMedication encounterMedication : dto.getEncounter().getPatient().getHist().getEncounterMedicationList()) {
       patientDAO.updateEncounterMedication(encounterMedication);
     }
+    Set<String> fieldSetHist = activityLogService.getListOfChangedFields(dto.getEncounter().getPatient().getHist());
     patientDAO.update(dto.getEncounter().getPatient().getHist());
     patientDAO.update(dto.getEncounter().getPatient());
     patientDAO.update(dto.getEncounter());
+    activityLogService.logEditEncounter(dto.getUsername(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSetHist);
   }
   
   
   public void createBasicInfo(PatientDTO dto) throws Exception {
+	Set<String> fieldSetDemo = activityLogService.getListOfChangedFields(dto.getEncounter().getPatient().getDemo());
     patientDAO.update(dto.getEncounter().getPatient().getDemo());
+    Set<String> fieldSetCred = activityLogService.getListOfChangedFields(dto.getEncounter().getPatient().getCred());
     patientDAO.update(dto.getEncounter().getPatient().getCred());
     patientDAO.update(dto.getEncounter().getPatient());
     patientDAO.update(dto.getEncounter());
+    Set<String> fieldSet = new HashSet<String>();
+    fieldSet.addAll(fieldSetDemo);
+    fieldSet.addAll(fieldSetCred);
+    activityLogService.logEditEncounter(dto.getUsername(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSet); 
   }
   
   
@@ -185,7 +214,10 @@ public class PatientService {
     else if (property.equals("frequency")) {
       encounterMedication.setFrequency(value);
     }
+    Set<String> fieldSet = new HashSet<String>();
+    fieldSet.add(property);
     patientDAO.update(encounterMedication);
+    activityLogService.logEditEncounter(dto.getUsername(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSet);
   }
   
   public  void updateEncounterQuestion(PatientDTO dto) throws Exception {
@@ -198,7 +230,10 @@ public class PatientService {
     else if (property.equals("response")) {
       encounterQuestion.setResponse(value);
     }
+    Set<String> fieldSet = new HashSet<String>();
+    fieldSet.add(property);
     patientDAO.update(encounterQuestion);
+    activityLogService.logEditEncounter(dto.getUsername(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSet);
   }
   
 
@@ -286,7 +321,9 @@ public class PatientService {
       encounter.setClinician(clinician);
       encounter.setLockStatus(Encounter.LOCK_LOCKED);
       dto.setLockStatus(Encounter.LOCK_LOCKED);
+      Set<String> fieldSet = activityLogService.getListOfChangedFields(encounter); 
       patientDAO.update(encounter);
+      activityLogService.logEditEncounter(dto.getUsername(), dto.getId(), clinician.getId(), encounter.getId(), fieldSet); 
       dto.setClinicianId(clinician.getId());
     }
   }
@@ -296,7 +333,9 @@ public class PatientService {
     Clinician clinician = appDAO.findClinicianBySessionId(dto.getSessionId());
     encounter.setLockStatus(Encounter.LOCK_OVERRIDDEN);
     dto.setLockStatus(Encounter.LOCK_OVERRIDDEN);
+    Set<String> fieldSet = activityLogService.getListOfChangedFields(encounter); 
     patientDAO.update(encounter);
+    activityLogService.logEditEncounter(dto.getUsername(), dto.getId(), clinician.getId(), encounter.getId(), fieldSet); 
     dto.setClinicianId(clinician.getId());
   }
   
@@ -308,7 +347,9 @@ public class PatientService {
       encounter.setClinician(null);
       encounter.setLockStatus(Encounter.LOCK_FREE);
       dto.setLockStatus(Encounter.LOCK_FREE);
+      Set<String> fieldSet = activityLogService.getListOfChangedFields(encounter);
       patientDAO.update(encounter);
+      activityLogService.logEditEncounter(dto.getUsername(), dto.getId(), clinician.getId(), encounter.getId(), fieldSet);  
     }
   }
   
@@ -316,13 +357,18 @@ public class PatientService {
   public void closeEncounter(PatientDTO dto) throws Exception {
     Encounter encounter = patientDAO.findEncounterById(dto.getEncounterId());
     encounter.setCompleted(true);
+    Set<String> fieldSet = activityLogService.getListOfChangedFields(encounter);
     patientDAO.update(encounter);
+    activityLogService.logEditEncounter(dto.getUsername(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSet); 
   }
   
   public void closeProgressNote(PatientDTO dto) throws Exception {
     ProgressNote note = patientDAO.findProgressNoteById(dto.getProgressNoteId());
     note.setCompleted(true);
+    Set<String> fieldSet = activityLogService.getListOfChangedFields(note); 
     patientDAO.update(note);
+    activityLogService.logEditEncounter(dto.getUsername(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSet); 
+
   }
   
   
@@ -334,6 +380,7 @@ public class PatientService {
       addEncounterQuestion(encounter.getId()); // encounter.supp
       addEncounterMedication(patient.getId()); // patient.hist
     }
+    activityLogService.logNewEncounter(dto.getUsername(), dto.getPatientId(), clinician.getId(), encounter.getId());
     return encounter;
   }
   
@@ -349,7 +396,9 @@ public class PatientService {
     ProgressNote note = patientDAO.findProgressNoteById(dto.getProgressNote().getId());
     note.setSubject(dto.getProgressNote().getSubject());
     note.setContent(dto.getProgressNote().getContent());
+    Set<String> fieldSetNote = activityLogService.getListOfChangedFields(note);
     patientDAO.update(note);
+    activityLogService.logEditEncounter(dto.getUsername(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSetNote);
     return note;
   }
   
@@ -361,15 +410,17 @@ public class PatientService {
   
   public Encounter getCurrentEncounter(Patient patient, PatientDTO dto) throws Exception {
     Encounter encounter = patientDAO.findCurrentEncounterByPatient(patient);
+    Clinician clinician = null;
     if (encounter == null) {
       encounter = new Encounter();
       encounter.setPatient(patient);
-      Clinician clinician = appDAO.findClinicianBySessionId(dto.getSessionId());
+      clinician = appDAO.findClinicianBySessionId(dto.getSessionId());
       encounter.setClinician(clinician);
       encounter.setDate(new Date());
       encounter.setEncounterType(patientDAO.findEncounterTypeById(EncounterType.CHECK_UP));
       patientDAO.create(encounter); 
     }
+    activityLogService.logViewEncounter(clinician.getUsername(), patient.getId(), clinician.getId(), encounter.getId());
     return encounter;
   }
   
@@ -392,6 +443,7 @@ public class PatientService {
       
   public String uploadProfileImage(HttpServletRequest request, HttpServletResponse response) throws Exception{
     String patientId = request.getParameter("patientId");
+    String sessionId = request.getParameter("sessionId");  
     InputStream is = null;
     FileOutputStream fos = null;
     String returnString = "";
@@ -431,10 +483,21 @@ public class PatientService {
     String[] mvArgs = {"mv", Core.appBaseDir + Core.imagesDir + "/" + filename,  patientDirPath};
     runtime.exec(mvArgs);
     patientDAO.updatePatientProfileImage(patient, filename); 
+    Set<String> fieldSet = new HashSet<String>();
+    fieldSet.add("profileImagePath");
+    String username = null;
+    Integer clinicianId = null;
+    if(sessionId != null){
+    	ClinicianSession clinicianSession = appDAO.findClinicianSessionBySessionId(sessionId);
+    	username = clinicianSession.getClinician().getUsername();   
+    	clinicianId = clinicianSession.getClinician().getId();
+    }
+    activityLogService.logEditPatient(username, patient.getId(), clinicianId, patient.getCurrentEncounterId(), fieldSet); 
     return returnString;
  }
  
   public void updatePatient(PatientDTO dto) throws Exception {
+	Set<String> fieldSet = new HashSet<String>();
     String updateClass = "";
     Patient patient = patientDAO.findPatientById(dto.getPatientId());
     Encounter encounter = getCurrentEncounter(patient, dto);
@@ -720,6 +783,7 @@ public class PatientService {
     }
     else if (property.equals("followUpNotes")) {followUp.setNotes(dto.getFollowUpNotes());updateClass = "FollowUp";} 
     
+    fieldSet.add(property);
     if(updateClass.equals("FollowUp")) {}
     else if(updateClass.equals("FollowUp")) {patientDAO.update(followUp);}
     else if(updateClass.equals("Encounter")) {patientDAO.update(encounter);}
@@ -734,6 +798,8 @@ public class PatientService {
     else if(updateClass.equals("Credentials")) {patientDAO.update(cred);}
     else if(updateClass.equals("Demographics")) {patientDAO.update(demo);}
     else if(updateClass.equals("FollowUp")) {patientDAO.update(followUp);}
+    fieldSet.add(updateClass);
+    activityLogService.logEditPatient(dto.getUsername(), patient.getId(), dto.getClinicianId(), encounter.getId(), fieldSet); 
   }
 
 }

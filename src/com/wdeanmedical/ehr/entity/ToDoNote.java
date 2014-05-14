@@ -13,39 +13,119 @@ import javax.persistence.Table;
 @Table(name = "to_do_note")
 public class ToDoNote extends BaseEntity implements Serializable {
 
-  private static final long serialVersionUID = 124835074057048599L;
-  
-  private Patient patient;
-  private Clinician clinician;
-  private Date date;
-  private String subject;
-  private String content;
-  
+	private static final long serialVersionUID = 124835074057048599L;
 
-  public ToDoNote() {
-  }
-  
-  @JoinColumn(name = "patient", referencedColumnName = "id")
-  @ManyToOne(optional = false)
-  public Patient getPatient() { return patient; }
-  public void setPatient(Patient patient) { this.patient = patient; }
-  
-  @Column(name = "date")
-  public Date getDate() { return date; }
-  public void setDate(Date date) { this.date = date; }
+	private Patient patient;
+	private Clinician clinician;
+	private Date date;
+	private String subject;
+	private String content;
 
-  @JoinColumn(name = "clinician", referencedColumnName = "id")
-  @ManyToOne(optional = false)
-  public Clinician getClinician() { return clinician; }
-  public void setClinician(Clinician clinician) { this.clinician = clinician; }
+	public ToDoNote() {
+	}
 
-  @Column(name = "content")
-  public String getContent() { return content; }
-  public void setContent(String content) { this.content = content;
-  }
-  
-  @Column(name = "subject")
-  public String getSubject() { return subject; }
-  public void setSubject(String subject) { this.subject = subject; }
+	@JoinColumn(name = "patient", referencedColumnName = "id")
+	@ManyToOne(optional = false)
+	public Patient getPatient() {
+		return patient;
+	}
+
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+
+	@Column(name = "date")
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	@JoinColumn(name = "clinician", referencedColumnName = "id")
+	@ManyToOne(optional = false)
+	public Clinician getClinician() {
+		return clinician;
+	}
+
+	public void setClinician(Clinician clinician) {
+		this.clinician = clinician;
+	}
+
+	@Column(name = "content")
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	@Column(name = "subject")
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result
+				+ ((clinician == null) ? 0 : clinician.hashCode());
+		result = prime * result + ((content == null) ? 0 : content.hashCode());
+		result = prime * result + ((date == null) ? 0 : date.hashCode());
+		result = prime * result + ((patient == null) ? 0 : patient.hashCode());
+		result = prime * result + ((subject == null) ? 0 : subject.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ToDoNote other = (ToDoNote) obj;
+		if (clinician == null) {
+			if (other.clinician != null)
+				return false;
+		} else if (!clinician.equals(other.clinician))
+			return false;
+		if (content == null) {
+			if (other.content != null)
+				return false;
+		} else if (!content.equals(other.content))
+			return false;
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
+			return false;
+		if (patient == null) {
+			if (other.patient != null)
+				return false;
+		} else if (!patient.equals(other.patient))
+			return false;
+		if (subject == null) {
+			if (other.subject != null)
+				return false;
+		} else if (!subject.equals(other.subject))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "ToDoNote [patient=" + patient + ", clinician=" + clinician
+				+ ", date=" + date + ", subject=" + subject + ", content="
+				+ content + "]";
+	}
 
 }

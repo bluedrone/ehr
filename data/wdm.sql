@@ -2859,3 +2859,43 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2014-05-10  2:38:06
+
+DROP TABLE IF EXISTS `activity`;
+CREATE TABLE `activity` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `created_date` datetime DEFAULT NULL,
+  `last_accessed` datetime DEFAULT NULL,
+  `last_updated` datetime DEFAULT NULL,
+  `activity_type` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
+
+LOCK TABLES `activity` WRITE;
+INSERT INTO `activity` VALUES (1, CURRENT_TIMESTAMP(), NULL, NULL, 'login');
+INSERT INTO `activity` VALUES (2, CURRENT_TIMESTAMP(), NULL, NULL, 'view patient');
+INSERT INTO `activity` VALUES (3, CURRENT_TIMESTAMP(), NULL, NULL, 'view patient encounter');
+INSERT INTO `activity` VALUES (4, CURRENT_TIMESTAMP(), NULL, NULL, 'edit patient field');
+INSERT INTO `activity` VALUES (5, CURRENT_TIMESTAMP(), NULL, NULL, 'edit patient encounter field');
+INSERT INTO `activity` VALUES (6, CURRENT_TIMESTAMP(), NULL, NULL, 'create encounter');
+INSERT INTO `activity` VALUES (7, CURRENT_TIMESTAMP(), NULL, NULL, 'logout');
+INSERT INTO `activity` VALUES (8, CURRENT_TIMESTAMP(), NULL, NULL, 'delete patient');
+UNLOCK TABLES;
+
+
+DROP TABLE IF EXISTS `activity_log`;
+CREATE TABLE `activity_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `created_date` datetime DEFAULT NULL,
+  `last_accessed` datetime DEFAULT NULL,
+  `last_updated` datetime DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  `patient_id` int(11) DEFAULT NULL,
+  `time_performed` datetime DEFAULT NULL,
+  `clinician_id` int(11) DEFAULT NULL,
+  `encounter_id` int(11) DEFAULT NULL,
+  `field_name` varchar(255) DEFAULT NULL,
+  `activity` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `activity_log_activity_fk` (`activity`),
+  CONSTRAINT `activity_log_activity_fk` FOREIGN KEY (`activity`) REFERENCES `activity` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;

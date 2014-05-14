@@ -102,7 +102,12 @@
             <ref bean="sessionFactory" />
         </property>
     </bean>
-
+    
+    <bean id="activityLogDAO" class="com.wdeanmedical.ehr.persistence.ActivityLogDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
 
     <!-- enable the configuration of transactional behavior based on annotations -->
     <tx:annotation-driven transaction-manager="transactionManager" />
@@ -166,6 +171,8 @@
 
         <property name="annotatedClasses">
           <list>
+            <value>com.wdeanmedical.ehr.entity.Activity</value>
+            <value>com.wdeanmedical.ehr.entity.ActivityLog</value>
             <value>com.wdeanmedical.ehr.entity.Allergen</value>
             <value>com.wdeanmedical.ehr.entity.Appointment</value>
             <value>com.wdeanmedical.ehr.entity.AppointmentType</value>
