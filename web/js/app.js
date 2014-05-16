@@ -311,9 +311,6 @@ function getRecentPatients() {
       ]}, function(s) {
       $('#patient-search-results').html(s);
       $('#patient-search-results-title').html("Recent Patients");
-      $('.clickable-table-row').dblclick( function(e){ 
-        handleDoubleClickedRow(e); 
-      });
       $('.clickable-table-row').click( function(e){ 
         $(this).addClass('table-row-highlight').siblings().removeClass('table-row-highlight');
         handleClickableRow(e); 
@@ -677,9 +674,6 @@ function getClinicianMessages() {
         {title:'Subject', field:'subject', type:'simple'}
       ]}, function (s) {
       $('#messages-inbox').html(s);
-      $('.clickable-table-row').dblclick( function(e){ 
-        handleDoubleClickedRow(e); 
-      });
       $('.clickable-table-row').click( function(e){ 
         $(this).addClass('table-row-highlight').siblings().removeClass('table-row-highlight');
         handleClickableRow(e); 
@@ -722,19 +716,6 @@ function viewClinicianMessage() {
       }
     }
     if (id !== undefined) {
-      if (tableName == 'patient-search-results') {
-        app_currentPatientId = id; 
-        $('#modal-patient-search').modal('hide'); 
-        getPatientChart();
-      }
-      else if (tableName == 'messages-inbox') {
-        app_currentMessageId = id; 
-        viewClinicianMessage();
-      }
-      else if (tableName == 'chart-encounters-list') {
-        app_currentEncounterId = id; 
-        viewPatientEncounter(id);
-      }
     }
   }
 
@@ -763,9 +744,11 @@ function viewClinicianMessage() {
       }
       else if (tableName == 'messages-inbox') {
         app_currentMessageId = id; 
+        viewClinicianMessage();
       }
       else if (tableName == 'chart-encounters-list') {
         app_currentEncounterId = id; 
+        viewPatientEncounter(id);
       }
     }
   }
