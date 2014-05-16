@@ -788,3 +788,10 @@ table.encounter-form td {
 .tt-suggestion p {
   margin: 0;
 }
+
+/* EXPORT
+-------------------------------------------------- */
+#export {
+	display: none;
+}
+
