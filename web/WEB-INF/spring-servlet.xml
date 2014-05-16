@@ -182,6 +182,7 @@
             <value>com.wdeanmedical.ehr.entity.ClinicianSchedule</value>
             <value>com.wdeanmedical.ehr.entity.ClinicianSession</value>
             <value>com.wdeanmedical.ehr.entity.Country</value>
+            <value>com.wdeanmedical.ehr.entity.CPT</value>
             <value>com.wdeanmedical.ehr.entity.Credential</value>
             <value>com.wdeanmedical.ehr.entity.Credentials</value>
             <value>com.wdeanmedical.ehr.entity.Demographics</value>
@@ -189,14 +190,15 @@
             <value>com.wdeanmedical.ehr.entity.Division</value>
             <value>com.wdeanmedical.ehr.entity.Encounter</value>
             <value>com.wdeanmedical.ehr.entity.EncounterType</value>
+            <value>com.wdeanmedical.ehr.entity.EncounterMedication</value>
+            <value>com.wdeanmedical.ehr.entity.EncounterQuestion</value>
             <value>com.wdeanmedical.ehr.entity.Ethnicity</value>
             <value>com.wdeanmedical.ehr.entity.Exam</value>
             <value>com.wdeanmedical.ehr.entity.Gender</value>
             <value>com.wdeanmedical.ehr.entity.HealthIssue</value>
             <value>com.wdeanmedical.ehr.entity.HealthTrendReport</value>
             <value>com.wdeanmedical.ehr.entity.Immunization</value>
-            <value>com.wdeanmedical.ehr.entity.EncounterMedication</value>
-            <value>com.wdeanmedical.ehr.entity.EncounterQuestion</value>
+            <value>com.wdeanmedical.ehr.entity.ICD10</value>
             <value>com.wdeanmedical.ehr.entity.Lab</value>
             <value>com.wdeanmedical.ehr.entity.LabReview</value>
             <value>com.wdeanmedical.ehr.entity.MaritalStatus</value>

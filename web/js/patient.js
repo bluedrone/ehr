@@ -495,9 +495,6 @@ function getPatientEncountersListing() {
       $('#chart-encounters-list').html(s);
       $('#chart-encounters-list-title').html("Encounter History");
       $('#encounter-view-button').click(function(){ viewPatientEncounter(app_currentEncounterId); });
-      $('.clickable-table-row').dblclick( function(e){ 
-        handleDoubleClickedRow(e); 
-      });
       $('.clickable-table-row').click( function(e){ 
         $(this).addClass('table-row-highlight').siblings().removeClass('table-row-highlight');
         handleClickableRow(e); 
