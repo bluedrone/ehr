@@ -1,3 +1,10 @@
+/*
+ * WDean Medical is distributed under the
+ * GNU Lesser General Public License (GNU LGPL).
+ * For details see: http://www.wdeanmedical.com
+ * copyright 2013-2014 WDean Medical
+ */
+ 
 package com.wdeanmedical.ehr.service;
 
 import java.io.BufferedReader;
@@ -108,7 +115,7 @@ public class PatientService {
   
   
   public void createVitals(PatientDTO dto) throws Exception {
-	Set<String> fieldSetVitals = activityLogService.getListOfChangedFields(dto.getEncounter().getVitals());
+  Set<String> fieldSetVitals = activityLogService.getListOfChangedFields(dto.getEncounter().getVitals());
     patientDAO.update(dto.getEncounter().getVitals());
     patientDAO.update(dto.getEncounter());
     activityLogService.logEditEncounter(dto.getUsername(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSetVitals); 
@@ -116,14 +123,14 @@ public class PatientService {
   
   
   public void createCC(PatientDTO dto) throws Exception {
-	Set<String> fieldSetCc = activityLogService.getListOfChangedFields(dto.getEncounter().getCc());
+  Set<String> fieldSetCc = activityLogService.getListOfChangedFields(dto.getEncounter().getCc());
     patientDAO.update(dto.getEncounter().getCc());
     patientDAO.update(dto.getEncounter());
     activityLogService.logEditEncounter(dto.getUsername(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSetCc); 
   }
   
   public void createOBGYN(PatientDTO dto) throws Exception {
-	Set<String> fieldSetObgyn = activityLogService.getListOfChangedFields(dto.getEncounter().getObgyn());
+  Set<String> fieldSetObgyn = activityLogService.getListOfChangedFields(dto.getEncounter().getObgyn());
     patientDAO.update(dto.getEncounter().getObgyn());
     patientDAO.update(dto.getEncounter());
     activityLogService.logEditEncounter(dto.getUsername(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSetObgyn); 
@@ -131,7 +138,7 @@ public class PatientService {
   
   
   public void createFamily(PatientDTO dto) throws Exception {
-	Set<String> fieldSetPfsh = activityLogService.getListOfChangedFields(dto.getEncounter().getPatient().getPfsh());
+  Set<String> fieldSetPfsh = activityLogService.getListOfChangedFields(dto.getEncounter().getPatient().getPfsh());
     patientDAO.update(dto.getEncounter().getPatient().getPfsh());
     patientDAO.update(dto.getEncounter().getPatient());
     patientDAO.update(dto.getEncounter());
@@ -140,7 +147,7 @@ public class PatientService {
   
   
   public void createPFSH(PatientDTO dto) throws Exception {
-	Set<String> fieldSetPfsh = activityLogService.getListOfChangedFields(dto.getEncounter().getPatient().getPfsh());
+  Set<String> fieldSetPfsh = activityLogService.getListOfChangedFields(dto.getEncounter().getPatient().getPfsh());
     patientDAO.update(dto.getEncounter().getPatient().getPfsh());
     patientDAO.update(dto.getEncounter().getPatient());
     patientDAO.update(dto.getEncounter());
@@ -160,7 +167,7 @@ public class PatientService {
   
   
   public void createExam(PatientDTO dto) throws Exception {
-	Set<String> fieldSetExam = activityLogService.getListOfChangedFields(dto.getEncounter().getExam());
+  Set<String> fieldSetExam = activityLogService.getListOfChangedFields(dto.getEncounter().getExam());
     patientDAO.update(dto.getEncounter().getExam());
     patientDAO.update(dto.getEncounter());
     activityLogService.logEditEncounter(dto.getUsername(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSetExam); 
@@ -168,7 +175,7 @@ public class PatientService {
   
   
   public void createFollowUp(PatientDTO dto) throws Exception {
-	Set<String> fieldSetFollowUp = activityLogService.getListOfChangedFields(dto.getEncounter().getFollowUp());
+  Set<String> fieldSetFollowUp = activityLogService.getListOfChangedFields(dto.getEncounter().getFollowUp());
     patientDAO.update(dto.getEncounter().getFollowUp());
     patientDAO.update(dto.getEncounter());
     activityLogService.logEditEncounter(dto.getUsername(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSetFollowUp);
@@ -188,7 +195,7 @@ public class PatientService {
   
   
   public void createBasicInfo(PatientDTO dto) throws Exception {
-	Set<String> fieldSetDemo = activityLogService.getListOfChangedFields(dto.getEncounter().getPatient().getDemo());
+  Set<String> fieldSetDemo = activityLogService.getListOfChangedFields(dto.getEncounter().getPatient().getDemo());
     patientDAO.update(dto.getEncounter().getPatient().getDemo());
     Set<String> fieldSetCred = activityLogService.getListOfChangedFields(dto.getEncounter().getPatient().getCred());
     patientDAO.update(dto.getEncounter().getPatient().getCred());
@@ -488,16 +495,16 @@ public class PatientService {
     String username = null;
     Integer clinicianId = null;
     if(sessionId != null){
-    	ClinicianSession clinicianSession = appDAO.findClinicianSessionBySessionId(sessionId);
-    	username = clinicianSession.getClinician().getUsername();   
-    	clinicianId = clinicianSession.getClinician().getId();
+      ClinicianSession clinicianSession = appDAO.findClinicianSessionBySessionId(sessionId);
+      username = clinicianSession.getClinician().getUsername();   
+      clinicianId = clinicianSession.getClinician().getId();
     }
     activityLogService.logEditPatient(username, patient.getId(), clinicianId, patient.getCurrentEncounterId(), fieldSet); 
     return returnString;
  }
  
   public void updatePatient(PatientDTO dto) throws Exception {
-	Set<String> fieldSet = new HashSet<String>();
+  Set<String> fieldSet = new HashSet<String>();
     String updateClass = "";
     Patient patient = patientDAO.findPatientById(dto.getPatientId());
     Encounter encounter = getCurrentEncounter(patient, dto);
