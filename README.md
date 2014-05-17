@@ -1,10 +1,11 @@
 # WDean Medical EHR
-# version 0.8.3  14-MAY-2014
+# version 0.8.4  16-MAY-2014
 
 Improvements:
+Clinician activity auditing
+ICD-10 and CPT codes now included in typeahead in Exam form.
 
 Bug Fixes:
-Encounter form UI design fixes.
 
 
 wdeanmedical.com/ehr

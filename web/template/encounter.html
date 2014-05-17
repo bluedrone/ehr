@@ -15,1218 +15,1218 @@
         <h4 class="modal-title""><i class="icon-user icon-2x"></i> Encounter</h4>        
       </div>
       <div class="modal-body">
-			  <form role="form">
-			    <div class="row">
-			      <div class="col-md-12">
-			        <div class="panel-top" data-toggle="collapse" data-target="#basic-info">Patient Basic Information<i class="icon-chevron-down pull-right collapse-arrow"></i></div>
-			        <div id="basic-info" class="panel panel-default collapse in">
-			          <div id="encounter-basic-info-panel-${id}" class="panel-body">
-			            <div class="row">
-			              <div class="col-md-3 pull-right">
-			                  <div><img id="encounter-basic-info-photo-${id}" class="img-responsive headshot-sm img-rounded headshot"></div>
-			                  <div id="encounter-basic-info-photo-upload-control-${id}" class="btn-group-vertical-sm">              
-			                   <span class="btn btn-success fileinput-button">
-			                     <div id="encounter-basic-info-photo-upload-${id}"></div>
-			                   </span>
-			                   <br>
-			                   <br>
-			                   <div id="encounter-basic-info-photo-upload-progress-${id}" class="progress"> 
-			                     <div class="progress-bar progress-bar-success"></div> 
-			                   </div>
-			                  </div>
-			                </div> 
-			              </div> 
-			            <div class="row">
-			              <div class="col-md-3">
-			                <div class="form-group">
-			                  <label for="encounter-todays-date-${id}">Today's Date</label>
-			                  <input id="encounter-todays-date-${id}" type="text" class="form-control form-control-unsaved form-control-readonly" readonly="readonly">
-			                  <div class="form-control-saved form-control-readonly" id="encounter-todays-date-saved-${id}"></div>
-			                </div>
-			              </div>
-			              <div class="col-md-3">
-			                <div class="form-group">
-			                  <label for="consult-location-${id}">Consult Location</label>
-			                  <input id="encounter-consult-location-${id}" type="text" class="form-control form-control-unsaved">
-			                  <div class="form-control-saved edit-on-select" id="encounter-consult-location-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			              <div class="col-md-3">
-			                <div class="form-group">
-			                  <label for="encounter-govt-id-${id}">GOV ID #</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-govt-id-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-govt-id-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			              <div class="col-md-3">
-			                <div class="form-group">
-			                  <label for="encounter-dob-${id}">Date Of Birth</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-dob-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-dob-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			            </div>
-			            <div class="row">
-			              <div class="col-md-4">
-			                <div class="form-group">
-			                  <label for="encounter-first-name-${id}">First Name</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-first-name-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-first-name-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			              <div class="col-md-4">
-			                <div class="form-group">
-			                  <label for="encounter-middle-name-${id}">Middle Name</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-middle-name-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-middle-name-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			              <div class="col-md-4">
-			                <div class="form-group">
-			                  <label for="encounter-last-name-${id}">Last Name</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-last-name-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-last-name-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			            </div>
-			            <div class="row">
-			              <div class="col-md-2">
-			                <label for="encounter-gender-${id}">Gender</label>
-			                <input type="text" class="form-control form-control-unsaved" id="encounter-gender-${id}" maxlength="1">
-			                <div class="form-control-saved edit-on-select" id="encounter-gender-saved-${id}" contenteditable="true">&nbsp;</div>
-			              </div>
-			              <div class="col-md-2">
-			                <div class="form-group">
-			                  <label for="encounter-age-years-${id}">Age (in years)</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-age-years-${id}" maxLength="3">
-			                  <div class="form-control-saved edit-on-select" id="encounter-age-years-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			              <div class="col-md-2">
-			                <div class="form-group">
-			                  <label for="encounter-age-months-${id}">Age (in months)</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-age-months-${id}" maxlength="2">
-			                  <div class="form-control-saved edit-on-select" id="encounter-age-months-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			              <div class="col-md-2">
-			                <div class="form-group">
-			                  <label for="encounter-phone-${id}">Telephone</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-phone-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-phone-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			              <div class="col-md-4">
-			                <div class="form-group">
-			                  <label for="encounter-community-${id}">Community (if living elsewhere)</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-community-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-community-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			            </div>
-			            <div class="row">
-			              <div class="col-md-12">
-			                <div class="form-group">
-			                  <label for="encounter-notes-${id}">Notes</label>
-			                  <textarea id="encounter-notes-${id}" class="form-control form-control-unsaved" rows="5"></textarea>
-			                  <div class="form-control-saved edit-on-select" id="encounter-notes-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			            </div>
-			          </div>
-			          <div class="panel-footer">
-			            <button id="encounter-basic-info-clear-${id}" type="button" class="btn btn-default pull-right">Clear</button>
-			            <a id="encounter-basic-info-save-${id}" class="btn btn-success">Save</a>
-			            <a id="encounter-basic-info-saved-${id}" class="btn btn-success disabled">Saved</a>
-			            <a id="encounter-basic-info-print-${id}" class="btn btn-primary">Print</a>
-			          </div>
-			        </div>
-			      </div>
-			    </div>
-			  
-			    <div class="row">
-			      <div class="col-md-12">
-			        <div class="panel-top" data-toggle="collapse" data-target="#vitals">Vitals<i class="icon-chevron-down pull-right collapse-arrow"></i></div>
-			        <div id="vitals" class="panel panel-default collapse in">
-			          <div id="encounter-vitals-panel-${id}" class="panel-body">
-			            <div class="row">
-			              <div class="col-md-2">
-			                <div class="form-group">
-			                  <label for="encounter-height-${id}">Height (cm)</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-height-${id}" maxlength="5">
-			                  <div class="form-control-saved edit-on-select" id="encounter-height-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			              <div class="col-md-2">
-			                <div class="form-group">
-			                  <label for="encounter-weight-${id}">Weight (kg)</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-weight-${id}" maxlength="5">
-			                  <div class="form-control-saved edit-on-select" id="encounter-weight-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			              <div class="col-md-1">
-			                <div class="form-group">
-			                  <label for="encounter-sys-${id}">SYS</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-sys-${id}" maxlength="3">
-			                  <div class="form-control-saved edit-on-select" id="encounter-sys-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			              <div class="col-md-1">
-			                <div class="form-group">
-			                  <label for="encounter-dia-${id}">DIA</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-dia-${id}" maxlength="3">
-			                  <div class="form-control-saved edit-on-select" id="encounter-dia-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			              <div class="col-md-1">
-			                <div class="form-group">
-			                  <label for="encounter-hr-${id}">HR</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-hr-${id}" maxlength="3">
-			                  <div class="form-control-saved edit-on-select" id="encounter-hr-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			              <div class="col-md-1">
-			                <div class="form-group">
-			                  <label for="encounter-rr-${id}">RR</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-rr-${id}" maxlength="3">
-			                  <div class="form-control-saved edit-on-select" id="encounter-rr-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			              <div class="col-md-2">
-			                <div class="form-group">
-			                  <label for="encounter-temp-${id}">Temp (C)</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-temp-${id}" maxlength="4">
-			                  <div class="form-control-saved edit-on-select" id="encounter-temp-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			              <div class="col-md-2">
-			                <div class="form-group">
-			                  <label for="encounter-arm-${id}">Arm (cm)</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-arm-${id}" maxlength="5">
-			                  <div class="form-control-saved edit-on-select" id="encounter-arm-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			            </div>
-			          </div>
-			          <div class="panel-footer">
-			            <button id="encounter-vitals-clear-${id}" type="button" class="btn btn-default pull-right">Clear</button>
-			            <a id="encounter-vitals-save-${id}" class="btn btn-success">Save</a>
-			            <a id="encounter-vitals-saved-${id}" class="btn btn-success disabled">Saved</a>
-			            <a id="encounter-vitals-print-${id}" class="btn btn-primary">Print</a>
-			          </div>
-			        </div>
-			      </div>
-			    </div>
-			  
-			    <div class="row">
-			      <div class="col-md-12">
-			        <div class="panel-top" data-toggle="collapse" data-target="#fam-visit">Family Visit (patient less than 18 years of age)
-			        <i class="icon-chevron-down pull-right collapse-arrow"></i></div>
-			        <div id="fam-visit" class="panel panel-default collapse in">
-			          <div id="encounter-family-panel-${id}" class="panel-body">
-			            <div class="row">
-			              <div class="col-md-8">
-			                <div class="form-group">
-			                  <label for="encounter-mother-name-${id}">Mother Name</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-mother-name-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-mother-name-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			              <div class="col-md-4">
-			                <div class="form-group">
-			                  <label for="encounter-mother-dob-${id}">Mother DOB</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-mother-dob-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-mother-dob-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			            </div>
-			            <div class="row">
-			              <div class="col-md-8">
-			                <div class="form-group">
-			                  <label for="encounter-caretaker-name-${id}">Caretaker Name (if mother/father not present)</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-caretaker-name-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-caretaker-name-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			              <div class="col-md-4">
-			                <div class="form-group">
-			                  <label for="encounter-patient-relationship-${id}">Relationship To Patient</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-patient-relationship-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-patient-relationship-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			            </div>
-			          </div>
-			          <div class="panel-footer">
-			            <button id="encounter-family-clear-${id}" type="button" class="btn btn-default pull-right">Clear</button>
-			            <a id="encounter-family-save-${id}" class="btn btn-success">Save</a>
-			            <a id="encounter-family-saved-${id}" class="btn btn-success disabled">Saved</a>
-			            <a id="encounter-family-print-${id}" class="btn btn-primary">Print</a>
-			          </div>
-			        </div>
-			      </div>
-			    </div>
-			  
-			    <div class="row">
-			      <div class="col-md-6">
-			        <div class="panel-top" data-toggle="collapse" data-target="#chief-comp">Chief Complaint<i class="icon-chevron-down pull-right collapse-arrow"></i></div>
-			        <div id="chief-comp" class="panel panel-default collapse in">
-			          <div  class="panel-body" id="encounter-cc-panel-${id}">
-			            <label class="sub-title">Description</label>
-			            <div class="row">
-			              <div class="col-md-12">
-			                <div class="form-group">
-			                  <textarea id="encounter-chief-complaint-${id}" class="form-control form-control-unsaved" rows="6"></textarea>
-			                  <div class="form-control-saved edit-on-select" id="encounter-chief-complaint-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			            </div>
-			            <label class="sub-title">Occurs When</label>
-			            <div class="row">
-			              <div class="col-xs-12">
-			                <div class="col-xs-4">
-			                  <div class="form-group">
-			                    <div class="checkbox"><label><input type="checkbox" name="encounter-occurs-when-${id}" value="n-a">N/A</label></div>
-			                    <div class="checkbox"><label><input type="checkbox" name="encounter-occurs-when-${id}" value="constant">Constant</label></div>
-			                    <div class="checkbox"><label><input type="checkbox" name="encounter-occurs-when-${id}" value="walking">Walking</label></div>
-			                    <div class="checkbox"><label><input type="checkbox" name="encounter-occurs-when-${id}" value="sitting">Sitting</label></div>
-			                    <div class="checkbox"><label><input type="checkbox" name="encounter-occurs-when-${id}" value="running">Running</label></div>
-			                  </div>
-			                </div>
-			                <div class="col-xs-4">
-			                  <div class="form-group">
-			                    <div class="checkbox"><label><input type="checkbox" name="encounter-occurs-when-${id}" value="standing_up">Standing Up</label></div>
-			                    <div class="checkbox"><label><input type="checkbox" name="encounter-occurs-when-${id}" value="laying_down">Laying Down</label></div>
-			                    <div class="checkbox"><label><input type="checkbox" name="encounter-occurs-when-${id}" value="touched">When Touched</label></div>
-			                    <div class="checkbox"><label><input type="checkbox" name="encounter-occurs-when-${id}" value="before_eating">Before Eating</label></div>
-			                    <div class="checkbox"><label><input type="checkbox" name="encounter-occurs-when-${id}" value="after_eating">After Eating</label></div>
-			                  </div>
-			                </div>
-			                <div class="col-xs-4">
-			                  <div class="form-group">
-			                    <div class="checkbox"><label><input type="checkbox" name="encounter-occurs-when-${id}" value="bending">Bending</label></div>
-			                    <div class="checkbox"><label><input type="checkbox" name="encounter-occurs-when-${id}" value="holding_gripping">Holding/Gripping</label></div>
-			                    <div class="checkbox"><label><input type="checkbox" name="encounter-occurs-when-${id}" value="other">Other-specify</label></div>
-			                  </div>
-			                  <input type="text" class="form-control input-sm form-control-unsaved" id="encounter-occurs-other-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-occurs-other-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			            </div>
-			            <div class="row">
-			              <div class="col-md-12">
-			                <div class="form-group">
-			                  <label for="encounter-specific-location-${id}">Specific Location</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-specific-location-${id}" placeholder="RLB">
-			                  <div class="form-control-saved edit-on-select" id="encounter-specific-location-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			            </div>
-			            <div class="row">
-			              <div class="col-xs-12">
-			                <label class="sub-title">How Long/Since When</label>
-			                <div class="row">
-			                  <div class="col-xs-12">
-			                    <div class="col-xs-2">
-			                      <div class="form-group text-center">
-			                        <label for="encounter-hours-since-${id}">Hours</label>
-			                        <input type="text" class="form-control form-control-unsaved" id="encounter-hours-since-${id}">
-			                       <div class="form-control-saved edit-on-select" id="encounter-hours-since-saved-${id}" contenteditable="true">&nbsp;</div>
-			                      </div>
-			                    </div>
-			                    <div class="col-xs-2">
-			                      <div class="form-group text-center">
-			                        <label for="encounter-days-since-${id}">Days</label>
-			                        <input type="text" class="form-control form-control-unsaved" id="encounter-days-since-${id}">
-			                       <div class="form-control-saved edit-on-select" id="encounter-days-since-saved-${id}" contenteditable="true">&nbsp;</div>
-			                      </div>
-			                    </div>
-			                    <div class="col-xs-2">
-			                      <div class="form-group text-center">
-			                        <label for="encounter-weeks-since-${id}">Weeks</label>
-			                        <input type="text" class="form-control form-control-unsaved" id="encounter-weeks-since-${id}">
-			                       <div class="form-control-saved edit-on-select" id="encounter-weeks-since-saved-${id}" contenteditable="true">&nbsp;</div>
-			                      </div>
-			                    </div>
-			                    <div class="col-xs-2">
-			                      <div class="form-group text-center">
-			                        <label for="encounter-months-since-${id}">Months</label>
-			                        <input type="text" class="form-control form-control-unsaved" id="encounter-months-since-${id}">
-			                       <div class="form-control-saved edit-on-select" id="encounter-months-since-saved-${id}" contenteditable="true">&nbsp;</div>
-			                      </div>
-			                    </div>
-			                    <div class="col-xs-2">
-			                      <div class="form-group text-center">
-			                        <label for="encounter-years-since-${id}">Years</label>
-			                        <input type="text" class="form-control form-control-unsaved" id="encounter-years-since-${id}">
-			                       <div class="form-control-saved edit-on-select" id="encounter-years-since-saved-${id}" contenteditable="true">&nbsp;</div>
-			                      </div>
-			                    </div>
-			                    <div class="col-xs-2">
-			                      <div class="form-group text-center">
-			                        <label for="encounter-how-long-other-${id}">Other</label>
-			                        <input type="text" class="form-control form-control-unsaved" id="encounter-how-long-other-${id}">
-			                       <div class="form-control-saved edit-on-select" id="encounter-how-long-other-saved-${id}" contenteditable="true">&nbsp;</div>
-			                      </div>
-			                    </div>
-			                  </div>
-			                </div>
-			                <label class="sub-title">Pain</label>
-			                <div class="row">
-			                  <div class="col-md-12">
-			                    <div class="col-md-6">
-			                      <div class="form-group">
-			                        <label for="encounter-pain-scale-${id}">Pain Scale: <span id="encounter-pain-scale-value-${id}">0</span></label>
-			                        <input type="text" class="form-control span2 input-lg" data-slider-value="0" id="encounter-pain-scale-${id}" data-slider-tooltip="hide">
-			                      </div>
-			                    </div>
-			                    <div class="col-md-6">
-			                      <div class="form-group">
-			                        <label for="encounter-pain-type-${id}">Pain Type</label>
-			                        <select id="encounter-pain-type-${id}" class="form-control form-control-unsaved">
-			                          <option></option>
-			                          <option value="dull">Dull</option>
-			                          <option value="tingly">Tingly</option>
-			                          <option value="hot">Hot</option>
-			                          <option value="sharp">Sharp</option>
-			                          <option value="achey">Achey</option>
-			                          <option value="uncomfortable">Uncomfortable</option>
-			                          <option value="superficial">Superficial</option>
-			                          <option value="deep">Deep</option>
-			                        </select>
-			                       <div class="form-control-saved" id="encounter-pain-type-saved-${id}">&nbsp;</div>
-			                      </div>
-			                    </div>
-			                  </div>
-			                </div>
-			                <label class="sub-title">Frequency</label>
-			                <div class="row">
-			                  <div class="col-md-12">
-			                    <div class="col-md-2">
-			                      <div class="form-group">
-			                        <label for="encounter-pain-x-hour-${id}">X Hour</label>
-			                        <input type="text" class="form-control form-control-unsaved" id="encounter-pain-x-hour-${id}">
-			                       <div class="form-control-saved edit-on-select" id="encounter-pain-x-hour-saved-${id}" contenteditable="true">&nbsp;</div>
-			                      </div>
-			                    </div>
-			                    <div class="col-md-2">
-			                      <div class="form-group">
-			                        <label for="encounter-pain-x-day-${id}">X Day</label>
-			                        <input type="text" class="form-control form-control-unsaved" id="encounter-pain-x-day-${id}">
-			                       <div class="form-control-saved edit-on-select" id="encounter-pain-x-day-saved-${id}" contenteditable="true">&nbsp;</div>
-			                      </div>
-			                    </div>
-			                    <div class="col-md-2">
-			                      <div class="form-group">
-			                        <label for="encounter-pain-x-week-${id}">X Week</label>
-			                        <input type="text" class="form-control form-control-unsaved" id="encounter-pain-x-week-${id}">
-			                       <div class="form-control-saved edit-on-select" id="encounter-pain-x-week-saved-${id}" contenteditable="true">&nbsp;</div>
-			                      </div>
-			                    </div>
-			                    <div class="col-md-2">
-			                      <div class="form-group">
-			                        <label for="encounter-pain-x-month-${id}">X Month</label>
-			                        <input type="text" class="form-control form-control-unsaved" id="encounter-pain-x-month-${id}">
-			                       <div class="form-control-saved edit-on-select" id="encounter-pain-x-month-saved-${id}" contenteditable="true">&nbsp;</div>
-			                      </div>
-			                    </div>
-			                    <div class="col-md-4">
-			                      <div class="form-group">
-			                        <label for="encounter-pain-duration-${id}">Duration</label>
-			                        <input type="text" class="form-control form-control-unsaved" id="encounter-pain-duration-${id}">
-			                       <div class="form-control-saved edit-on-select" id="encounter-pain-duration-saved-${id}" contenteditable="true">&nbsp;</div>
-			                      </div>
-			                    </div>
-			                  </div>
-			                </div>
-			                <label class="sub-title">Denies</label>
-			                <div class="row">
-			                  <div class="col-xs-12">
-			                    <div class="col-xs-4">
-			                      <div class="form-group">
-			                        <div class="checkbox"><label><input type="checkbox" name="encounter-denies-${id}" value="n">N</label></div>
-			                        <div class="checkbox"><label><input type="checkbox" name="encounter-denies-${id}" value="v">V</label></div>
-			                        <div class="checkbox"><label><input type="checkbox" name="encounter-denies-${id}" value="d">D</label></div>
-			                        <div class="checkbox"><label><input type="checkbox" name="encounter-denies-${id}" value="ha">HA</label></div>
-			                        <div class="checkbox"><label><input type="checkbox" name="encounter-denies-${id}" value="vision_px">Vision Px</label></div>
-			                      </div>
-			                    </div>
-			                    <div class="col-xs-4">
-			                      <div class="form-group">
-			                        <div class="checkbox"><label><input type="checkbox" name="encounter-denies-${id}" value="dizziness">Dizziness</label></div>
-			                        <div class="checkbox"><label><input type="checkbox" name="encounter-denies-${id}" value="weakness">Weakness</label></div>
-			                        <div class="checkbox"><label><input type="checkbox" name="encounter-denies-${id}" value="parasthesia">Parasthesia</label></div>
-			                        <div class="checkbox"><label><input type="checkbox" name="encounter-denies-${id}" value="syncope">Syncope</label></div>
-			                        <div class="checkbox"><label><input type="checkbox" name="encounter-denies-${id}" value="pain">Pain</label></div>
-			                      </div>
-			                    </div>
-			                    <div class="col-xs-4">
-			                      <div class="form-group">
-			                        <div class="checkbox"><label><input type="checkbox" name="encounter-denies-${id}" value="anorexia">Anorexia</label></div>
-			                        <div class="checkbox"><label><input type="checkbox" name="encounter-denies-${id}" value="fatigue">Fatigue</label></div>
-			                        <div class="checkbox"><label><input type="checkbox" name="encounter-denies-${id}" value="other">Other</label></div>
-			                      </div>
-			                      <input type="text" class="form-control input-sm form-control-unsaved" id="encounter-denies-other-${id}">
-			                       <div class="form-control-saved edit-on-select" id="encounter-denies-other-saved-${id}" contenteditable="true">&nbsp;</div>
-			                    </div>
-			                  </div>
-			                </div>  
-			              </div>
-			            </div>
-			          </div>
-			          <div class="panel-footer">
-			            <button id="encounter-cc-clear-${id}" type="button" class="btn btn-default pull-right">Clear</button>
-			            <a id="encounter-cc-save-${id}" class="btn btn-success">Save</a>
-			            <a id="encounter-cc-saved-${id}" class="btn btn-success disabled">Saved</a>
-			            <a id="encounter-cc-print-${id}" class="btn btn-primary">Print</a>
-			          </div>
-			        </div>
-			      
-			        <div class="panel-top" data-toggle="collapse" data-target="#med-hist">Medical History<i class="icon-chevron-down pull-right collapse-arrow"></i></div>
-			        <div id="med-hist" class="panel panel-default collapse in">
-			          <div class="panel-body" id="encounter-hist-panel-${id}">
-			            <div id="encounter-medications-${id}"></div>
-			            <div class="row">
-			              <div class="col-md-12">
-			                <a id="encounter-hist-new-medication-${id}" class="btn btn-primary pull-right">New Medication</a>
-			              </div>
-			            </div>
-			            <div class="row">
-			              <div class="col-md-12">
-			                <div class="form-group">
-			                  <label for="encounter-past-s-m-${id}">Past Surgeries Or Medical Conditions</label>
-			                  <textarea id="encounter-past-s-m-${id}" class="form-control form-control-unsaved" rows="3"></textarea>
-			                  <div class="form-control-saved edit-on-select" id="encounter-past-s-m-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			            </div>
-			            <div class="row">
-			              <div class="col-xs-12">
-			                <label class="sub-title">Family History</label>
-			              </div>
-			            </div>
-			            <div class="row">
-			              <div class="col-xs-4">
-			                <div class="form-group">
-			                  <div class="checkbox"><label><input name="encounter-fam-hist-${id}" type="checkbox" value="cancer">Cancer</label></div>
-			                  <div class="checkbox"><label><input name="encounter-fam-hist-${id}" type="checkbox" value="diabetes">Diabetes</label></div>
-			                  <div class="checkbox"><label><input name="encounter-fam-hist-${id}" type="checkbox" value="heart_problems">Heart problems</label></div>
-			                </div>
-			              </div>
-			              <div class="col-xs-4">
-			                <div class="form-group">
-			                  <div class="checkbox"><label><input name="encounter-fam-hist-${id}" type="checkbox" value="hepatitis">Hepatitis</label></div>
-			                  <div class="checkbox"><label><input name="encounter-fam-hist-${id}" type="checkbox" value="high_bp">High BP</label></div>
-			                  <div class="checkbox"><label><input name="encounter-fam-hist-${id}" type="checkbox" value="hiv">HIV</label></div>
-			                </div>
-			              </div>
-			              <div class="col-xs-4">
-			                <div class="form-group">
-			                  <div class="checkbox"><label><input name="encounter-fam-hist-${id}" type="checkbox" value="tb">Tuberculosis</label></div>
-			                  <div class="checkbox"><label><input name="encounter-fam-hist-${id}" type="checkbox" value="other">Other-specify</label></div>
-			                </div>
-			                <input type="text" class="form-control input-sm" id="fam-hist-other-${id}">
-			                <div class="form-control-saved edit-on-select" id="encounter-fam-hist-other-saved-${id}" contenteditable="true">&nbsp;</div>
-			              </div>
-			            </div>
-			            <div class="row">
-			              <div class="col-md-12">
-			                <div class="form-group">
-			                  <label for="encounter-fam-hist-notes">Family History Notes</label>
-			                  <textarea id="encounter-fam-hist-notes" class="form-control form-control-unsaved" rows="5"></textarea>
-			                  <div class="form-control-saved edit-on-select" id="encounter-fam-hist-notes-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			            </div>
-			            <div class="row">
-			              <div class="col-md-6">
-			                <label class="sub-title">Allergies</label>
-			                <div class="form-group">
-			                  <label for="encounter-allerg-food-${id}">Food</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-allerg-food-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-allerg-food-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			                <div class="form-group">
-			                  <label for="encounter-allerg-drug-${id}">Drug</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-allerg-drug-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-allerg-drug-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			                <div class="form-group">
-			                  <label for="encounter-allerg-env-${id}">Enviro</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-allerg-env-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-allerg-env-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			              <div class="col-md-6">
-			                <label class="sub-title">Vaccinations</label>
-			                <div class="form-group">
-			                  <label for="vaccinations">Completed FD Vaccination Record?</label>
-			                  <label class="radio-inline"><input type="radio" name="encounter-vacc-${id}" value="true">Yes</label>
-			                  <label class="radio-inline"><input type="radio" name="encounter-vacc-${id}" value="false">No</label>
-			                </div>
-			                <div class="form-group">
-			                  <label for="encounter-med-hist-notes-${id}">Notes</label>
-			                  <textarea id="encounter-vacc-notes-${id}" class="form-control form-control-unsaved" rows="4"></textarea>
-			                  <div class="form-control-saved edit-on-select" id="encounter-vacc-notes-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			            </div>
-			            <div class="row">
-			              <div class="col-md-12">
-			                <label class="sub-title">Substances</label>
-			                <div class="form-group">
-			                  <label>Currently </label>
-			                  <label class="checkbox-inline"><input type="checkbox" name="encounter-subst-${id}" value="smoke"> Smoke</label>
-			                  <label class="checkbox-inline"><input type="checkbox" name="encounter-subst-${id}" value="drink"> Drink</label>
-			                  <label class="checkbox-inline"><input type="checkbox" name="encounter-subst-${id}" value="drugs"> Drugs</label>
-			                </div>
-			                <div class="row">
-			                  <div class="col-md-12">
-			                    <div class="col-md-6">
-			                      <div class="form-group">
-			                        <label for="smokes-pk-day-${id}">smoke packs / day</label>
-			                        <input type="text" class="form-control form-control-unsaved" id="encounter-smoke-pks-day-${id}">
-			                        <div class="form-control-saved edit-on-select" id="encounter-smoke-pks-day-saved-${id}" contenteditable="true">&nbsp;</div>
-			                      </div>
-			                      <div class="form-group">
-			                        <label for="encounter-years-smoked-${id}">Years smoked</label>
-			                        <input type="text" class="form-control form-control-unsaved" id="encounter-years-smoked-${id}">
-			                        <div class="form-control-saved edit-on-select" id="encounter-years-smoked-saved-${id}" contenteditable="true">&nbsp;</div>
-			                      </div>
-			                      <div class="form-group">
-			                        <label for="encounter-smoke-years-quit-${id}">Years Quit smoking</label>
-			                        <input type="text" class="form-control form-control-unsaved" id="encounter-smoke-years-quit-${id}">
-			                        <div class="form-control-saved edit-on-select" id="encounter-smoke-years-quit-saved-${id}" contenteditable="true">&nbsp;</div>
-			                      </div>
-			                    </div>
-			                    <div class="col-md-6">
-			                      <div class="form-group">
-			                        <label for="etoh-units-week-${id}">EtOH units / week</label>
-			                        <input type="text" class="form-control form-control-unsaved" id="encounter-etoh-units-week-${id}">
-			                        <div class="form-control-saved edit-on-select" id="encounter-etoh-units-week-saved-${id}" contenteditable="true">&nbsp;</div>
-			                      </div>
-			                      <div class="form-group">
-			                        <label for="current-drugs-${id}">Drugs currently used</label>
-			                        <textarea id="encounter-current-drugs-${id}" class="form-control form-control-unsaved" rows="5"></textarea>
-			                        <div class="form-control-saved edit-on-select" id="encounter-current-drugs-saved-${id}" contenteditable="true">&nbsp;</div>
-			                      </div>
-			                    </div> 
-			                  </div>  
-			                </div>
-			              </div>
-			            </div>
-			          </div>
-			          <div class="panel-footer">
-			            <a id="encounter-hist-save-${id}" class="btn btn-success">Save</a>
-			            <a id="encounter-hist-saved-${id}" class="btn btn-success disabled">Saved</a>
-			            <a id="encounter-hist-print-${id}" class="btn btn-primary">Print</a>
-			            <button id="encounter-hist-clear-${id}" type="button" class="btn btn-default pull-right">Clear</button>
-			          </div>
-			        </div>
-			      </div>
-			    
-			      <div class="col-md-6">
-			      <div id="obgyn-header" class="panel-top" data-toggle="collapse" data-target="#obgyn-form">OBGYN (to be completed by provider) <i class="icon-chevron-down pull-right collapse-arrow"></i></div>
-			        <div id="obgyn-form" class="panel panel-default collapse in">
-			          <div class="panel-body" id="encounter-obgyn-panel-${id}">
-			            <div class="row text-center">
-			              <div class="col-xs-2">
-			                <div class="form-group">
-			                  <label for="encounter-obgyn-g-${id}">G</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-obgyn-g-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-obgyn-g-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			              <div class="col-xs-2">
-			                <div class="form-group">
-			                  <label for="encounter-obgyn-p-${id}">P</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-obgyn-p-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-obgyn-p-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			              <div class="col-xs-2">
-			                <div class="form-group">
-			                  <label for="encounter-obgyn-t-${id}">T</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-obgyn-t-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-obgyn-t-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			              <div class="col-xs-2">
-			                <div class="form-group">
-			                  <label for="encounter-obgyn-a-${id}">A</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-obgyn-a-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-obgyn-a-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			              <div class="col-xs-2">
-			                <div class="form-group">
-			                  <label for="encounter-obgyn-l-${id}">L</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-obgyn-l-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-obgyn-l-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			            </div>
-			            <div class="row">
-			              <div class="col-lg-6">
-			                <label for="encounter-pregnant">Pregnant</label>
-			                <div class="form-group">
-			                  <label class="radio-inline"><input type="radio" name="encounter-pregnant-${id}" value="yes">Yes</label>
-			                  <label class="radio-inline"><input type="radio" name="encounter-pregnant-${id}" value="no">No</label>
-			                  <label class="radio-inline"><input type="radio" name="encounter-pregnant-${id}" value="dk">DK</label>
-			                  <label class="radio-inline"><input type="radio" name="encounter-pregnant-${id}" value="post_partum">Post Partum</label>
-			                </div>
-			              </div>
-			              <div class="col-md-3">
-			                <label for="encounter-breastfeeding">Breastfeeding</label>
-			                <div class="form-group">
-			                   <label class="radio-inline"><input type="radio" name="encounter-breastfeeding-${id}" value="yes">Yes</label>
-			                   <label class="radio-inline"><input type="radio" name="encounter-breastfeeding-${id}" value="no">No</label>
-			                </div>
-			              </div>
-			              <div class="col-md-3">
-			                <div class="form-group">
-			                  <label for="encounter-breastfeeding-months-${id}">Months</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-breastfeeding-months-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-breastfeeding-months-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			            </div>
-			            <div class="row">
-			              <div class="col-md-6">
-			                <div class="form-group">
-			                  <label for="encounter-last-period-${id}">When was the last period?</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-last-period-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-last-period-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			              <div class="col-md-6">
-			                <div class="form-group">
-			                  <label for="encounter-age-first-period-${id}">Age at first period</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-age-first-period-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-age-first-period-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			              <div class="col-md-4">
-			                <label for="encounter-pap-smear">Pap smear ever</label>
-			                <div class="form-group">
-			                  <label class="radio-inline"><input type="radio" name="encounter-pap-smear-${id}" value="yes">Yes</label>
-			                  <label class="radio-inline"><input type="radio" name="encounter-pap-smear-${id}" value="no">No</label>
-			                  <label class="radio-inline"><input type="radio" name="encounter-pap-smear-${id}" value="dk">DK</label>
-			                </div>
-			              </div>
-			              <div class="col-md-4">
-			              <label for="encounter-birth-control">Birth Control</label>
-			                <div class="form-group">
-			                  <label class="radio-inline"><input type="radio" name="encounter-birth-control-${id}" value="yes">Yes</label>
-			                  <label class="radio-inline"><input type="radio" name="encounter-birth-control-${id}" value="no">No</label>
-			                  <label class="radio-inline"><input type="radio" name="encounter-birth-control-${id}" value="dk">DK</label>
-			                </div>
-			              </div>
-			              <div class="col-md-4">
-			                <div class="form-group">
-			                  <label for="encounter-birth-control-type-${id}">Type</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-birth-control-type-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-birth-control-type-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			            </div>
-			            <div class="row">
-			              <div class="col-xs-12">
-			                <label class="sub-title">Other Past Gynocological History</label>
-			              </div>
-			            </div>
-			            <div class="row">
-			              <div class="col-xs-4">
-			                <div class="form-group">
-			                  <div class="checkbox"><label><input type="checkbox" name="encounter-obgyn-hist-${id}" value="venereal_warts">Venereal Warts</label></div>
-			                  <div class="checkbox"><label><input type="checkbox" name="encounter-obgyn-hist-${id}" value="herpes_genital">Herpes Genital</label></div>
-			                  <div class="checkbox"><label><input type="checkbox" name="encounter-obgyn-hist-${id}" value="syphilis">Syphilis</label></div>
-			                </div>
-			              </div>
-			              <div class="col-xs-4">
-			                <div class="form-group">
-			                  <div class="checkbox"><label><input type="checkbox" name="encounter-obgyn-hist-${id}" value="pid">PID</label></div>
-			                  <div class="checkbox"><label><input type="checkbox" name="encounter-obgyn-hist-${id}" value="endometriosis">Endometriosis</label></div>
-			                  <div class="checkbox"><label><input type="checkbox" name="encounter-obgyn-hist-${id}" value="chlamydia">Chlamydia</label></div>
-			                </div>
-			              </div>
-			              <div class="col-xs-4">
-			                <div class="form-group">
-			                  <div class="checkbox"><label><input type="checkbox" name="encounter-obgyn-hist-${id}" value="gonorrhea">Gonorrhea</label></div>
-			                  <div class="checkbox"><label><input type="checkbox" name="encounter-obgyn-hist-${id}" value="other">Other-specify</label></div>
-			                </div>
-			                <input type="text" class="form-control form-control-unsaved input-sm" id="encounter-obgyn-hist-other-${id}">
-			                <div class="form-control-saved edit-on-select" id="encounter-obgyn-hist-other-saved-${id}" contenteditable="true">&nbsp;</div>
-			              </div>
-			            </div>
-			          </div>
-			          <div class="panel-footer">
-			            <button id="encounter-obgyn-clear-${id}" type="button" class="btn btn-default pull-right">Clear</button>
-			            <a id="encounter-obgyn-save-${id}" class="btn btn-success">Save</a>
-			            <a id="encounter-obgyn-saved-${id}" class="btn btn-success disabled">Saved</a>
-			            <a id="encounter-obgyn-print-${id}" class="btn btn-primary">Print</a>
-			          </div>
-			        </div>
-			      
-			        <div class="panel-top" data-toggle="collapse" data-target="#soc-fam-hist">Social & Family History<i class="icon-chevron-down pull-right collapse-arrow"></i></div>
-			        <div id="soc-fam-hist" class="panel panel-default collapse in">
-			          <div class="panel-body" id="encounter-pfsh-panel-${id}">
-			            <div class="row">
-			              <div class="col-md-6">
-			                <div class="form-group">
-			                  <label for="encounter-num-residents-${id}"># Residents in domicile</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-num-residents-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-num-residents-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			              <div class="col-md-6">
-			                <div class="form-group">
-			                  <label for="encounter-type-job-${id}">Type of job</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-job-type-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-job-type-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			            </div>
-			            <div class="row">
-			              <div class="col-md-3">
-			                <label for="encounter-mother-alive-${id}">Mother</label>
-			                <div class="form-group">            
-			                  <label class="radio-inline"><input type="radio" name="encounter-mother-alive-${id}" value="false">Dead</label>
-			                  <label class="radio-inline"><input type="radio" name="encounter-mother-alive-${id}" value="true">Alive</label>
-			                </div>
-			              </div>
-			              <div class="col-md-9">
-			                <div class="form-group">
-			                  <label for="encounter-mother-reason-death-${id}">Reason</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-mother-death-reason-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-mother-death-reason-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			            </div>
-			            <div class="row">
-			              <div class="col-md-3">
-			                <label for="encounter-father-alive-${id}">Father</label>
-			                <div class="form-group">
-			                  <label class="radio-inline"><input type="radio" name="encounter-father-alive-${id}" value="false">Dead</label>
-			                  <label class="radio-inline"><input type="radio" name="encounter-father-alive-${id}" value="true">Alive</label>
-			                </div>
-			              </div>
-			              <div class="col-md-9">
-			                <div class="form-group">
-			                  <label for="encounter-father-reason-death-${id}">Reason</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-father-death-reason-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-father-death-reason-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			            </div>
-			            <div class="row">
-			              <div class="col-md-3">
-			              <label for="encounter-partner-alive-${id}">Partner</label>
-			                <div class="form-group">
-			                  <label class="radio-inline"><input type="radio" name="encounter-partner-alive-${id}" value="false">Dead</label>
-			                  <label class="radio-inline"><input type="radio" name="encounter-partner-alive-${id}" value="true">Alive</label>
-			                </div>
-			              </div>
-			              <div class="col-md-9">
-			                <div class="form-group">
-			                  <label for="encounter-partner-reason-death-${id}">Reason</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-partner-death-reason-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-partner-death-reason-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			            </div>
-			            <div class="row">
-			              <div class="col-md-4">
-			                <div class="form-group">
-			                  <label for="encounter-total-siblings-${id}">#Total Siblings</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-num-siblings-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-num-siblings-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			              <div class="col-md-4">
-			                <div class="form-group">
-			                  <label for="encounter-num-brothers-${id}">#Brothers</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-num-brothers-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-num-brothers-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			              <div class="col-md-4">
-			                <div class="form-group">
-			                  <label for="encounter-num-sisters-${id}">#Sisters</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-num-sisters-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-num-sisters-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			            </div>
-			            <div class="row">
-			              <div class="col-md-4">
-			                <div class="form-group">
-			                  <label for="encounter-total-children-${id}">#Total Children</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-num-children-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-num-children-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			              <div class="col-md-4">
-			                <div class="form-group">
-			                  <label for="encounter-num-sons-${id}">#Sons</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-num-sons-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-num-sons-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			              <div class="col-md-4">
-			                <div class="form-group">
-			                  <label for="encounter-num-daughters-${id}">#Daughters</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-num-daughters-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-num-daughters-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			            </div>
-			          </div>
-			          <div class="panel-footer">
-			            <button id="encounter-pfsh-clear-${id}" type="button" class="btn btn-default pull-right">Clear</button>
-			            <a id="encounter-pfsh-save-${id}" class="btn btn-success">Save</a>
-			            <a id="encounter-pfsh-saved-${id}" class="btn btn-success disabled">Saved</a>
-			            <a id="encounter-pfsh-print-${id}" class="btn btn-primary">Print</a>
-			          </div>
-			        </div>
-			      
-			        <div class="panel-top" data-toggle="collapse" data-target="#sup-quest">Supplemental Questions<i class="icon-chevron-down pull-right collapse-arrow"></i></div>
-			        <div id="sup-quest" class="panel panel-default collapse in">
-			          <div class="panel-body" id="encounter-supp-panel-${id}">
-			            <div class="row">
-			              <div class="col-md-12">
-			                <label class="sub-title">Cups per day?</label>
-			              </div>
-			              <div class="col-md-4">
-			                <div class="form-group">
-			                  <label for="encounter-num-cups-water-${id}">Water</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-num-cups-water-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-num-cups-water-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			              <div class="col-md-4">
-			                <div class="form-group">
-			                  <label for="encounter-num-cups-coffee-${id}">Coffee</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-num-cups-coffee-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-num-cups-coffee-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			              <div class="col-md-4">
-			                <div class="form-group">
-			                  <label for="encounter-num-cups-tea-${id}">Tea</label>
-			                  <input type="text" class="form-control form-control-unsaved" id="encounter-num-cups-tea-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-num-cups-tea-saved-${id}" contenteditable="true">&nbsp;</div>
-			                </div>
-			              </div>
-			            </div>
-			            <div class="row">
-			              <div class="col-md-12">
-			                <div class="form-group">
-			                  <label for="encounter-water-source-${id}">Water Source</label>
-			                  <select class="form-control form-control-unsaved" id="encounter-water-source-${id}">
-			                    <option></option>
-			                    <option value="well">Well</option>
-			                    <option value="river">River</option>
-			                    <option value="bottle">Bottle</option>
-			                    <option value="rain">Rain</option>
-			                    <option value="pipe">Pipe</option>
-			                    <option value="other">Other</option>
-			                  </select>
-			                  <div class="form-control-saved" id="encounter-water-source-saved-${id}">&nbsp;</div>
-			                </div>
-			              </div>
-			            </div>
-			            <div id="encounter-questions-${id}"></div>
-			          </div>
-			          <div class="panel-footer">
-			            <button id="encounter-supp-clear-${id}" type="button" class="btn btn-default pull-right">Clear</button>
-			            <a id="encounter-supp-save-${id}" class="btn btn-success">Save</a>
-			            <a id="encounter-supp-saved-${id}" class="btn btn-success disabled">Saved</a>
-			            <a id="encounter-supp-print-${id}" class="btn btn-primary">Print</a>
-			            <a id="encounter-supp-new-question-${id}" class="btn btn-primary">New Question</a>
-			          </div>
-			        </div>
-			      </div>
-			    </div>
-			
-			    <div class="row">
-			      <div class="col-md-12">
-			        <div class="panel-top" data-toggle="collapse" data-target="#exam">Exam<i class="icon-chevron-down pull-right collapse-arrow"></i></div>
-			        <div id="exam" class="panel panel-default collapse in">
-			          <div class="panel-body" id="encounter-exam-panel-${id}">
-			          <div class="row">
-			            <div class="encounter-exam-image-and-overlay">
-			              <canvas class="encounter-exam-image-overlay" id="encounter-exam-image-overlay-${id}"></canvas>
-			              <div class="encounter-exam-image-wrapper" id="encounter-exam-image-wrapper-${id}">
-			                <div class="col-md-4">
-			                  <img src="images/human-body-outline1.png" class="img-responsive center-block" alt="Responsive image">
-			                </div>
-			                <div class="col-md-4">
-			                  <img src="images/lungs.png" class="img-responsive center-block" alt="Responsive image">
-			                </div>
-			                <div class="col-md-4">
-			                  <img src="images/exam_shape.png" class="img-responsive center-block" alt="Responsive image">
-			                </div>
-			              </div>
-			            </div>
-			          </div>
-			          <div class="row">
-			            <div class="col-md-3">
-			              <div class="form-group">
-			                <label class="sub-title">CVS</label>
-			              </div>
-			              <div class="form-group">
-			                <label for="encounter-hs-${id}">HS I + II</label>
-			                <input type="text" class="form-control form-control-unsaved" id="encounter-hs-${id}">
-			                <div class="form-control-saved edit-on-select" id="encounter-hs-saved-${id}" contenteditable="true">&nbsp;</div>
-			              </div>
-			            </div>
-			          </div>
-			          <div class="row">
-			            <div class="col-md-3">
-			              <label for="encounter-heart-rhythm-${id}">Rhythm</label>
-			              <div class="form-group">
-			                <label class="radio-inline"><input type="radio" name="encounter-heart-rhythm-${id}" value="regular">Regular</label>
-			                <label class="radio-inline"><input type="radio" name="encounter-heart-rhythm-${id}" value="irregular">Irregular</label>
-			              </div>
-			            </div>
-			          </div>
-			          <div class="row">
-			            <div class="col-md-3">
-			              <div class="panel panel-default">
-			                <div class="panel-body">
-			                    <label class="sub-title">LABS</label>
-			                  <div class="form-group">
-			                    <label for="encounter-lab-hb-${id}">Hb</label>
-			                    <input type="text" class="form-control form-control-unsaved" id="encounter-lab-hb-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-lab-hb-saved-${id}" contenteditable="true">&nbsp;</div>
-			                  </div>
-			                  <div class="form-group">
-			                    <label for="encounter-lab-glucose-${id}">Glucose</label>
-			                    <input type="text" class="form-control form-control-unsaved" id="encounter-lab-glucose-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-lab-glucose-saved-${id}" contenteditable="true">&nbsp;</div>
-			                  </div>
-			                  <div class="form-group">
-			                    <label for="encounter-lab-urine-dip-${id}">Urine DIP (+)</label>
-			                    <input type="text" class="form-control form-control-unsaved" id="encounter-lab-urine-dip-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-lab-urine-dip-saved-${id}" contenteditable="true">&nbsp;</div>
-			                  </div>
-			                </div>
-			              </div>
-			            </div>
-			          </div>
-			          <div class="row">
-			            <div class="col-md-8">
-			              <div class="form-group">
-			                <label for="encounter-diagnosis-${id}">Diagnosis</label>
-			                <textarea id="encounter-diagnosis-${id}" class="form-control form-control-unsaved" rows="5"></textarea>
-			                  <div class="form-control-saved edit-on-select" id="encounter-diagnosis-saved-${id}" contenteditable="true">&nbsp;</div>
-			              </div>
-			            </div>
-			            <div class="col-md-4">
-			              <div class="form-group">
-			                <label for="encounter-dx-code-${id}">DX Code</label>
-			                <textarea id="encounter-dx-code-${id}" class="form-control form-control-unsaved" rows="5"></textarea>
-			                  <div class="form-control-saved edit-on-select" id="encounter-dx-code-saved-${id}" contenteditable="true">&nbsp;</div>
-			              </div>
-			            </div>
-			          </div>
-			          <div class="row">
-			            <div class="col-md-8">
-			              <div class="form-group">
-			                <label for="encounter-treatment-plan-${id}">Treatment Plan</label>
-			                <textarea id="encounter-treatment-plan-${id}" class="form-control form-control-unsaved" rows="10"></textarea>
-			                  <div class="form-control-saved edit-on-select" id="encounter-treatment-plan-saved-${id}" contenteditable="true">&nbsp;</div>
-			              </div>
-			            </div>
-			            <div class="col-md-4">
-			              <div class="form-group">
-			                <label for="encounter-tx-code-${id}">TX Code</label>
-			                <textarea id="encounter-tx-code-${id}" class="form-control form-control-unsaved" rows="10"></textarea>
-			                  <div class="form-control-saved edit-on-select" id="encounter-tx-code-saved-${id}" contenteditable="true">&nbsp;</div>
-			              </div>
-			            </div>
-			          </div>
-			          <div class="row">
-			            <div class="col-md-12">
-			              <div class="form-group">
-			                <label for="encounter-provider-name-${id}">Treating provider name</label>
-			                <input type="text" class="form-control form-control-unsaved" id="encounter-provider-name-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-provider-name-saved-${id}" contenteditable="true">&nbsp;</div>
-			              </div>
-			            </div>
-			          </div>
-			        </div>
-			        <div class="panel-footer">
-			          <button id="encounter-exam-clear-${id}" type="button" class="btn btn-default pull-right">Clear</button>
-			          <a id="encounter-exam-save-${id}" class="btn btn-success">Save</a>
-			          <a id="encounter-exam-saved-${id}" class="btn btn-success disabled">Saved</a>
-			          <a id="encounter-exam-print-${id}" class="btn btn-primary">Print</a>
-			        </div>
-			      </div>
-			
-			      <div class="panel-top" data-toggle="collapse" data-target="#req-follow">
-			      <div class="row">
-			        <div class="col-md-12 text-center">
-			          Requires Follow-Up
-			          <div class="form-group">
-			            <label class="radio-inline"><input type="radio" name="encounter-requires-follow-up-${id}" value="yes">Yes</label>
-			            <label class="radio-inline"><input type="radio" name="encounter-requires-follow-up-${id}" value="no" checked >No</label>
-			          </div>
-			        </div>
-			      </div>
-			    </div>
-			    <div id="req-follow" class="panel panel-default">
-			      <div class="panel-body" id="encounter-follow-up-panel-${id}">
-			        <div class="row">
-			          <div class="col-md-12">
-			            <label class="sub-title">Reason & Triage</label>
-			          </div>
-			        </div>
-			        <div class="row">
-			          <div class="col-md-4">
-			            <label for="encounter-follow-up-level-${id}">Level</label>
-			            <div class="form-group">
-			              <label class="radio-inline"><input type="radio" name="encounter-follow-up-level-${id}" value="high">High</label>
-			              <label class="radio-inline"><input type="radio" name="encounter-follow-up-level-${id}" value="intermediate">Intermediate</label>
-			              <label class="radio-inline"><input type="radio" name="encounter-follow-up-level-${id}" value="low">Low</label>
-			            </div>
-			          </div>
-			          <div class="col-md-8">
-			            <div class="form-group">
-			              <label for="encounter-follow-up-when-${id}">When</label>
-			              <input type="text" class="form-control form-control-unsaved" id="encounter-follow-up-when-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-follow-up-when-saved-${id}" contenteditable="true">&nbsp;</div>
-			            </div>
-			          </div>
-			        </div>
-			        <div class="row">
-			          <div class="col-md-4">
-			            <div class="form-group">
-			              <label for="encounter-follow-up-condition-${id}">Condition</label>
-			              <input type="text" class="form-control form-control-unsaved" id="encounter-follow-up-condition-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-follow-up-condition-saved-${id}" contenteditable="true">&nbsp;</div>
-			            </div>
-			          </div>
-			          <div class="col-md-4">
-			            <div class="form-group">
-			              <label for="encounter-follow-up-dispense-rx-${id}">Dispense RX</label>
-			              <input type="text" class="form-control form-control-unsaved" id="encounter-follow-up-dispense-rx-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-follow-up-dispense-rx-saved-${id}" contenteditable="true">&nbsp;</div>
-			            </div>
-			          </div>
-			          <div class="col-md-4">
-			            <div class="form-group">
-			              <label for="encounter-follow-up-uss-${id}">USS</label>
-			              <input type="text" class="form-control form-control-unsaved" id="encounter-follow-up-uss-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-follow-up-uss-saved-${id}" contenteditable="true">&nbsp;</div>
-			            </div>
-			          </div>
-			        </div>
-			        <div class="row">
-			          <div class="col-md-4">
-			            <div class="form-group">
-			              <label for="encounter-follow-up-pregnant-${id}">Pregnant</label>
-			              <input type="text" class="form-control form-control-unsaved" id="encounter-follow-up-pregnant-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-follow-up-pregnant-saved-${id}" contenteditable="true">&nbsp;</div>
-			            </div>
-			          </div>
-			          <div class="col-md-4">
-			            <div class="form-group">
-			              <label for="encounter-follow-up-wound-care-${id}">Wound Care</label>
-			              <input type="text" class="form-control form-control-unsaved" id="encounter-follow-up-wound-care-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-follow-up-wound-care-saved-${id}" contenteditable="true">&nbsp;</div>
-			            </div>
-			          </div>
-			          <div class="col-md-4">
-			            <div class="form-group">
-			              <label for="encounter-follow-up-ref-to-specialist-${id}">Ref To Specialist</label>
-			              <input type="text" class="form-control form-control-unsaved" id="encounter-follow-up-ref-to-specialist-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-follow-up-ref-to-specialist-saved-${id}" contenteditable="true">&nbsp;</div>
-			            </div>
-			          </div>
-			        </div>
-			        <div class="row">
-			          <div class="col-md-4">
-			            <div class="form-group">
-			              <label for="encounter-follow-up-dental-list-${id}">Dental List</label>
-			              <input type="text" class="form-control form-control-unsaved" id="encounter-follow-up-dental-list-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-follow-up-dental-list-saved-${id}" contenteditable="true">&nbsp;</div>
-			            </div>
-			          </div>
-			          <div class="col-md-4">
-			            <div class="form-group">
-			              <label for="encounter-follow-up-physiotherapy-${id}">Physiotherapy</label>
-			              <input type="text" class="form-control form-control-unsaved" id="encounter-follow-up-physiotherapy-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-follow-up-physiotherapy-saved-${id}" contenteditable="true">&nbsp;</div>
-			            </div>
-			          </div>
-			          <div class="col-md-4">
-			            <div class="form-group">
-			              <label for="encounter-follow-up-blood-labs-${id}">Blood Labs</label>
-			              <input type="text" class="form-control form-control-unsaved" id="encounter-follow-up-blood-labs-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-follow-up-blood-labs-saved-${id}" contenteditable="true">&nbsp;</div>
-			            </div>
-			          </div>
-			        </div>
-			        <div class="row">
-			          <div class="col-md-4">
-			            <div class="form-group">
-			              <label for="encounter-follow-up-other-${id}">Other</label>
-			              <input type="text" class="form-control form-control-unsaved" id="encounter-follow-up-other-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-follow-up-other-saved-${id}" contenteditable="true">&nbsp;</div>
-			            </div>
-			          </div>
-			          <div class="col-md-4">
-			            <div class="form-group">
-			              <label for="encounter-follow-up-pulmonary-fx-test-${id}">Pulmonary FX Test</label>
-			              <input type="text" class="form-control form-control-unsaved" id="encounter-follow-up-pulmonary-fx-test-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-follow-up-pulmonary-fx-test-saved-${id}" contenteditable="true">&nbsp;</div>
-			            </div>
-			          </div>
-			          <div class="col-md-4">
-			            <div class="form-group">
-			              <label for="encounter-follow-up-vision-${id}">Vision (glass/other)</label>
-			              <input type="text" class="form-control form-control-unsaved" id="encounter-follow-up-vision-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-follow-up-vision-saved-${id}" contenteditable="true">&nbsp;</div>
-			            </div>
-			          </div>
-			        </div>
-			        <hr>
-			        <div class="row">
-			          <div class="col-md-12">
-			            <div class="col-md-2">
-			              <label for="encounter-follow-up-completed-${id}">Follow-up Completed</label>
-			              <div class="form-group">
-			                <label class="radio-inline"><input type="radio" name="encounter-follow-up-completed-${id}" value="true">Yes</label>
-			                <label class="radio-inline"><input type="radio" name="encounter-follow-up-completed-${id}" value="false">No</label>
-			              </div>
-			            </div>
-			            <div class="col-md-2">
-			              <div class="form-group">
-			                <label for="encounter-follow-up-date-${id}">Date</label>
-			                <input type="text" class="form-control form-control-unsaved" id="encounter-follow-up-date-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-follow-up-date-saved-${id}" contenteditable="true">&nbsp;</div>
-			              </div>
-			            </div>
-			            <div class="col-md-8">
-			              <div class="form-group">
-			                <label for="encounter-follow-up-notes-${id}">Notes</label>
-			                <input type="text" class="form-control form-control-unsaved" id="encounter-follow-up-notes-${id}">
-			                  <div class="form-control-saved edit-on-select" id="encounter-follow-up-notes-saved-${id}" contenteditable="true">&nbsp;</div>
-			              </div>
-			            </div>
-			          </div>
-			        </div>
-			      </div>
-			      <div class="panel-footer">
-			        <button id="encounter-follow-up-clear-${id}" type="button" class="btn btn-default pull-right">Clear</button>
-			        <a id="encounter-follow-up-save-${id}" class="btn btn-success">Save</a>
-			        <a id="encounter-follow-up-saved-${id}" class="btn btn-success disabled">Saved</a>
-			        <a id="encounter-follow-up-print-${id}" class="btn btn-primary">Print</a>
-			      </div>
-			    </div>      
-			  </form>
+        <form role="form">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="panel-top" data-toggle="collapse" data-target="#basic-info">Patient Basic Information<i class="icon-chevron-down pull-right collapse-arrow"></i></div>
+              <div id="basic-info" class="panel panel-default collapse in">
+                <div id="encounter-basic-info-panel-${id}" class="panel-body">
+                  <div class="row">
+                    <div class="col-md-3 pull-right">
+                        <div><img id="encounter-basic-info-photo-${id}" class="img-responsive headshot-sm img-rounded headshot"></div>
+                        <div id="encounter-basic-info-photo-upload-control-${id}" class="btn-group-vertical-sm">              
+                         <span class="btn btn-success fileinput-button">
+                           <div id="encounter-basic-info-photo-upload-${id}"></div>
+                         </span>
+                         <br>
+                         <br>
+                         <div id="encounter-basic-info-photo-upload-progress-${id}" class="progress"> 
+                           <div class="progress-bar progress-bar-success"></div> 
+                         </div>
+                        </div>
+                      </div> 
+                    </div> 
+                  <div class="row">
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="encounter-todays-date-${id}">Today's Date</label>
+                        <input id="encounter-todays-date-${id}" type="text" class="form-control form-control-unsaved form-control-readonly" readonly="readonly">
+                        <div class="form-control-saved form-control-readonly" id="encounter-todays-date-saved-${id}"></div>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="consult-location-${id}">Consult Location</label>
+                        <input id="encounter-consult-location-${id}" type="text" class="form-control form-control-unsaved">
+                        <div class="form-control-saved edit-on-select" id="encounter-consult-location-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="encounter-govt-id-${id}">GOV ID #</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-govt-id-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-govt-id-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="encounter-dob-${id}">Date Of Birth</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-dob-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-dob-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="encounter-first-name-${id}">First Name</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-first-name-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-first-name-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="encounter-middle-name-${id}">Middle Name</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-middle-name-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-middle-name-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="encounter-last-name-${id}">Last Name</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-last-name-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-last-name-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label for="encounter-gender-${id}">Gender</label>
+                      <input type="text" class="form-control form-control-unsaved" id="encounter-gender-${id}" maxlength="1">
+                      <div class="form-control-saved edit-on-select" id="encounter-gender-saved-${id}" contenteditable="true">&nbsp;</div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label for="encounter-age-years-${id}">Age (in years)</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-age-years-${id}" maxLength="3">
+                        <div class="form-control-saved edit-on-select" id="encounter-age-years-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label for="encounter-age-months-${id}">Age (in months)</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-age-months-${id}" maxlength="2">
+                        <div class="form-control-saved edit-on-select" id="encounter-age-months-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label for="encounter-phone-${id}">Telephone</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-phone-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-phone-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="encounter-community-${id}">Community (if living elsewhere)</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-community-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-community-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="encounter-notes-${id}">Notes</label>
+                        <textarea id="encounter-notes-${id}" class="form-control form-control-unsaved" rows="5"></textarea>
+                        <div class="form-control-saved edit-on-select" id="encounter-notes-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel-footer">
+                  <button id="encounter-basic-info-clear-${id}" type="button" class="btn btn-default pull-right">Clear</button>
+                  <a id="encounter-basic-info-save-${id}" class="btn btn-success">Save</a>
+                  <a id="encounter-basic-info-saved-${id}" class="btn btn-success disabled">Saved</a>
+                  <a id="encounter-basic-info-print-${id}" class="btn btn-primary">Print</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="row">
+            <div class="col-md-12">
+              <div class="panel-top" data-toggle="collapse" data-target="#vitals">Vitals<i class="icon-chevron-down pull-right collapse-arrow"></i></div>
+              <div id="vitals" class="panel panel-default collapse in">
+                <div id="encounter-vitals-panel-${id}" class="panel-body">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label for="encounter-height-${id}">Height (cm)</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-height-${id}" maxlength="5">
+                        <div class="form-control-saved edit-on-select" id="encounter-height-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label for="encounter-weight-${id}">Weight (kg)</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-weight-${id}" maxlength="5">
+                        <div class="form-control-saved edit-on-select" id="encounter-weight-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-md-1">
+                      <div class="form-group">
+                        <label for="encounter-sys-${id}">SYS</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-sys-${id}" maxlength="3">
+                        <div class="form-control-saved edit-on-select" id="encounter-sys-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-md-1">
+                      <div class="form-group">
+                        <label for="encounter-dia-${id}">DIA</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-dia-${id}" maxlength="3">
+                        <div class="form-control-saved edit-on-select" id="encounter-dia-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-md-1">
+                      <div class="form-group">
+                        <label for="encounter-hr-${id}">HR</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-hr-${id}" maxlength="3">
+                        <div class="form-control-saved edit-on-select" id="encounter-hr-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-md-1">
+                      <div class="form-group">
+                        <label for="encounter-rr-${id}">RR</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-rr-${id}" maxlength="3">
+                        <div class="form-control-saved edit-on-select" id="encounter-rr-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label for="encounter-temp-${id}">Temp (C)</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-temp-${id}" maxlength="4">
+                        <div class="form-control-saved edit-on-select" id="encounter-temp-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label for="encounter-arm-${id}">Arm (cm)</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-arm-${id}" maxlength="5">
+                        <div class="form-control-saved edit-on-select" id="encounter-arm-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel-footer">
+                  <button id="encounter-vitals-clear-${id}" type="button" class="btn btn-default pull-right">Clear</button>
+                  <a id="encounter-vitals-save-${id}" class="btn btn-success">Save</a>
+                  <a id="encounter-vitals-saved-${id}" class="btn btn-success disabled">Saved</a>
+                  <a id="encounter-vitals-print-${id}" class="btn btn-primary">Print</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="row">
+            <div class="col-md-12">
+              <div class="panel-top" data-toggle="collapse" data-target="#fam-visit">Family Visit (patient less than 18 years of age)
+              <i class="icon-chevron-down pull-right collapse-arrow"></i></div>
+              <div id="fam-visit" class="panel panel-default collapse in">
+                <div id="encounter-family-panel-${id}" class="panel-body">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <div class="form-group">
+                        <label for="encounter-mother-name-${id}">Mother Name</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-mother-name-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-mother-name-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="encounter-mother-dob-${id}">Mother DOB</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-mother-dob-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-mother-dob-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-8">
+                      <div class="form-group">
+                        <label for="encounter-caretaker-name-${id}">Caretaker Name (if mother/father not present)</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-caretaker-name-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-caretaker-name-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="encounter-patient-relationship-${id}">Relationship To Patient</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-patient-relationship-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-patient-relationship-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel-footer">
+                  <button id="encounter-family-clear-${id}" type="button" class="btn btn-default pull-right">Clear</button>
+                  <a id="encounter-family-save-${id}" class="btn btn-success">Save</a>
+                  <a id="encounter-family-saved-${id}" class="btn btn-success disabled">Saved</a>
+                  <a id="encounter-family-print-${id}" class="btn btn-primary">Print</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="row">
+            <div class="col-md-6">
+              <div class="panel-top" data-toggle="collapse" data-target="#chief-comp">Chief Complaint<i class="icon-chevron-down pull-right collapse-arrow"></i></div>
+              <div id="chief-comp" class="panel panel-default collapse in">
+                <div  class="panel-body" id="encounter-cc-panel-${id}">
+                  <label class="sub-title">Description</label>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <textarea id="encounter-chief-complaint-${id}" class="form-control form-control-unsaved" rows="6"></textarea>
+                        <div class="form-control-saved edit-on-select" id="encounter-chief-complaint-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                  </div>
+                  <label class="sub-title">Occurs When</label>
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <div class="col-xs-4">
+                        <div class="form-group">
+                          <div class="checkbox"><label><input type="checkbox" name="encounter-occurs-when-${id}" value="n-a">N/A</label></div>
+                          <div class="checkbox"><label><input type="checkbox" name="encounter-occurs-when-${id}" value="constant">Constant</label></div>
+                          <div class="checkbox"><label><input type="checkbox" name="encounter-occurs-when-${id}" value="walking">Walking</label></div>
+                          <div class="checkbox"><label><input type="checkbox" name="encounter-occurs-when-${id}" value="sitting">Sitting</label></div>
+                          <div class="checkbox"><label><input type="checkbox" name="encounter-occurs-when-${id}" value="running">Running</label></div>
+                        </div>
+                      </div>
+                      <div class="col-xs-4">
+                        <div class="form-group">
+                          <div class="checkbox"><label><input type="checkbox" name="encounter-occurs-when-${id}" value="standing_up">Standing Up</label></div>
+                          <div class="checkbox"><label><input type="checkbox" name="encounter-occurs-when-${id}" value="laying_down">Laying Down</label></div>
+                          <div class="checkbox"><label><input type="checkbox" name="encounter-occurs-when-${id}" value="touched">When Touched</label></div>
+                          <div class="checkbox"><label><input type="checkbox" name="encounter-occurs-when-${id}" value="before_eating">Before Eating</label></div>
+                          <div class="checkbox"><label><input type="checkbox" name="encounter-occurs-when-${id}" value="after_eating">After Eating</label></div>
+                        </div>
+                      </div>
+                      <div class="col-xs-4">
+                        <div class="form-group">
+                          <div class="checkbox"><label><input type="checkbox" name="encounter-occurs-when-${id}" value="bending">Bending</label></div>
+                          <div class="checkbox"><label><input type="checkbox" name="encounter-occurs-when-${id}" value="holding_gripping">Holding/Gripping</label></div>
+                          <div class="checkbox"><label><input type="checkbox" name="encounter-occurs-when-${id}" value="other">Other-specify</label></div>
+                        </div>
+                        <input type="text" class="form-control input-sm form-control-unsaved" id="encounter-occurs-other-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-occurs-other-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="encounter-specific-location-${id}">Specific Location</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-specific-location-${id}" placeholder="RLB">
+                        <div class="form-control-saved edit-on-select" id="encounter-specific-location-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <label class="sub-title">How Long/Since When</label>
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <div class="col-xs-2">
+                            <div class="form-group text-center">
+                              <label for="encounter-hours-since-${id}">Hours</label>
+                              <input type="text" class="form-control form-control-unsaved" id="encounter-hours-since-${id}">
+                             <div class="form-control-saved edit-on-select" id="encounter-hours-since-saved-${id}" contenteditable="true">&nbsp;</div>
+                            </div>
+                          </div>
+                          <div class="col-xs-2">
+                            <div class="form-group text-center">
+                              <label for="encounter-days-since-${id}">Days</label>
+                              <input type="text" class="form-control form-control-unsaved" id="encounter-days-since-${id}">
+                             <div class="form-control-saved edit-on-select" id="encounter-days-since-saved-${id}" contenteditable="true">&nbsp;</div>
+                            </div>
+                          </div>
+                          <div class="col-xs-2">
+                            <div class="form-group text-center">
+                              <label for="encounter-weeks-since-${id}">Weeks</label>
+                              <input type="text" class="form-control form-control-unsaved" id="encounter-weeks-since-${id}">
+                             <div class="form-control-saved edit-on-select" id="encounter-weeks-since-saved-${id}" contenteditable="true">&nbsp;</div>
+                            </div>
+                          </div>
+                          <div class="col-xs-2">
+                            <div class="form-group text-center">
+                              <label for="encounter-months-since-${id}">Months</label>
+                              <input type="text" class="form-control form-control-unsaved" id="encounter-months-since-${id}">
+                             <div class="form-control-saved edit-on-select" id="encounter-months-since-saved-${id}" contenteditable="true">&nbsp;</div>
+                            </div>
+                          </div>
+                          <div class="col-xs-2">
+                            <div class="form-group text-center">
+                              <label for="encounter-years-since-${id}">Years</label>
+                              <input type="text" class="form-control form-control-unsaved" id="encounter-years-since-${id}">
+                             <div class="form-control-saved edit-on-select" id="encounter-years-since-saved-${id}" contenteditable="true">&nbsp;</div>
+                            </div>
+                          </div>
+                          <div class="col-xs-2">
+                            <div class="form-group text-center">
+                              <label for="encounter-how-long-other-${id}">Other</label>
+                              <input type="text" class="form-control form-control-unsaved" id="encounter-how-long-other-${id}">
+                             <div class="form-control-saved edit-on-select" id="encounter-how-long-other-saved-${id}" contenteditable="true">&nbsp;</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <label class="sub-title">Pain</label>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="encounter-pain-scale-${id}">Pain Scale: <span id="encounter-pain-scale-value-${id}">0</span></label>
+                              <input type="text" class="form-control span2 input-lg" data-slider-value="0" id="encounter-pain-scale-${id}" data-slider-tooltip="hide">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="encounter-pain-type-${id}">Pain Type</label>
+                              <select id="encounter-pain-type-${id}" class="form-control form-control-unsaved">
+                                <option></option>
+                                <option value="dull">Dull</option>
+                                <option value="tingly">Tingly</option>
+                                <option value="hot">Hot</option>
+                                <option value="sharp">Sharp</option>
+                                <option value="achey">Achey</option>
+                                <option value="uncomfortable">Uncomfortable</option>
+                                <option value="superficial">Superficial</option>
+                                <option value="deep">Deep</option>
+                              </select>
+                             <div class="form-control-saved" id="encounter-pain-type-saved-${id}">&nbsp;</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <label class="sub-title">Frequency</label>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="col-md-2">
+                            <div class="form-group">
+                              <label for="encounter-pain-x-hour-${id}">X Hour</label>
+                              <input type="text" class="form-control form-control-unsaved" id="encounter-pain-x-hour-${id}">
+                             <div class="form-control-saved edit-on-select" id="encounter-pain-x-hour-saved-${id}" contenteditable="true">&nbsp;</div>
+                            </div>
+                          </div>
+                          <div class="col-md-2">
+                            <div class="form-group">
+                              <label for="encounter-pain-x-day-${id}">X Day</label>
+                              <input type="text" class="form-control form-control-unsaved" id="encounter-pain-x-day-${id}">
+                             <div class="form-control-saved edit-on-select" id="encounter-pain-x-day-saved-${id}" contenteditable="true">&nbsp;</div>
+                            </div>
+                          </div>
+                          <div class="col-md-2">
+                            <div class="form-group">
+                              <label for="encounter-pain-x-week-${id}">X Week</label>
+                              <input type="text" class="form-control form-control-unsaved" id="encounter-pain-x-week-${id}">
+                             <div class="form-control-saved edit-on-select" id="encounter-pain-x-week-saved-${id}" contenteditable="true">&nbsp;</div>
+                            </div>
+                          </div>
+                          <div class="col-md-2">
+                            <div class="form-group">
+                              <label for="encounter-pain-x-month-${id}">X Month</label>
+                              <input type="text" class="form-control form-control-unsaved" id="encounter-pain-x-month-${id}">
+                             <div class="form-control-saved edit-on-select" id="encounter-pain-x-month-saved-${id}" contenteditable="true">&nbsp;</div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="encounter-pain-duration-${id}">Duration</label>
+                              <input type="text" class="form-control form-control-unsaved" id="encounter-pain-duration-${id}">
+                             <div class="form-control-saved edit-on-select" id="encounter-pain-duration-saved-${id}" contenteditable="true">&nbsp;</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <label class="sub-title">Denies</label>
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <div class="col-xs-4">
+                            <div class="form-group">
+                              <div class="checkbox"><label><input type="checkbox" name="encounter-denies-${id}" value="n">N</label></div>
+                              <div class="checkbox"><label><input type="checkbox" name="encounter-denies-${id}" value="v">V</label></div>
+                              <div class="checkbox"><label><input type="checkbox" name="encounter-denies-${id}" value="d">D</label></div>
+                              <div class="checkbox"><label><input type="checkbox" name="encounter-denies-${id}" value="ha">HA</label></div>
+                              <div class="checkbox"><label><input type="checkbox" name="encounter-denies-${id}" value="vision_px">Vision Px</label></div>
+                            </div>
+                          </div>
+                          <div class="col-xs-4">
+                            <div class="form-group">
+                              <div class="checkbox"><label><input type="checkbox" name="encounter-denies-${id}" value="dizziness">Dizziness</label></div>
+                              <div class="checkbox"><label><input type="checkbox" name="encounter-denies-${id}" value="weakness">Weakness</label></div>
+                              <div class="checkbox"><label><input type="checkbox" name="encounter-denies-${id}" value="parasthesia">Parasthesia</label></div>
+                              <div class="checkbox"><label><input type="checkbox" name="encounter-denies-${id}" value="syncope">Syncope</label></div>
+                              <div class="checkbox"><label><input type="checkbox" name="encounter-denies-${id}" value="pain">Pain</label></div>
+                            </div>
+                          </div>
+                          <div class="col-xs-4">
+                            <div class="form-group">
+                              <div class="checkbox"><label><input type="checkbox" name="encounter-denies-${id}" value="anorexia">Anorexia</label></div>
+                              <div class="checkbox"><label><input type="checkbox" name="encounter-denies-${id}" value="fatigue">Fatigue</label></div>
+                              <div class="checkbox"><label><input type="checkbox" name="encounter-denies-${id}" value="other">Other</label></div>
+                            </div>
+                            <input type="text" class="form-control input-sm form-control-unsaved" id="encounter-denies-other-${id}">
+                             <div class="form-control-saved edit-on-select" id="encounter-denies-other-saved-${id}" contenteditable="true">&nbsp;</div>
+                          </div>
+                        </div>
+                      </div>  
+                    </div>
+                  </div>
+                </div>
+                <div class="panel-footer">
+                  <button id="encounter-cc-clear-${id}" type="button" class="btn btn-default pull-right">Clear</button>
+                  <a id="encounter-cc-save-${id}" class="btn btn-success">Save</a>
+                  <a id="encounter-cc-saved-${id}" class="btn btn-success disabled">Saved</a>
+                  <a id="encounter-cc-print-${id}" class="btn btn-primary">Print</a>
+                </div>
+              </div>
+            
+              <div class="panel-top" data-toggle="collapse" data-target="#med-hist">Medical History<i class="icon-chevron-down pull-right collapse-arrow"></i></div>
+              <div id="med-hist" class="panel panel-default collapse in">
+                <div class="panel-body" id="encounter-hist-panel-${id}">
+                  <div id="encounter-medications-${id}"></div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <a id="encounter-hist-new-medication-${id}" class="btn btn-primary pull-right">New Medication</a>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="encounter-past-s-m-${id}">Past Surgeries Or Medical Conditions</label>
+                        <textarea id="encounter-past-s-m-${id}" class="form-control form-control-unsaved" rows="3"></textarea>
+                        <div class="form-control-saved edit-on-select" id="encounter-past-s-m-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <label class="sub-title">Family History</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-4">
+                      <div class="form-group">
+                        <div class="checkbox"><label><input name="encounter-fam-hist-${id}" type="checkbox" value="cancer">Cancer</label></div>
+                        <div class="checkbox"><label><input name="encounter-fam-hist-${id}" type="checkbox" value="diabetes">Diabetes</label></div>
+                        <div class="checkbox"><label><input name="encounter-fam-hist-${id}" type="checkbox" value="heart_problems">Heart problems</label></div>
+                      </div>
+                    </div>
+                    <div class="col-xs-4">
+                      <div class="form-group">
+                        <div class="checkbox"><label><input name="encounter-fam-hist-${id}" type="checkbox" value="hepatitis">Hepatitis</label></div>
+                        <div class="checkbox"><label><input name="encounter-fam-hist-${id}" type="checkbox" value="high_bp">High BP</label></div>
+                        <div class="checkbox"><label><input name="encounter-fam-hist-${id}" type="checkbox" value="hiv">HIV</label></div>
+                      </div>
+                    </div>
+                    <div class="col-xs-4">
+                      <div class="form-group">
+                        <div class="checkbox"><label><input name="encounter-fam-hist-${id}" type="checkbox" value="tb">Tuberculosis</label></div>
+                        <div class="checkbox"><label><input name="encounter-fam-hist-${id}" type="checkbox" value="other">Other-specify</label></div>
+                      </div>
+                      <input type="text" class="form-control input-sm" id="fam-hist-other-${id}">
+                      <div class="form-control-saved edit-on-select" id="encounter-fam-hist-other-saved-${id}" contenteditable="true">&nbsp;</div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="encounter-fam-hist-notes">Family History Notes</label>
+                        <textarea id="encounter-fam-hist-notes" class="form-control form-control-unsaved" rows="5"></textarea>
+                        <div class="form-control-saved edit-on-select" id="encounter-fam-hist-notes-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label class="sub-title">Allergies</label>
+                      <div class="form-group">
+                        <label for="encounter-allerg-food-${id}">Food</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-allerg-food-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-allerg-food-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                      <div class="form-group">
+                        <label for="encounter-allerg-drug-${id}">Drug</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-allerg-drug-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-allerg-drug-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                      <div class="form-group">
+                        <label for="encounter-allerg-env-${id}">Enviro</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-allerg-env-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-allerg-env-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="sub-title">Vaccinations</label>
+                      <div class="form-group">
+                        <label for="vaccinations">Completed FD Vaccination Record?</label>
+                        <label class="radio-inline"><input type="radio" name="encounter-vacc-${id}" value="true">Yes</label>
+                        <label class="radio-inline"><input type="radio" name="encounter-vacc-${id}" value="false">No</label>
+                      </div>
+                      <div class="form-group">
+                        <label for="encounter-med-hist-notes-${id}">Notes</label>
+                        <textarea id="encounter-vacc-notes-${id}" class="form-control form-control-unsaved" rows="4"></textarea>
+                        <div class="form-control-saved edit-on-select" id="encounter-vacc-notes-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label class="sub-title">Substances</label>
+                      <div class="form-group">
+                        <label>Currently </label>
+                        <label class="checkbox-inline"><input type="checkbox" name="encounter-subst-${id}" value="smoke"> Smoke</label>
+                        <label class="checkbox-inline"><input type="checkbox" name="encounter-subst-${id}" value="drink"> Drink</label>
+                        <label class="checkbox-inline"><input type="checkbox" name="encounter-subst-${id}" value="drugs"> Drugs</label>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="smokes-pk-day-${id}">smoke packs / day</label>
+                              <input type="text" class="form-control form-control-unsaved" id="encounter-smoke-pks-day-${id}">
+                              <div class="form-control-saved edit-on-select" id="encounter-smoke-pks-day-saved-${id}" contenteditable="true">&nbsp;</div>
+                            </div>
+                            <div class="form-group">
+                              <label for="encounter-years-smoked-${id}">Years smoked</label>
+                              <input type="text" class="form-control form-control-unsaved" id="encounter-years-smoked-${id}">
+                              <div class="form-control-saved edit-on-select" id="encounter-years-smoked-saved-${id}" contenteditable="true">&nbsp;</div>
+                            </div>
+                            <div class="form-group">
+                              <label for="encounter-smoke-years-quit-${id}">Years Quit smoking</label>
+                              <input type="text" class="form-control form-control-unsaved" id="encounter-smoke-years-quit-${id}">
+                              <div class="form-control-saved edit-on-select" id="encounter-smoke-years-quit-saved-${id}" contenteditable="true">&nbsp;</div>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="etoh-units-week-${id}">EtOH units / week</label>
+                              <input type="text" class="form-control form-control-unsaved" id="encounter-etoh-units-week-${id}">
+                              <div class="form-control-saved edit-on-select" id="encounter-etoh-units-week-saved-${id}" contenteditable="true">&nbsp;</div>
+                            </div>
+                            <div class="form-group">
+                              <label for="current-drugs-${id}">Drugs currently used</label>
+                              <textarea id="encounter-current-drugs-${id}" class="form-control form-control-unsaved" rows="5"></textarea>
+                              <div class="form-control-saved edit-on-select" id="encounter-current-drugs-saved-${id}" contenteditable="true">&nbsp;</div>
+                            </div>
+                          </div> 
+                        </div>  
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel-footer">
+                  <a id="encounter-hist-save-${id}" class="btn btn-success">Save</a>
+                  <a id="encounter-hist-saved-${id}" class="btn btn-success disabled">Saved</a>
+                  <a id="encounter-hist-print-${id}" class="btn btn-primary">Print</a>
+                  <button id="encounter-hist-clear-${id}" type="button" class="btn btn-default pull-right">Clear</button>
+                </div>
+              </div>
+            </div>
+          
+            <div class="col-md-6">
+            <div id="obgyn-header" class="panel-top" data-toggle="collapse" data-target="#obgyn-form">OBGYN (to be completed by provider) <i class="icon-chevron-down pull-right collapse-arrow"></i></div>
+              <div id="obgyn-form" class="panel panel-default collapse in">
+                <div class="panel-body" id="encounter-obgyn-panel-${id}">
+                  <div class="row text-center">
+                    <div class="col-xs-2">
+                      <div class="form-group">
+                        <label for="encounter-obgyn-g-${id}">G</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-obgyn-g-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-obgyn-g-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-xs-2">
+                      <div class="form-group">
+                        <label for="encounter-obgyn-p-${id}">P</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-obgyn-p-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-obgyn-p-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-xs-2">
+                      <div class="form-group">
+                        <label for="encounter-obgyn-t-${id}">T</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-obgyn-t-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-obgyn-t-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-xs-2">
+                      <div class="form-group">
+                        <label for="encounter-obgyn-a-${id}">A</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-obgyn-a-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-obgyn-a-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-xs-2">
+                      <div class="form-group">
+                        <label for="encounter-obgyn-l-${id}">L</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-obgyn-l-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-obgyn-l-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <label for="encounter-pregnant">Pregnant</label>
+                      <div class="form-group">
+                        <label class="radio-inline"><input type="radio" name="encounter-pregnant-${id}" value="yes">Yes</label>
+                        <label class="radio-inline"><input type="radio" name="encounter-pregnant-${id}" value="no">No</label>
+                        <label class="radio-inline"><input type="radio" name="encounter-pregnant-${id}" value="dk">DK</label>
+                        <label class="radio-inline"><input type="radio" name="encounter-pregnant-${id}" value="post_partum">Post Partum</label>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="encounter-breastfeeding">Breastfeeding</label>
+                      <div class="form-group">
+                         <label class="radio-inline"><input type="radio" name="encounter-breastfeeding-${id}" value="yes">Yes</label>
+                         <label class="radio-inline"><input type="radio" name="encounter-breastfeeding-${id}" value="no">No</label>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="encounter-breastfeeding-months-${id}">Months</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-breastfeeding-months-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-breastfeeding-months-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="encounter-last-period-${id}">When was the last period?</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-last-period-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-last-period-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="encounter-age-first-period-${id}">Age at first period</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-age-first-period-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-age-first-period-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="encounter-pap-smear">Pap smear ever</label>
+                      <div class="form-group">
+                        <label class="radio-inline"><input type="radio" name="encounter-pap-smear-${id}" value="yes">Yes</label>
+                        <label class="radio-inline"><input type="radio" name="encounter-pap-smear-${id}" value="no">No</label>
+                        <label class="radio-inline"><input type="radio" name="encounter-pap-smear-${id}" value="dk">DK</label>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                    <label for="encounter-birth-control">Birth Control</label>
+                      <div class="form-group">
+                        <label class="radio-inline"><input type="radio" name="encounter-birth-control-${id}" value="yes">Yes</label>
+                        <label class="radio-inline"><input type="radio" name="encounter-birth-control-${id}" value="no">No</label>
+                        <label class="radio-inline"><input type="radio" name="encounter-birth-control-${id}" value="dk">DK</label>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="encounter-birth-control-type-${id}">Type</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-birth-control-type-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-birth-control-type-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <label class="sub-title">Other Past Gynocological History</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-4">
+                      <div class="form-group">
+                        <div class="checkbox"><label><input type="checkbox" name="encounter-obgyn-hist-${id}" value="venereal_warts">Venereal Warts</label></div>
+                        <div class="checkbox"><label><input type="checkbox" name="encounter-obgyn-hist-${id}" value="herpes_genital">Herpes Genital</label></div>
+                        <div class="checkbox"><label><input type="checkbox" name="encounter-obgyn-hist-${id}" value="syphilis">Syphilis</label></div>
+                      </div>
+                    </div>
+                    <div class="col-xs-4">
+                      <div class="form-group">
+                        <div class="checkbox"><label><input type="checkbox" name="encounter-obgyn-hist-${id}" value="pid">PID</label></div>
+                        <div class="checkbox"><label><input type="checkbox" name="encounter-obgyn-hist-${id}" value="endometriosis">Endometriosis</label></div>
+                        <div class="checkbox"><label><input type="checkbox" name="encounter-obgyn-hist-${id}" value="chlamydia">Chlamydia</label></div>
+                      </div>
+                    </div>
+                    <div class="col-xs-4">
+                      <div class="form-group">
+                        <div class="checkbox"><label><input type="checkbox" name="encounter-obgyn-hist-${id}" value="gonorrhea">Gonorrhea</label></div>
+                        <div class="checkbox"><label><input type="checkbox" name="encounter-obgyn-hist-${id}" value="other">Other-specify</label></div>
+                      </div>
+                      <input type="text" class="form-control form-control-unsaved input-sm" id="encounter-obgyn-hist-other-${id}">
+                      <div class="form-control-saved edit-on-select" id="encounter-obgyn-hist-other-saved-${id}" contenteditable="true">&nbsp;</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel-footer">
+                  <button id="encounter-obgyn-clear-${id}" type="button" class="btn btn-default pull-right">Clear</button>
+                  <a id="encounter-obgyn-save-${id}" class="btn btn-success">Save</a>
+                  <a id="encounter-obgyn-saved-${id}" class="btn btn-success disabled">Saved</a>
+                  <a id="encounter-obgyn-print-${id}" class="btn btn-primary">Print</a>
+                </div>
+              </div>
+            
+              <div class="panel-top" data-toggle="collapse" data-target="#soc-fam-hist">Social & Family History<i class="icon-chevron-down pull-right collapse-arrow"></i></div>
+              <div id="soc-fam-hist" class="panel panel-default collapse in">
+                <div class="panel-body" id="encounter-pfsh-panel-${id}">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="encounter-num-residents-${id}"># Residents in domicile</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-num-residents-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-num-residents-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="encounter-type-job-${id}">Type of job</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-job-type-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-job-type-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <label for="encounter-mother-alive-${id}">Mother</label>
+                      <div class="form-group">            
+                        <label class="radio-inline"><input type="radio" name="encounter-mother-alive-${id}" value="false">Dead</label>
+                        <label class="radio-inline"><input type="radio" name="encounter-mother-alive-${id}" value="true">Alive</label>
+                      </div>
+                    </div>
+                    <div class="col-md-9">
+                      <div class="form-group">
+                        <label for="encounter-mother-reason-death-${id}">Reason</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-mother-death-reason-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-mother-death-reason-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <label for="encounter-father-alive-${id}">Father</label>
+                      <div class="form-group">
+                        <label class="radio-inline"><input type="radio" name="encounter-father-alive-${id}" value="false">Dead</label>
+                        <label class="radio-inline"><input type="radio" name="encounter-father-alive-${id}" value="true">Alive</label>
+                      </div>
+                    </div>
+                    <div class="col-md-9">
+                      <div class="form-group">
+                        <label for="encounter-father-reason-death-${id}">Reason</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-father-death-reason-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-father-death-reason-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3">
+                    <label for="encounter-partner-alive-${id}">Partner</label>
+                      <div class="form-group">
+                        <label class="radio-inline"><input type="radio" name="encounter-partner-alive-${id}" value="false">Dead</label>
+                        <label class="radio-inline"><input type="radio" name="encounter-partner-alive-${id}" value="true">Alive</label>
+                      </div>
+                    </div>
+                    <div class="col-md-9">
+                      <div class="form-group">
+                        <label for="encounter-partner-reason-death-${id}">Reason</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-partner-death-reason-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-partner-death-reason-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="encounter-total-siblings-${id}">#Total Siblings</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-num-siblings-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-num-siblings-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="encounter-num-brothers-${id}">#Brothers</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-num-brothers-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-num-brothers-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="encounter-num-sisters-${id}">#Sisters</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-num-sisters-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-num-sisters-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="encounter-total-children-${id}">#Total Children</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-num-children-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-num-children-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="encounter-num-sons-${id}">#Sons</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-num-sons-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-num-sons-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="encounter-num-daughters-${id}">#Daughters</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-num-daughters-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-num-daughters-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel-footer">
+                  <button id="encounter-pfsh-clear-${id}" type="button" class="btn btn-default pull-right">Clear</button>
+                  <a id="encounter-pfsh-save-${id}" class="btn btn-success">Save</a>
+                  <a id="encounter-pfsh-saved-${id}" class="btn btn-success disabled">Saved</a>
+                  <a id="encounter-pfsh-print-${id}" class="btn btn-primary">Print</a>
+                </div>
+              </div>
+            
+              <div class="panel-top" data-toggle="collapse" data-target="#sup-quest">Supplemental Questions<i class="icon-chevron-down pull-right collapse-arrow"></i></div>
+              <div id="sup-quest" class="panel panel-default collapse in">
+                <div class="panel-body" id="encounter-supp-panel-${id}">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label class="sub-title">Cups per day?</label>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="encounter-num-cups-water-${id}">Water</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-num-cups-water-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-num-cups-water-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="encounter-num-cups-coffee-${id}">Coffee</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-num-cups-coffee-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-num-cups-coffee-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="encounter-num-cups-tea-${id}">Tea</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-num-cups-tea-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-num-cups-tea-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="encounter-water-source-${id}">Water Source</label>
+                        <select class="form-control form-control-unsaved" id="encounter-water-source-${id}">
+                          <option></option>
+                          <option value="well">Well</option>
+                          <option value="river">River</option>
+                          <option value="bottle">Bottle</option>
+                          <option value="rain">Rain</option>
+                          <option value="pipe">Pipe</option>
+                          <option value="other">Other</option>
+                        </select>
+                        <div class="form-control-saved" id="encounter-water-source-saved-${id}">&nbsp;</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="encounter-questions-${id}"></div>
+                </div>
+                <div class="panel-footer">
+                  <button id="encounter-supp-clear-${id}" type="button" class="btn btn-default pull-right">Clear</button>
+                  <a id="encounter-supp-save-${id}" class="btn btn-success">Save</a>
+                  <a id="encounter-supp-saved-${id}" class="btn btn-success disabled">Saved</a>
+                  <a id="encounter-supp-print-${id}" class="btn btn-primary">Print</a>
+                  <a id="encounter-supp-new-question-${id}" class="btn btn-primary">New Question</a>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+          <div class="row">
+            <div class="col-md-12">
+              <div class="panel-top" data-toggle="collapse" data-target="#exam">Exam<i class="icon-chevron-down pull-right collapse-arrow"></i></div>
+              <div id="exam" class="panel panel-default collapse in">
+                <div class="panel-body" id="encounter-exam-panel-${id}">
+                <div class="row">
+                  <div class="encounter-exam-image-and-overlay">
+                    <canvas class="encounter-exam-image-overlay" id="encounter-exam-image-overlay-${id}"></canvas>
+                    <div class="encounter-exam-image-wrapper" id="encounter-exam-image-wrapper-${id}">
+                      <div class="col-md-4">
+                        <img src="images/human-body-outline1.png" class="img-responsive center-block" alt="Responsive image">
+                      </div>
+                      <div class="col-md-4">
+                        <img src="images/lungs.png" class="img-responsive center-block" alt="Responsive image">
+                      </div>
+                      <div class="col-md-4">
+                        <img src="images/exam_shape.png" class="img-responsive center-block" alt="Responsive image">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label class="sub-title">CVS</label>
+                    </div>
+                    <div class="form-group">
+                      <label for="encounter-hs-${id}">HS I + II</label>
+                      <input type="text" class="form-control form-control-unsaved" id="encounter-hs-${id}">
+                      <div class="form-control-saved edit-on-select" id="encounter-hs-saved-${id}" contenteditable="true">&nbsp;</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                    <label for="encounter-heart-rhythm-${id}">Rhythm</label>
+                    <div class="form-group">
+                      <label class="radio-inline"><input type="radio" name="encounter-heart-rhythm-${id}" value="regular">Regular</label>
+                      <label class="radio-inline"><input type="radio" name="encounter-heart-rhythm-${id}" value="irregular">Irregular</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="panel panel-default">
+                      <div class="panel-body">
+                          <label class="sub-title">LABS</label>
+                        <div class="form-group">
+                          <label for="encounter-lab-hb-${id}">Hb</label>
+                          <input type="text" class="form-control form-control-unsaved" id="encounter-lab-hb-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-lab-hb-saved-${id}" contenteditable="true">&nbsp;</div>
+                        </div>
+                        <div class="form-group">
+                          <label for="encounter-lab-glucose-${id}">Glucose</label>
+                          <input type="text" class="form-control form-control-unsaved" id="encounter-lab-glucose-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-lab-glucose-saved-${id}" contenteditable="true">&nbsp;</div>
+                        </div>
+                        <div class="form-group">
+                          <label for="encounter-lab-urine-dip-${id}">Urine DIP (+)</label>
+                          <input type="text" class="form-control form-control-unsaved" id="encounter-lab-urine-dip-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-lab-urine-dip-saved-${id}" contenteditable="true">&nbsp;</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="encounter-diagnosis-${id}">Diagnosis</label>
+                      <textarea id="encounter-diagnosis-${id}" class="form-control form-control-unsaved" rows="5"></textarea>
+                        <div class="form-control-saved edit-on-select" id="encounter-diagnosis-saved-${id}" contenteditable="true">&nbsp;</div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="encounter-dx-code-${id}">DX Code</label>
+                      <input type="text" class="form-control form-control-unsaved input-sm" id="encounter-dx-code-${id}" placeholder="ICD-10 Code">
+                      <div class="form-control-saved edit-on-select" id="encounter-dx-code-saved-${id}" contenteditable="true">&nbsp;</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="encounter-treatment-plan-${id}">Treatment Plan</label>
+                      <textarea id="encounter-treatment-plan-${id}" class="form-control form-control-unsaved" rows="10"></textarea>
+                        <div class="form-control-saved edit-on-select" id="encounter-treatment-plan-saved-${id}" contenteditable="true">&nbsp;</div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="encounter-tx-code-${id}">TX Code</label>
+                      <input type="text" class="form-control form-control-unsaved input-sm" id="encounter-tx-code-${id}" placeholder="CPT Code">
+                      <div class="form-control-saved edit-on-select" id="encounter-tx-code-saved-${id}" contenteditable="true">&nbsp;</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="encounter-provider-name-${id}">Treating provider name</label>
+                      <input type="text" class="form-control form-control-unsaved" id="encounter-provider-name-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-provider-name-saved-${id}" contenteditable="true">&nbsp;</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="panel-footer">
+                <button id="encounter-exam-clear-${id}" type="button" class="btn btn-default pull-right">Clear</button>
+                <a id="encounter-exam-save-${id}" class="btn btn-success">Save</a>
+                <a id="encounter-exam-saved-${id}" class="btn btn-success disabled">Saved</a>
+                <a id="encounter-exam-print-${id}" class="btn btn-primary">Print</a>
+              </div>
+            </div>
+      
+            <div class="panel-top" data-toggle="collapse" data-target="#req-follow">
+            <div class="row">
+              <div class="col-md-12 text-center">
+                Requires Follow-Up
+                <div class="form-group">
+                  <label class="radio-inline"><input type="radio" name="encounter-requires-follow-up-${id}" value="yes">Yes</label>
+                  <label class="radio-inline"><input type="radio" name="encounter-requires-follow-up-${id}" value="no" checked >No</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="req-follow" class="panel panel-default">
+            <div class="panel-body" id="encounter-follow-up-panel-${id}">
+              <div class="row">
+                <div class="col-md-12">
+                  <label class="sub-title">Reason & Triage</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="encounter-follow-up-level-${id}">Level</label>
+                  <div class="form-group">
+                    <label class="radio-inline"><input type="radio" name="encounter-follow-up-level-${id}" value="high">High</label>
+                    <label class="radio-inline"><input type="radio" name="encounter-follow-up-level-${id}" value="intermediate">Intermediate</label>
+                    <label class="radio-inline"><input type="radio" name="encounter-follow-up-level-${id}" value="low">Low</label>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group">
+                    <label for="encounter-follow-up-when-${id}">When</label>
+                    <input type="text" class="form-control form-control-unsaved" id="encounter-follow-up-when-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-follow-up-when-saved-${id}" contenteditable="true">&nbsp;</div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="encounter-follow-up-condition-${id}">Condition</label>
+                    <input type="text" class="form-control form-control-unsaved" id="encounter-follow-up-condition-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-follow-up-condition-saved-${id}" contenteditable="true">&nbsp;</div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="encounter-follow-up-dispense-rx-${id}">Dispense RX</label>
+                    <input type="text" class="form-control form-control-unsaved" id="encounter-follow-up-dispense-rx-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-follow-up-dispense-rx-saved-${id}" contenteditable="true">&nbsp;</div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="encounter-follow-up-uss-${id}">USS</label>
+                    <input type="text" class="form-control form-control-unsaved" id="encounter-follow-up-uss-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-follow-up-uss-saved-${id}" contenteditable="true">&nbsp;</div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="encounter-follow-up-pregnant-${id}">Pregnant</label>
+                    <input type="text" class="form-control form-control-unsaved" id="encounter-follow-up-pregnant-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-follow-up-pregnant-saved-${id}" contenteditable="true">&nbsp;</div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="encounter-follow-up-wound-care-${id}">Wound Care</label>
+                    <input type="text" class="form-control form-control-unsaved" id="encounter-follow-up-wound-care-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-follow-up-wound-care-saved-${id}" contenteditable="true">&nbsp;</div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="encounter-follow-up-ref-to-specialist-${id}">Ref To Specialist</label>
+                    <input type="text" class="form-control form-control-unsaved" id="encounter-follow-up-ref-to-specialist-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-follow-up-ref-to-specialist-saved-${id}" contenteditable="true">&nbsp;</div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="encounter-follow-up-dental-list-${id}">Dental List</label>
+                    <input type="text" class="form-control form-control-unsaved" id="encounter-follow-up-dental-list-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-follow-up-dental-list-saved-${id}" contenteditable="true">&nbsp;</div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="encounter-follow-up-physiotherapy-${id}">Physiotherapy</label>
+                    <input type="text" class="form-control form-control-unsaved" id="encounter-follow-up-physiotherapy-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-follow-up-physiotherapy-saved-${id}" contenteditable="true">&nbsp;</div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="encounter-follow-up-blood-labs-${id}">Blood Labs</label>
+                    <input type="text" class="form-control form-control-unsaved" id="encounter-follow-up-blood-labs-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-follow-up-blood-labs-saved-${id}" contenteditable="true">&nbsp;</div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="encounter-follow-up-other-${id}">Other</label>
+                    <input type="text" class="form-control form-control-unsaved" id="encounter-follow-up-other-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-follow-up-other-saved-${id}" contenteditable="true">&nbsp;</div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="encounter-follow-up-pulmonary-fx-test-${id}">Pulmonary FX Test</label>
+                    <input type="text" class="form-control form-control-unsaved" id="encounter-follow-up-pulmonary-fx-test-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-follow-up-pulmonary-fx-test-saved-${id}" contenteditable="true">&nbsp;</div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="encounter-follow-up-vision-${id}">Vision (glass/other)</label>
+                    <input type="text" class="form-control form-control-unsaved" id="encounter-follow-up-vision-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-follow-up-vision-saved-${id}" contenteditable="true">&nbsp;</div>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="col-md-2">
+                    <label for="encounter-follow-up-completed-${id}">Follow-up Completed</label>
+                    <div class="form-group">
+                      <label class="radio-inline"><input type="radio" name="encounter-follow-up-completed-${id}" value="true">Yes</label>
+                      <label class="radio-inline"><input type="radio" name="encounter-follow-up-completed-${id}" value="false">No</label>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      <label for="encounter-follow-up-date-${id}">Date</label>
+                      <input type="text" class="form-control form-control-unsaved" id="encounter-follow-up-date-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-follow-up-date-saved-${id}" contenteditable="true">&nbsp;</div>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group">
+                      <label for="encounter-follow-up-notes-${id}">Notes</label>
+                      <input type="text" class="form-control form-control-unsaved" id="encounter-follow-up-notes-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-follow-up-notes-saved-${id}" contenteditable="true">&nbsp;</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="panel-footer">
+              <button id="encounter-follow-up-clear-${id}" type="button" class="btn btn-default pull-right">Clear</button>
+              <a id="encounter-follow-up-save-${id}" class="btn btn-success">Save</a>
+              <a id="encounter-follow-up-saved-${id}" class="btn btn-success disabled">Saved</a>
+              <a id="encounter-follow-up-print-${id}" class="btn btn-primary">Print</a>
+            </div>
+          </div>      
+        </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
