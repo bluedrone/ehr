@@ -24,6 +24,8 @@ import com.wdeanmedical.ehr.dto.AuthorizedDTO;
 import com.wdeanmedical.ehr.dto.ClinicianDTO;
 import com.wdeanmedical.ehr.dto.LoginDTO;
 import com.wdeanmedical.ehr.dto.PatientDTO;
+import com.wdeanmedical.ehr.dto.TerminologyDTO;
+import com.wdeanmedical.ehr.entity.ICD10;
 import com.wdeanmedical.ehr.entity.Patient;
 import com.wdeanmedical.ehr.entity.PatientHealthIssue;
 import com.wdeanmedical.ehr.entity.PatientMessage;
@@ -122,6 +124,9 @@ public void doPost( HttpServletRequest request, HttpServletResponse response) {
           else if (pathInfo.equals("/unpark")) {
             returnString = unpark(request, response);  
           }
+          else if (pathInfo.equals("/searchICD10")) {
+            returnString = searchICD10(request, response);  
+          }
         }
       }
      
@@ -157,6 +162,18 @@ public void doGet(HttpServletRequest request, HttpServletResponse response) {
       dto.setSessionId(request.getParameter("sessionId"));
     }
     return appService.isValidSession(dto, ipAddress, request.getPathInfo());
+  }
+  
+  
+  public String searchICD10(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String searchText = request.getParameter("searchText");
+    Gson gson = new Gson();
+    TerminologyDTO dto = new TerminologyDTO(); 
+    dto.setSearchText(searchText);
+    List<ICD10> icd10List = appService.searchICD10(dto); 
+    dto.setICD10List(icd10List);
+    String json = gson.toJson(dto);
+    return json;
   }
   
     

@@ -24,8 +24,10 @@ import com.wdeanmedical.ehr.dto.AuthorizedDTO;
 import com.wdeanmedical.ehr.dto.ClinicianDTO;
 import com.wdeanmedical.ehr.dto.LoginDTO;
 import com.wdeanmedical.ehr.dto.PatientDTO;
+import com.wdeanmedical.ehr.dto.TerminologyDTO;
 import com.wdeanmedical.ehr.entity.Appointment;
 import com.wdeanmedical.ehr.entity.EncounterQuestion;
+import com.wdeanmedical.ehr.entity.ICD10;
 import com.wdeanmedical.ehr.entity.Patient;
 import com.wdeanmedical.ehr.entity.PatientAllergen;
 import com.wdeanmedical.ehr.entity.PatientClinician;
@@ -129,8 +131,12 @@ public class AppService {
     return appDAO.getPatientHealthTrendReports(patient);
   }
   
-  public  List<Clinician> getClinicians(ClinicianDTO dto) throws Exception {
+  public List<Clinician> getClinicians(ClinicianDTO dto) throws Exception {
     return appDAO.getClinicians();
+  }
+  
+  public List<ICD10> searchICD10(TerminologyDTO dto) throws Exception {
+    return appDAO.searchICD10(dto.getSearchText());
   }
   
   public  boolean getClinicianDashboard(ClinicianDTO dto) throws Exception {

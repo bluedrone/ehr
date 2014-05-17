@@ -23,6 +23,7 @@ import com.wdeanmedical.ehr.entity.Clinician;
 import com.wdeanmedical.ehr.entity.ClinicianSchedule;
 import com.wdeanmedical.ehr.entity.ClinicianSession;
 import com.wdeanmedical.ehr.entity.Encounter;
+import com.wdeanmedical.ehr.entity.ICD10;
 import com.wdeanmedical.ehr.entity.LabReview;
 import com.wdeanmedical.ehr.entity.Patient;
 import com.wdeanmedical.ehr.entity.PatientAllergen;
@@ -48,6 +49,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Expression;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Transactional;
@@ -119,6 +121,15 @@ public class AppDAO extends SiteDAO {
     Criteria crit = session.createCriteria(Clinician.class);
     crit.add(Restrictions.eq("purged", false));
     List<Clinician> list =  crit.list();
+    return list;
+  }
+  
+  
+  public  List<ICD10> searchICD10(String searchText) throws Exception {
+    Session session = this.getSession();
+    Criteria crit = session.createCriteria(ICD10.class);
+    crit.add(Restrictions.ilike("description", searchText, MatchMode.ANYWHERE));
+    List<ICD10> list =  crit.list();
     return list;
   }
   
