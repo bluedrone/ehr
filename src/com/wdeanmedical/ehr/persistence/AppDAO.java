@@ -19,6 +19,7 @@ import java.util.UUID;
 import com.wdeanmedical.ehr.core.Core;
 import com.wdeanmedical.ehr.entity.Appointment;
 import com.wdeanmedical.ehr.entity.BaseEntity;
+import com.wdeanmedical.ehr.entity.CPT;
 import com.wdeanmedical.ehr.entity.Clinician;
 import com.wdeanmedical.ehr.entity.ClinicianSchedule;
 import com.wdeanmedical.ehr.entity.ClinicianSession;
@@ -130,6 +131,14 @@ public class AppDAO extends SiteDAO {
     Criteria crit = session.createCriteria(ICD10.class);
     crit.add(Restrictions.ilike("description", searchText, MatchMode.ANYWHERE));
     List<ICD10> list =  crit.list();
+    return list;
+  }
+  
+  public  List<CPT> searchCPT(String searchText) throws Exception {
+    Session session = this.getSession();
+    Criteria crit = session.createCriteria(CPT.class);
+    crit.add(Restrictions.ilike("description", searchText, MatchMode.ANYWHERE));
+    List<CPT> list =  crit.list();
     return list;
   }
   

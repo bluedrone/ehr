@@ -26,6 +26,7 @@ import com.wdeanmedical.ehr.dto.LoginDTO;
 import com.wdeanmedical.ehr.dto.PatientDTO;
 import com.wdeanmedical.ehr.dto.TerminologyDTO;
 import com.wdeanmedical.ehr.entity.Appointment;
+import com.wdeanmedical.ehr.entity.CPT;
 import com.wdeanmedical.ehr.entity.EncounterQuestion;
 import com.wdeanmedical.ehr.entity.ICD10;
 import com.wdeanmedical.ehr.entity.Patient;
@@ -137,6 +138,10 @@ public class AppService {
   
   public List<ICD10> searchICD10(TerminologyDTO dto) throws Exception {
     return appDAO.searchICD10(dto.getSearchText());
+  }
+  
+  public List<CPT> searchCPT(TerminologyDTO dto) throws Exception {
+    return appDAO.searchCPT(dto.getSearchText());
   }
   
   public  boolean getClinicianDashboard(ClinicianDTO dto) throws Exception {

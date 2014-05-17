@@ -109,8 +109,8 @@ function renderPatientEncounterForm(encounter, hasOwnership) {
   initEncounterTypeAheads(id);
 } 
 
+
 function initEncounterTypeAheads(id) {
-  
   var icd10 = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
     queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -118,28 +118,32 @@ function initEncounterTypeAheads(id) {
       url: 'app/searchICD10?sessionId='+clinician.sessionId+'&searchText=%QUERY',
       filter: function (data) {
         return $.map(data.icd10List, function (icd10) {
-          return {
-            value: icd10.description
-          };
+          return { value: icd10.code + ' ' + icd10.description };
         });
       }
     }
   });
- 
   icd10.initialize();
-
-  $('#encounter-dx-code-'+id).typeahead( {
-    hint: true,
-    highlight: true,
-    limit: 10,
-    minLength: 3
-  },
-  { 
-    name: 'encounter-dx-code-'+id, 
-    displayKey: 'value',
-    source: icd10.ttAdapter(),
-  }); 
+  $('#encounter-dx-code-'+id).typeahead( { hint: true, highlight: true, limit: 10, minLength: 3 },
+  { name: 'encounter-dx-code-'+id, displayKey: 'value', source: icd10.ttAdapter(), }); 
+  
+    var cpt = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    remote: {
+      url: 'app/searchCPT?sessionId='+clinician.sessionId+'&searchText=%QUERY',
+      filter: function (data) {
+        return $.map(data.cptList, function (cpt) {
+          return { value: cpt.code + ' ' + cpt.description };
+        });
+      }
+    }
+  });
+  cpt.initialize();
+  $('#encounter-tx-code-'+id).typeahead( { hint: true, highlight: true, limit: 10, minLength: 3 },
+  { name: 'encounter-tx-code-'+id, displayKey: 'value', source: cpt.ttAdapter(), }); 
 } 
+
 
 function renderEncounterFormSection (encounter, section, savedState, hasOwnership) {
   var id = encounter.id;
