@@ -218,8 +218,23 @@ function initPatientSearchTypeAheads() {
 
 function exporter() {
 	$('#export').css({display: "none"});
-	var jsonData = JSON.stringify(patients);
+	var dob = util_processDob("#patient-search-dob", dob);
+	var jsonData = JSON.stringify({ 
+    id: clinician.id, 
+    firstNameFilter: patients[0].cred.firstName,
+    middleNameFilter: patients[0].cred.middleName,
+    lastNameFilter: patients[0].cred.lastName,
+    cityFilter: patients[0].demo.city,
+    genderFilter: patients[0].demo.gender.name,
+    dobFilter: dob,
+    sessionId: clinician.sessionId 
+  });
 	debug("json data: "+jsonData);
+	$.post("app/patientExport", {data:jsonData}, function(data) {
+		var parsedData = $.parseJSON(data);
+    var mypatients = parsedData.patients[0];
+    debug("mypatients: "+JSON.stringify(mypatients));
+	});
 }
 
 function patientSearch() {
@@ -234,10 +249,10 @@ function patientSearch() {
     genderFilter: $.trim($("#patient-search-gender").val()),
     dobFilter: dob,
     sessionId: clinician.sessionId 
-  });
+  });debug("patient json data: "+jsonData);
   $.post("app/patientSearch", {data:jsonData}, function(data) {
     var parsedData = $.parseJSON(data);
-    patients = parsedData.patients;debug("Patients: "+patients[0]);
+    patients = parsedData.patients;
     RenderUtil.render('component/simple_data_table', 
      {items:patients, 
       title:'Patients', 

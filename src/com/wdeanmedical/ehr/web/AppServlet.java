@@ -34,6 +34,10 @@ import com.google.gson.Gson;
 
 import org.apache.log4j.Logger;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+
 
 public class AppServlet extends HttpServlet  {
   
@@ -100,6 +104,9 @@ public void doPost( HttpServletRequest request, HttpServletResponse response) {
           }
           else if (pathInfo.equals("/patientSearch")) {
             returnString = patientSearch(request, response);  
+          }
+          else if (pathInfo.equals("/patientExport")) {
+            returnString = patientExport(request, response);  
           }
           else if (pathInfo.equals("/getRecentPatients")) {
             returnString = getRecentPatients(request, response);  
@@ -216,8 +223,30 @@ public void doGet(HttpServletRequest request, HttpServletResponse response) {
     List<Patient> patients = appService.getFilteredPatients(dto); 
     dto.setPatients(patients);
     String json = gson.toJson(dto);
+    System.out.println(json);
     return json;
   }
+  
+  public String patientExport(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	    String data = request.getParameter("data");
+	    Gson gson = new Gson();
+	    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
+	    List<Patient> patients = appService.getPatients(dto); 
+	    dto.setPatients(patients);
+	    
+		try {
+			JAXBContext jaxbContext = JAXBContext.newInstance(Patient.class);
+			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			jaxbMarshaller.marshal(patients.get(0), System.out);
+	    } catch (JAXBException e) {
+			e.printStackTrace();
+	    }
+	    
+	    String json = gson.toJson(dto);
+	    System.out.println(json);
+	    return json;
+  }  
   
   public String getRecentPatients(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String data = request.getParameter("data");

@@ -21,10 +21,12 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "patient")
 @Inheritance(strategy = InheritanceType.JOINED)
+@XmlRootElement
 public class Patient extends BaseEntity implements Serializable {
 
   private static final long serialVersionUID = 5963957101514207030L;
