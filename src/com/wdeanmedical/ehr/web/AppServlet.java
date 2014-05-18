@@ -26,6 +26,7 @@ import com.wdeanmedical.ehr.dto.LoginDTO;
 import com.wdeanmedical.ehr.dto.PatientDTO;
 import com.wdeanmedical.ehr.dto.TerminologyDTO;
 import com.wdeanmedical.ehr.entity.CPT;
+import com.wdeanmedical.ehr.entity.FHIRPatient;
 import com.wdeanmedical.ehr.entity.ICD10;
 import com.wdeanmedical.ehr.entity.Patient;
 import com.wdeanmedical.ehr.entity.PatientHealthIssue;
@@ -266,11 +267,24 @@ public void doGet(HttpServletRequest request, HttpServletResponse response) {
 	    List<Patient> patients = appService.getPatients(dto); 
 	    dto.setPatients(patients);
 	    
+	    FHIRPatient fhirpatient = new FHIRPatient();
+      //fhirpatient.name = patients.get(0).getCred().getFirstName();
+      fhirpatient.name.add(patients.get(0).getCred().getFirstName());
+      fhirpatient.name.add("john");
+      
+      FHIRPatient.Identifier inner = fhirpatient.getIdentifier();
+      inner.setUse("official");
+      fhirpatient.getIdentifiers().add(inner);
+     
+      FHIRPatient.Identifier inner2 = fhirpatient.getIdentifier();
+      inner2.setUse("madden");
+      fhirpatient.getIdentifiers().add(inner2);
+	    
 		try {
-			JAXBContext jaxbContext = JAXBContext.newInstance(Patient.class);
+			JAXBContext jaxbContext = JAXBContext.newInstance(FHIRPatient.class);
 			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			jaxbMarshaller.marshal(patients.get(0), System.out);
+			jaxbMarshaller.marshal(fhirpatient, System.out);
 	    } catch (JAXBException e) {
 			e.printStackTrace();
 	    }
