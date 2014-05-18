@@ -89,6 +89,17 @@
     <servlet-name>PatientServlet</servlet-name>
     <url-pattern>/patient/*</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>ExternalServlet</servlet-name>
+    <servlet-class>com.wdeanmedical.ehr.web.ExternalServlet</servlet-class>
+    <load-on-startup>3</load-on-startup>
+  </servlet>
+    
+  <servlet-mapping>
+    <servlet-name>ExternalServlet</servlet-name>
+    <url-pattern>/ext/*</url-pattern>
+  </servlet-mapping>
 
    
   <context-param>

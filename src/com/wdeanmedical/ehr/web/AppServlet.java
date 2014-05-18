@@ -109,9 +109,6 @@ public void doPost( HttpServletRequest request, HttpServletResponse response) {
           else if (pathInfo.equals("/patientSearch")) {
             returnString = patientSearch(request, response);  
           }
-          else if (pathInfo.equals("/patientExport")) {
-            returnString = patientExport(request, response);  
-          }
           else if (pathInfo.equals("/getRecentPatients")) {
             returnString = getRecentPatients(request, response);  
           }
@@ -260,39 +257,7 @@ public void doGet(HttpServletRequest request, HttpServletResponse response) {
     return json;
   }
   
-  public String patientExport(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	    String data = request.getParameter("data");
-	    Gson gson = new Gson();
-	    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-	    List<Patient> patients = appService.getPatients(dto); 
-	    dto.setPatients(patients);
-	    
-	    FHIRPatient fhirpatient = new FHIRPatient();
-      //fhirpatient.name = patients.get(0).getCred().getFirstName();
-      fhirpatient.name.add(patients.get(0).getCred().getFirstName());
-      fhirpatient.name.add("john");
-      
-      FHIRPatient.Identifier inner = fhirpatient.getIdentifier();
-      inner.setUse("official");
-      fhirpatient.getIdentifiers().add(inner);
-     
-      FHIRPatient.Identifier inner2 = fhirpatient.getIdentifier();
-      inner2.setUse("madden");
-      fhirpatient.getIdentifiers().add(inner2);
-	    
-		try {
-			JAXBContext jaxbContext = JAXBContext.newInstance(FHIRPatient.class);
-			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			jaxbMarshaller.marshal(fhirpatient, System.out);
-	    } catch (JAXBException e) {
-			e.printStackTrace();
-	    }
-	    
-	    String json = gson.toJson(dto);
-	    System.out.println(json);
-	    return json;
-  }  
+ 
   
   public String getRecentPatients(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String data = request.getParameter("data");
