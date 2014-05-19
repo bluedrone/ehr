@@ -206,6 +206,7 @@
             <value>com.wdeanmedical.ehr.entity.MedicalTest</value>
             <value>com.wdeanmedical.ehr.entity.MedicalTestStatus</value>
             <value>com.wdeanmedical.ehr.entity.Medication</value>
+            <value>com.wdeanmedical.ehr.entity.Module</value>
             <value>com.wdeanmedical.ehr.entity.OBGYNEncounterData</value>
             <value>com.wdeanmedical.ehr.entity.Patient</value>
             <value>com.wdeanmedical.ehr.entity.PatientStatus</value>

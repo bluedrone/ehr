@@ -4,7 +4,7 @@
  * For details see: http://www.wdeanmedical.com
  * copyright 2013-2014 WDean Medical
  */
- 
+
 package com.wdeanmedical.ehr.service;
 
 import java.lang.reflect.Method;
@@ -24,6 +24,7 @@ import com.wdeanmedical.ehr.core.Core;
 import com.wdeanmedical.ehr.entity.Activity;
 import com.wdeanmedical.ehr.entity.ActivityLog;
 import com.wdeanmedical.ehr.entity.BaseEntity;
+import com.wdeanmedical.ehr.entity.Module;
 import com.wdeanmedical.ehr.persistence.ActivityLogDAO;
 
 public class ActivityLogService {
@@ -45,17 +46,17 @@ public class ActivityLogService {
     activityLog.setTimePerformed(new Date());
     activityLog.setUsername(username);
     activityLog.setClinicianId(clinicianId);
-    activityLogDAO.create(activityLog, Activity.LOGIN);
+    activityLogDAO.create(activityLog, Activity.LOGIN, Module.EHR);
     log.info("======= Audit logged login for Username: " + username);
   }
 
-  public void logLogout(String username, Integer clinicianId)  throws Exception {
+  public void logLogout(String username, Integer clinicianId) throws Exception {
     ActivityLog activityLog = new ActivityLog();
     activityLog.setCreatedDate(new Date());
     activityLog.setTimePerformed(new Date());
     activityLog.setUsername(username);
     activityLog.setClinicianId(clinicianId);
-    activityLogDAO.create(activityLog, Activity.LOGOUT);
+    activityLogDAO.create(activityLog, Activity.LOGOUT, Module.EHR);
     log.info("======= Audit logged logout for Username: " + username);
 
   }
@@ -67,12 +68,13 @@ public class ActivityLogService {
     activityLog.setUsername(username);
     activityLog.setPatientId(patientId);
     activityLog.setClinicianId(clinicianId);
-    activityLogDAO.create(activityLog, Activity.VIEW_PATIENT);
+    activityLogDAO.create(activityLog, Activity.VIEW_PATIENT, Module.EHR);
     log.info("======= Audit logged view patient for Username: " + username);
 
   }
 
-  public void logNewEncounter(String username, Integer patientId,  Integer clinicianId, Integer encounterId) throws Exception {
+  public void logNewEncounter(String username, Integer patientId, Integer clinicianId, Integer encounterId)
+      throws Exception {
     ActivityLog activityLog = new ActivityLog();
     activityLog.setCreatedDate(new Date());
     activityLog.setTimePerformed(new Date());
@@ -80,12 +82,13 @@ public class ActivityLogService {
     activityLog.setPatientId(patientId);
     activityLog.setClinicianId(clinicianId);
     activityLog.setEncounterId(encounterId);
-    activityLogDAO.create(activityLog, Activity.CREATE_ENCOUNTER);
+    activityLogDAO.create(activityLog, Activity.CREATE_ENCOUNTER, Module.EHR);
     log.info("======= Audit logged new encounter for Username: " + username);
 
   }
 
-  public void logViewEncounter(String username, Integer patientId, Integer clinicianId, Integer encounterId) throws Exception {
+  public void logViewEncounter(String username, Integer patientId, Integer clinicianId, Integer encounterId)
+      throws Exception {
     ActivityLog activityLog = new ActivityLog();
     activityLog.setCreatedDate(new Date());
     activityLog.setTimePerformed(new Date());
@@ -93,12 +96,13 @@ public class ActivityLogService {
     activityLog.setPatientId(patientId);
     activityLog.setClinicianId(clinicianId);
     activityLog.setEncounterId(encounterId);
-    activityLogDAO.create(activityLog, Activity.VIEW_PATIENT_ENCOUNTER);
+    activityLogDAO.create(activityLog, Activity.VIEW_PATIENT_ENCOUNTER, Module.EHR);
     log.info("======= Audit logged view encounter for Username: " + username);
 
   }
 
-  public void logEditPatient(String username, Integer patientId, Integer clinicianId, Integer encounterId, Collection<String> fieldNames) throws Exception {
+  public void logEditPatient(String username, Integer patientId, Integer clinicianId, Integer encounterId,
+      Collection<String> fieldNames) throws Exception {
     for (String fieldName : fieldNames) {
       ActivityLog activityLog = new ActivityLog();
       activityLog.setCreatedDate(new Date());
@@ -108,13 +112,14 @@ public class ActivityLogService {
       activityLog.setClinicianId(clinicianId);
       activityLog.setEncounterId(encounterId);
       activityLog.setFieldName(fieldName);
-      activityLogDAO.create(activityLog, Activity.EDIT_PATIENT_FIELD);
+      activityLogDAO.create(activityLog, Activity.EDIT_PATIENT_FIELD, Module.EHR);
     }
     log.info("======= Audit logged edit patient for Username: " + username);
 
   }
 
-  public void logEditEncounter(String username, Integer patientId, Integer clinicianId, Integer encounterId, Collection<String> fieldNames) throws Exception {
+  public void logEditEncounter(String username, Integer patientId, Integer clinicianId, Integer encounterId,
+      Collection<String> fieldNames) throws Exception {
     for (String fieldName : fieldNames) {
       ActivityLog activityLog = new ActivityLog();
       activityLog.setCreatedDate(new Date());
@@ -124,14 +129,14 @@ public class ActivityLogService {
       activityLog.setClinicianId(clinicianId);
       activityLog.setEncounterId(encounterId);
       activityLog.setFieldName(fieldName);
-      activityLogDAO.create(activityLog,
-          Activity.EDIT_PATIENT_ENCOUNTER_FIELD);
+      activityLogDAO.create(activityLog, Activity.EDIT_PATIENT_ENCOUNTER_FIELD, Module.EHR);
     }
     log.info("======= Audit logged edit encounter for Username: " + username);
 
   }
 
-  public void logDeletePatient(String username, Integer patientId, Integer clinicianId, Integer encounterId) throws Exception {
+  public void logDeletePatient(String username, Integer patientId, Integer clinicianId, Integer encounterId)
+      throws Exception {
     ActivityLog activityLog = new ActivityLog();
     activityLog.setCreatedDate(new Date());
     activityLog.setTimePerformed(new Date());
@@ -139,16 +144,14 @@ public class ActivityLogService {
     activityLog.setPatientId(patientId);
     activityLog.setClinicianId(clinicianId);
     activityLog.setEncounterId(encounterId);
-    activityLogDAO.create(activityLog, Activity.DELETE_PATIENT);
+    activityLogDAO.create(activityLog, Activity.DELETE_PATIENT, Module.EHR);
     log.info("======= Audit logged delete patient for Username: " + username);
 
   }
 
-  public Set<String> getListOfChangedFields(BaseEntity newEntity)
-      throws Exception {
+  public Set<String> getListOfChangedFields(BaseEntity newEntity) throws Exception {
 
-    return getChangedFields(activityLogDAO.getOldEntity(newEntity),
-        newEntity);
+    return getChangedFields(activityLogDAO.getOldEntity(newEntity), newEntity);
 
   }
 
@@ -162,7 +165,7 @@ public class ActivityLogService {
     Method[] newEntityMethods = newEntity.getClass().getMethods();
     if (oldEntityMethods == null) {
       for (Method newEntityMethod : newEntityMethods) {
-        if (newEntityMethod.getName().startsWith("get")  || newEntityMethod.getName().startsWith("is")) {
+        if (newEntityMethod.getName().startsWith("get") || newEntityMethod.getName().startsWith("is")) {
           Object newEntityReturnedValue = newEntityMethod.invoke(newEntity);
           if (newEntityReturnedValue == null) {
             continue;
@@ -174,8 +177,7 @@ public class ActivityLogService {
         }
       }
     } else {
-      outer:
-      for (Method oldEntityMethod : oldEntityMethods) {
+      outer: for (Method oldEntityMethod : oldEntityMethods) {
         Object oldEntityReturnedValue = null;
         Object newEntityReturnedValue = null;
         String oldEntityMethodName = null;
@@ -188,7 +190,7 @@ public class ActivityLogService {
           }
           for (Method newEntityMethod : newEntityMethods) {
 
-            if (newEntityMethod.getName().startsWith("get")  || newEntityMethod.getName().startsWith("is")) {
+            if (newEntityMethod.getName().startsWith("get") || newEntityMethod.getName().startsWith("is")) {
               newEntityMethodName = newEntityMethod.getName();
               if (oldEntityMethodName.equals(newEntityMethodName)) {
                 newEntityReturnedValue = newEntityMethod.invoke(newEntity);
@@ -201,8 +203,8 @@ public class ActivityLogService {
                   hashSet.add(newEntityMethod.getName().substring(3));
                 } else if (newEntityMethod.getName().startsWith("is")) {
                   hashSet.add(newEntityMethod.getName().substring(2));
-                }              
-                continue outer;                
+                }
+                continue outer;
               }
             }
           }
