@@ -488,7 +488,7 @@ public class PatientService {
     String patientDirPath =  Core.appBaseDir + Core.patientDirPath + "/" + patient.getId() + "/";
     log.info("Moving to " + patientDirPath);
     String[] mvArgs = {"mv", Core.appBaseDir + Core.imagesDir + "/" + filename,  patientDirPath};
-    //runtime.exec(mvArgs);
+    runtime.exec(mvArgs);
     Set<String> fieldSet = activityLogService.getListOfChangedFields(patient);
     patientDAO.updatePatientProfileImage(patient, filename); 
     String username = null;
