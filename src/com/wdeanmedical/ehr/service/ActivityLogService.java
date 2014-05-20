@@ -40,112 +40,110 @@ public class ActivityLogService {
     activityLogDAO = (ActivityLogDAO) wac.getBean("activityLogDAO");
   }
 
-  public void logLogin(String username, Integer clinicianId) throws Exception {
+  public void logLogin(Integer userId) throws Exception {
     ActivityLog activityLog = new ActivityLog();
     activityLog.setCreatedDate(new Date());
     activityLog.setTimePerformed(new Date());
-    activityLog.setUsername(username);
-    activityLog.setClinicianId(clinicianId);
+    activityLog.setUserId(userId);
     activityLogDAO.create(activityLog, Activity.LOGIN, Module.EHR);
-    log.info("======= Audit logged login for Username: " + username);
+    log.info("======= Audit logged login for userId: " + userId);
   }
 
-  public void logLogout(String username, Integer clinicianId) throws Exception {
+  public void logLogout(Integer userId) throws Exception {
     ActivityLog activityLog = new ActivityLog();
     activityLog.setCreatedDate(new Date());
     activityLog.setTimePerformed(new Date());
-    activityLog.setUsername(username);
-    activityLog.setClinicianId(clinicianId);
+    activityLog.setUserId(userId);
     activityLogDAO.create(activityLog, Activity.LOGOUT, Module.EHR);
-    log.info("======= Audit logged logout for Username: " + username);
+    log.info("======= Audit logged logout for userId: " + userId);
 
   }
 
-  public void logViewPatient(String username, Integer patientId, Integer clinicianId) throws Exception {
+  public void logViewPatient(Integer userId, Integer patientId, Integer clinicianId) throws Exception {
     ActivityLog activityLog = new ActivityLog();
     activityLog.setCreatedDate(new Date());
     activityLog.setTimePerformed(new Date());
-    activityLog.setUsername(username);
+    activityLog.setUserId(userId);
     activityLog.setPatientId(patientId);
     activityLog.setClinicianId(clinicianId);
     activityLogDAO.create(activityLog, Activity.VIEW_PATIENT, Module.EHR);
-    log.info("======= Audit logged view patient for Username: " + username);
+    log.info("======= Audit logged view patient for userId: " + userId);
 
   }
 
-  public void logNewEncounter(String username, Integer patientId, Integer clinicianId, Integer encounterId)
+  public void logNewEncounter(Integer userId, Integer patientId, Integer clinicianId, Integer encounterId)
       throws Exception {
     ActivityLog activityLog = new ActivityLog();
     activityLog.setCreatedDate(new Date());
     activityLog.setTimePerformed(new Date());
-    activityLog.setUsername(username);
+    activityLog.setUserId(userId);
     activityLog.setPatientId(patientId);
     activityLog.setClinicianId(clinicianId);
     activityLog.setEncounterId(encounterId);
     activityLogDAO.create(activityLog, Activity.CREATE_ENCOUNTER, Module.EHR);
-    log.info("======= Audit logged new encounter for Username: " + username);
+    log.info("======= Audit logged new encounter for userId: " + userId);
 
   }
 
-  public void logViewEncounter(String username, Integer patientId, Integer clinicianId, Integer encounterId)
+  public void logViewEncounter(Integer userId, Integer patientId, Integer clinicianId, Integer encounterId)
       throws Exception {
     ActivityLog activityLog = new ActivityLog();
     activityLog.setCreatedDate(new Date());
     activityLog.setTimePerformed(new Date());
-    activityLog.setUsername(username);
+    activityLog.setUserId(userId);
     activityLog.setPatientId(patientId);
     activityLog.setClinicianId(clinicianId);
     activityLog.setEncounterId(encounterId);
     activityLogDAO.create(activityLog, Activity.VIEW_PATIENT_ENCOUNTER, Module.EHR);
-    log.info("======= Audit logged view encounter for Username: " + username);
+    log.info("======= Audit logged view encounter for userId: " + userId);
 
   }
 
-  public void logEditPatient(String username, Integer patientId, Integer clinicianId, Integer encounterId,
+  public void logEditPatient(Integer userId, Integer patientId, Integer clinicianId, Integer encounterId,
       Collection<String> fieldNames) throws Exception {
     for (String fieldName : fieldNames) {
       ActivityLog activityLog = new ActivityLog();
       activityLog.setCreatedDate(new Date());
       activityLog.setTimePerformed(new Date());
-      activityLog.setUsername(username);
+      activityLog.setUserId(userId);
       activityLog.setPatientId(patientId);
       activityLog.setClinicianId(clinicianId);
       activityLog.setEncounterId(encounterId);
       activityLog.setFieldName(fieldName);
       activityLogDAO.create(activityLog, Activity.EDIT_PATIENT_FIELD, Module.EHR);
     }
-    log.info("======= Audit logged edit patient for Username: " + username);
+    log.info("======= Audit logged edit patient for userId: " + userId);
 
   }
 
-  public void logEditEncounter(String username, Integer patientId, Integer clinicianId, Integer encounterId,
+  public void logEditEncounter(Integer userId, Integer patientId, Integer clinicianId, Integer encounterId,
       Collection<String> fieldNames) throws Exception {
     for (String fieldName : fieldNames) {
       ActivityLog activityLog = new ActivityLog();
       activityLog.setCreatedDate(new Date());
       activityLog.setTimePerformed(new Date());
-      activityLog.setUsername(username);
+      activityLog.setUserId(userId);
       activityLog.setPatientId(patientId);
       activityLog.setClinicianId(clinicianId);
       activityLog.setEncounterId(encounterId);
       activityLog.setFieldName(fieldName);
       activityLogDAO.create(activityLog, Activity.EDIT_PATIENT_ENCOUNTER_FIELD, Module.EHR);
     }
-    log.info("======= Audit logged edit encounter for Username: " + username);
+    log.info("======= Audit logged edit encounter for userId: " + userId);
 
   }
 
-  public void logDeletePatient(String username, Integer patientId, Integer clinicianId, Integer encounterId)
+  public void logDeletePatient(Integer userId, Integer patientId, Integer clinicianId, Integer encounterId)
       throws Exception {
     ActivityLog activityLog = new ActivityLog();
     activityLog.setCreatedDate(new Date());
     activityLog.setTimePerformed(new Date());
-    activityLog.setUsername(username);
+    activityLog.setUserId(userId);
     activityLog.setPatientId(patientId);
     activityLog.setClinicianId(clinicianId);
     activityLog.setEncounterId(encounterId);
     activityLogDAO.create(activityLog, Activity.DELETE_PATIENT, Module.EHR);
-    log.info("======= Audit logged delete patient for Username: " + username);
+    log.info("======= Audit logged delete patient for userId: " + userId);
 
   }
 

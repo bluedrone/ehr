@@ -22,7 +22,7 @@ public class ActivityLog extends BaseEntity implements Serializable {
 
   private static final long serialVersionUID = -3369919758390281272L;
 
-  private String username;
+  private Integer userId;
   private Integer patientId;
   private Date timePerformed;
   private Integer clinicianId;
@@ -34,13 +34,13 @@ public class ActivityLog extends BaseEntity implements Serializable {
   public ActivityLog() {
   }
 
-  @Column(name = "username")
-  public String getUsername() {
-    return username;
+  @Column(name = "user_id")
+  public Integer getUserId() {
+    return userId;
   }
 
-  public void setUsername(String username) {
-    this.username = username;
+  public void setUserId(Integer userId) {
+    this.userId = userId;
   }
 
   @Column(name = "patient_id")
@@ -119,7 +119,7 @@ public class ActivityLog extends BaseEntity implements Serializable {
     result = prime * result + ((module == null) ? 0 : module.hashCode());
     result = prime * result + ((patientId == null) ? 0 : patientId.hashCode());
     result = prime * result + ((timePerformed == null) ? 0 : timePerformed.hashCode());
-    result = prime * result + ((username == null) ? 0 : username.hashCode());
+    result = prime * result + ((userId == null) ? 0 : userId.hashCode());
     return result;
   }
 
@@ -167,17 +167,17 @@ public class ActivityLog extends BaseEntity implements Serializable {
         return false;
     } else if (!timePerformed.equals(other.timePerformed))
       return false;
-    if (username == null) {
-      if (other.username != null)
+    if (userId == null) {
+      if (other.userId != null)
         return false;
-    } else if (!username.equals(other.username))
+    } else if (!userId.equals(other.userId))
       return false;
     return true;
   }
 
   @Override
   public String toString() {
-    return "ActivityLog [username=" + username + ", patientId=" + patientId + ", timePerformed=" + timePerformed
+    return "ActivityLog [userId=" + userId + ", patientId=" + patientId + ", timePerformed=" + timePerformed
         + ", clinicianId=" + clinicianId + ", encounterId=" + encounterId + ", fieldName=" + fieldName + ", activity="
         + activity + ", module=" + module + "]";
   }

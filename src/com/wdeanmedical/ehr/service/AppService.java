@@ -188,7 +188,7 @@ public class AppService {
     dto.patientChartSummary.put("patientAllergens", appDAO.getPatientAllergens(patient));
     dto.patientChartSummary.put("patientMedications", appDAO.getPatientMedications(patient));
     dto.patientChartSummary.put("patientMedicalProcedures", appDAO.getPatientMedicalProcedures(patient));
-    activityLogService.logViewPatient(dto.getUsername(), patient.getId(), dto.getClinicianId());
+    activityLogService.logViewPatient(dto.getId(), patient.getId(), dto.getClinicianId());
     return true;
   }
   
@@ -232,7 +232,7 @@ public class AppService {
     dto.setProfileImagePath(patient.getDemo().getProfileImagePath());
     patient.setLastAccessed(new Date());
     appDAO.update(patient);
-    activityLogService.logViewPatient(dto.getUsername(), patient.getId(), dto.getClinicianId());
+    activityLogService.logViewPatient(dto.getId(), patient.getId(), dto.getClinicianId());
     return true;
   }
   
@@ -242,7 +242,8 @@ public class AppService {
     logger.info("======= logout() of clinician: " + clinicianName); 
     appDAO.unparkClinicianSession(dto.getSessionId());
     appDAO.deleteClinicianSession(dto.getSessionId());
-    activityLogService.logLogout(clinicianName, clinicianSession.getClinician().getId());
+    Integer userId = clinicianSession.getClinician().getId();
+    activityLogService.logLogout(userId);
   }
   
   public  void park(AuthorizedDTO dto) throws Exception {
@@ -273,7 +274,7 @@ public class AppService {
       clinicianSessionData.setClinicianSession(clinicianSession);
       logger.info("======= Added " + clinicianSession.toString()); 
     }
-    activityLogService.logLogin(clinician.getUsername(), clinician.getId());
+    activityLogService.logLogin(clinician.getId());
     return clinician;
   }
   
