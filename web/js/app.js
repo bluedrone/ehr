@@ -230,7 +230,7 @@ function exporter() {
     sessionId: clinician.sessionId 
   });
 	debug("json data: "+jsonData);
-	$.post("app/patientExport", {data:jsonData}, function(data) {
+	$.post("ext/patientExport", {data:jsonData}, function(data) {
 		var parsedData = $.parseJSON(data);
     var mypatients = parsedData.patients[0];
     debug("mypatients: "+JSON.stringify(mypatients));

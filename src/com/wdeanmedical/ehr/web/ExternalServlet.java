@@ -16,6 +16,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletConfig;
@@ -31,7 +32,9 @@ import javax.xml.bind.Marshaller;
 import com.wdeanmedical.ehr.dto.AdminDTO;
 import com.wdeanmedical.ehr.dto.PatientDTO;
 import com.wdeanmedical.ehr.entity.Encounter;
+import com.wdeanmedical.ehr.entity.FHIRIdentifierDT;
 import com.wdeanmedical.ehr.entity.FHIRPatient;
+import com.wdeanmedical.ehr.entity.FHIRPeriodDT;
 import com.wdeanmedical.ehr.entity.Patient;
 import com.wdeanmedical.ehr.service.AdminService;
 import com.wdeanmedical.ehr.service.AppService;
@@ -116,16 +119,15 @@ public class ExternalServlet extends AppServlet  {
       
     FHIRPatient fhirpatient = new FHIRPatient();
     //fhirpatient.name = patients.get(0).getCred().getFirstName();
-    fhirpatient.name.add(patients.get(0).getCred().getFirstName());
-    fhirpatient.name.add("john");
+//    fhirpatient.name.add(patients.get(0).getCred().getFirstName());
+//    fhirpatient.name.add("john");
       
-    FHIRPatient.Identifier inner = fhirpatient.getIdentifier();
-    inner.setUse("official");
-    fhirpatient.getIdentifiers().add(inner);
-   
-    FHIRPatient.Identifier inner2 = fhirpatient.getIdentifier();
-    inner2.setUse("madden");
-    fhirpatient.getIdentifiers().add(inner2);
+    FHIRIdentifierDT identifier = new FHIRIdentifierDT();
+    identifier.setUse("official");
+    FHIRPeriodDT period = new FHIRPeriodDT();
+    period.setStart(new Date());
+    identifier.setPeriod(period);
+    fhirpatient.getIdentifier().add(identifier);
       
     try {
       JAXBContext jaxbContext = JAXBContext.newInstance(FHIRPatient.class);
