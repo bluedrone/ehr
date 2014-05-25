@@ -217,9 +217,9 @@ function initPatientSearchTypeAheads() {
 }
 
 function exporter() {
-	$('#export').css({display: "none"});
-	var dob = util_processDob("#patient-search-dob", dob);
-	var jsonData = JSON.stringify({ 
+  $('#export').css({display: "none"});
+  var dob = util_processDob("#patient-search-dob", dob);
+  var jsonData = JSON.stringify({ 
     id: clinician.id, 
     firstNameFilter: patients[0].cred.firstName,
     middleNameFilter: patients[0].cred.middleName,
@@ -229,16 +229,16 @@ function exporter() {
     dobFilter: dob,
     sessionId: clinician.sessionId 
   });
-	debug("json data: "+jsonData);
-	$.post("ext/patientExport", {data:jsonData}, function(data) {
-		var parsedData = $.parseJSON(data);
+  debug("json data: "+jsonData);
+  $.post("ext/patientExport", {data:jsonData}, function(data) {
+    var parsedData = $.parseJSON(data);
     var mypatients = parsedData.patients[0];
     debug("mypatients: "+JSON.stringify(mypatients));
-	});
+  });
 }
 
 function patientSearch() {
- 	$('#export').css({display: "inline"});
+   $('#export').css({display: "inline"});
   var dob = util_processDob("#patient-search-dob", dob);
   var jsonData = JSON.stringify({ 
     id: clinician.id, 
@@ -292,7 +292,7 @@ function patientSearchDialog() {
     $('#btn-patient-search-ok').addClass('disabled');
     $('.clickable-table-row').removeClass('table-row-highlight');
     $('#btn-patient-search-search').click(function(){ patientSearch(); });
-		$('#export').click(function(){ exporter(); });
+    $('#export').click(function(){ exporter(); });
     $('#btn-patient-search-clear').click(function(){ clearPatientSearchForm(); });
     $('#btn-patient-search-ok').click(function(){ getPatientChart(); });
     $('#patient-search-dob').mask("99/99/9999");
