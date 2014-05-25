@@ -1,4 +1,4 @@
-package com.wdeanmedical.ehr.entity;
+package com.wdeanmedical.external.fhir;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;

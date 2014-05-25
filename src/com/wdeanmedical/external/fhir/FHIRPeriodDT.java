@@ -1,4 +1,4 @@
-package com.wdeanmedical.ehr.entity;
+package com.wdeanmedical.external.fhir;
 
 import java.util.Date;
 

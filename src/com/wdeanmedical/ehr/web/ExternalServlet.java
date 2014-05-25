@@ -32,14 +32,14 @@ import javax.xml.bind.Marshaller;
 import com.wdeanmedical.ehr.dto.AdminDTO;
 import com.wdeanmedical.ehr.dto.PatientDTO;
 import com.wdeanmedical.ehr.entity.Encounter;
-import com.wdeanmedical.ehr.entity.FHIRIdentifierDT;
-import com.wdeanmedical.ehr.entity.FHIRPatient;
-import com.wdeanmedical.ehr.entity.FHIRPeriodDT;
 import com.wdeanmedical.ehr.entity.Patient;
 import com.wdeanmedical.ehr.service.AdminService;
 import com.wdeanmedical.ehr.service.AppService;
 import com.wdeanmedical.ehr.service.PatientService;
 import com.wdeanmedical.ehr.core.Core;
+import com.wdeanmedical.external.fhir.FHIRIdentifierDT;
+import com.wdeanmedical.external.fhir.FHIRPatient;
+import com.wdeanmedical.external.fhir.FHIRPeriodDT;
 import com.google.gson.Gson;
 
 import org.apache.commons.io.IOUtils;
