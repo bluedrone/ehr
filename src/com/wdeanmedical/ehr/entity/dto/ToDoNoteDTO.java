@@ -11,11 +11,29 @@ import java.util.Date;
 
 public class ToDoNoteDTO {
 
+  private PatientDTO patient;
+  private ClinicianDTO clinician;
   private Date date;
   private String subject;
   private String content;
 
   public ToDoNoteDTO() {
+  }
+
+  public PatientDTO getPatient() {
+    return patient;
+  }
+
+  public void setPatient(PatientDTO patient) {
+    this.patient = patient;
+  }
+
+  public ClinicianDTO getClinician() {
+    return clinician;
+  }
+
+  public void setClinician(ClinicianDTO clinician) {
+    this.clinician = clinician;
   }
 
   public Date getDate() {
@@ -44,7 +62,8 @@ public class ToDoNoteDTO {
 
   @Override
   public String toString() {
-    return "ToDoNoteDTO [date=" + date + ", subject=" + subject + ", content=" + content + "]";
+    return "ToDoNoteDTO [patient=" + patient + ", clinician=" + clinician + ", date=" + date + ", subject=" + subject
+        + ", content=" + content + "]";
   }
 
 }

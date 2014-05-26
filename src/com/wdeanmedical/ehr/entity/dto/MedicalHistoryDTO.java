@@ -29,7 +29,7 @@ public class MedicalHistoryDTO {
   private Float smokeYearsQuit;
   private Float etohUnitsWeek;
   private String currentDrugs;
-  private List<EncounterMedicationDTO> encounterMedicationDTOList;
+  private List<EncounterMedicationDTO> encounterMedicationList;
 
   public MedicalHistoryDTO() {
   }
@@ -170,12 +170,12 @@ public class MedicalHistoryDTO {
     this.currentDrugs = currentDrugs;
   }
 
-  public List<EncounterMedicationDTO> getEncounterMedicationDTOList() {
-    return encounterMedicationDTOList;
+  public List<EncounterMedicationDTO> getEncounterMedicationList() {
+    return encounterMedicationList;
   }
 
-  public void setEncounterMedicationDTOList(List<EncounterMedicationDTO> encounterMedicationDTOList) {
-    this.encounterMedicationDTOList = encounterMedicationDTOList;
+  public void setEncounterMedicationList(List<EncounterMedicationDTO> encounterMedicationList) {
+    this.encounterMedicationList = encounterMedicationList;
   }
 
   @Override
@@ -185,7 +185,7 @@ public class MedicalHistoryDTO {
         + ", allergDrug=" + allergDrug + ", allergEnv=" + allergEnv + ", vacc=" + vacc + ", vaccNotes=" + vaccNotes
         + ", subst=" + subst + ", smokePksDay=" + smokePksDay + ", yearsSmoked=" + yearsSmoked + ", smokeYearsQuit="
         + smokeYearsQuit + ", etohUnitsWeek=" + etohUnitsWeek + ", currentDrugs=" + currentDrugs
-        + ", encounterMedicationDTOList=" + encounterMedicationDTOList + "]";
+        + ", encounterMedicationList=" + encounterMedicationList + "]";
   }
 
 }

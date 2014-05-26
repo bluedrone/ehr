@@ -17,13 +17,13 @@ public class DemographicsDTO {
   private String streetAddress1;
   private String streetAddress2;
   private String city;
-  private USStateDTO usStateDTO;
+  private USStateDTO usState;
   private String postalCode;
-  private CountryDTO countryDTO;
-  private EthnicityDTO ethnicityDTO;
-  private RaceDTO raceDTO;
-  private GenderDTO genderDTO;
-  private MaritalStatusDTO maritalStatusDTO;
+  private CountryDTO country;
+  private EthnicityDTO ethnicity;
+  private RaceDTO race;
+  private GenderDTO gender;
+  private MaritalStatusDTO maritalStatus;
   private String employmentStatus;
   private String employer;
   private String schoolStatus;
@@ -131,20 +131,20 @@ public class DemographicsDTO {
     this.city = city;
   }
 
-  public USStateDTO getUsStateDTO() {
-    return usStateDTO;
+  public USStateDTO getUsState() {
+    return usState;
   }
 
-  public void setUsStateDTO(USStateDTO usStateDTO) {
-    this.usStateDTO = usStateDTO;
+  public void setUsState(USStateDTO usState) {
+    this.usState = usState;
   }
 
-  public CountryDTO getCountryDTO() {
-    return countryDTO;
+  public CountryDTO getCountry() {
+    return country;
   }
 
-  public void setCountryDTO(CountryDTO countryDTO) {
-    this.countryDTO = countryDTO;
+  public void setCountry(CountryDTO country) {
+    this.country = country;
   }
 
   public String getEmployer() {
@@ -163,47 +163,47 @@ public class DemographicsDTO {
     this.schoolName = schoolName;
   }
 
-  public EthnicityDTO getEthnicityDTO() {
-    return ethnicityDTO;
+  public EthnicityDTO getEthnicity() {
+    return ethnicity;
   }
 
-  public void setEthnicityDTO(EthnicityDTO ethnicityDTO) {
-    this.ethnicityDTO = ethnicityDTO;
+  public void setEthnicityDTO(EthnicityDTO ethnicity) {
+    this.ethnicity = ethnicity;
   }
 
-  public RaceDTO getRaceDTO() {
-    return raceDTO;
+  public RaceDTO getRace() {
+    return race;
   }
 
-  public void setRaceDTO(RaceDTO raceDTO) {
-    this.raceDTO = raceDTO;
+  public void setRace(RaceDTO race) {
+    this.race = race;
   }
 
-  public GenderDTO getGenderDTO() {
-    return genderDTO;
+  public GenderDTO getGender() {
+    return gender;
   }
 
-  public void setGenderDTO(GenderDTO genderDTO) {
-    this.genderDTO = genderDTO;
+  public void setGender(GenderDTO gender) {
+    this.gender = gender;
   }
 
-  public MaritalStatusDTO getMaritalStatusDTO() {
-    return maritalStatusDTO;
+  public MaritalStatusDTO getMaritalStatus() {
+    return maritalStatus;
   }
 
-  public void setMaritalStatusDTO(MaritalStatusDTO maritalStatusDTO) {
-    this.maritalStatusDTO = maritalStatusDTO;
+  public void setMaritalStatus(MaritalStatusDTO maritalStatus) {
+    this.maritalStatus = maritalStatus;
   }
 
   @Override
   public String toString() {
     return "DemographicsDTO [patientId=" + patientId + ", primaryPhone=" + primaryPhone + ", secondaryPhone="
         + secondaryPhone + ", streetAddress1=" + streetAddress1 + ", streetAddress2=" + streetAddress2 + ", city="
-        + city + ", usStateDTO=" + usStateDTO + ", postalCode=" + postalCode + ", countryDTO=" + countryDTO
-        + ", ethnicityDTO=" + ethnicityDTO + ", raceDTO=" + raceDTO + ", genderDTO=" + genderDTO
-        + ", maritalStatusDTO=" + maritalStatusDTO + ", employmentStatus=" + employmentStatus + ", employer="
-        + employer + ", schoolStatus=" + schoolStatus + ", schoolName=" + schoolName + ", region=" + region + ", dob="
-        + dob + ", profileImagePath=" + profileImagePath + "]";
+        + city + ", usState=" + usState + ", postalCode=" + postalCode + ", country=" + country + ", ethnicity="
+        + ethnicity + ", race=" + race + ", gender=" + gender + ", maritalStatus=" + maritalStatus
+        + ", employmentStatus=" + employmentStatus + ", employer=" + employer + ", schoolStatus=" + schoolStatus
+        + ", schoolName=" + schoolName + ", region=" + region + ", dob=" + dob + ", profileImagePath="
+        + profileImagePath + "]";
   }
 
 }

@@ -44,7 +44,10 @@ import com.wdeanmedical.ehr.persistence.SiteDAO;
 import com.wdeanmedical.ehr.util.DashboardUtility;
 import com.wdeanmedical.ehr.util.OneWayPasswordEncoder;
 import com.wdeanmedical.ehr.entity.PatientStatus;
+import com.wdeanmedical.ehr.entity.dto.ClinicianScheduleDTO;
 import com.wdeanmedical.ehr.entity.dto.PatientMessageDTO;
+import com.wdeanmedical.ehr.entity.dto.ProgressNoteDTO;
+import com.wdeanmedical.ehr.entity.dto.ToDoNoteDTO;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
@@ -92,13 +95,13 @@ public class AppDAO extends SiteDAO {
   }
   
   
-  public  List<ClinicianSchedule> getClinicianSchedule(Clinician clinician) throws Exception {
+  public  List<ClinicianScheduleDTO> getClinicianSchedule(Clinician clinician) throws Exception {
     Session session = this.getSession();
     Criteria crit = session.createCriteria(ClinicianSchedule.class);
     crit.add(Restrictions.eq("clinician", clinician));
     crit.addOrder(Order.desc("date"));
     List<ClinicianSchedule> list =  crit.list();
-    return list;
+    return DashboardUtility.getClinicianScheduleDTOList(list);
   }
   
   public  List<LabReview> getLabReview(Clinician clinician) throws Exception {
@@ -110,13 +113,13 @@ public class AppDAO extends SiteDAO {
     return list;
   }
   
-  public  List<ToDoNote> getToDoNotes(Clinician clinician) throws Exception {
+  public  List<ToDoNoteDTO> getToDoNotes(Clinician clinician) throws Exception {
     Session session = this.getSession();
     Criteria crit = session.createCriteria(ToDoNote.class);
     crit.add(Restrictions.eq("clinician", clinician));
     crit.addOrder(Order.desc("date"));
     List<ToDoNote> list =  crit.list();
-    return list;
+    return DashboardUtility.getToDoNoteDTOList(list);
   }
   
   public  List<Clinician> getClinicians() throws Exception {
@@ -144,13 +147,13 @@ public class AppDAO extends SiteDAO {
     return list;
   }
   
-  public  List<ProgressNote> getProgressNotes(Clinician clinician) throws Exception {
+  public  List<ProgressNoteDTO> getProgressNotes(Clinician clinician) throws Exception {
     Session session = this.getSession();
     Criteria crit = session.createCriteria(ProgressNote.class);
     crit.add(Restrictions.eq("clinician", clinician));
     crit.addOrder(Order.desc("date"));
     List<ProgressNote> list =  crit.list();
-    return list;
+    return DashboardUtility.getProgressNoteDTOList(list);
   }
   
   public List<PatientMessageDTO> getPatientMessagesByClinician(Clinician clinician) throws Exception {
@@ -160,7 +163,7 @@ public class AppDAO extends SiteDAO {
     crit.add(Restrictions.eq("fromClinician", false));
     crit.addOrder(Order.desc("date"));
     List<PatientMessage> list =  crit.list();
-    return DashboardUtility.getPatientMessageDTO(list);
+    return DashboardUtility.getPatientMessageDTOList(list);
   }
   
   public List<PatientAllergen> getPatientAllergens(Patient patient) throws Exception {

@@ -11,6 +11,8 @@ import java.util.Date;
 
 public class ProgressNoteDTO {
 
+  private PatientDTO patient;
+  private ClinicianDTO clinician;
   private Date date;
   private String subject;
   private String content;
@@ -51,10 +53,26 @@ public class ProgressNoteDTO {
     this.completed = completed;
   }
 
+  public PatientDTO getPatient() {
+    return patient;
+  }
+
+  public void setPatient(PatientDTO patient) {
+    this.patient = patient;
+  }
+
+  public ClinicianDTO getClinician() {
+    return clinician;
+  }
+
+  public void setClinician(ClinicianDTO clinician) {
+    this.clinician = clinician;
+  }
+
   @Override
   public String toString() {
-    return "ProgressNoteDTO [date=" + date + ", subject=" + subject + ", content=" + content + ", completed="
-        + completed + "]";
+    return "ProgressNoteDTO [patient=" + patient + ", clinician=" + clinician + ", date=" + date + ", subject="
+        + subject + ", content=" + content + ", completed=" + completed + "]";
   }
 
 }

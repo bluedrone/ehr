@@ -10,11 +10,11 @@ package com.wdeanmedical.ehr.entity.dto;
 import java.util.Date;
 
 public class PatientMessageDTO {
-  private PatientDTO patientDTO;
+  private PatientDTO patient;
   private String subject;
   private Date date;
   private String from;
-  private ClinicianDTO clinicianDTO;
+  private ClinicianDTO clinician;
   private Boolean fromClinician;
   private Boolean readByRecipient;
   private String content;
@@ -79,27 +79,27 @@ public class PatientMessageDTO {
     this.readByRecipient = readByRecipient;
   }
 
-  public PatientDTO getPatientDTO() {
-    return patientDTO;
+  public PatientDTO getPatient() {
+    return patient;
   }
 
-  public void setPatientDTO(PatientDTO patientDTO) {
-    this.patientDTO = patientDTO;
+  public void setPatientDTO(PatientDTO patient) {
+    this.patient = patient;
   }
 
-  public ClinicianDTO getClinicianDTO() {
-    return clinicianDTO;
+  public ClinicianDTO getClinician() {
+    return clinician;
   }
 
-  public void setClinicianDTO(ClinicianDTO clinicianDTO) {
-    this.clinicianDTO = clinicianDTO;
+  public void setClinician(ClinicianDTO clinician) {
+    this.clinician = clinician;
   }
 
   @Override
   public String toString() {
-    return "PatientMessageDTO [patientDTO=" + patientDTO + ", subject=" + subject + ", date=" + date + ", from=" + from
-        + ", clinicianDTO=" + clinicianDTO + ", fromClinician=" + fromClinician + ", readByRecipient="
-        + readByRecipient + ", content=" + content + ", patientMessageTypeDTO=" + patientMessageTypeDTO + "]";
+    return "PatientMessageDTO [patientDTO=" + patient + ", subject=" + subject + ", date=" + date + ", from=" + from
+        + ", clinicianDTO=" + clinician + ", fromClinician=" + fromClinician + ", readByRecipient=" + readByRecipient
+        + ", content=" + content + ", patientMessageTypeDTO=" + patientMessageTypeDTO + "]";
   }
 
 }

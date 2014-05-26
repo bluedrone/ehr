@@ -21,7 +21,7 @@ public class PatientDTO {
 
   private CredentialsDTO cred;
   private DemographicsDTO demo;
-  private PFSHDTO pfshDTO;
+  private PFSHDTO pfsh;
   private MedicalHistoryDTO hist;
   private Integer currentEncounterId;
 
@@ -44,12 +44,12 @@ public class PatientDTO {
     this.demo = demo;
   }
 
-  public PFSHDTO getPfshDTO() {
-    return pfshDTO;
+  public PFSHDTO getPfsh() {
+    return pfsh;
   }
 
-  public void setPfshDTO(PFSHDTO pfshDTO) {
-    this.pfshDTO = pfshDTO;
+  public void setPfshDTO(PFSHDTO pfsh) {
+    this.pfsh = pfsh;
   }
 
   public MedicalHistoryDTO getHist() {
@@ -70,7 +70,7 @@ public class PatientDTO {
 
   @Override
   public String toString() {
-    return "PatientDTO [cred=" + cred + ", demo=" + demo + ", pfshDTO=" + pfshDTO + ", hist=" + hist
+    return "PatientDTO [cred=" + cred + ", demo=" + demo + ", pfsh=" + pfsh + ", hist=" + hist
         + ", currentEncounterId=" + currentEncounterId + "]";
   }
 

@@ -9,15 +9,13 @@ package com.wdeanmedical.ehr.entity.dto;
 
 import java.util.Date;
 
-
-public class ClinicianDTO{
+public class ClinicianDTO {
 
   public static final Integer STATUS_AUTHORIZED = 1;
   public static final Integer STATUS_NOT_FOUND = 0;
   public static final Integer STATUS_INVALID_PASSWORD = -1;
   public static final Integer STATUS_INACTIVE = -2;
 
-  private static final long serialVersionUID = 8014584895711544530L;
   private String username;
   private String password;
   private String firstName;
@@ -31,9 +29,9 @@ public class ClinicianDTO{
   private String fax;
   private String pager;
   private RoleDTO roleDTO;
-  private DivisionDTO divisionDTO;
-  private DepartmentDTO departmentDTO;
-  private CredentialDTO credentialDTO;
+  private DivisionDTO division;
+  private DepartmentDTO department;
+  private CredentialDTO credential;
   private boolean active;
   private boolean purged;
   private String salt;
@@ -46,7 +44,7 @@ public class ClinicianDTO{
   public ClinicianDTO() {
   }
 
-   public String getPassword() {
+  public String getPassword() {
     return password;
   }
 
@@ -54,7 +52,7 @@ public class ClinicianDTO{
     this.password = password;
   }
 
-   public String getFirstName() {
+  public String getFirstName() {
     return firstName;
   }
 
@@ -118,28 +116,28 @@ public class ClinicianDTO{
     this.pager = pager;
   }
 
-   public DivisionDTO getDivisionDTO() {
-    return divisionDTO;
+  public DivisionDTO getDivision() {
+    return division;
   }
 
-  public void setDivisionDTO(DivisionDTO divisionDTO) {
-    this.divisionDTO = divisionDTO;
+  public void setDivision(DivisionDTO division) {
+    this.division = division;
   }
 
-  public DepartmentDTO getDepartmentDTO() {
-    return departmentDTO;
+  public DepartmentDTO getDepartment() {
+    return department;
   }
 
-  public void setDepartmentDTO(DepartmentDTO departmentDTO) {
-    this.departmentDTO = departmentDTO;
+  public void setDepartment(DepartmentDTO department) {
+    this.department = department;
   }
 
-  public CredentialDTO getCredentialDTO() {
-    return credentialDTO;
+  public CredentialDTO getCredential() {
+    return credential;
   }
 
-  public void setCredentialDTO(CredentialDTO credentialDTO) {
-    this.credentialDTO = credentialDTO;
+  public void setCredential(CredentialDTO credential) {
+    this.credential = credential;
   }
 
   public boolean getActive() {
@@ -174,7 +172,7 @@ public class ClinicianDTO{
     this.lastLoginTime = lastLoginTime;
   }
 
-   public String getUsername() {
+  public String getUsername() {
     return username;
   }
 
@@ -198,7 +196,7 @@ public class ClinicianDTO{
     this.practiceName = practiceName;
   }
 
-   public RoleDTO getRoleDTO() {
+  public RoleDTO getRoleDTO() {
     return roleDTO;
   }
 
@@ -238,6 +236,15 @@ public class ClinicianDTO{
     this.sessionId = sessionId;
   }
 
-  
+  @Override
+  public String toString() {
+    return "ClinicianDTO [username=" + username + ", password=" + password + ", firstName=" + firstName
+        + ", middleName=" + middleName + ", lastName=" + lastName + ", primaryPhone=" + primaryPhone
+        + ", secondaryPhone=" + secondaryPhone + ", groupName=" + groupName + ", practiceName=" + practiceName
+        + ", email=" + email + ", fax=" + fax + ", pager=" + pager + ", roleDTO=" + roleDTO + ", division=" + division
+        + ", department=" + department + ", credential=" + credential + ", active=" + active + ", purged=" + purged
+        + ", salt=" + salt + ", authStatus=" + authStatus + ", sessionId=" + sessionId + ", lastLoginTime="
+        + lastLoginTime + ", previousLoginTime=" + previousLoginTime + ", adminUser=" + adminUser + "]";
+  }
 
 }

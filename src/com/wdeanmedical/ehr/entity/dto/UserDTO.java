@@ -26,10 +26,10 @@ public class UserDTO {
   private String email;
   private String fax;
   private String pager;
-  private DivisionDTO divisionDTO;
-  private DepartmentDTO departmentDTO;
-  private RoleDTO roleDTO;
-  private CredentialDTO credentialDTO;
+  private DivisionDTO division;
+  private DepartmentDTO department;
+  private RoleDTO role;
+  private CredentialDTO credential;
   private boolean active;
   private boolean purged;
   private String salt;
@@ -121,36 +121,36 @@ public class UserDTO {
     this.pager = pager;
   }
 
-  public DivisionDTO getDivisionDTO() {
-    return divisionDTO;
+  public DivisionDTO getDivision() {
+    return division;
   }
 
-  public void setDivisionDTO(DivisionDTO divisionDTO) {
-    this.divisionDTO = divisionDTO;
+  public void setDivision(DivisionDTO division) {
+    this.division = division;
   }
 
-  public DepartmentDTO getDepartmentDTO() {
-    return departmentDTO;
+  public DepartmentDTO getDepartment() {
+    return department;
   }
 
-  public void setDepartmentDTO(DepartmentDTO departmentDTO) {
-    this.departmentDTO = departmentDTO;
+  public void setDepartment(DepartmentDTO department) {
+    this.department = department;
   }
 
-  public CredentialDTO getCredentialDTO() {
-    return credentialDTO;
+  public CredentialDTO getCredential() {
+    return credential;
   }
 
-  public void setCredentialDTO(CredentialDTO credentialDTO) {
-    this.credentialDTO = credentialDTO;
+  public void setCredential(CredentialDTO credential) {
+    this.credential = credential;
   }
 
-  public RoleDTO getRoleDTO() {
-    return roleDTO;
+  public RoleDTO getRole() {
+    return role;
   }
 
-  public void setRoleDTO(RoleDTO roleDTO) {
-    this.roleDTO = roleDTO;
+  public void setRole(RoleDTO role) {
+    this.role = role;
   }
 
   public boolean getActive() {
@@ -213,11 +213,10 @@ public class UserDTO {
   public String toString() {
     return "UserDTO [username=" + username + ", password=" + password + ", firstName=" + firstName + ", middleName="
         + middleName + ", lastName=" + lastName + ", primaryPhone=" + primaryPhone + ", secondaryPhone="
-        + secondaryPhone + ", email=" + email + ", fax=" + fax + ", pager=" + pager + ", divisionDTO=" + divisionDTO
-        + ", departmentDTO=" + departmentDTO + ", roleDTO=" + roleDTO + ", credentialDTO=" + credentialDTO
-        + ", active=" + active + ", purged=" + purged + ", salt=" + salt + ", authStatus=" + authStatus
-        + ", sessionId=" + sessionId + ", lastLoginTime=" + lastLoginTime + ", previousLoginTime=" + previousLoginTime
-        + "]";
+        + secondaryPhone + ", email=" + email + ", fax=" + fax + ", pager=" + pager + ", division=" + division
+        + ", department=" + department + ", role=" + role + ", credential=" + credential + ", active=" + active
+        + ", purged=" + purged + ", salt=" + salt + ", authStatus=" + authStatus + ", sessionId=" + sessionId
+        + ", lastLoginTime=" + lastLoginTime + ", previousLoginTime=" + previousLoginTime + "]";
   }
 
 }

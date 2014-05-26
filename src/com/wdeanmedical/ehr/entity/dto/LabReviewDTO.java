@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class LabReviewDTO {
 
+  private PatientDTO patient;
+  private ClinicianDTO clinician;
   private Date date;
   private String name;
   private String value;
@@ -35,9 +37,26 @@ public class LabReviewDTO {
     this.value = value;
   }
 
+  public PatientDTO getPatient() {
+    return patient;
+  }
+
+  public void setPatient(PatientDTO patient) {
+    this.patient = patient;
+  }
+
+  public ClinicianDTO getClinician() {
+    return clinician;
+  }
+
+  public void setClinician(ClinicianDTO clinician) {
+    this.clinician = clinician;
+  }
+
   @Override
   public String toString() {
-    return "LabReviewDTO [date=" + date + ", name=" + name + ", value=" + value + "]";
+    return "LabReviewDTO [patient=" + patient + ", clinician=" + clinician + ", date=" + date + ", name=" + name
+        + ", value=" + value + "]";
   }
 
 }

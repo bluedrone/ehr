@@ -11,10 +11,12 @@ import java.util.Date;
 
 public class ClinicianScheduleDTO {
 
+  private PatientDTO patient;
+  private ClinicianDTO clinician;
   private Date date;
   private String length;
   private float age;
-  private GenderDTO genderDTO;
+  private GenderDTO gender;
   private String reason;
   private String comments;
   private String status;
@@ -51,12 +53,12 @@ public class ClinicianScheduleDTO {
     this.age = age;
   }
 
-  public GenderDTO getGenderDTO() {
-    return genderDTO;
+  public GenderDTO getGender() {
+    return gender;
   }
 
-  public void setGenderDTO(GenderDTO genderDTO) {
-    this.genderDTO = genderDTO;
+  public void setGender(GenderDTO gender) {
+    this.gender = gender;
   }
 
   public String getReason() {
@@ -123,12 +125,28 @@ public class ClinicianScheduleDTO {
     this.progressNoteStatus = progressNoteStatus;
   }
 
+  public PatientDTO getPatient() {
+    return patient;
+  }
+
+  public void setPatient(PatientDTO patient) {
+    this.patient = patient;
+  }
+
+  public ClinicianDTO getClinician() {
+    return clinician;
+  }
+
+  public void setClinician(ClinicianDTO clinician) {
+    this.clinician = clinician;
+  }
+
   @Override
   public String toString() {
-    return "ClinicianScheduleDTO [date=" + date + ", length=" + length + ", age=" + age + ", genderDTO=" + genderDTO
-        + ", reason=" + reason + ", comments=" + comments + ", status=" + status + ", patientLocation="
-        + patientLocation + ", room=" + room + ", checkedIn=" + checkedIn + ", waitTime=" + waitTime
-        + ", progressNoteStatus=" + progressNoteStatus + "]";
+    return "ClinicianScheduleDTO [patient=" + patient + ", clinician=" + clinician + ", date=" + date + ", length="
+        + length + ", age=" + age + ", gender=" + gender + ", reason=" + reason + ", comments=" + comments
+        + ", status=" + status + ", patientLocation=" + patientLocation + ", room=" + room + ", checkedIn=" + checkedIn
+        + ", waitTime=" + waitTime + ", progressNoteStatus=" + progressNoteStatus + "]";
   }
 
 }

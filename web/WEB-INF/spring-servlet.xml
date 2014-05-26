@@ -27,13 +27,13 @@
             <value>com.mysql.jdbc.Driver</value>
         </property>
         <property name="jdbcUrl">
-            <value>jdbc:mysql://localhost/wdm</value>
+            <value>jdbc:mysql://localhost:3306/wdm</value>
         </property>
         <property name="user">
-            <value>wdm</value>
+            <value>root</value>
         </property>
         <property name="password">
-            <value>wdm</value>
+            <value>Pass1234</value>
         </property>
 
         <property name="initialPoolSize">
