@@ -353,7 +353,7 @@ function getClinicianDashboard() {
       clickable:true, 
       columns:[
         {title:'Date', field:'date', type:'date'}, 
-        {title:'From', field:'patient.cred.firstName', type:'triple-person'}, 
+        {title:'From', field:'patientDTO.cred.firstName', type:'triple-person'}, 
         {title:'Subject', field:'subject', type:'simple'}
       ]}, function(s) {
         $('#clinician-dashboard-messages').html(s);

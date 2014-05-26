@@ -41,8 +41,10 @@ import com.wdeanmedical.ehr.entity.VitalSigns;
 import com.wdeanmedical.ehr.entity.ProgressNote;
 import com.wdeanmedical.ehr.entity.ToDoNote;
 import com.wdeanmedical.ehr.persistence.SiteDAO;
+import com.wdeanmedical.ehr.util.DashboardUtility;
 import com.wdeanmedical.ehr.util.OneWayPasswordEncoder;
 import com.wdeanmedical.ehr.entity.PatientStatus;
+import com.wdeanmedical.ehr.entity.dto.PatientMessageDTO;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
@@ -151,14 +153,14 @@ public class AppDAO extends SiteDAO {
     return list;
   }
   
-  public List<PatientMessage> getPatientMessagesByClinician(Clinician clinician) throws Exception {
+  public List<PatientMessageDTO> getPatientMessagesByClinician(Clinician clinician) throws Exception {
     Session session = this.getSession();
     Criteria crit = session.createCriteria(PatientMessage.class);
     crit.add(Restrictions.eq("clinician", clinician));
     crit.add(Restrictions.eq("fromClinician", false));
     crit.addOrder(Order.desc("date"));
     List<PatientMessage> list =  crit.list();
-    return list;
+    return DashboardUtility.getPatientMessageDTO(list);
   }
   
   public List<PatientAllergen> getPatientAllergens(Patient patient) throws Exception {
