@@ -7,24 +7,24 @@ import java.util.List;
 import javax.xml.bind.annotation.*;
 
 @XmlRootElement(name="patient")
-public class FHIRPatient {
+public class PatientFHIR {
 	 
   private List<Identifier> identifier = new ArrayList<Identifier>();
   private List<HumanName> name = new ArrayList<HumanName>();
-//  private List<Contact> telecom = new ArrayList<Contact>();
+  private List<Contact> telecom = new ArrayList<Contact>();
   private CodeableConcept gender;
   private Date birthDate;
   private Boolean deceasedBoolean;
   private Date deceasedDate;
-//  private List<Address> address = new ArrayList<Address>();
+  private List<Address> address = new ArrayList<Address>();
   private Boolean multipleBirthBoolean;
   private Integer multipleBirthInteger;
 //  private List<Attachment> photo = new ArrayList<Attachment>();
-//  private List<Contact> contact =  new ArrayList<Contact>();
+  private List<Contact> contact =  new ArrayList<Contact>();
   private List<CodeableConcept> communication = new ArrayList<CodeableConcept>();
   private List<ResourceReference> careProvider = new ArrayList<ResourceReference>();
   private ResourceReference managingOrganization;
-//  private List<FHIRLinkDT> link = new ArrayList<Link>();
+  private List<Link> link = new ArrayList<Link>();
   private Boolean active;
   
   public List<Identifier> getIdentifier() {

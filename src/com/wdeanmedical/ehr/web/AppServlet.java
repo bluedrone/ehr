@@ -33,7 +33,6 @@ import com.wdeanmedical.ehr.entity.PatientMessage;
 import com.wdeanmedical.ehr.entity.Clinician;
 import com.wdeanmedical.ehr.service.AppService;
 import com.wdeanmedical.ehr.dto.MessageDTO;
-import com.wdeanmedical.external.fhir.FHIRPatient;
 import com.google.gson.Gson;
 
 import org.apache.log4j.Logger;

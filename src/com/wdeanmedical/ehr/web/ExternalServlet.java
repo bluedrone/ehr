@@ -38,7 +38,7 @@ import com.wdeanmedical.ehr.service.AppService;
 import com.wdeanmedical.ehr.service.PatientService;
 import com.wdeanmedical.ehr.core.Core;
 import com.wdeanmedical.external.fhir.Identifier;
-import com.wdeanmedical.external.fhir.FHIRPatient;
+import com.wdeanmedical.external.fhir.PatientFHIR;
 import com.wdeanmedical.external.fhir.Period;
 import com.google.gson.Gson;
 
@@ -117,7 +117,7 @@ public class ExternalServlet extends AppServlet  {
     List<Patient> patients = appService.getPatients(dto); 
     dto.setPatients(patients);
       
-    FHIRPatient fhirpatient = new FHIRPatient();
+    PatientFHIR fhirpatient = new PatientFHIR();
     //fhirpatient.name = patients.get(0).getCred().getFirstName();
 //    fhirpatient.name.add(patients.get(0).getCred().getFirstName());
 //    fhirpatient.name.add("john");
@@ -130,7 +130,7 @@ public class ExternalServlet extends AppServlet  {
     fhirpatient.getIdentifier().add(identifier);
       
     try {
-      JAXBContext jaxbContext = JAXBContext.newInstance(FHIRPatient.class);
+      JAXBContext jaxbContext = JAXBContext.newInstance(PatientFHIR.class);
       Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
       jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
       jaxbMarshaller.marshal(fhirpatient, System.out);
