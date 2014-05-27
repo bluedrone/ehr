@@ -3,7 +3,7 @@ package com.wdeanmedical.external.fhir;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class FHIRResourceReferenceDT {
+public class ResourceReference {
   
   private String reference;
   private String display;

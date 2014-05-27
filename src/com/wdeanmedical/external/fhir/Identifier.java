@@ -3,14 +3,14 @@ package com.wdeanmedical.external.fhir;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="identifier")
-public class FHIRIdentifierDT {
+public class Identifier {
   
   private String use;
   private String label;
   private String system;
   private String value;
   private Period period;
-  private FHIRAssignerDT assigner;
+  private Assigner assigner;
   
   public String getUse() {
     return use;
@@ -42,10 +42,10 @@ public class FHIRIdentifierDT {
   public void setPeriod(Period period) {
     this.period = period;
   }
-  public FHIRAssignerDT getAssigner() {
+  public Assigner getAssigner() {
     return assigner;
   }
-  public void setAssigner(FHIRAssignerDT assigner) {
+  public void setAssigner(Assigner assigner) {
     this.assigner = assigner;
   }
 

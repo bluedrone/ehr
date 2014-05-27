@@ -6,15 +6,15 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class FHIRCodeableConceptDT {
+public class CodeableConcept {
   
-  private List<FHIRCodingDT> coding = new ArrayList<FHIRCodingDT>();
+  private List<Coding> coding = new ArrayList<Coding>();
   private String text;
   
-  public List<FHIRCodingDT> getCoding() {
+  public List<Coding> getCoding() {
     return coding;
   }
-  public void setCoding(List<FHIRCodingDT> coding) {
+  public void setCoding(List<Coding> coding) {
     this.coding = coding;
   }
   public String getText() {

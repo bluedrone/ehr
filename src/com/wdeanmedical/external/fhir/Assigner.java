@@ -4,15 +4,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 @XmlRootElement(name="assigner")
-public class FHIRAssignerDT {
+public class Assigner {
   
-  private FHIRResourceReferenceDT referenceResource;
+  private ResourceReference referenceResource;
 
-  public FHIRResourceReferenceDT getReferenceResource() {
+  public ResourceReference getReferenceResource() {
     return referenceResource;
   }
 
-  public void setReferenceResource(FHIRResourceReferenceDT referenceResource) {
+  public void setReferenceResource(ResourceReference referenceResource) {
     this.referenceResource = referenceResource;
   }
 

@@ -37,7 +37,7 @@ import com.wdeanmedical.ehr.service.AdminService;
 import com.wdeanmedical.ehr.service.AppService;
 import com.wdeanmedical.ehr.service.PatientService;
 import com.wdeanmedical.ehr.core.Core;
-import com.wdeanmedical.external.fhir.FHIRIdentifierDT;
+import com.wdeanmedical.external.fhir.Identifier;
 import com.wdeanmedical.external.fhir.FHIRPatient;
 import com.wdeanmedical.external.fhir.Period;
 import com.google.gson.Gson;
@@ -122,7 +122,7 @@ public class ExternalServlet extends AppServlet  {
 //    fhirpatient.name.add(patients.get(0).getCred().getFirstName());
 //    fhirpatient.name.add("john");
       
-    FHIRIdentifierDT identifier = new FHIRIdentifierDT();
+    Identifier identifier = new Identifier();
     identifier.setUse("official");
     Period period = new Period();
     period.setStart(new Date());

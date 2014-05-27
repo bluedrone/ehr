@@ -9,10 +9,10 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement(name="patient")
 public class FHIRPatient {
 	 
-  private List<FHIRIdentifierDT> identifier = new ArrayList<FHIRIdentifierDT>();
-  private List<FHIRHumanNameDT> name = new ArrayList<FHIRHumanNameDT>();
+  private List<Identifier> identifier = new ArrayList<Identifier>();
+  private List<HumanName> name = new ArrayList<HumanName>();
 //  private List<Contact> telecom = new ArrayList<Contact>();
-  private FHIRCodeableConceptDT gender;
+  private CodeableConcept gender;
   private Date birthDate;
   private Boolean deceasedBoolean;
   private Date deceasedDate;
@@ -21,28 +21,28 @@ public class FHIRPatient {
   private Integer multipleBirthInteger;
 //  private List<Attachment> photo = new ArrayList<Attachment>();
 //  private List<Contact> contact =  new ArrayList<Contact>();
-  private List<FHIRCodeableConceptDT> communication = new ArrayList<FHIRCodeableConceptDT>();
-  private List<FHIRResourceReferenceDT> careProvider = new ArrayList<FHIRResourceReferenceDT>();
-  private FHIRResourceReferenceDT managingOrganization;
+  private List<CodeableConcept> communication = new ArrayList<CodeableConcept>();
+  private List<ResourceReference> careProvider = new ArrayList<ResourceReference>();
+  private ResourceReference managingOrganization;
 //  private List<FHIRLinkDT> link = new ArrayList<Link>();
   private Boolean active;
   
-  public List<FHIRIdentifierDT> getIdentifier() {
+  public List<Identifier> getIdentifier() {
     return identifier;
   }
-  public void setIdentifier(List<FHIRIdentifierDT> identifier) {
+  public void setIdentifier(List<Identifier> identifier) {
     this.identifier = identifier;
   }
-  public List<FHIRHumanNameDT> getName() {
+  public List<HumanName> getName() {
     return name;
   }
-  public void setName(List<FHIRHumanNameDT> name) {
+  public void setName(List<HumanName> name) {
     this.name = name;
   }
-  public FHIRCodeableConceptDT getGender() {
+  public CodeableConcept getGender() {
     return gender;
   }
-  public void setGender(FHIRCodeableConceptDT gender) {
+  public void setGender(CodeableConcept gender) {
     this.gender = gender;
   }
   public Date getBirthDate() {
@@ -75,22 +75,22 @@ public class FHIRPatient {
   public void setMultipleBirthInteger(Integer multipleBirthInteger) {
     this.multipleBirthInteger = multipleBirthInteger;
   }
-  public List<FHIRCodeableConceptDT> getCommunication() {
+  public List<CodeableConcept> getCommunication() {
     return communication;
   }
-  public void setCommunication(List<FHIRCodeableConceptDT> communication) {
+  public void setCommunication(List<CodeableConcept> communication) {
     this.communication = communication;
   }
-  public List<FHIRResourceReferenceDT> getCareProvider() {
+  public List<ResourceReference> getCareProvider() {
     return careProvider;
   }
-  public void setCareProvider(List<FHIRResourceReferenceDT> careProvider) {
+  public void setCareProvider(List<ResourceReference> careProvider) {
     this.careProvider = careProvider;
   }
-  public FHIRResourceReferenceDT getManagingOrganization() {
+  public ResourceReference getManagingOrganization() {
     return managingOrganization;
   }
-  public void setManagingOrganization(FHIRResourceReferenceDT managingOrganization) {
+  public void setManagingOrganization(ResourceReference managingOrganization) {
     this.managingOrganization = managingOrganization;
   }
   public Boolean getActive() {

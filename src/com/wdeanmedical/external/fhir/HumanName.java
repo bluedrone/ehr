@@ -5,7 +5,7 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="name")
-public class FHIRHumanNameDT {
+public class HumanName {
   
   private String use;
   private String text;
