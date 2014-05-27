@@ -5,7 +5,7 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="period")
-public class FHIRPeriodDT {
+public class Period {
   
   private Date start;
   private Date end;

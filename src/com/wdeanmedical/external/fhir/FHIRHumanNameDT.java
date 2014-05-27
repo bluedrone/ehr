@@ -13,7 +13,7 @@ public class FHIRHumanNameDT {
   private List<String> given;
   private List<String> prefix;
   private List<String> suffix;
-  private FHIRPeriodDT period;
+  private Period period;
   
   public String getUse() {
     return use;
@@ -51,10 +51,10 @@ public class FHIRHumanNameDT {
   public void setSuffix(List<String> suffix) {
     this.suffix = suffix;
   }
-  public FHIRPeriodDT getPeriod() {
+  public Period getPeriod() {
     return period;
   }
-  public void setPeriod(FHIRPeriodDT period) {
+  public void setPeriod(Period period) {
     this.period = period;
   }
 

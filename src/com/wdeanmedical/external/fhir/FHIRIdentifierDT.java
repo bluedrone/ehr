@@ -9,7 +9,7 @@ public class FHIRIdentifierDT {
   private String label;
   private String system;
   private String value;
-  private FHIRPeriodDT period;
+  private Period period;
   private FHIRAssignerDT assigner;
   
   public String getUse() {
@@ -36,10 +36,10 @@ public class FHIRIdentifierDT {
   public void setValue(String value) {
     this.value = value;
   }
-  public FHIRPeriodDT getPeriod() {
+  public Period getPeriod() {
     return period;
   }
-  public void setPeriod(FHIRPeriodDT period) {
+  public void setPeriod(Period period) {
     this.period = period;
   }
   public FHIRAssignerDT getAssigner() {
