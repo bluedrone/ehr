@@ -166,20 +166,22 @@ public class DashboardUtility {
       PatientDTO patientDTO = new PatientDTO();
       CredentialsDTO credentialsDTO = new CredentialsDTO();
       DemographicsDTO demographicsDTO = new DemographicsDTO();
-      if (clinicianSchedule.getPatient() != null && clinicianSchedule.getPatient().getCred() != null) {
-        credentialsDTO.setPatientId(clinicianSchedule.getPatient().getCred().getPatientId());
-        credentialsDTO.setMrn(clinicianSchedule.getPatient().getCred().getMrn());
-        credentialsDTO.setFirstName(clinicianSchedule.getPatient().getCred().getFirstName());
-        credentialsDTO.setMiddleName(clinicianSchedule.getPatient().getCred().getMiddleName());
-        credentialsDTO.setLastName(clinicianSchedule.getPatient().getCred().getLastName());
-        credentialsDTO.setAdditionalName(clinicianSchedule.getPatient().getCred().getAdditionalName());
-      } 
-      if (clinicianSchedule.getPatient() != null && clinicianSchedule.getPatient().getDemo() != null) {
-        GenderDTO genderDTO = new GenderDTO();
-        genderDTO.setCode(clinicianSchedule.getPatient().getDemo().getGender().getCode());
-        genderDTO.setName(clinicianSchedule.getPatient().getDemo().getGender().getName());
-        demographicsDTO.setGender(genderDTO);
-      }
+      if (clinicianSchedule.getPatient() != null) {
+        if(clinicianSchedule.getPatient().getCred() != null){
+          credentialsDTO.setPatientId(clinicianSchedule.getPatient().getCred().getPatientId());
+          credentialsDTO.setMrn(clinicianSchedule.getPatient().getCred().getMrn());
+          credentialsDTO.setFirstName(clinicianSchedule.getPatient().getCred().getFirstName());
+          credentialsDTO.setMiddleName(clinicianSchedule.getPatient().getCred().getMiddleName());
+          credentialsDTO.setLastName(clinicianSchedule.getPatient().getCred().getLastName());
+          credentialsDTO.setAdditionalName(clinicianSchedule.getPatient().getCred().getAdditionalName());
+        }
+        if (clinicianSchedule.getPatient().getDemo() != null) {
+          GenderDTO genderDTO = new GenderDTO();
+          genderDTO.setCode(clinicianSchedule.getPatient().getDemo().getGender().getCode());
+          genderDTO.setName(clinicianSchedule.getPatient().getDemo().getGender().getName());
+          demographicsDTO.setGender(genderDTO);
+        }
+      }      
       patientDTO.setDemo(demographicsDTO);
       patientDTO.setCred(credentialsDTO);
       clinicianScheduleDTO.setPatient(patientDTO);
