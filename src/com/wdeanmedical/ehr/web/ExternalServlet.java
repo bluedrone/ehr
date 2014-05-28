@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -37,6 +38,8 @@ import com.wdeanmedical.ehr.service.AdminService;
 import com.wdeanmedical.ehr.service.AppService;
 import com.wdeanmedical.ehr.service.PatientService;
 import com.wdeanmedical.ehr.core.Core;
+import com.wdeanmedical.external.fhir.Address;
+import com.wdeanmedical.external.fhir.HumanName;
 import com.wdeanmedical.external.fhir.Identifier;
 import com.wdeanmedical.external.fhir.PatientFHIR;
 import com.wdeanmedical.external.fhir.Period;
@@ -116,18 +119,32 @@ public class ExternalServlet extends AppServlet  {
     PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
     List<Patient> patients = appService.getPatients(dto); 
     dto.setPatients(patients);
-      
+     System.out.println("number of patients: "+patients.size());
     PatientFHIR fhirpatient = new PatientFHIR();
-    //fhirpatient.name = patients.get(0).getCred().getFirstName();
-//    fhirpatient.name.add(patients.get(0).getCred().getFirstName());
-//    fhirpatient.name.add("john");
       
     Identifier identifier = new Identifier();
-    identifier.setUse("official");
-    Period period = new Period();
-    period.setStart(new Date());
-    identifier.setPeriod(period);
+    identifier.setValue(patients.get(0).getCred().getMrn());
     fhirpatient.getIdentifier().add(identifier);
+    
+    HumanName name = new HumanName();
+    List<String> family = new ArrayList<String>();
+    family.add(patients.get(0).getCred().getLastName());
+    name.setFamily(family);
+    List<String> given = new ArrayList<String>();
+    given.add(patients.get(0).getCred().getFirstName());
+    given.add(patients.get(0).getCred().getMiddleName());
+    name.setGiven(given);
+    fhirpatient.getName().add(name);
+    
+    Address address = new Address();
+    List<String> line = new ArrayList<String>();
+    line.add(patients.get(0).getDemo().getStreetAddress1());
+    address.setLine(line);
+    address.setCity(patients.get(0).getDemo().getCity());
+    address.setState(patients.get(0).getDemo().getUsState().getName());
+    address.setZip(patients.get(0).getDemo().getPostalCode());
+    address.setCountry(patients.get(0).getDemo().getCountry().getName());
+    fhirpatient.getAddress().add(address);
       
     try {
       JAXBContext jaxbContext = JAXBContext.newInstance(PatientFHIR.class);

@@ -11,7 +11,32 @@ public class PatientFHIR {
 	 
   private List<Identifier> identifier = new ArrayList<Identifier>();
   private List<HumanName> name = new ArrayList<HumanName>();
-  private List<Contact> telecom = new ArrayList<Contact>();
+  private List<Telecom> telecom = new ArrayList<Telecom>();
+  
+  public List<Telecom> getTelecom() {
+    return telecom;
+  }
+  public void setTelecom(List<Telecom> telecom) {
+    this.telecom = telecom;
+  }
+  public List<Address> getAddress() {
+    return address;
+  }
+  public void setAddress(List<Address> address) {
+    this.address = address;
+  }
+  public List<Contact> getContact() {
+    return contact;
+  }
+  public void setContact(List<Contact> contact) {
+    this.contact = contact;
+  }
+  public List<Link> getLink() {
+    return link;
+  }
+  public void setLink(List<Link> link) {
+    this.link = link;
+  }
   private CodeableConcept gender;
   private Date birthDate;
   private Boolean deceasedBoolean;

@@ -1,5 +1,6 @@
 package com.wdeanmedical.external.fhir;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -9,10 +10,10 @@ public class HumanName {
   
   private String use;
   private String text;
-  private List<String> family;
-  private List<String> given;
-  private List<String> prefix;
-  private List<String> suffix;
+  private List<String> family = new ArrayList<String>();
+  private List<String> given = new ArrayList<String>();
+  private List<String> prefix = new ArrayList<String>();
+  private List<String> suffix = new ArrayList<String>();
   private Period period;
   
   public String getUse() {

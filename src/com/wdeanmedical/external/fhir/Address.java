@@ -1,5 +1,8 @@
 package com.wdeanmedical.external.fhir;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -7,7 +10,7 @@ public class Address {
   
   private String use;
   private String text;
-  private String line;
+  private List<String> line = new ArrayList<String>();
   private String city;
   private String state;
   private String zip;
@@ -26,10 +29,10 @@ public class Address {
   public void setText(String text) {
     this.text = text;
   }
-  public String getLine() {
+  public List<String> getLine() {
     return line;
   }
-  public void setLine(String line) {
+  public void setLine(List<String> line) {
     this.line = line;
   }
   public String getCity() {

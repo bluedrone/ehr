@@ -5,45 +5,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="telecom")
 public class Contact {
   
-  private String system;
-  private String value;
-  private String use;
-  private Period period;
-  private String relationship;
+  private Relationship relationship;
   private HumanName name;
-  private Contact telecom;
+  private Telecom telecom;
   private Address address;
   private String gender;
   private ResourceReference organization;
-  
-  public String getSystem() {
-    return system;
-  }
-  public void setSystem(String system) {
-    this.system = system;
-  }
-  public String getValue() {
-    return value;
-  }
-  public void setValue(String value) {
-    this.value = value;
-  }
-  public String getUse() {
-    return use;
-  }
-  public void setUse(String use) {
-    this.use = use;
-  }
-  public Period getPeriod() {
-    return period;
-  }
-  public void setPeriod(Period period) {
-    this.period = period;
-  }
-  public String getRelationship() {
+
+  public Relationship getRelationship() {
     return relationship;
   }
-  public void setRelationship(String relationship) {
+  public void setRelationship(Relationship relationship) {
     this.relationship = relationship;
   }
   public HumanName getName() {
@@ -52,10 +24,10 @@ public class Contact {
   public void setName(HumanName name) {
     this.name = name;
   }
-  public Contact getTelecom() {
+  public Telecom getTelecom() {
     return telecom;
   }
-  public void setTelecom(Contact telecom) {
+  public void setTelecom(Telecom telecom) {
     this.telecom = telecom;
   }
   public Address getAddress() {
