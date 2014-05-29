@@ -39,10 +39,14 @@ import com.wdeanmedical.ehr.service.AppService;
 import com.wdeanmedical.ehr.service.PatientService;
 import com.wdeanmedical.ehr.core.Core;
 import com.wdeanmedical.external.fhir.Address;
+import com.wdeanmedical.external.fhir.CodeableConcept;
+import com.wdeanmedical.external.fhir.Coding;
+import com.wdeanmedical.external.fhir.Gender;
 import com.wdeanmedical.external.fhir.HumanName;
 import com.wdeanmedical.external.fhir.Identifier;
 import com.wdeanmedical.external.fhir.PatientFHIR;
 import com.wdeanmedical.external.fhir.Period;
+import com.wdeanmedical.external.fhir.Telecom;
 import com.google.gson.Gson;
 
 import org.apache.commons.io.IOUtils;
@@ -119,8 +123,11 @@ public class ExternalServlet extends AppServlet  {
     PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
     List<Patient> patients = appService.getPatients(dto); 
     dto.setPatients(patients);
-     System.out.println("number of patients: "+patients.size());
+//     System.out.println("number of patients: "+patients.size());
+//     System.out.println("all aatients: "+patients);
     PatientFHIR fhirpatient = new PatientFHIR();
+    
+    fhirpatient.setBirthDate(patients.get(0).getDemo().getDob());
       
     Identifier identifier = new Identifier();
     identifier.setValue(patients.get(0).getCred().getMrn());
@@ -135,6 +142,20 @@ public class ExternalServlet extends AppServlet  {
     given.add(patients.get(0).getCred().getMiddleName());
     name.setGiven(given);
     fhirpatient.getName().add(name);
+    
+    Telecom telecom = new Telecom();
+    telecom.setValue(patients.get(0).getCred().getEmail());
+    fhirpatient.getTelecom().add(telecom);
+    Telecom telecom2 = new Telecom();
+    telecom2.setValue(patients.get(0).getDemo().getPrimaryPhone());
+    fhirpatient.getTelecom().add(telecom2);
+    
+    Coding coding = new Coding();
+    coding.setCode(patients.get(0).getDemo().getGender().getCode());
+    coding.setDisplay(patients.get(0).getDemo().getGender().getName());
+    Gender gender = new Gender();
+    gender.setCoding(coding);
+    fhirpatient.setGender(gender);
     
     Address address = new Address();
     List<String> line = new ArrayList<String>();
