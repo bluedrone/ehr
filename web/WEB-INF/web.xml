@@ -39,6 +39,11 @@
   </context-param> 
   
   <context-param>
+    <param-name>filesHome</param-name>
+    <param-value>/Users/nick/</param-value>
+  </context-param>  
+  
+  <context-param>
     <param-name>patientDirPath</param-name>
     <param-value>files/patients</param-value>
   </context-param> 

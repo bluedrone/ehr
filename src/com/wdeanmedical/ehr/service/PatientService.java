@@ -489,8 +489,20 @@ public class PatientService {
        returnString = "{\"filename\":\""+filename+"\", \"patientId\":\""+patient.getId()+"\"}";
     String patientDirPath =  Core.appBaseDir + Core.patientDirPath + "/" + patient.getId() + "/";
     log.info("Moving to " + patientDirPath);
-    String[] mvArgs = {"mv", Core.appBaseDir + Core.imagesDir + "/" + filename,  patientDirPath};
-    runtime.exec(mvArgs);
+    //String[] mvArgs = {"mv", Core.appBaseDir + Core.imagesDir + "/" + filename,  patientDirPath};
+    //runtime.exec(mvArgs);
+    if(filename != null){
+      
+      String profileImageTempPath = Core.appBaseDir + Core.imagesDir + "/" + filename;
+      
+      String filesHomePatientDirPath =  Core.filesHome  + Core.patientDirPath + "/" + patient.getId() + "/";
+           
+      new File(filesHomePatientDirPath).mkdirs(); 
+      
+      File profileImageTempPathFile =new File(profileImageTempPath);
+      profileImageTempPathFile.renameTo(new File(filesHomePatientDirPath + "/" + filename));     
+          
+    } 
     Set<String> fieldSet = activityLogService.getListOfChangedFields(patient);
     patientDAO.updatePatientProfileImage(patient, filename); 
     String username = null;

@@ -7,6 +7,9 @@
  
 package com.wdeanmedical.ehr.service;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,6 +20,8 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.wdeanmedical.ehr.persistence.AppDAO;
 import com.wdeanmedical.ehr.core.Core;
@@ -277,6 +282,32 @@ public class AppService {
     activityLogService.logLogin(clinician.getId());
     return clinician;
   }
+  
+  public void getFile(HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) throws Exception {
+	    String sessionId = request.getParameter("sessionId");
+	    String patientId = request.getParameter("patientId");
+	    String profileImagePath = request.getParameter("profileImagePath"); 
+	    
+	    String filesHomePatientDirPath =  Core.filesHome  + Core.patientDirPath + "/" + patientId + "/";
+	    
+	    String mime = servletContext.getMimeType(profileImagePath);
+	    if (mime == null) {
+	      response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+	      return;
+	    }
+	    response.setContentType(mime);  
+	    File file = new File(filesHomePatientDirPath + profileImagePath);
+	    response.setContentLength((int) file.length());
+	    FileInputStream in = new FileInputStream(file);
+	    OutputStream out = response.getOutputStream();
+	    byte[] buf = new byte[1024];
+	    int count = 0;
+	    while ((count = in.read(buf)) >= 0) {
+	      out.write(buf, 0, count);
+	    }
+	    out.close();
+	    in.close();
+	  }
   
   
   public  boolean isValidSession(AuthorizedDTO dto, String ipAddress, String path) throws Exception {

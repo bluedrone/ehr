@@ -61,6 +61,7 @@ public void init(ServletConfig config) throws ServletException {
     Core.smtpport = context.getInitParameter("mail.smtp.port");
     Core.appBaseDir = context.getRealPath("/");
     Core.appDefaultHeadshot = context.getInitParameter("appDefaultHeadshot");
+    Core.filesHome = context.getInitParameter("filesHome");
     Core.patientDirPath = context.getInitParameter("patientDirPath");
     Core.appSessionTimeout = Integer.parseInt(context.getInitParameter("appSessionTimeout"));
     Core.imageMagickHome = context.getInitParameter("IMAGE_MAGICK_HOME");
@@ -81,8 +82,9 @@ public void doPost( HttpServletRequest request, HttpServletResponse response) {
     String servletPath = request.getServletPath();
      
     try { 
-
-      if (pathInfo.equals("/login")) {
+       if (pathInfo.equals("/getFile/")) {
+            getFile(request, response);  
+      }else if (pathInfo.equals("/login")) {
         returnString = login(request, response);  
       }
       else if (pathInfo.equals("/logout")) {
@@ -172,6 +174,9 @@ public void doGet(HttpServletRequest request, HttpServletResponse response) {
     return appService.isValidSession(dto, ipAddress, request.getPathInfo());
   }
   
+  public void getFile(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	 appService.getFile(request, response, getServletContext());  
+  }  
   
   public String searchICD10(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String searchText = request.getParameter("searchText");

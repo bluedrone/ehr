@@ -37,6 +37,7 @@ public class Core {
   public static String starttls;
   public static String appBaseDir;
   public static String appDefaultHeadshot;
+  public static String filesHome;  
   public static String patientDirPath;
   public static String imageMagickHome;
   public static String imagesDir;
