@@ -82,9 +82,7 @@ public void doPost( HttpServletRequest request, HttpServletResponse response) {
     String servletPath = request.getServletPath();
      
     try { 
-       if (pathInfo.equals("/getFile/")) {
-            getFile(request, response);  
-      }else if (pathInfo.equals("/login")) {
+      if (pathInfo.equals("/login")) {
         returnString = login(request, response);  
       }
       else if (pathInfo.equals("/logout")) {
@@ -95,7 +93,9 @@ public void doPost( HttpServletRequest request, HttpServletResponse response) {
           returnString = logout(request, response);  
         }
         else { 
-          if (pathInfo.equals("/getClinicianDashboard")) {
+          if(pathInfo.equals("/getFile/")) {
+                getFile(request, response);  
+          }else if (pathInfo.equals("/getClinicianDashboard")) {
             returnString = getClinicianDashboard(request, response);  
           }
           else if (pathInfo.equals("/getClinicianMessage")) {
