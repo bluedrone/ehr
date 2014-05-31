@@ -217,7 +217,8 @@ function initPatientSearchTypeAheads() {
 }
 
 function exporter() {
-  $('#export').css({display: "none"});
+  //$('#export').css({display: "none"});
+  $('#export').addClass("disabled");
   var dob = util_processDob("#patient-search-dob", dob);
   var jsonData = JSON.stringify({ 
     id: clinician.id, 
@@ -238,7 +239,8 @@ function exporter() {
 }
 
 function patientSearch() {
-   $('#export').css({display: "inline"});
+  // $('#export').css({display: "inline"});
+  $('#export').removeClass("disabled");
   var dob = util_processDob("#patient-search-dob", dob);
   var jsonData = JSON.stringify({ 
     id: clinician.id, 
