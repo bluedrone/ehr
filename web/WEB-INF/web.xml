@@ -45,7 +45,7 @@
   
   <context-param>
     <param-name>patientDirPath</param-name>
-    <param-value>files/patients</param-value>
+    <param-value>wdm_files/patients</param-value>
   </context-param> 
   
   <context-param>
