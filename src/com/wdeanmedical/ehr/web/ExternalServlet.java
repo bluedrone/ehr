@@ -41,9 +41,11 @@ import com.wdeanmedical.ehr.core.Core;
 import com.wdeanmedical.external.fhir.Address;
 import com.wdeanmedical.external.fhir.CodeableConcept;
 import com.wdeanmedical.external.fhir.Coding;
+import com.wdeanmedical.external.fhir.Enums;
 import com.wdeanmedical.external.fhir.Gender;
 import com.wdeanmedical.external.fhir.HumanName;
 import com.wdeanmedical.external.fhir.Identifier;
+import com.wdeanmedical.external.fhir.MaritalStatus;
 import com.wdeanmedical.external.fhir.PatientFHIR;
 import com.wdeanmedical.external.fhir.Period;
 import com.wdeanmedical.external.fhir.Telecom;
@@ -130,8 +132,18 @@ public class ExternalServlet extends AppServlet  {
     fhirpatient.setBirthDate(patients.get(0).getDemo().getDob());
       
     Identifier identifier = new Identifier();
+    identifier.setUse(Enums.IdentifierUse.usual.name());
+    identifier.setLabel("MRN");
     identifier.setValue(patients.get(0).getCred().getMrn());
     fhirpatient.getIdentifier().add(identifier);
+    
+    MaritalStatus maritalStatus = new MaritalStatus();
+    Coding codingm = new Coding();
+    String sss = patients.get(0).getDemo().getMaritalStatus().getName();
+    codingm.setDisplay(Enums.MaritalStatus.valueOf(sss).name());
+    codingm.setCode(Enums.MaritalStatus.valueOf(sss).getValue());
+    maritalStatus.setCoding(codingm);
+    fhirpatient.setMaritalStatus(maritalStatus);
     
     HumanName name = new HumanName();
     List<String> family = new ArrayList<String>();

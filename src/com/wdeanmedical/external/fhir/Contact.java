@@ -2,7 +2,7 @@ package com.wdeanmedical.external.fhir;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="telecom")
+@XmlRootElement
 public class Contact {
   
   private Relationship relationship;

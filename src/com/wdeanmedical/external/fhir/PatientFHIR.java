@@ -17,6 +17,7 @@ public class PatientFHIR {
   private Boolean deceasedBoolean;
   private Date deceasedDate;
   private List<Address> address = new ArrayList<Address>();
+  private MaritalStatus maritalStatus;
   private Boolean multipleBirthBoolean;
   private Integer multipleBirthInteger;
 //  private List<Attachment> photo = new ArrayList<Attachment>();
@@ -27,6 +28,12 @@ public class PatientFHIR {
   private List<Link> link = new ArrayList<Link>();
   private Boolean active;
   
+  public MaritalStatus getMaritalStatus() {
+    return maritalStatus;
+  }
+  public void setMaritalStatus(MaritalStatus maritalStatus) {
+    this.maritalStatus = maritalStatus;
+  }
   public List<Telecom> getTelecom() {
     return telecom;
   }
