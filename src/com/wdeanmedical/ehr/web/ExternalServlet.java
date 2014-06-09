@@ -39,6 +39,7 @@ import com.wdeanmedical.ehr.entity.Patient;
 import com.wdeanmedical.ehr.service.AdminService;
 import com.wdeanmedical.ehr.service.AppService;
 import com.wdeanmedical.ehr.service.PatientService;
+import com.wdeanmedical.ehr.util.JSONUtils;
 import com.wdeanmedical.ehr.core.Core;
 import com.wdeanmedical.external.fhir.Address;
 import com.wdeanmedical.external.fhir.CodeableConcept;
@@ -212,15 +213,28 @@ public class ExternalServlet extends AppServlet  {
   public String patientsImport(HttpServletRequest request, HttpServletResponse response) throws Exception {
 	  String data = request.getParameter("data");
       //String data = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><patients><patients><address><city>Springfield</city><country>UNITED STATES</country><line>71 State Street</line><state>Massachusetts</state><zip>01011</zip></address><birthDate>1977-04-04T13:00:00-05:00</birthDate><gender><coding><code>F</code><display>Female</display></coding></gender><identifier><label>MRN</label><use>usual</use><value>ABC123</value></identifier><maritalStatus><coding><code>M</code><display>Married</display></coding></maritalStatus><name><family>Smith</family><given>Sara</given><given>J.</given></name><telecom><value>patient01@pleasantvillemedical.com</value></telecom><telecom><value>413 567-9988</value></telecom></patients></patients>";
+      //String data = "{\"patients\":[{\"identifier\":[{\"use\":\"usual\",\"label\":\"MRN\",\"value\":\"ABC123\"}],\"name\":[{\"family\":[\"Smith\"],\"given\":[\"Sara\",\"J.\"],\"prefix\":[],\"suffix\":[]}],\"telecom\":[{\"value\":\"patient01@pleasantvillemedical.com\"},{\"value\":\"413 567-9988\"}],\"gender\":{\"coding\":{\"code\":\"F\",\"display\":\"Female\"}},\"birthDate\":\"Apr 4, 1977 1:00:00 PM\",\"address\":[{\"line\":[\"71 State Street\"],\"city\":\"Springfield\",\"state\":\"Massachusetts\",\"zip\":\"01011\",\"country\":\"UNITED STATES\"}],\"maritalStatus\":{\"coding\":{\"code\":\"M\",\"display\":\"Married\"}},\"contact\":[],\"communication\":[],\"careProvider\":[],\"link\":[]}]}";
+	  
+	  PatientsFHIR patientsFHIR = null;
+	  
+	  if(JSONUtils.isJSONValid(data, PatientsFHIR.class)){
+	    Gson gson = new Gson();
+	    patientsFHIR = gson.fromJson(data, PatientsFHIR.class); 
+	  }else{
+
 	  try {
-	      JAXBContext jaxbContext = JAXBContext.newInstance(PatientsFHIR.class);
-	      Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-	      StringReader stringReader = new StringReader(data);
-	      PatientsFHIR patientsFHIR = (PatientsFHIR)jaxbUnmarshaller.unmarshal(stringReader);
-	      patientService.importPatients(patientsFHIR);
-	      } catch (JAXBException e) {
-	      e.printStackTrace();
+    	    JAXBContext jaxbContext = JAXBContext.newInstance(PatientsFHIR.class);
+    	    Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+    	    StringReader stringReader = new StringReader(data);
+    	    patientsFHIR = (PatientsFHIR)jaxbUnmarshaller.unmarshal(stringReader);
+  	      } catch (JAXBException e) {
+	        e.printStackTrace();
 	      }
+	  }
+	  
+	  if(patientsFHIR != null){
+	       patientService.importPatients(patientsFHIR);
+	  }	  
 	  return null;
   }
  
