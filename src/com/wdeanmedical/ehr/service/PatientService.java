@@ -35,12 +35,15 @@ import com.wdeanmedical.ehr.dto.LoginDTO;
 import com.wdeanmedical.ehr.dto.PatientDTO;
 import com.wdeanmedical.ehr.entity.Appointment;
 import com.wdeanmedical.ehr.entity.ChiefComplaint;
+import com.wdeanmedical.ehr.entity.Country;
 import com.wdeanmedical.ehr.entity.Credentials;
 import com.wdeanmedical.ehr.entity.Demographics;
 import com.wdeanmedical.ehr.entity.Exam;
 import com.wdeanmedical.ehr.entity.EncounterMedication;
 import com.wdeanmedical.ehr.entity.EncounterQuestion;
+import com.wdeanmedical.ehr.entity.Gender;
 import com.wdeanmedical.ehr.entity.Lab;
+import com.wdeanmedical.ehr.entity.MaritalStatus;
 import com.wdeanmedical.ehr.entity.OBGYNEncounterData;
 import com.wdeanmedical.ehr.entity.Patient;
 import com.wdeanmedical.ehr.entity.PatientAllergen;
@@ -63,9 +66,17 @@ import com.wdeanmedical.ehr.entity.PFSH;
 import com.wdeanmedical.ehr.entity.PatientStatus;
 import com.wdeanmedical.ehr.entity.ProgressNote;
 import com.wdeanmedical.ehr.entity.SuppQuestions;
+import com.wdeanmedical.ehr.entity.USState;
 import com.wdeanmedical.ehr.entity.VitalSigns;
 import com.wdeanmedical.ehr.util.ClinicianSessionData;
 import com.wdeanmedical.ehr.dto.MessageDTO;
+import com.wdeanmedical.external.fhir.Address;
+import com.wdeanmedical.external.fhir.HumanName;
+import com.wdeanmedical.external.fhir.Identifier;
+import com.wdeanmedical.external.fhir.PatientFHIR;
+import com.wdeanmedical.external.fhir.PatientsFHIR;
+import com.wdeanmedical.external.fhir.ResourceReference;
+import com.wdeanmedical.external.fhir.Telecom;
 
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -250,7 +261,128 @@ public class PatientService {
     dto.setEncounter(encounter);
   }
   
+  public  String importPatients(PatientsFHIR patientsFHIR) throws Exception {    
+    List<PatientFHIR> patientFHIRList = patientsFHIR.getPatients();
+    for(PatientFHIR patientFHIR : patientFHIRList){
+      importPatient(patientFHIR);
+    }    
+    return null;
+  }
   
+  private  String importPatient(PatientFHIR patientFHIR) throws Exception {
+    Patient patient = new Patient();
+    patientDAO.create(patient);
+    String email = null;
+    String primaryPhone = null;
+    String secondaryPhone = null;
+    List<Telecom> telecomList = patientFHIR.getTelecom();
+    if(telecomList.size() > 0){
+      Telecom telecom = telecomList.get(0);
+      email = telecom.getValue();
+      if(telecomList.size() > 1){
+        telecom = telecomList.get(1);
+        primaryPhone = telecom.getValue();
+        if(telecomList.size() > 2){
+          telecom = telecomList.get(2);
+          secondaryPhone = telecom.getValue();
+        }
+      }
+    }
+    String streetAddress1 = null;
+    String streetAddress2 = null;
+    String city = null;
+    USState usState = null;
+    String postalCode = null;
+    Country country = null;
+    List<Address> addressList = patientFHIR.getAddress();
+    if(addressList.size() > 0){
+      List<String> lineList = addressList.get(0).getLine();
+      if(lineList.size() > 0){
+        streetAddress1 = lineList.get(0);
+        if(lineList.size() > 1){
+          streetAddress2 = lineList.get(1);
+        }
+      }
+      city = addressList.get(0).getCity();
+      usState = patientDAO.findUSStateByName(addressList.get(0).getState());
+      postalCode = addressList.get(0).getZip();
+      country = patientDAO.findCountryByName(addressList.get(0).getCountry());
+    }
+    Gender gender = patientDAO.findGenderByCode(patientFHIR.getGender().getCoding().getCode());
+    MaritalStatus maritalStatus = patientDAO.findMaritalStatusByCode(patientFHIR.getMaritalStatus().getCoding().getCode());
+    Date dob = patientFHIR.getBirthDate();
+    //String profileImagePath = null;
+    Demographics demo = new Demographics();
+    demo.setPatientId(patient.getId());
+    demo.setPrimaryPhone(primaryPhone);
+    demo.setSecondaryPhone(secondaryPhone);
+    demo.setStreetAddress1(streetAddress1);
+    demo.setStreetAddress2(streetAddress2);
+    demo.setCity(city);
+    demo.setUsState(usState);
+    demo.setPostalCode(postalCode);
+    demo.setCountry(country);
+    demo.setGender(gender);
+    demo.setMaritalStatus(maritalStatus);
+    demo.setDob(dob);
+    patientDAO.create(demo);
+    patient.setDemo(demo);
+    String firstName = null;
+    String middleName = null;
+    String lastName  = null;
+    List<HumanName> humanNameList = patientFHIR.getName();
+    if(humanNameList.size() > 0){
+    HumanName humanName = humanNameList.get(0);
+      firstName = humanName.getGiven().get(0);
+      if( humanName.getGiven().size() > 1){
+        middleName = humanName.getGiven().get(1);
+      }
+      lastName  = humanName.getFamily().get(0);      
+    }
+    PatientStatus status = new PatientStatus(); 
+    if(patientFHIR.getActive() != null && patientFHIR.getActive()){
+      status.setId(PatientStatus.ACTIVE);
+    }else{
+      status.setId(PatientStatus.INACTIVE);
+    }
+    String mrn = null;
+    List<Identifier> identifierList = patientFHIR.getIdentifier();
+    if(identifierList.size() > 0){
+      Identifier identifier = identifierList.get(0);
+      if(identifier.getLabel().equalsIgnoreCase("MRN")){
+        mrn = identifier.getValue();
+      }
+    }
+    Credentials cred = new Credentials(); 
+    cred.setPatientId(patient.getId());
+    cred.setMrn(mrn);
+    cred.setFirstName(firstName);
+    cred.setMiddleName(middleName);
+    cred.setLastName(lastName);
+    cred.setEmail(email);
+    cred.setStatus(status);
+    cred.setPassword("not a password");
+    patientDAO.create(cred);
+    patient.setCred(cred);
+    
+    Integer numChildren = patientFHIR.getMultipleBirthInteger();
+    String caretakerName = null;
+    List<ResourceReference> careProviderList = patientFHIR.getCareProvider();
+    if(careProviderList.size() > 0){
+      caretakerName = careProviderList.get(0).getDisplay();
+    }
+    PFSH pfsh = new PFSH();
+    pfsh.setPatientId(patient.getId());
+    pfsh.setNumChildren(numChildren);
+    pfsh.setCaretakerName(caretakerName);
+    patientDAO.create(pfsh);
+    patient.setPfsh(pfsh);
+    
+    patientDAO.update(patient);
+    return null;
+  }
+  
+ 
   
   public void createPatientAndEncounter(PatientDTO dto) throws Exception {
     Clinician clinician = appDAO.findClinicianBySessionId(dto.getSessionId());

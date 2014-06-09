@@ -15,6 +15,7 @@ import com.wdeanmedical.ehr.entity.ChiefComplaint;
 import com.wdeanmedical.ehr.entity.Clinician;
 import com.wdeanmedical.ehr.entity.ClinicianSchedule;
 import com.wdeanmedical.ehr.entity.ClinicianSession;
+import com.wdeanmedical.ehr.entity.Country;
 import com.wdeanmedical.ehr.entity.Demographics;
 import com.wdeanmedical.ehr.entity.Encounter;
 import com.wdeanmedical.ehr.entity.EncounterType;
@@ -24,6 +25,7 @@ import com.wdeanmedical.ehr.entity.EncounterMedication;
 import com.wdeanmedical.ehr.entity.EncounterQuestion;
 import com.wdeanmedical.ehr.entity.Lab;
 import com.wdeanmedical.ehr.entity.LabReview;
+import com.wdeanmedical.ehr.entity.MaritalStatus;
 import com.wdeanmedical.ehr.entity.OBGYNEncounterData;
 import com.wdeanmedical.ehr.entity.Patient;
 import com.wdeanmedical.ehr.entity.PatientAllergen;
@@ -41,6 +43,7 @@ import com.wdeanmedical.ehr.entity.PatientMessage;
 import com.wdeanmedical.ehr.entity.PFSH;
 import com.wdeanmedical.ehr.entity.PatientStatus;
 import com.wdeanmedical.ehr.entity.SuppQuestions;
+import com.wdeanmedical.ehr.entity.USState;
 import com.wdeanmedical.ehr.entity.VitalSigns;
 import com.wdeanmedical.ehr.entity.ProgressNote;
 import com.wdeanmedical.ehr.entity.ToDoNote;
@@ -339,6 +342,27 @@ public class PatientDAO extends SiteDAO {
     Criteria crit = session.createCriteria(Gender.class);
     crit.add(Restrictions.eq("code", code));
     return (Gender)crit.uniqueResult();
+  }
+  
+  public MaritalStatus findMaritalStatusByCode(String code) throws Exception {
+    Session session = getSession();
+    Criteria crit = session.createCriteria(MaritalStatus.class);
+    crit.add(Restrictions.eq("code", code));
+    return (MaritalStatus)crit.uniqueResult();
+  }
+  
+  public Country findCountryByName(String name) throws Exception {
+    Session session = getSession();
+    Criteria crit = session.createCriteria(Country.class);
+    crit.add(Restrictions.eq("name", name));
+    return (Country)crit.uniqueResult();
+  }
+  
+  public USState findUSStateByName(String name) throws Exception {
+    Session session = getSession();
+    Criteria crit = session.createCriteria(USState.class);
+    crit.add(Restrictions.eq("name", name));
+    return (USState)crit.uniqueResult();
   }
 
 }

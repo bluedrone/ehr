@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.StringReader;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,6 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 import com.wdeanmedical.ehr.dto.AdminDTO;
 import com.wdeanmedical.ehr.dto.PatientDTO;
@@ -47,6 +49,7 @@ import com.wdeanmedical.external.fhir.HumanName;
 import com.wdeanmedical.external.fhir.Identifier;
 import com.wdeanmedical.external.fhir.MaritalStatus;
 import com.wdeanmedical.external.fhir.PatientFHIR;
+import com.wdeanmedical.external.fhir.PatientsFHIR;
 import com.wdeanmedical.external.fhir.Period;
 import com.wdeanmedical.external.fhir.Telecom;
 import com.google.gson.Gson;
@@ -60,6 +63,8 @@ public class ExternalServlet extends AppServlet  {
   private static final Logger log = Logger.getLogger(ExternalServlet.class);
   
   private AppService appService;
+  
+  private PatientService patientService;
 
   @Override
   public void init(ServletConfig config) throws ServletException {
@@ -67,6 +72,7 @@ public class ExternalServlet extends AppServlet  {
     ServletContext context = getServletContext();
     try{
       appService = new AppService();
+      patientService = new PatientService();
     }
     catch(MalformedURLException e){
       e.printStackTrace();
@@ -87,6 +93,9 @@ public class ExternalServlet extends AppServlet  {
       else { 
         if (pathInfo.equals("/patientExport")) {
           returnString = patientExport(request, response);  
+          //returnString = patientsImport(request, response); 
+        }else if (pathInfo.equals("/patientImport")) {
+            returnString = patientsImport(request, response);  
         }
       }
      
@@ -178,20 +187,42 @@ public class ExternalServlet extends AppServlet  {
     address.setZip(patients.get(0).getDemo().getPostalCode());
     address.setCountry(patients.get(0).getDemo().getCountry().getName());
     fhirpatient.getAddress().add(address);
+    
+    List<PatientFHIR> patientFHIRList = new ArrayList<PatientFHIR>();
+    patientFHIRList.add(fhirpatient);
+    
+    PatientsFHIR patientsFHIR = new PatientsFHIR();    
+    patientsFHIR.setPatients(patientFHIRList);
       
     try {
-      JAXBContext jaxbContext = JAXBContext.newInstance(PatientFHIR.class);
+      JAXBContext jaxbContext = JAXBContext.newInstance(PatientsFHIR.class);
       Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
       jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-      jaxbMarshaller.marshal(fhirpatient, System.out);
+      jaxbMarshaller.marshal(patientsFHIR, System.out);
       } catch (JAXBException e) {
       e.printStackTrace();
       }
       
-      String json = gson.toJson(dto);
+      //String json = gson.toJson(dto);
+      String json = gson.toJson(patientsFHIR);
       System.out.println(json);
       return json;
   } 
+  
+  public String patientsImport(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	  String data = request.getParameter("data");
+      //String data = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><patients><patients><address><city>Springfield</city><country>UNITED STATES</country><line>71 State Street</line><state>Massachusetts</state><zip>01011</zip></address><birthDate>1977-04-04T13:00:00-05:00</birthDate><gender><coding><code>F</code><display>Female</display></coding></gender><identifier><label>MRN</label><use>usual</use><value>ABC123</value></identifier><maritalStatus><coding><code>M</code><display>Married</display></coding></maritalStatus><name><family>Smith</family><given>Sara</given><given>J.</given></name><telecom><value>patient01@pleasantvillemedical.com</value></telecom><telecom><value>413 567-9988</value></telecom></patients></patients>";
+	  try {
+	      JAXBContext jaxbContext = JAXBContext.newInstance(PatientsFHIR.class);
+	      Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+	      StringReader stringReader = new StringReader(data);
+	      PatientsFHIR patientsFHIR = (PatientsFHIR)jaxbUnmarshaller.unmarshal(stringReader);
+	      patientService.importPatients(patientsFHIR);
+	      } catch (JAXBException e) {
+	      e.printStackTrace();
+	      }
+	  return null;
+  }
  
 }
  
