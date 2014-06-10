@@ -193,7 +193,7 @@ public class ExternalServlet extends AppServlet  {
     patientFHIRList.add(fhirpatient);
     
     PatientsFHIR patientsFHIR = new PatientsFHIR();    
-    patientsFHIR.setPatients(patientFHIRList);
+    patientsFHIR.setPatient(patientFHIRList);
       
     try {
       JAXBContext jaxbContext = JAXBContext.newInstance(PatientsFHIR.class);
