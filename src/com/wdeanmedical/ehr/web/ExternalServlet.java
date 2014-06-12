@@ -74,7 +74,7 @@ public class ExternalServlet extends AppServlet  {
       else { 
         if (pathInfo.equals("/patientExport")) {
           returnString = patientExport(request, response);  
-          //returnString = patientsImport(request, response); 
+          returnString = patientsImport(request, response); 
         }else if(pathInfo.equals("/patientImport")) {
             returnString = patientsImport(request, response);  
         }else if(pathInfo.split("/").length > 2){
@@ -222,7 +222,8 @@ public class ExternalServlet extends AppServlet  {
 	    address.setZip(zip);
 	    org.hl7.fhir.String country = new org.hl7.fhir.String();
 	    country.setValue(patients.get(i).getDemo().getCountry().getName());
-	    address.setCountry(country);      
+	    address.setCountry(country);  
+	    fhirpatient.getAddress().add(address);
 	    patientsFHIR.getPatient().add(fhirpatient);
     }      
     try {
@@ -239,8 +240,8 @@ public class ExternalServlet extends AppServlet  {
   } 
   
   public String patientsImport(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	  String data = request.getParameter("data");
-      //String data = "<patients xmlns:ns2=\"http://www.w3.org/1999/xhtml\" xmlns:ns3=\"http://hl7.org/fhir\"><patient><ns3:identifier><ns3:use id=\"usual\"/><ns3:label value=\"MRN\"/><ns3:value value=\"ABC123\"/></ns3:identifier><ns3:name><ns3:family value=\"Smith\"/><ns3:given value=\"Sara\"/><ns3:given value=\"J.\"/></ns3:name><ns3:telecom><ns3:value value=\"patient01@pleasantvillemedical.com\"/></ns3:telecom><ns3:telecom><ns3:value value=\"413 567-9988\"/></ns3:telecom><ns3:gender><ns3:coding><ns3:code value=\"F\"/><ns3:display value=\"Female\"/></ns3:coding></ns3:gender><ns3:birthDate value=\"1977-04-04 13:00:00.0\"/><ns3:maritalStatus><ns3:coding><ns3:code value=\"married\"/><ns3:display value=\"Married\"/></ns3:coding></ns3:maritalStatus></patient></patients>";
+	  //String data = request.getParameter("data");
+      String data = "<patients xmlns:ns2=\"http://www.w3.org/1999/xhtml\" xmlns:ns3=\"http://hl7.org/fhir\"><patient><ns3:identifier><ns3:use id=\"usual\"/><ns3:label value=\"MRN\"/><ns3:value value=\"ABC123\"/></ns3:identifier><ns3:name><ns3:family value=\"Smith\"/><ns3:given value=\"Sara\"/><ns3:given value=\"J.\"/></ns3:name><ns3:telecom><ns3:value value=\"patient01@pleasantvillemedical.com\"/></ns3:telecom><ns3:telecom><ns3:value value=\"413 567-9988\"/></ns3:telecom><ns3:gender><ns3:coding><ns3:code value=\"F\"/><ns3:display value=\"Female\"/></ns3:coding></ns3:gender><ns3:birthDate value=\"1977-04-04 13:00:00.0\"/><ns3:maritalStatus><ns3:coding><ns3:code value=\"married\"/><ns3:display value=\"Married\"/></ns3:coding></ns3:maritalStatus></patient></patients>";
  	  
 	  PatientsFHIR patientsFHIR = null;
 	  
