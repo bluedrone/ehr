@@ -8,14 +8,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="patients")
 public class PatientsFHIR {
   
-  private List<PatientFHIR> patients = new ArrayList<PatientFHIR>();
+  private List<PatientFHIR> patient = new ArrayList<PatientFHIR>();
 
-  public List<PatientFHIR> getPatients() {
-    return patients;
+  public List<PatientFHIR> getPatient() {
+    return patient;
   }
 
-  public void setPatients(List<PatientFHIR> patients) {
-    this.patients = patients;
+  public void setPatient(List<PatientFHIR> patient) {
+    this.patient = patient;
   }  
   
 }

@@ -339,7 +339,7 @@ public class PatientService {
   }
   
   public  String importPatients(PatientsFHIR patientsFHIR) throws Exception {    
-    List<PatientFHIR> patientFHIRList = patientsFHIR.getPatients();
+    List<PatientFHIR> patientFHIRList = patientsFHIR.getPatient();
     for(PatientFHIR patientFHIR : patientFHIRList){
       importPatient(patientFHIR);
     }    

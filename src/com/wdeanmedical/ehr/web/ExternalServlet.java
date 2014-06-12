@@ -156,64 +156,71 @@ public class ExternalServlet extends AppServlet  {
     List<Patient> patients = appService.getPatients(dto); 
     dto.setPatients(patients);
 //     System.out.println("number of patients: "+patients.size());
-//     System.out.println("all aatients: "+patients);
-    PatientFHIR fhirpatient = new PatientFHIR();
+//     System.out.println("all patients: "+patients);
+    PatientsFHIR patientsFHIR = new PatientsFHIR();
     
-    fhirpatient.setBirthDate(patients.get(0).getDemo().getDob());
+    int patientsLength = 19;
+    for(int i = 0; i < patientsLength; i++){
+      PatientFHIR fhirpatient = new PatientFHIR();
+      fhirpatient.setBirthDate(patients.get(i).getDemo().getDob());
+        
+      Identifier identifier = new Identifier();
+      identifier.setUse(Enums.IdentifierUse.usual.name());
+      identifier.setLabel("MRN");
+      identifier.setValue(patients.get(i).getCred().getMrn());
+      fhirpatient.getIdentifier().add(identifier);
       
-    Identifier identifier = new Identifier();
-    identifier.setUse(Enums.IdentifierUse.usual.name());
-    identifier.setLabel("MRN");
-    identifier.setValue(patients.get(0).getCred().getMrn());
-    fhirpatient.getIdentifier().add(identifier);
+      MaritalStatus maritalStatus = new MaritalStatus();
+      Coding codingm = new Coding();
+//      String sss = patients.get(i).getDemo().getMaritalStatus().getName();
+//      codingm.setDisplay(Enums.MaritalStatus.valueOf(sss).name());
+//      codingm.setCode(Enums.MaritalStatus.valueOf(sss).getValue());
+      codingm.setDisplay(patients.get(i).getDemo().getMaritalStatus().getName());
+      maritalStatus.setCoding(codingm);
+      fhirpatient.setMaritalStatus(maritalStatus);
+      
+      HumanName name = new HumanName();
+      List<String> family = new ArrayList<String>();
+      family.add(patients.get(i).getCred().getLastName());
+      name.setFamily(family);
+      List<String> given = new ArrayList<String>();
+      given.add(patients.get(i).getCred().getFirstName());
+      given.add(patients.get(i).getCred().getMiddleName());
+      name.setGiven(given);
+      fhirpatient.getName().add(name);
+      
+      Telecom telecom = new Telecom();
+      telecom.setValue(patients.get(i).getCred().getEmail());
+      fhirpatient.getTelecom().add(telecom);
+      Telecom telecom2 = new Telecom();
+      telecom2.setValue(patients.get(i).getDemo().getPrimaryPhone());
+      fhirpatient.getTelecom().add(telecom2);
+      
+      Coding coding = new Coding();
+      coding.setCode(patients.get(i).getDemo().getGender().getCode());
+      coding.setDisplay(patients.get(i).getDemo().getGender().getName());
+      Gender gender = new Gender();
+      gender.setCoding(coding);
+      fhirpatient.setGender(gender);
+      
+      Address address = new Address();
+      List<String> line = new ArrayList<String>();
+      line.add(patients.get(i).getDemo().getStreetAddress1());
+      address.setLine(line);
+      address.setCity(patients.get(i).getDemo().getCity());
+      address.setState(patients.get(i).getDemo().getUsState().getName());
+      address.setZip(patients.get(i).getDemo().getPostalCode());
+      address.setCountry(patients.get(i).getDemo().getCountry().getName());
+      fhirpatient.getAddress().add(address);
+      
+      patientsFHIR.getPatient().add(fhirpatient);
+    }
     
-    MaritalStatus maritalStatus = new MaritalStatus();
-    Coding codingm = new Coding();
-    String sss = patients.get(0).getDemo().getMaritalStatus().getName();
-    codingm.setDisplay(Enums.MaritalStatus.valueOf(sss).name());
-    codingm.setCode(Enums.MaritalStatus.valueOf(sss).getValue());
-    maritalStatus.setCoding(codingm);
-    fhirpatient.setMaritalStatus(maritalStatus);
-    
-    HumanName name = new HumanName();
-    List<String> family = new ArrayList<String>();
-    family.add(patients.get(0).getCred().getLastName());
-    name.setFamily(family);
-    List<String> given = new ArrayList<String>();
-    given.add(patients.get(0).getCred().getFirstName());
-    given.add(patients.get(0).getCred().getMiddleName());
-    name.setGiven(given);
-    fhirpatient.getName().add(name);
-    
-    Telecom telecom = new Telecom();
-    telecom.setValue(patients.get(0).getCred().getEmail());
-    fhirpatient.getTelecom().add(telecom);
-    Telecom telecom2 = new Telecom();
-    telecom2.setValue(patients.get(0).getDemo().getPrimaryPhone());
-    fhirpatient.getTelecom().add(telecom2);
-    
-    Coding coding = new Coding();
-    coding.setCode(patients.get(0).getDemo().getGender().getCode());
-    coding.setDisplay(patients.get(0).getDemo().getGender().getName());
-    Gender gender = new Gender();
-    gender.setCoding(coding);
-    fhirpatient.setGender(gender);
-    
-    Address address = new Address();
-    List<String> line = new ArrayList<String>();
-    line.add(patients.get(0).getDemo().getStreetAddress1());
-    address.setLine(line);
-    address.setCity(patients.get(0).getDemo().getCity());
-    address.setState(patients.get(0).getDemo().getUsState().getName());
-    address.setZip(patients.get(0).getDemo().getPostalCode());
-    address.setCountry(patients.get(0).getDemo().getCountry().getName());
-    fhirpatient.getAddress().add(address);
-    
-    List<PatientFHIR> patientFHIRList = new ArrayList<PatientFHIR>();
-    patientFHIRList.add(fhirpatient);
-    
-    PatientsFHIR patientsFHIR = new PatientsFHIR();    
-    patientsFHIR.setPatients(patientFHIRList);
+//    List<PatientFHIR> patientFHIRList = new ArrayList<PatientFHIR>();
+//    patientFHIRList.add(fhirpatient);
+//    
+//    PatientsFHIR patientsFHIR = new PatientsFHIR();    
+//    patientsFHIR.setPatient(patientFHIRList);
       
     try {
       JAXBContext jaxbContext = JAXBContext.newInstance(PatientsFHIR.class);
