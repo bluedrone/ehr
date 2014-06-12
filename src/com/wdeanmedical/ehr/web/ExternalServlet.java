@@ -33,7 +33,9 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import com.wdeanmedical.ehr.dto.AdminDTO;
+import com.wdeanmedical.ehr.dto.LoginDTO;
 import com.wdeanmedical.ehr.dto.PatientDTO;
+import com.wdeanmedical.ehr.entity.Clinician;
 import com.wdeanmedical.ehr.entity.Encounter;
 import com.wdeanmedical.ehr.entity.Patient;
 import com.wdeanmedical.ehr.service.AdminService;
@@ -95,8 +97,26 @@ public class ExternalServlet extends AppServlet  {
         if (pathInfo.equals("/patientExport")) {
           returnString = patientExport(request, response);  
           //returnString = patientsImport(request, response); 
-        }else if (pathInfo.equals("/patientImport")) {
+        }else if(pathInfo.equals("/patientImport")) {
             returnString = patientsImport(request, response);  
+        }else if(pathInfo.split("/").length > 2){
+        	String[] paths = pathInfo.split("/");        	
+        	if(paths[1].equals("json")){
+        		if(paths[2].equals("auth")){
+        			 returnString = auth(request, response);
+        		}else if(paths[2].equals("getPatient")){        			
+        			String mrn = paths[3];  
+        			returnString = getPatient(mrn);
+        		}        		
+        	}else if(paths[1].equals("xml")){
+        		if(paths[2].equals("updatePatient")){
+        			String mrn = paths[3]; 
+        			returnString = updatePatient(mrn);
+        		}else if(paths[2].equals("getPatientFullRecord")){        			
+        			String mrn = paths[3];
+        			returnString = getPatientFullRecord(mrn);
+        		}        		
+        	}       	
         }
       }
      
@@ -236,6 +256,35 @@ public class ExternalServlet extends AppServlet  {
 	       patientService.importPatients(patientsFHIR);
 	  }	  
 	  return null;
+  }
+  
+  public String auth(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	  String data = request.getParameter("data");
+	  Gson gson = new Gson();
+	  LoginDTO loginDTO = gson.fromJson(data, LoginDTO.class);  
+	  String ipAddress = request.getRemoteHost();
+	  Clinician clinician = appService.login(loginDTO, ipAddress); 
+	  String json = gson.toJson(clinician);
+	  return json;
+  }
+  
+  public String getPatient(String mrn) throws Exception {
+	  Gson gson = new Gson();
+	  PatientFHIR patientFHIR = patientService.getPatient(mrn);
+	  String json = gson.toJson(patientFHIR);
+	  return json;
+  }
+  
+  public String updatePatient(String mrn) throws Exception {
+	  System.out.println("******* mrn: " + mrn);
+	  return null;
+  }
+  
+  public String getPatientFullRecord(String mrn) throws Exception {
+	  Gson gson = new Gson();
+	  PatientFHIR patientFHIR = patientService.getPatientFullRecord(mrn);
+	  String json = gson.toJson(patientFHIR);
+	  return json;
   }
  
 }

@@ -16,6 +16,7 @@ import com.wdeanmedical.ehr.entity.Clinician;
 import com.wdeanmedical.ehr.entity.ClinicianSchedule;
 import com.wdeanmedical.ehr.entity.ClinicianSession;
 import com.wdeanmedical.ehr.entity.Country;
+import com.wdeanmedical.ehr.entity.Credentials;
 import com.wdeanmedical.ehr.entity.Demographics;
 import com.wdeanmedical.ehr.entity.Encounter;
 import com.wdeanmedical.ehr.entity.EncounterType;
@@ -363,6 +364,15 @@ public class PatientDAO extends SiteDAO {
     Criteria crit = session.createCriteria(USState.class);
     crit.add(Restrictions.eq("name", name));
     return (USState)crit.uniqueResult();
+  }
+  
+  public Patient findPatientByMrn(String mrn) throws Exception {
+	 Session session = getSession();
+	 Criteria crit = session.createCriteria(Credentials.class);
+	 crit.add(Restrictions.eq("mrn", mrn));
+	 Credentials cred = (Credentials)crit.uniqueResult();
+	 Patient patient = (Patient) this.findById(Patient.class, cred.getPatientId());
+	 return patient;
   }
 
 }

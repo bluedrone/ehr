@@ -16,6 +16,7 @@ import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
@@ -71,6 +72,8 @@ import com.wdeanmedical.ehr.entity.VitalSigns;
 import com.wdeanmedical.ehr.util.ClinicianSessionData;
 import com.wdeanmedical.ehr.dto.MessageDTO;
 import com.wdeanmedical.external.fhir.Address;
+import com.wdeanmedical.external.fhir.Coding;
+import com.wdeanmedical.external.fhir.Enums;
 import com.wdeanmedical.external.fhir.HumanName;
 import com.wdeanmedical.external.fhir.Identifier;
 import com.wdeanmedical.external.fhir.PatientFHIR;
@@ -259,6 +262,80 @@ public class PatientService {
   public void getCurrentPatientEncounter(PatientDTO dto) throws Exception {
     Encounter encounter = patientDAO.findCurrentEncounterByPatientId(dto.getPatientId());
     dto.setEncounter(encounter);
+  }
+  
+  public PatientFHIR getPatientFullRecord(String mrn) throws Exception{
+	  
+	  Patient patient = patientDAO.findPatientByMrn(mrn);
+	  
+	  PatientFHIR fhirpatient = getPatientFHIR(patient);
+	  
+	  return fhirpatient;
+  }
+
+  public PatientFHIR getPatient(String mrn) throws Exception{
+	  
+	Patient patient = patientDAO.findPatientByMrn(mrn);
+    
+	return getPatientFHIR(patient);
+  }
+  
+  private PatientFHIR getPatientFHIR(Patient patient){
+	  
+	PatientFHIR fhirpatient = new PatientFHIR();
+	    
+    fhirpatient.setBirthDate(patient.getDemo().getDob());
+      
+    Identifier identifier = new Identifier();
+    identifier.setUse(Enums.IdentifierUse.usual.name());
+    identifier.setLabel("MRN");
+    identifier.setValue(patient.getCred().getMrn());
+    fhirpatient.getIdentifier().add(identifier);
+    
+    com.wdeanmedical.external.fhir.MaritalStatus maritalStatus = new com.wdeanmedical.external.fhir.MaritalStatus();
+    Coding codingm = new Coding();
+    String sss = patient.getDemo().getMaritalStatus().getName();
+    codingm.setDisplay(Enums.MaritalStatus.valueOf(sss).name());
+    codingm.setCode(Enums.MaritalStatus.valueOf(sss).getValue());
+    maritalStatus.setCoding(codingm);
+    fhirpatient.setMaritalStatus(maritalStatus);
+    
+    HumanName name = new HumanName();
+    List<String> family = new ArrayList<String>();
+    family.add(patient.getCred().getLastName());
+    name.setFamily(family);
+    List<String> given = new ArrayList<String>();
+    given.add(patient.getCred().getFirstName());
+    given.add(patient.getCred().getMiddleName());
+    name.setGiven(given);
+    fhirpatient.getName().add(name);
+    
+    Telecom telecom = new Telecom();
+    telecom.setValue(patient.getCred().getEmail());
+    fhirpatient.getTelecom().add(telecom);
+    Telecom telecom2 = new Telecom();
+    telecom2.setValue(patient.getDemo().getPrimaryPhone());
+    fhirpatient.getTelecom().add(telecom2);
+    
+    Coding coding = new Coding();
+    coding.setCode(patient.getDemo().getGender().getCode());
+    coding.setDisplay(patient.getDemo().getGender().getName());
+    com.wdeanmedical.external.fhir.Gender gender = new com.wdeanmedical.external.fhir.Gender();
+    gender.setCoding(coding);
+    fhirpatient.setGender(gender);
+    
+    Address address = new Address();
+    List<String> line = new ArrayList<String>();
+    line.add(patient.getDemo().getStreetAddress1());
+    address.setLine(line);
+    address.setCity(patient.getDemo().getCity());
+    address.setState(patient.getDemo().getUsState().getName());
+    address.setZip(patient.getDemo().getPostalCode());
+    address.setCountry(patient.getDemo().getCountry().getName());
+    fhirpatient.getAddress().add(address);
+    
+	return fhirpatient;
+	  
   }
   
   public  String importPatients(PatientsFHIR patientsFHIR) throws Exception {    
