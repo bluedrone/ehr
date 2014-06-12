@@ -12,8 +12,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.MalformedURLException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,11 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.wdeanmedical.ehr.persistence.AppDAO;
 import com.wdeanmedical.ehr.persistence.PatientDAO;
 import com.wdeanmedical.ehr.core.Core;
-import com.wdeanmedical.ehr.dto.AuthorizedDTO;
-import com.wdeanmedical.ehr.dto.ClinicianDTO;
-import com.wdeanmedical.ehr.dto.LoginDTO;
 import com.wdeanmedical.ehr.dto.PatientDTO;
-import com.wdeanmedical.ehr.entity.Appointment;
 import com.wdeanmedical.ehr.entity.ChiefComplaint;
 import com.wdeanmedical.ehr.entity.Country;
 import com.wdeanmedical.ehr.entity.Credentials;
@@ -47,20 +43,10 @@ import com.wdeanmedical.ehr.entity.Lab;
 import com.wdeanmedical.ehr.entity.MaritalStatus;
 import com.wdeanmedical.ehr.entity.OBGYNEncounterData;
 import com.wdeanmedical.ehr.entity.Patient;
-import com.wdeanmedical.ehr.entity.PatientAllergen;
-import com.wdeanmedical.ehr.entity.PatientClinician;
 import com.wdeanmedical.ehr.entity.Encounter;
 import com.wdeanmedical.ehr.entity.EncounterType;
 import com.wdeanmedical.ehr.entity.PatientFollowUp;
-import com.wdeanmedical.ehr.entity.PatientHealthIssue;
-import com.wdeanmedical.ehr.entity.PatientHealthTrendReport;
-import com.wdeanmedical.ehr.entity.PatientImmunization;
-import com.wdeanmedical.ehr.entity.PatientLetter;
 import com.wdeanmedical.ehr.entity.MedicalHistory;
-import com.wdeanmedical.ehr.entity.PatientMedicalProcedure;
-import com.wdeanmedical.ehr.entity.PatientMedicalTest;
-import com.wdeanmedical.ehr.entity.PatientMedication;
-import com.wdeanmedical.ehr.entity.PatientMessage;
 import com.wdeanmedical.ehr.entity.Clinician;
 import com.wdeanmedical.ehr.entity.ClinicianSession;
 import com.wdeanmedical.ehr.entity.PFSH;
@@ -69,17 +55,7 @@ import com.wdeanmedical.ehr.entity.ProgressNote;
 import com.wdeanmedical.ehr.entity.SuppQuestions;
 import com.wdeanmedical.ehr.entity.USState;
 import com.wdeanmedical.ehr.entity.VitalSigns;
-import com.wdeanmedical.ehr.util.ClinicianSessionData;
-import com.wdeanmedical.ehr.dto.MessageDTO;
-import com.wdeanmedical.external.fhir.Address;
-import com.wdeanmedical.external.fhir.Coding;
-import com.wdeanmedical.external.fhir.Enums;
-import com.wdeanmedical.external.fhir.HumanName;
-import com.wdeanmedical.external.fhir.Identifier;
-import com.wdeanmedical.external.fhir.PatientFHIR;
 import com.wdeanmedical.external.fhir.PatientsFHIR;
-import com.wdeanmedical.external.fhir.ResourceReference;
-import com.wdeanmedical.external.fhir.Telecom;
 
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -264,74 +240,109 @@ public class PatientService {
     dto.setEncounter(encounter);
   }
   
-  public PatientFHIR getPatientFullRecord(String mrn) throws Exception{
+  public org.hl7.fhir.Patient getPatientFullRecord(String mrn) throws Exception{
 	  
 	  Patient patient = patientDAO.findPatientByMrn(mrn);
 	  
-	  PatientFHIR fhirpatient = getPatientFHIR(patient);
+	  org.hl7.fhir.Patient fhirpatient = getPatientFHIR(patient);
 	  
 	  return fhirpatient;
   }
 
-  public PatientFHIR getPatient(String mrn) throws Exception{
+  public org.hl7.fhir.Patient getPatient(String mrn) throws Exception{
 	  
 	Patient patient = patientDAO.findPatientByMrn(mrn);
     
 	return getPatientFHIR(patient);
   }
   
-  private PatientFHIR getPatientFHIR(Patient patient){
+  private org.hl7.fhir.Patient getPatientFHIR(Patient patient){
 	  
-	PatientFHIR fhirpatient = new PatientFHIR();
+	org.hl7.fhir.Patient fhirpatient = new org.hl7.fhir.Patient();
+	
+	org.hl7.fhir.DateTime birthDate = new org.hl7.fhir.DateTime();
+	birthDate.setValue(patient.getDemo().getDob().toString());
 	    
-    fhirpatient.setBirthDate(patient.getDemo().getDob());
+    fhirpatient.setBirthDate(birthDate);
       
-    Identifier identifier = new Identifier();
-    identifier.setUse(Enums.IdentifierUse.usual.name());
-    identifier.setLabel("MRN");
-    identifier.setValue(patient.getCred().getMrn());
+    org.hl7.fhir.Identifier identifier = new org.hl7.fhir.Identifier();
+    org.hl7.fhir.IdentifierUse identifierUse = new  org.hl7.fhir.IdentifierUse();
+    identifierUse.setId(org.hl7.fhir.IdentifierUseList.USUAL.value());
+    identifier.setUse(identifierUse);
+    org.hl7.fhir.String mrn = new org.hl7.fhir.String();
+    mrn.setValue("MRN");
+    identifier.setLabel(mrn);
+    org.hl7.fhir.String mrnValue = new org.hl7.fhir.String();
+    mrnValue.setValue(patient.getCred().getMrn());
+    identifier.setValue(mrnValue);
     fhirpatient.getIdentifier().add(identifier);
     
-    com.wdeanmedical.external.fhir.MaritalStatus maritalStatus = new com.wdeanmedical.external.fhir.MaritalStatus();
-    Coding codingm = new Coding();
-    String sss = patient.getDemo().getMaritalStatus().getName();
-    codingm.setDisplay(Enums.MaritalStatus.valueOf(sss).name());
-    codingm.setCode(Enums.MaritalStatus.valueOf(sss).getValue());
-    maritalStatus.setCoding(codingm);
-    fhirpatient.setMaritalStatus(maritalStatus);
+    org.hl7.fhir.CodeableConcept maritalStatusCodeableConcept = new org.hl7.fhir.CodeableConcept();
+    org.hl7.fhir.Coding maritalStatusCoding = new org.hl7.fhir.Coding();
+    MaritalStatus maritalStatus = patient.getDemo().getMaritalStatus();
+    org.hl7.fhir.String maritalStatusDisplay = new org.hl7.fhir.String();
+    maritalStatusDisplay.setValue(maritalStatus.getName());
+    maritalStatusCoding.setDisplay(maritalStatusDisplay);
+    org.hl7.fhir.Code maritalStatusCode = new org.hl7.fhir.Code();
+    maritalStatusCode.setValue(maritalStatus.getCode());
+    maritalStatusCoding.setCode(maritalStatusCode);
+    maritalStatusCodeableConcept.getCoding().add(maritalStatusCoding);
+    fhirpatient.setMaritalStatus(maritalStatusCodeableConcept);
     
-    HumanName name = new HumanName();
-    List<String> family = new ArrayList<String>();
-    family.add(patient.getCred().getLastName());
-    name.setFamily(family);
-    List<String> given = new ArrayList<String>();
-    given.add(patient.getCred().getFirstName());
-    given.add(patient.getCred().getMiddleName());
-    name.setGiven(given);
-    fhirpatient.getName().add(name);
+    org.hl7.fhir.HumanName humanName = new org.hl7.fhir.HumanName();
+    List<org.hl7.fhir.String> familyNameList = new ArrayList<org.hl7.fhir.String>();
+    org.hl7.fhir.String familyName = new org.hl7.fhir.String();
+    familyName.setValue(patient.getCred().getLastName());
+    familyNameList.add(familyName);
+    humanName.getFamily().addAll(familyNameList);
+    List<org.hl7.fhir.String> givenNameList = new ArrayList<org.hl7.fhir.String>();
+    org.hl7.fhir.String givenName1 = new org.hl7.fhir.String();
+    givenName1.setValue(patient.getCred().getFirstName());
+    givenNameList.add(givenName1);
+    org.hl7.fhir.String givenName2 = new org.hl7.fhir.String();
+    givenName2.setValue(patient.getCred().getMiddleName());
+    givenNameList.add(givenName2);
+    humanName.getGiven().addAll(givenNameList);
+    fhirpatient.getName().add(humanName);
     
-    Telecom telecom = new Telecom();
-    telecom.setValue(patient.getCred().getEmail());
+    org.hl7.fhir.Contact telecom = new org.hl7.fhir.Contact();
+    org.hl7.fhir.String email = new org.hl7.fhir.String();
+    email.setValue(patient.getCred().getEmail());
+    telecom.setValue(email);
     fhirpatient.getTelecom().add(telecom);
-    Telecom telecom2 = new Telecom();
-    telecom2.setValue(patient.getDemo().getPrimaryPhone());
+    org.hl7.fhir.Contact telecom2 = new org.hl7.fhir.Contact();
+    org.hl7.fhir.String primaryPhone = new org.hl7.fhir.String();
+    primaryPhone.setValue(patient.getDemo().getPrimaryPhone());
+    telecom2.setValue(primaryPhone);
     fhirpatient.getTelecom().add(telecom2);
     
-    Coding coding = new Coding();
-    coding.setCode(patient.getDemo().getGender().getCode());
-    coding.setDisplay(patient.getDemo().getGender().getName());
-    com.wdeanmedical.external.fhir.Gender gender = new com.wdeanmedical.external.fhir.Gender();
-    gender.setCoding(coding);
-    fhirpatient.setGender(gender);
+    org.hl7.fhir.CodeableConcept genderCodeableConcept = new org.hl7.fhir.CodeableConcept();
+    org.hl7.fhir.Coding genderStatusCoding = new org.hl7.fhir.Coding();
+    org.hl7.fhir.Code genderCode = new org.hl7.fhir.Code();
+    org.hl7.fhir.String genderDisplay = new org.hl7.fhir.String();
+    genderDisplay.setValue(patient.getDemo().getGender().getName());
+    genderCode.setValue(patient.getDemo().getGender().getCode());
+    genderStatusCoding.setDisplay(genderDisplay);
+    genderStatusCoding.setCode(genderCode);
+    genderCodeableConcept.getCoding().add(genderStatusCoding);
+    fhirpatient.setGender(genderCodeableConcept);
     
-    Address address = new Address();
-    List<String> line = new ArrayList<String>();
-    line.add(patient.getDemo().getStreetAddress1());
-    address.setLine(line);
-    address.setCity(patient.getDemo().getCity());
-    address.setState(patient.getDemo().getUsState().getName());
-    address.setZip(patient.getDemo().getPostalCode());
-    address.setCountry(patient.getDemo().getCountry().getName());
+    org.hl7.fhir.Address address = new org.hl7.fhir.Address();
+    org.hl7.fhir.String line = new org.hl7.fhir.String();
+    line.setValue(patient.getDemo().getStreetAddress1());
+    address.getLine().add(line);
+    org.hl7.fhir.String city = new org.hl7.fhir.String();
+    city.setValue(patient.getDemo().getCity());
+    address.setCity(city);
+    org.hl7.fhir.String state = new org.hl7.fhir.String();
+    state.setValue(patient.getDemo().getUsState().getName());
+    address.setState(state);
+    org.hl7.fhir.String zip = new org.hl7.fhir.String();
+    zip.setValue(patient.getDemo().getPostalCode());
+    address.setZip(zip);
+    org.hl7.fhir.String country = new org.hl7.fhir.String();
+    country.setValue(patient.getDemo().getCountry().getName());
+    address.setCountry(country);
     fhirpatient.getAddress().add(address);
     
 	return fhirpatient;
@@ -339,22 +350,22 @@ public class PatientService {
   }
   
   public  String importPatients(PatientsFHIR patientsFHIR) throws Exception {    
-    List<PatientFHIR> patientFHIRList = patientsFHIR.getPatient();
-    for(PatientFHIR patientFHIR : patientFHIRList){
+    List<org.hl7.fhir.Patient> patientFHIRList = patientsFHIR.getPatient();
+    for(org.hl7.fhir.Patient patientFHIR : patientFHIRList){
       importPatient(patientFHIR);
     }    
     return null;
   }
   
-  private  String importPatient(PatientFHIR patientFHIR) throws Exception {
+  private  String importPatient(org.hl7.fhir.Patient patientFHIR) throws Exception {
     Patient patient = new Patient();
     patientDAO.create(patient);
-    String email = null;
-    String primaryPhone = null;
-    String secondaryPhone = null;
-    List<Telecom> telecomList = patientFHIR.getTelecom();
+    org.hl7.fhir.String email = null;
+    org.hl7.fhir.String primaryPhone = null;
+    org.hl7.fhir.String secondaryPhone = null;
+    List<org.hl7.fhir.Contact> telecomList = patientFHIR.getTelecom();
     if(telecomList.size() > 0){
-      Telecom telecom = telecomList.get(0);
+      org.hl7.fhir.Contact telecom = telecomList.get(0);
       email = telecom.getValue();
       if(telecomList.size() > 1){
         telecom = telecomList.get(1);
@@ -365,15 +376,15 @@ public class PatientService {
         }
       }
     }
-    String streetAddress1 = null;
-    String streetAddress2 = null;
-    String city = null;
+    org.hl7.fhir.String streetAddress1 = null;
+    org.hl7.fhir.String streetAddress2 = null;
+    org.hl7.fhir.String city = null;
     USState usState = null;
-    String postalCode = null;
+    org.hl7.fhir.String postalCode = null;
     Country country = null;
-    List<Address> addressList = patientFHIR.getAddress();
+    List<org.hl7.fhir.Address> addressList = patientFHIR.getAddress();
     if(addressList.size() > 0){
-      List<String> lineList = addressList.get(0).getLine();
+      List<org.hl7.fhir.String> lineList = addressList.get(0).getLine();
       if(lineList.size() > 0){
         streetAddress1 = lineList.get(0);
         if(lineList.size() > 1){
@@ -381,35 +392,37 @@ public class PatientService {
         }
       }
       city = addressList.get(0).getCity();
-      usState = patientDAO.findUSStateByName(addressList.get(0).getState());
+      usState = patientDAO.findUSStateByName(String.valueOf(addressList.get(0).getState()));
       postalCode = addressList.get(0).getZip();
-      country = patientDAO.findCountryByName(addressList.get(0).getCountry());
+      country = patientDAO.findCountryByName(String.valueOf(addressList.get(0).getCountry()));
     }
-    Gender gender = patientDAO.findGenderByCode(patientFHIR.getGender().getCoding().getCode());
-    MaritalStatus maritalStatus = patientDAO.findMaritalStatusByCode(patientFHIR.getMaritalStatus().getCoding().getCode());
-    Date dob = patientFHIR.getBirthDate();
+    Gender gender = patientDAO.findGenderByCode(patientFHIR.getGender().getCoding().get(0).getCode().getValue());
+    MaritalStatus maritalStatus = patientDAO.findMaritalStatusByCode(patientFHIR.getMaritalStatus().getCoding().get(0).getCode().getValue());
+    org.hl7.fhir.DateTime birthDate = patientFHIR.getBirthDate();
     //String profileImagePath = null;
     Demographics demo = new Demographics();
     demo.setPatientId(patient.getId());
-    demo.setPrimaryPhone(primaryPhone);
-    demo.setSecondaryPhone(secondaryPhone);
-    demo.setStreetAddress1(streetAddress1);
-    demo.setStreetAddress2(streetAddress2);
-    demo.setCity(city);
+    demo.setPrimaryPhone(String.valueOf(primaryPhone));
+    demo.setSecondaryPhone(String.valueOf(secondaryPhone));
+    demo.setStreetAddress1(String.valueOf(streetAddress1));
+    demo.setStreetAddress2(String.valueOf(streetAddress2));
+    demo.setCity(String.valueOf(city));
     demo.setUsState(usState);
-    demo.setPostalCode(postalCode);
+    demo.setPostalCode(String.valueOf(postalCode));
     demo.setCountry(country);
     demo.setGender(gender);
     demo.setMaritalStatus(maritalStatus);
+    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    Date dob = dateFormat.parse(birthDate.getValue());
     demo.setDob(dob);
     patientDAO.create(demo);
     patient.setDemo(demo);
-    String firstName = null;
-    String middleName = null;
-    String lastName  = null;
-    List<HumanName> humanNameList = patientFHIR.getName();
+    org.hl7.fhir.String firstName = null;
+    org.hl7.fhir.String middleName = null;
+    org.hl7.fhir.String lastName  = null;
+    List<org.hl7.fhir.HumanName> humanNameList = patientFHIR.getName();
     if(humanNameList.size() > 0){
-    HumanName humanName = humanNameList.get(0);
+    	org.hl7.fhir.HumanName humanName = humanNameList.get(0);
       firstName = humanName.getGiven().get(0);
       if( humanName.getGiven().size() > 1){
         middleName = humanName.getGiven().get(1);
@@ -417,41 +430,43 @@ public class PatientService {
       lastName  = humanName.getFamily().get(0);      
     }
     PatientStatus status = new PatientStatus(); 
-    if(patientFHIR.getActive() != null && patientFHIR.getActive()){
+    if(patientFHIR.getActive() != null && Boolean.valueOf(String.valueOf(patientFHIR.getActive().toString()))){
       status.setId(PatientStatus.ACTIVE);
     }else{
       status.setId(PatientStatus.INACTIVE);
     }
-    String mrn = null;
-    List<Identifier> identifierList = patientFHIR.getIdentifier();
+    org.hl7.fhir.String mrn = null;
+    List<org.hl7.fhir.Identifier> identifierList = patientFHIR.getIdentifier();
     if(identifierList.size() > 0){
-      Identifier identifier = identifierList.get(0);
-      if(identifier.getLabel().equalsIgnoreCase("MRN")){
+    	org.hl7.fhir.Identifier identifier = identifierList.get(0);
+      if(identifier.getLabel().getValue().equalsIgnoreCase("MRN")){
         mrn = identifier.getValue();
       }
     }
     Credentials cred = new Credentials(); 
     cred.setPatientId(patient.getId());
-    cred.setMrn(mrn);
-    cred.setFirstName(firstName);
-    cred.setMiddleName(middleName);
-    cred.setLastName(lastName);
-    cred.setEmail(email);
+    cred.setMrn(String.valueOf(mrn));
+    cred.setFirstName(String.valueOf(firstName));
+    cred.setMiddleName(String.valueOf(middleName));
+    cred.setLastName(String.valueOf(lastName));
+    cred.setEmail(String.valueOf(email));
     cred.setStatus(status);
     cred.setPassword("not a password");
     patientDAO.create(cred);
     patient.setCred(cred);
     
-    Integer numChildren = patientFHIR.getMultipleBirthInteger();
-    String caretakerName = null;
-    List<ResourceReference> careProviderList = patientFHIR.getCareProvider();
+    org.hl7.fhir.Integer numChildren = patientFHIR.getMultipleBirthInteger();
+    org.hl7.fhir.String caretakerName = null;
+    List<org.hl7.fhir.ResourceReference> careProviderList = patientFHIR.getCareProvider();
     if(careProviderList.size() > 0){
       caretakerName = careProviderList.get(0).getDisplay();
     }
     PFSH pfsh = new PFSH();
     pfsh.setPatientId(patient.getId());
-    pfsh.setNumChildren(numChildren);
-    pfsh.setCaretakerName(caretakerName);
+    if(numChildren != null){
+    	pfsh.setNumChildren(Integer.valueOf(String.valueOf(numChildren)));
+    }
+    pfsh.setCaretakerName(String.valueOf(caretakerName));
     patientDAO.create(pfsh);
     patient.setPfsh(pfsh);
     

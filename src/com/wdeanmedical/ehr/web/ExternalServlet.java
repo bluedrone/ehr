@@ -7,18 +7,11 @@
 
 package com.wdeanmedical.ehr.web;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletConfig;
@@ -32,32 +25,17 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import com.wdeanmedical.ehr.dto.AdminDTO;
 import com.wdeanmedical.ehr.dto.LoginDTO;
 import com.wdeanmedical.ehr.dto.PatientDTO;
 import com.wdeanmedical.ehr.entity.Clinician;
-import com.wdeanmedical.ehr.entity.Encounter;
 import com.wdeanmedical.ehr.entity.Patient;
-import com.wdeanmedical.ehr.service.AdminService;
+import com.wdeanmedical.ehr.entity.MaritalStatus;
 import com.wdeanmedical.ehr.service.AppService;
 import com.wdeanmedical.ehr.service.PatientService;
 import com.wdeanmedical.ehr.util.JSONUtils;
-import com.wdeanmedical.ehr.core.Core;
-import com.wdeanmedical.external.fhir.Address;
-import com.wdeanmedical.external.fhir.CodeableConcept;
-import com.wdeanmedical.external.fhir.Coding;
-import com.wdeanmedical.external.fhir.Enums;
-import com.wdeanmedical.external.fhir.Gender;
-import com.wdeanmedical.external.fhir.HumanName;
-import com.wdeanmedical.external.fhir.Identifier;
-import com.wdeanmedical.external.fhir.MaritalStatus;
-import com.wdeanmedical.external.fhir.PatientFHIR;
 import com.wdeanmedical.external.fhir.PatientsFHIR;
-import com.wdeanmedical.external.fhir.Period;
-import com.wdeanmedical.external.fhir.Telecom;
 import com.google.gson.Gson;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
 
@@ -161,77 +139,100 @@ public class ExternalServlet extends AppServlet  {
     
     int patientsLength = 19;
     for(int i = 0; i < patientsLength; i++){
-      PatientFHIR fhirpatient = new PatientFHIR();
-      fhirpatient.setBirthDate(patients.get(i).getDemo().getDob());
-        
-      Identifier identifier = new Identifier();
-      identifier.setUse(Enums.IdentifierUse.usual.name());
-      identifier.setLabel("MRN");
-      identifier.setValue(patients.get(i).getCred().getMrn());
-      fhirpatient.getIdentifier().add(identifier);
-      
-      MaritalStatus maritalStatus = new MaritalStatus();
-      Coding codingm = new Coding();
-//      String sss = patients.get(i).getDemo().getMaritalStatus().getName();
-//      codingm.setDisplay(Enums.MaritalStatus.valueOf(sss).name());
-//      codingm.setCode(Enums.MaritalStatus.valueOf(sss).getValue());
-      codingm.setDisplay(patients.get(i).getDemo().getMaritalStatus().getName());
-      maritalStatus.setCoding(codingm);
-      fhirpatient.setMaritalStatus(maritalStatus);
-      
-      HumanName name = new HumanName();
-      List<String> family = new ArrayList<String>();
-      family.add(patients.get(i).getCred().getLastName());
-      name.setFamily(family);
-      List<String> given = new ArrayList<String>();
-      given.add(patients.get(i).getCred().getFirstName());
-      given.add(patients.get(i).getCred().getMiddleName());
-      name.setGiven(given);
-      fhirpatient.getName().add(name);
-      
-      Telecom telecom = new Telecom();
-      telecom.setValue(patients.get(i).getCred().getEmail());
-      fhirpatient.getTelecom().add(telecom);
-      Telecom telecom2 = new Telecom();
-      telecom2.setValue(patients.get(i).getDemo().getPrimaryPhone());
-      fhirpatient.getTelecom().add(telecom2);
-      
-      Coding coding = new Coding();
-      coding.setCode(patients.get(i).getDemo().getGender().getCode());
-      coding.setDisplay(patients.get(i).getDemo().getGender().getName());
-      Gender gender = new Gender();
-      gender.setCoding(coding);
-      fhirpatient.setGender(gender);
-      
-      Address address = new Address();
-      List<String> line = new ArrayList<String>();
-      line.add(patients.get(i).getDemo().getStreetAddress1());
-      address.setLine(line);
-      address.setCity(patients.get(i).getDemo().getCity());
-      address.setState(patients.get(i).getDemo().getUsState().getName());
-      address.setZip(patients.get(i).getDemo().getPostalCode());
-      address.setCountry(patients.get(i).getDemo().getCountry().getName());
-      fhirpatient.getAddress().add(address);
-      
-      patientsFHIR.getPatient().add(fhirpatient);
-    }
-    
-//    List<PatientFHIR> patientFHIRList = new ArrayList<PatientFHIR>();
-//    patientFHIRList.add(fhirpatient);
-//    
-//    PatientsFHIR patientsFHIR = new PatientsFHIR();    
-//    patientsFHIR.setPatient(patientFHIRList);
-      
+	    org.hl7.fhir.Patient fhirpatient = new org.hl7.fhir.Patient();
+	    org.hl7.fhir.DateTime birthDate = new org.hl7.fhir.DateTime();
+		birthDate.setValue(patients.get(i).getDemo().getDob().toString());
+		    
+	    fhirpatient.setBirthDate(birthDate);
+	      
+	    org.hl7.fhir.Identifier identifier = new org.hl7.fhir.Identifier();
+	    org.hl7.fhir.IdentifierUse identifierUse = new  org.hl7.fhir.IdentifierUse();
+	    identifierUse.setId(org.hl7.fhir.IdentifierUseList.USUAL.value());
+	    identifier.setUse(identifierUse);
+	    org.hl7.fhir.String mrn = new org.hl7.fhir.String();
+	    mrn.setValue("MRN");
+	    identifier.setLabel(mrn);
+	    org.hl7.fhir.String mrnValue = new org.hl7.fhir.String();
+	    mrnValue.setValue(patients.get(i).getCred().getMrn());
+	    identifier.setValue(mrnValue);
+	    fhirpatient.getIdentifier().add(identifier);
+	    
+	    org.hl7.fhir.CodeableConcept maritalStatusCodeableConcept = new org.hl7.fhir.CodeableConcept();
+	    org.hl7.fhir.Coding maritalStatusCoding = new org.hl7.fhir.Coding();
+	    MaritalStatus maritalStatus = patients.get(i).getDemo().getMaritalStatus();
+	    org.hl7.fhir.String maritalStatusDisplay = new org.hl7.fhir.String();
+	    maritalStatusDisplay.setValue(maritalStatus.getName());
+	    maritalStatusCoding.setDisplay(maritalStatusDisplay);
+	    org.hl7.fhir.Code maritalStatusCode = new org.hl7.fhir.Code();
+	    maritalStatusCode.setValue(maritalStatus.getCode());
+	    maritalStatusCoding.setCode(maritalStatusCode);
+	    maritalStatusCodeableConcept.getCoding().add(maritalStatusCoding);
+	    fhirpatient.setMaritalStatus(maritalStatusCodeableConcept);
+	    
+	    org.hl7.fhir.HumanName humanName = new org.hl7.fhir.HumanName();
+	    List<org.hl7.fhir.String> familyNameList = new ArrayList<org.hl7.fhir.String>();
+	    org.hl7.fhir.String familyName = new org.hl7.fhir.String();
+	    familyName.setValue(patients.get(i).getCred().getLastName());
+	    familyNameList.add(familyName);
+	    humanName.getFamily().addAll(familyNameList);
+	    List<org.hl7.fhir.String> givenNameList = new ArrayList<org.hl7.fhir.String>();
+	    org.hl7.fhir.String givenName1 = new org.hl7.fhir.String();
+	    givenName1.setValue(patients.get(i).getCred().getFirstName());
+	    givenNameList.add(givenName1);
+	    org.hl7.fhir.String givenName2 = new org.hl7.fhir.String();
+	    givenName2.setValue(patients.get(i).getCred().getMiddleName());
+	    givenNameList.add(givenName2);
+	    humanName.getGiven().addAll(givenNameList);
+	    fhirpatient.getName().add(humanName);
+	    
+	    org.hl7.fhir.Contact telecom = new org.hl7.fhir.Contact();
+	    org.hl7.fhir.String email = new org.hl7.fhir.String();
+	    email.setValue(patients.get(i).getCred().getEmail());
+	    telecom.setValue(email);
+	    fhirpatient.getTelecom().add(telecom);
+	    org.hl7.fhir.Contact telecom2 = new org.hl7.fhir.Contact();
+	    org.hl7.fhir.String primaryPhone = new org.hl7.fhir.String();
+	    primaryPhone.setValue(patients.get(i).getDemo().getPrimaryPhone());
+	    telecom2.setValue(primaryPhone);
+	    fhirpatient.getTelecom().add(telecom2);
+	    
+	    org.hl7.fhir.CodeableConcept genderCodeableConcept = new org.hl7.fhir.CodeableConcept();
+	    org.hl7.fhir.Coding genderStatusCoding = new org.hl7.fhir.Coding();
+	    org.hl7.fhir.Code genderCode = new org.hl7.fhir.Code();
+	    org.hl7.fhir.String genderDisplay = new org.hl7.fhir.String();
+	    genderDisplay.setValue(patients.get(i).getDemo().getGender().getName());
+	    genderCode.setValue(patients.get(i).getDemo().getGender().getCode());
+	    genderStatusCoding.setDisplay(genderDisplay);
+	    genderStatusCoding.setCode(genderCode);
+	    genderCodeableConcept.getCoding().add(genderStatusCoding);
+	    fhirpatient.setGender(genderCodeableConcept);
+	    
+	    org.hl7.fhir.Address address = new org.hl7.fhir.Address();
+	    org.hl7.fhir.String line = new org.hl7.fhir.String();
+	    line.setValue(patients.get(i).getDemo().getStreetAddress1());
+	    address.getLine().add(line);
+	    org.hl7.fhir.String city = new org.hl7.fhir.String();
+	    city.setValue(patients.get(i).getDemo().getCity());
+	    address.setCity(city);
+	    org.hl7.fhir.String state = new org.hl7.fhir.String();
+	    state.setValue(patients.get(i).getDemo().getUsState().getName());
+	    address.setState(state);
+	    org.hl7.fhir.String zip = new org.hl7.fhir.String();
+	    zip.setValue(patients.get(i).getDemo().getPostalCode());
+	    address.setZip(zip);
+	    org.hl7.fhir.String country = new org.hl7.fhir.String();
+	    country.setValue(patients.get(i).getDemo().getCountry().getName());
+	    address.setCountry(country);      
+	    patientsFHIR.getPatient().add(fhirpatient);
+    }      
     try {
-      JAXBContext jaxbContext = JAXBContext.newInstance(PatientsFHIR.class);
-      Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-      jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-      jaxbMarshaller.marshal(patientsFHIR, System.out);
+	      JAXBContext jaxbContext = JAXBContext.newInstance(PatientsFHIR.class);
+	      Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+	      jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+	      jaxbMarshaller.marshal(patientsFHIR, System.out);
       } catch (JAXBException e) {
-      e.printStackTrace();
+    	  e.printStackTrace();
       }
-      
-      //String json = gson.toJson(dto);
       String json = gson.toJson(patientsFHIR);
       System.out.println(json);
       return json;
@@ -239,9 +240,8 @@ public class ExternalServlet extends AppServlet  {
   
   public String patientsImport(HttpServletRequest request, HttpServletResponse response) throws Exception {
 	  String data = request.getParameter("data");
-      //String data = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><patients><patients><address><city>Springfield</city><country>UNITED STATES</country><line>71 State Street</line><state>Massachusetts</state><zip>01011</zip></address><birthDate>1977-04-04T13:00:00-05:00</birthDate><gender><coding><code>F</code><display>Female</display></coding></gender><identifier><label>MRN</label><use>usual</use><value>ABC123</value></identifier><maritalStatus><coding><code>M</code><display>Married</display></coding></maritalStatus><name><family>Smith</family><given>Sara</given><given>J.</given></name><telecom><value>patient01@pleasantvillemedical.com</value></telecom><telecom><value>413 567-9988</value></telecom></patients></patients>";
-      //String data = "{\"patients\":[{\"identifier\":[{\"use\":\"usual\",\"label\":\"MRN\",\"value\":\"ABC123\"}],\"name\":[{\"family\":[\"Smith\"],\"given\":[\"Sara\",\"J.\"],\"prefix\":[],\"suffix\":[]}],\"telecom\":[{\"value\":\"patient01@pleasantvillemedical.com\"},{\"value\":\"413 567-9988\"}],\"gender\":{\"coding\":{\"code\":\"F\",\"display\":\"Female\"}},\"birthDate\":\"Apr 4, 1977 1:00:00 PM\",\"address\":[{\"line\":[\"71 State Street\"],\"city\":\"Springfield\",\"state\":\"Massachusetts\",\"zip\":\"01011\",\"country\":\"UNITED STATES\"}],\"maritalStatus\":{\"coding\":{\"code\":\"M\",\"display\":\"Married\"}},\"contact\":[],\"communication\":[],\"careProvider\":[],\"link\":[]}]}";
-	  
+      //String data = "<patients xmlns:ns2=\"http://www.w3.org/1999/xhtml\" xmlns:ns3=\"http://hl7.org/fhir\"><patient><ns3:identifier><ns3:use id=\"usual\"/><ns3:label value=\"MRN\"/><ns3:value value=\"ABC123\"/></ns3:identifier><ns3:name><ns3:family value=\"Smith\"/><ns3:given value=\"Sara\"/><ns3:given value=\"J.\"/></ns3:name><ns3:telecom><ns3:value value=\"patient01@pleasantvillemedical.com\"/></ns3:telecom><ns3:telecom><ns3:value value=\"413 567-9988\"/></ns3:telecom><ns3:gender><ns3:coding><ns3:code value=\"F\"/><ns3:display value=\"Female\"/></ns3:coding></ns3:gender><ns3:birthDate value=\"1977-04-04 13:00:00.0\"/><ns3:maritalStatus><ns3:coding><ns3:code value=\"married\"/><ns3:display value=\"Married\"/></ns3:coding></ns3:maritalStatus></patient></patients>";
+ 	  
 	  PatientsFHIR patientsFHIR = null;
 	  
 	  if(JSONUtils.isJSONValid(data, PatientsFHIR.class)){
@@ -277,7 +277,7 @@ public class ExternalServlet extends AppServlet  {
   
   public String getPatient(String mrn) throws Exception {
 	  Gson gson = new Gson();
-	  PatientFHIR patientFHIR = patientService.getPatient(mrn);
+	  org.hl7.fhir.Patient patientFHIR = patientService.getPatient(mrn);
 	  String json = gson.toJson(patientFHIR);
 	  return json;
   }
@@ -289,7 +289,7 @@ public class ExternalServlet extends AppServlet  {
   
   public String getPatientFullRecord(String mrn) throws Exception {
 	  Gson gson = new Gson();
-	  PatientFHIR patientFHIR = patientService.getPatientFullRecord(mrn);
+	  org.hl7.fhir.Patient patientFHIR = patientService.getPatientFullRecord(mrn);
 	  String json = gson.toJson(patientFHIR);
 	  return json;
   }

@@ -53,7 +53,6 @@ import com.wdeanmedical.ehr.entity.Clinician;
 import com.wdeanmedical.ehr.entity.ClinicianSession;
 import com.wdeanmedical.ehr.util.ClinicianSessionData;
 import com.wdeanmedical.ehr.dto.MessageDTO;
-import com.wdeanmedical.external.fhir.PatientFHIR;
 
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;

@@ -8,13 +8,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="patients")
 public class PatientsFHIR {
   
-  private List<PatientFHIR> patient = new ArrayList<PatientFHIR>();
+  private List<org.hl7.fhir.Patient> patient = new ArrayList<org.hl7.fhir.Patient>();
 
-  public List<PatientFHIR> getPatient() {
+  public List<org.hl7.fhir.Patient> getPatient() {
     return patient;
   }
 
-  public void setPatient(List<PatientFHIR> patient) {
+  public void setPatient(List<org.hl7.fhir.Patient> patient) {
     this.patient = patient;
   }  
   
