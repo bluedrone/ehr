@@ -60,6 +60,7 @@ import com.wdeanmedical.external.fhir.PatientsFHIR;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -233,11 +234,150 @@ public class PatientService {
     activityLogService.logEditEncounter(dto.getClinicianId(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSet);
   }
   
-
-  
   public void getCurrentPatientEncounter(PatientDTO dto) throws Exception {
     Encounter encounter = patientDAO.findCurrentEncounterByPatientId(dto.getPatientId());
     dto.setEncounter(encounter);
+  }
+  
+  public void updatePatient(org.hl7.fhir.Patient patientFHIR) throws Exception{	  
+	 List<org.hl7.fhir.Identifier> identifierList = patientFHIR.getIdentifier();
+	 String mrn = null;
+	   if(identifierList.size() > 0){
+	    org.hl7.fhir.Identifier identifier = identifierList.get(0);
+	    if(identifier.getLabel().getValue().equalsIgnoreCase("MRN")){
+	       mrn = identifier.getValue().getValue();
+	    }
+	  }
+	  if(mrn != null){
+		  Patient patient = patientDAO.findPatientByMrn(mrn);
+		  Demographics demo = patient.getDemo();
+		  String email = null;
+		  String primaryPhone = null;
+		  String secondaryPhone = null;
+		  List<org.hl7.fhir.Contact> telecomList = patientFHIR.getTelecom();
+		  if(telecomList.size() > 0){
+		    org.hl7.fhir.Contact telecom = telecomList.get(0);
+		    email = telecom.getValue().getValue();
+		    if(telecomList.size() > 1){
+		      telecom = telecomList.get(1);
+		      primaryPhone = telecom.getValue().getValue();
+		      if(telecomList.size() > 2){
+		        telecom = telecomList.get(2);
+		        secondaryPhone = telecom.getValue().getValue();
+		      }
+		    }
+		  }
+		  String streetAddress1 = null;
+		  String streetAddress2 = null;
+		  String city = null;
+		  USState usState = null;
+		  String postalCode = null;
+		  Country country = null;
+		  List<org.hl7.fhir.Address> addressList = patientFHIR.getAddress();
+		  if(addressList.size() > 0){
+		    List<org.hl7.fhir.String> lineList = addressList.get(0).getLine();
+		    if(lineList.size() > 0){
+		      streetAddress1 = lineList.get(0).getValue();
+		      if(lineList.size() > 1){
+		        streetAddress2 = lineList.get(1).getValue();
+		      }
+		    }
+		    city = addressList.get(0).getCity().getValue();
+		    usState = patientDAO.findUSStateByName(addressList.get(0).getState().getValue());
+		    postalCode = addressList.get(0).getZip().getValue();
+		    country = patientDAO.findCountryByName(addressList.get(0).getCountry().getValue());
+		  }
+		  Gender gender = patientDAO.findGenderByCode(patientFHIR.getGender().getCoding().get(0).getCode().getValue());
+		  MaritalStatus maritalStatus = patientDAO.findMaritalStatusByCode(patientFHIR.getMaritalStatus().getCoding().get(0).getCode().getValue());
+		  org.hl7.fhir.DateTime birthDate = patientFHIR.getBirthDate();
+		  if(StringUtils.isNotEmpty(primaryPhone)){
+			demo.setPrimaryPhone(primaryPhone);
+	      }
+		  if(StringUtils.isNotEmpty(secondaryPhone)){
+			demo.setSecondaryPhone(secondaryPhone);
+		  }
+		  if(StringUtils.isNotEmpty(streetAddress1)){
+			demo.setStreetAddress1(streetAddress1);
+		  }
+		  if(StringUtils.isNotEmpty(streetAddress2)){
+			demo.setStreetAddress2(streetAddress2);
+		  }
+		  if(StringUtils.isNotEmpty(city)){
+			demo.setCity(city);
+		  }
+		  if(usState != null){
+			demo.setUsState(usState);
+		  }
+	      if(StringUtils.isNotEmpty(postalCode)){
+	    	demo.setPostalCode(postalCode);
+	      }
+	      if(country != null){
+	    	demo.setCountry(country);
+	      }
+	      if(gender != null){
+	    	demo.setGender(gender);
+	      }
+	      if(maritalStatus != null){
+	    	demo.setMaritalStatus(maritalStatus);
+	      }
+		  DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		  Date dob = dateFormat.parse(birthDate.getValue());
+		  if(dob != null){
+			  demo.setDob(dob);
+		  }
+		  patientDAO.update(demo);
+		  Credentials cred = patient.getCred();
+		  String firstName = null;
+		  String middleName = null;
+		  String lastName  = null;
+		  List<org.hl7.fhir.HumanName> humanNameList = patientFHIR.getName();
+		  if(humanNameList.size() > 0){
+		    org.hl7.fhir.HumanName humanName = humanNameList.get(0);
+		    firstName = humanName.getGiven().get(0).getValue();
+		    if( humanName.getGiven().size() > 1){
+		      middleName = humanName.getGiven().get(1).getValue();
+		    }
+		    lastName  = humanName.getFamily().get(0).getValue();      
+		  }
+		  PatientStatus status = new PatientStatus(); 
+		  if(patientFHIR.getActive() != null && patientFHIR.getActive().isValue()){
+		    status.setId(PatientStatus.ACTIVE);
+		  }else{
+		    status.setId(PatientStatus.INACTIVE);
+		  }
+		  if(StringUtils.isNotEmpty(firstName)){
+			cred.setFirstName(firstName);
+		  }
+		  if(StringUtils.isNotEmpty(middleName)){
+			cred.setMiddleName(middleName);
+		  }
+		  if(StringUtils.isNotEmpty(lastName)){
+			cred.setLastName(lastName);
+		  }
+		  if(StringUtils.isNotEmpty(email)){
+			cred.setEmail(email);
+		  }
+		  if(status != null ){
+			cred.setStatus(status);
+		  }
+		  patientDAO.update(cred);
+		  PFSH pfsh = patient.getPfsh();
+		  String caretakerName = null;
+		  List<org.hl7.fhir.ResourceReference> careProviderList = patientFHIR.getCareProvider();
+		  if(careProviderList.size() > 0){
+		    caretakerName = careProviderList.get(0).getDisplay().getValue();
+		  }
+		  if(patientFHIR.getMultipleBirthInteger() != null){
+		    Integer numChildren = patientFHIR.getMultipleBirthInteger().getValue();
+		    pfsh.setNumChildren(numChildren);
+		  }
+		  if(StringUtils.isNotEmpty(caretakerName)){
+			pfsh.setCaretakerName(caretakerName);
+		  }
+		  patientDAO.update(pfsh);
+		  /*MedicalHistory hist = patient.getHist();
+		  patientDAO.update(hist);*/
+	  }
   }
   
   public org.hl7.fhir.Patient getPatientFullRecord(String mrn) throws Exception{
@@ -328,9 +468,12 @@ public class PatientService {
     fhirpatient.setGender(genderCodeableConcept);
     
     org.hl7.fhir.Address address = new org.hl7.fhir.Address();
-    org.hl7.fhir.String line = new org.hl7.fhir.String();
-    line.setValue(patient.getDemo().getStreetAddress1());
-    address.getLine().add(line);
+    org.hl7.fhir.String line1 = new org.hl7.fhir.String();
+    line1.setValue(patient.getDemo().getStreetAddress1());
+    address.getLine().add(line1);
+    org.hl7.fhir.String line2 = new org.hl7.fhir.String();
+    line2.setValue(patient.getDemo().getStreetAddress2());
+    address.getLine().add(line2);
     org.hl7.fhir.String city = new org.hl7.fhir.String();
     city.setValue(patient.getDemo().getCity());
     address.setCity(city);
@@ -344,6 +487,10 @@ public class PatientService {
     country.setValue(patient.getDemo().getCountry().getName());
     address.setCountry(country);
     fhirpatient.getAddress().add(address);
+    
+    org.hl7.fhir.Integer numChildren = new org.hl7.fhir.Integer();
+    numChildren.setValue(patient.getPfsh().getNumChildren());
+    fhirpatient.setMultipleBirthInteger(numChildren);
     
 	return fhirpatient;
 	  
@@ -406,7 +553,7 @@ public class PatientService {
     demo.setSecondaryPhone(secondaryPhone);
     demo.setStreetAddress1(streetAddress1);
     demo.setStreetAddress2(streetAddress2);
-    demo.setCity(String.valueOf(city));
+    demo.setCity(city);
     demo.setUsState(usState);
     demo.setPostalCode(postalCode);
     demo.setCountry(country);

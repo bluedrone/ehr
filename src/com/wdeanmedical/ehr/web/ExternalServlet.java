@@ -74,7 +74,7 @@ public class ExternalServlet extends AppServlet  {
       else { 
         if (pathInfo.equals("/patientExport")) {
           returnString = patientExport(request, response);  
-          returnString = patientsImport(request, response); 
+          //returnString = patientsImport(request, response); 
         }else if(pathInfo.equals("/patientImport")) {
             returnString = patientsImport(request, response);  
         }else if(pathInfo.split("/").length > 2){
@@ -88,8 +88,7 @@ public class ExternalServlet extends AppServlet  {
         		}        		
         	}else if(paths[1].equals("xml")){
         		if(paths[2].equals("updatePatient")){
-        			String mrn = paths[3]; 
-        			returnString = updatePatient(mrn);
+        			returnString = updatePatient(request, response);
         		}else if(paths[2].equals("getPatientFullRecord")){        			
         			String mrn = paths[3];
         			returnString = getPatientFullRecord(mrn);
@@ -138,7 +137,7 @@ public class ExternalServlet extends AppServlet  {
     PatientsFHIR patientsFHIR = new PatientsFHIR();
     
     int patientsLength = 19;
-    for(int i = 0; i < patientsLength; i++){
+    for(int i = 0; i < 1; i++){
 	    org.hl7.fhir.Patient fhirpatient = new org.hl7.fhir.Patient();
 	    org.hl7.fhir.DateTime birthDate = new org.hl7.fhir.DateTime();
 		birthDate.setValue(patients.get(i).getDemo().getDob().toString());
@@ -224,6 +223,9 @@ public class ExternalServlet extends AppServlet  {
 	    country.setValue(patients.get(i).getDemo().getCountry().getName());
 	    address.setCountry(country);  
 	    fhirpatient.getAddress().add(address);
+	    org.hl7.fhir.Integer numChildren = new org.hl7.fhir.Integer();
+	    numChildren.setValue(patients.get(i).getPfsh().getNumChildren());
+	    fhirpatient.setMultipleBirthInteger(numChildren);
 	    patientsFHIR.getPatient().add(fhirpatient);
     }      
     try {
@@ -240,9 +242,9 @@ public class ExternalServlet extends AppServlet  {
   } 
   
   public String patientsImport(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	  //String data = request.getParameter("data");
-      String data = "<patients xmlns:ns2=\"http://www.w3.org/1999/xhtml\" xmlns:ns3=\"http://hl7.org/fhir\"><patient><ns3:identifier><ns3:use id=\"usual\"/><ns3:label value=\"MRN\"/><ns3:value value=\"ABC123\"/></ns3:identifier><ns3:name><ns3:family value=\"Smith\"/><ns3:given value=\"Sara\"/><ns3:given value=\"J.\"/></ns3:name><ns3:telecom><ns3:value value=\"patient01@pleasantvillemedical.com\"/></ns3:telecom><ns3:telecom><ns3:value value=\"413 567-9988\"/></ns3:telecom><ns3:gender><ns3:coding><ns3:code value=\"F\"/><ns3:display value=\"Female\"/></ns3:coding></ns3:gender><ns3:birthDate value=\"1977-04-04 13:00:00.0\"/><ns3:maritalStatus><ns3:coding><ns3:code value=\"married\"/><ns3:display value=\"Married\"/></ns3:coding></ns3:maritalStatus></patient></patients>";
- 	  
+	  String data = request.getParameter("data");
+	  //String data = "<patients xmlns:ns2=\"http://www.w3.org/1999/xhtml\" xmlns:ns3=\"http://hl7.org/fhir\"><patient><ns3:identifier><ns3:use id=\"usual\"/><ns3:label value=\"MRN\"/><ns3:value value=\"ABC123\"/></ns3:identifier><ns3:name><ns3:family value=\"Smith\"/><ns3:given value=\"Sara\"/><ns3:given value=\"J.\"/></ns3:name><ns3:telecom><ns3:value value=\"patient01@pleasantvillemedical.com\"/></ns3:telecom><ns3:telecom><ns3:value value=\"413 567-9988\"/></ns3:telecom><ns3:gender><ns3:coding><ns3:code value=\"F\"/><ns3:display value=\"Female\"/></ns3:coding></ns3:gender><ns3:birthDate value=\"1977-04-04 13:00:00.0\"/><ns3:address><ns3:line value=\"71 State Street\"/><ns3:city value=\"Springfield\"/><ns3:state value=\"Massachusetts\"/><ns3:zip value=\"01011\"/><ns3:country value=\"UNITED STATES\"/></ns3:address><ns3:maritalStatus><ns3:coding><ns3:code value=\"married\"/><ns3:display value=\"Married\"/></ns3:coding></ns3:maritalStatus></patient></patients>";
+	  //String data = "{\"patient\":[{\"identifier\":[{\"use\":{\"id\":\"usual\"},\"label\":{\"value\":\"MRN\"},\"value\":{\"value\":\"ABC123\"}}],\"name\":[{\"family\":[{\"value\":\"Smith\"}],\"given\":[{\"value\":\"Sara\"},{\"value\":\"J.\"}]}],\"telecom\":[{\"value\":{\"value\":\"patient01@pleasantvillemedical.com\"}},{\"value\":{\"value\":\"413 567-9988\"}}],\"gender\":{\"coding\":[{\"code\":{\"value\":\"F\"},\"display\":{\"value\":\"Female\"}}]},\"birthDate\":{\"value\":\"1977-04-04 13:00:00.0\"},\"address\":[{\"line\":[{\"value\":\"71 State Street\"}],\"city\":{\"value\":\"Springfield\"},\"state\":{\"value\":\"Massachusetts\"},\"zip\":{\"value\":\"01011\"},\"country\":{\"value\":\"UNITED STATES\"}}],\"maritalStatus\":{\"coding\":[{\"code\":{\"value\":\"married\"},\"display\":{\"value\":\"Married\"}}]},\"multipleBirthInteger\":{\"value\":1}}]}";
 	  PatientsFHIR patientsFHIR = null;
 	  
 	  if(JSONUtils.isJSONValid(data, PatientsFHIR.class)){
@@ -283,8 +285,25 @@ public class ExternalServlet extends AppServlet  {
 	  return json;
   }
   
-  public String updatePatient(String mrn) throws Exception {
-	  System.out.println("******* mrn: " + mrn);
+  public String updatePatient(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	  String data = request.getParameter("data");
+	  //String data = "<patients xmlns:ns2=\"http://www.w3.org/1999/xhtml\" xmlns:ns3=\"http://hl7.org/fhir\"><patient><ns3:identifier><ns3:use id=\"usual\"/><ns3:label value=\"MRN\"/><ns3:value value=\"ABC123\"/></ns3:identifier><ns3:name><ns3:family value=\"Smith\"/><ns3:given value=\"Sara\"/><ns3:given value=\"J.\"/></ns3:name><ns3:telecom><ns3:value value=\"patient01@pleasantvillemedical.com\"/></ns3:telecom><ns3:telecom><ns3:value value=\"413 567-9988\"/></ns3:telecom><ns3:gender><ns3:coding><ns3:code value=\"F\"/><ns3:display value=\"Female\"/></ns3:coding></ns3:gender><ns3:birthDate value=\"1977-04-04 13:00:00.0\"/><ns3:address><ns3:line value=\"490 Douglas Pike\"/><ns3:city value=\"Springfield\"/><ns3:state value=\"Massachusetts\"/><ns3:zip value=\"01011\"/><ns3:country value=\"UNITED STATES\"/></ns3:address><ns3:maritalStatus><ns3:coding><ns3:code value=\"married\"/><ns3:display value=\"Married\"/></ns3:coding></ns3:maritalStatus><ns3:multipleBirthInteger value=\"1\"/></patient></patients>";
+
+	  org.hl7.fhir.Patient patientFHIR = null;
+	  try {
+  	    JAXBContext jaxbContext = JAXBContext.newInstance(org.hl7.fhir.Patient.class);
+  	    //JAXBContext jaxbContext = JAXBContext.newInstance(PatientsFHIR.class);
+  	    Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+  	    StringReader stringReader = new StringReader(data);
+  	    patientFHIR = (org.hl7.fhir.Patient)jaxbUnmarshaller.unmarshal(stringReader);
+  	    //PatientsFHIR patientsFHIR = (PatientsFHIR)jaxbUnmarshaller.unmarshal(stringReader);
+  	    //patientFHIR = patientsFHIR.getPatient().get(0);
+	    } catch (JAXBException e) {
+	      e.printStackTrace();
+	    }
+	  if(patientFHIR != null){
+		  patientService.updatePatient(patientFHIR);
+	  }
 	  return null;
   }
   
