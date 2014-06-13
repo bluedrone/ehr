@@ -10,6 +10,7 @@ package com.wdeanmedical.ehr.web;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -308,10 +309,20 @@ public class ExternalServlet extends AppServlet  {
   }
   
   public String getPatientFullRecord(String mrn) throws Exception {
-	  Gson gson = new Gson();
+	  
 	  org.hl7.fhir.Patient patientFHIR = patientService.getPatientFullRecord(mrn);
-	  String json = gson.toJson(patientFHIR);
-	  return json;
+	  
+	  StringWriter stringWriter = new StringWriter();
+	  
+	  try {
+	      JAXBContext jaxbContext = JAXBContext.newInstance(org.hl7.fhir.Patient.class);
+	      Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+	      jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+	      jaxbMarshaller.marshal(patientFHIR, stringWriter);
+      } catch (JAXBException e) {
+    	  e.printStackTrace();
+      }
+	  return stringWriter.toString();
   }
  
 }
