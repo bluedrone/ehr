@@ -76,6 +76,8 @@ public class ExternalServlet extends AppServlet  {
         if (pathInfo.equals("/patientExport")) {
           returnString = patientExport(request, response);  
           //returnString = patientsImport(request, response); 
+        }else if(pathInfo.equals("/patientEncounter")) {
+          returnString = patientEncounter(request, response); 
         }else if(pathInfo.equals("/patientImport")) {
             returnString = patientsImport(request, response);  
         }else if(pathInfo.split("/").length > 2){
@@ -125,6 +127,19 @@ public class ExternalServlet extends AppServlet  {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) {
     doPost(request, response);  
+  }
+  
+  public String patientEncounter(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String data = request.getParameter("data");
+    Gson gson = new Gson();
+    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
+    List<Patient> patients = appService.getPatients(dto); 
+    dto.setPatients(patients);
+    System.out.println("patient encounter");
+    
+    String json = gson.toJson(patients);
+    System.out.println(json);
+    return json;
   }
     
   public String patientExport(HttpServletRequest request, HttpServletResponse response) throws Exception {
