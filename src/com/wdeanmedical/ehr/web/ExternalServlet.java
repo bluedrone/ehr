@@ -135,7 +135,28 @@ public class ExternalServlet extends AppServlet  {
     PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
     List<Patient> patients = appService.getPatients(dto); 
     dto.setPatients(patients);
-    System.out.println("patient encounter");
+    
+    org.hl7.fhir.Encounter encounter = new org.hl7.fhir.Encounter();
+    org.hl7.fhir.Identifier identifier = new org.hl7.fhir.Identifier();
+    org.hl7.fhir.IdentifierUse identifierUse = new  org.hl7.fhir.IdentifierUse();
+    identifierUse.setId(org.hl7.fhir.IdentifierUseList.TEMP.value());
+    identifier.setUse(identifierUse);
+    org.hl7.fhir.String mrn = new org.hl7.fhir.String();
+    mrn.setValue("Sara's encounter on March eleventh 2013");
+    identifier.setLabel(mrn);
+    org.hl7.fhir.String mrnValue = new org.hl7.fhir.String();
+    mrnValue.setValue("Encounter_Sara_20130311");
+    identifier.setValue(mrnValue);
+    encounter.getIdentifier().add(identifier);
+    
+    try {
+      JAXBContext jaxbContext = JAXBContext.newInstance(org.hl7.fhir.Encounter.class);
+      Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+      jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+      jaxbMarshaller.marshal(encounter, System.out);
+    } catch (JAXBException e) {
+      e.printStackTrace();
+    }
     
     String json = gson.toJson(patients);
     System.out.println(json);
