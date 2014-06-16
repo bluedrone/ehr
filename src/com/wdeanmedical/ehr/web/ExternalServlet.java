@@ -29,8 +29,10 @@ import javax.xml.bind.Unmarshaller;
 import com.wdeanmedical.ehr.dto.LoginDTO;
 import com.wdeanmedical.ehr.dto.PatientDTO;
 import com.wdeanmedical.ehr.entity.Clinician;
+import com.wdeanmedical.ehr.entity.Encounter;
 import com.wdeanmedical.ehr.entity.Patient;
 import com.wdeanmedical.ehr.entity.MaritalStatus;
+import com.wdeanmedical.ehr.persistence.PatientDAO;
 import com.wdeanmedical.ehr.service.AppService;
 import com.wdeanmedical.ehr.service.PatientService;
 import com.wdeanmedical.ehr.util.JSONUtils;
@@ -132,9 +134,9 @@ public class ExternalServlet extends AppServlet  {
   public String patientEncounter(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String data = request.getParameter("data");
     Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    List<Patient> patients = appService.getPatients(dto); 
-    dto.setPatients(patients);
+    PatientDTO dto = gson.fromJson(data, PatientDTO.class);
+    Patient patient = patientService.getPatient(dto.getId());
+    Encounter encount = patientService.getEncounter(patient.getCurrentEncounterId());
     
     org.hl7.fhir.Encounter encounter = new org.hl7.fhir.Encounter();
     org.hl7.fhir.Identifier identifier = new org.hl7.fhir.Identifier();
@@ -148,7 +150,11 @@ public class ExternalServlet extends AppServlet  {
     mrnValue.setValue("Encounter_Sara_20130311");
     identifier.setValue(mrnValue);
     encounter.getIdentifier().add(identifier);
-    
+    org.hl7.fhir.String reasonValue = new org.hl7.fhir.String();
+    reasonValue.setValue(encount.getCc().getDescription());
+    org.hl7.fhir.CodeableConcept reasonCodeableConcept = new org.hl7.fhir.CodeableConcept();
+    reasonCodeableConcept.setText(reasonValue);
+    encounter.setReason(reasonCodeableConcept);
     try {
       JAXBContext jaxbContext = JAXBContext.newInstance(org.hl7.fhir.Encounter.class);
       Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
@@ -157,8 +163,7 @@ public class ExternalServlet extends AppServlet  {
     } catch (JAXBException e) {
       e.printStackTrace();
     }
-    
-    String json = gson.toJson(patients);
+    String json = gson.toJson(encounter);
     System.out.println(json);
     return json;
   }

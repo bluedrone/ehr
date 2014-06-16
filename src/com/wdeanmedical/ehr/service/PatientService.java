@@ -785,6 +785,15 @@ public class PatientService {
     return encounter;
   }
   
+  public Encounter getEncounter(int id) throws Exception {
+    Encounter encounter = patientDAO.findEncounterById(id);
+    return encounter;
+  }
+  
+  public Patient getPatient(int id) throws Exception {
+    Patient patient = patientDAO.findPatientById(id);
+    return patient;
+  }
   
   public Encounter getCurrentEncounter(Patient patient, PatientDTO dto) throws Exception {
     Encounter encounter = patientDAO.findCurrentEncounterByPatient(patient);
