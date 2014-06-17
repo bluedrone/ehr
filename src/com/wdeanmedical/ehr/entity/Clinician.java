@@ -52,8 +52,17 @@ public class Clinician extends BaseEntity implements Serializable {
   private Date lastLoginTime;
   private String previousLoginTime;
   private User adminUser;
+  private String full_name;
 
   public Clinician() {
+  }
+  
+  public String getFull_name() {
+    return full_name;
+  }
+
+  public void setFull_name(String full_name) {
+    this.full_name = full_name;
   }
 
   @Column(name = "password")
