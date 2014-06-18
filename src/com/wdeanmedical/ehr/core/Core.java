@@ -49,12 +49,13 @@ public class Core {
     clinicianPermissionsMap.put("/acquirePatient",               new boolean[] {true,true});
     clinicianPermissionsMap.put("/activateClinician",            new boolean[] {true,true});
     clinicianPermissionsMap.put("/deactivateClinician",          new boolean[] {true,true});
-    clinicianPermissionsMap.put("/addEncounterMedication",          new boolean[] {true,true});
-    clinicianPermissionsMap.put("/addEncounterQuestion",            new boolean[] {true,true});
+    clinicianPermissionsMap.put("/addEncounterMedication",       new boolean[] {true,true});
+    clinicianPermissionsMap.put("/addEncounterQuestion",         new boolean[] {true,true});
+    clinicianPermissionsMap.put("/auth",                         new boolean[] {true,true});
     clinicianPermissionsMap.put("/closeEncounter",               new boolean[] {true,true});
     clinicianPermissionsMap.put("/closePatientNote",             new boolean[] {true,true});
     clinicianPermissionsMap.put("/createPatientAndEncounter",    new boolean[] {true,true});
-    clinicianPermissionsMap.put("/createPatientEncounterGroup",     new boolean[] {true,true});
+    clinicianPermissionsMap.put("/createPatientEncounterGroup",  new boolean[] {true,true});
     clinicianPermissionsMap.put("/deletePatient",                new boolean[] {true,true});
     clinicianPermissionsMap.put("/getClinicianDashboard",        new boolean[] {true,true});
     clinicianPermissionsMap.put("/getClinicianMessage",          new boolean[] {true,true});

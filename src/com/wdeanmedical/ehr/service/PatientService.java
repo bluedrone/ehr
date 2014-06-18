@@ -242,170 +242,170 @@ public class PatientService {
     dto.setEncounter(encounter);
   }
   
-  public void updatePatient(org.hl7.fhir.Patient patientFHIR) throws Exception{	  
-	 List<org.hl7.fhir.Identifier> identifierList = patientFHIR.getIdentifier();
-	 String mrn = null;
-	   if(identifierList.size() > 0){
-	    org.hl7.fhir.Identifier identifier = identifierList.get(0);
-	    if(identifier.getLabel().getValue().equalsIgnoreCase("MRN")){
-	       mrn = identifier.getValue().getValue();
-	    }
-	  }
-	  if(mrn != null){
-		  Patient patient = patientDAO.findPatientByMrn(mrn);
-		  Demographics demo = patient.getDemo();
-		  String email = null;
-		  String primaryPhone = null;
-		  String secondaryPhone = null;
-		  List<org.hl7.fhir.Contact> telecomList = patientFHIR.getTelecom();
-		  if(telecomList.size() > 0){
-		    org.hl7.fhir.Contact telecom = telecomList.get(0);
-		    email = telecom.getValue().getValue();
-		    if(telecomList.size() > 1){
-		      telecom = telecomList.get(1);
-		      primaryPhone = telecom.getValue().getValue();
-		      if(telecomList.size() > 2){
-		        telecom = telecomList.get(2);
-		        secondaryPhone = telecom.getValue().getValue();
-		      }
-		    }
-		  }
-		  String streetAddress1 = null;
-		  String streetAddress2 = null;
-		  String city = null;
-		  USState usState = null;
-		  String postalCode = null;
-		  Country country = null;
-		  List<org.hl7.fhir.Address> addressList = patientFHIR.getAddress();
-		  if(addressList.size() > 0){
-		    List<org.hl7.fhir.String> lineList = addressList.get(0).getLine();
-		    if(lineList.size() > 0){
-		      streetAddress1 = lineList.get(0).getValue();
-		      if(lineList.size() > 1){
-		        streetAddress2 = lineList.get(1).getValue();
-		      }
-		    }
-		    city = addressList.get(0).getCity().getValue();
-		    usState = patientDAO.findUSStateByName(addressList.get(0).getState().getValue());
-		    postalCode = addressList.get(0).getZip().getValue();
-		    country = patientDAO.findCountryByName(addressList.get(0).getCountry().getValue());
-		  }
-		  Gender gender = patientDAO.findGenderByCode(patientFHIR.getGender().getCoding().get(0).getCode().getValue());
-		  MaritalStatus maritalStatus = patientDAO.findMaritalStatusByCode(patientFHIR.getMaritalStatus().getCoding().get(0).getCode().getValue());
-		  org.hl7.fhir.DateTime birthDate = patientFHIR.getBirthDate();
-		  if(StringUtils.isNotEmpty(primaryPhone)){
-			demo.setPrimaryPhone(primaryPhone);
-	      }
-		  if(StringUtils.isNotEmpty(secondaryPhone)){
-			demo.setSecondaryPhone(secondaryPhone);
-		  }
-		  if(StringUtils.isNotEmpty(streetAddress1)){
-			demo.setStreetAddress1(streetAddress1);
-		  }
-		  if(StringUtils.isNotEmpty(streetAddress2)){
-			demo.setStreetAddress2(streetAddress2);
-		  }
-		  if(StringUtils.isNotEmpty(city)){
-			demo.setCity(city);
-		  }
-		  if(usState != null){
-			demo.setUsState(usState);
-		  }
-	      if(StringUtils.isNotEmpty(postalCode)){
-	    	demo.setPostalCode(postalCode);
-	      }
-	      if(country != null){
-	    	demo.setCountry(country);
-	      }
-	      if(gender != null){
-	    	demo.setGender(gender);
-	      }
-	      if(maritalStatus != null){
-	    	demo.setMaritalStatus(maritalStatus);
-	      }
-		  DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		  Date dob = dateFormat.parse(birthDate.getValue());
-		  if(dob != null){
-			  demo.setDob(dob);
-		  }
-		  patientDAO.update(demo);
-		  Credentials cred = patient.getCred();
-		  String firstName = null;
-		  String middleName = null;
-		  String lastName  = null;
-		  List<org.hl7.fhir.HumanName> humanNameList = patientFHIR.getName();
-		  if(humanNameList.size() > 0){
-		    org.hl7.fhir.HumanName humanName = humanNameList.get(0);
-		    firstName = humanName.getGiven().get(0).getValue();
-		    if( humanName.getGiven().size() > 1){
-		      middleName = humanName.getGiven().get(1).getValue();
-		    }
-		    lastName  = humanName.getFamily().get(0).getValue();      
-		  }
-		  PatientStatus status = new PatientStatus(); 
-		  if(patientFHIR.getActive() != null && patientFHIR.getActive().isValue()){
-		    status.setId(PatientStatus.ACTIVE);
-		  }else{
-		    status.setId(PatientStatus.INACTIVE);
-		  }
-		  if(StringUtils.isNotEmpty(firstName)){
-			cred.setFirstName(firstName);
-		  }
-		  if(StringUtils.isNotEmpty(middleName)){
-			cred.setMiddleName(middleName);
-		  }
-		  if(StringUtils.isNotEmpty(lastName)){
-			cred.setLastName(lastName);
-		  }
-		  if(StringUtils.isNotEmpty(email)){
-			cred.setEmail(email);
-		  }
-		  if(status != null ){
-			cred.setStatus(status);
-		  }
-		  patientDAO.update(cred);
-		  PFSH pfsh = patient.getPfsh();
-		  String caretakerName = null;
-		  List<org.hl7.fhir.ResourceReference> careProviderList = patientFHIR.getCareProvider();
-		  if(careProviderList.size() > 0){
-		    caretakerName = careProviderList.get(0).getDisplay().getValue();
-		  }
-		  if(patientFHIR.getMultipleBirthInteger() != null){
-		    Integer numChildren = patientFHIR.getMultipleBirthInteger().getValue();
-		    pfsh.setNumChildren(numChildren);
-		  }
-		  if(StringUtils.isNotEmpty(caretakerName)){
-			pfsh.setCaretakerName(caretakerName);
-		  }
-		  patientDAO.update(pfsh);
-		  /*MedicalHistory hist = patient.getHist();
-		  patientDAO.update(hist);*/
-	  }
+  public void updatePatient(org.hl7.fhir.Patient patientFHIR) throws Exception{    
+   List<org.hl7.fhir.Identifier> identifierList = patientFHIR.getIdentifier();
+   String mrn = null;
+     if(identifierList.size() > 0){
+      org.hl7.fhir.Identifier identifier = identifierList.get(0);
+      if(identifier.getLabel().getValue().equalsIgnoreCase("MRN")){
+         mrn = identifier.getValue().getValue();
+      }
+    }
+    if(mrn != null){
+      Patient patient = patientDAO.findPatientByMrn(mrn);
+      Demographics demo = patient.getDemo();
+      String email = null;
+      String primaryPhone = null;
+      String secondaryPhone = null;
+      List<org.hl7.fhir.Contact> telecomList = patientFHIR.getTelecom();
+      if(telecomList.size() > 0){
+        org.hl7.fhir.Contact telecom = telecomList.get(0);
+        email = telecom.getValue().getValue();
+        if(telecomList.size() > 1){
+          telecom = telecomList.get(1);
+          primaryPhone = telecom.getValue().getValue();
+          if(telecomList.size() > 2){
+            telecom = telecomList.get(2);
+            secondaryPhone = telecom.getValue().getValue();
+          }
+        }
+      }
+      String streetAddress1 = null;
+      String streetAddress2 = null;
+      String city = null;
+      USState usState = null;
+      String postalCode = null;
+      Country country = null;
+      List<org.hl7.fhir.Address> addressList = patientFHIR.getAddress();
+      if(addressList.size() > 0){
+        List<org.hl7.fhir.String> lineList = addressList.get(0).getLine();
+        if(lineList.size() > 0){
+          streetAddress1 = lineList.get(0).getValue();
+          if(lineList.size() > 1){
+            streetAddress2 = lineList.get(1).getValue();
+          }
+        }
+        city = addressList.get(0).getCity().getValue();
+        usState = patientDAO.findUSStateByName(addressList.get(0).getState().getValue());
+        postalCode = addressList.get(0).getZip().getValue();
+        country = patientDAO.findCountryByName(addressList.get(0).getCountry().getValue());
+      }
+      Gender gender = patientDAO.findGenderByCode(patientFHIR.getGender().getCoding().get(0).getCode().getValue());
+      MaritalStatus maritalStatus = patientDAO.findMaritalStatusByCode(patientFHIR.getMaritalStatus().getCoding().get(0).getCode().getValue());
+      org.hl7.fhir.DateTime birthDate = patientFHIR.getBirthDate();
+      if(StringUtils.isNotEmpty(primaryPhone)){
+      demo.setPrimaryPhone(primaryPhone);
+        }
+      if(StringUtils.isNotEmpty(secondaryPhone)){
+      demo.setSecondaryPhone(secondaryPhone);
+      }
+      if(StringUtils.isNotEmpty(streetAddress1)){
+      demo.setStreetAddress1(streetAddress1);
+      }
+      if(StringUtils.isNotEmpty(streetAddress2)){
+      demo.setStreetAddress2(streetAddress2);
+      }
+      if(StringUtils.isNotEmpty(city)){
+      demo.setCity(city);
+      }
+      if(usState != null){
+      demo.setUsState(usState);
+      }
+        if(StringUtils.isNotEmpty(postalCode)){
+        demo.setPostalCode(postalCode);
+        }
+        if(country != null){
+        demo.setCountry(country);
+        }
+        if(gender != null){
+        demo.setGender(gender);
+        }
+        if(maritalStatus != null){
+        demo.setMaritalStatus(maritalStatus);
+        }
+      DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+      Date dob = dateFormat.parse(birthDate.getValue());
+      if(dob != null){
+        demo.setDob(dob);
+      }
+      patientDAO.update(demo);
+      Credentials cred = patient.getCred();
+      String firstName = null;
+      String middleName = null;
+      String lastName  = null;
+      List<org.hl7.fhir.HumanName> humanNameList = patientFHIR.getName();
+      if(humanNameList.size() > 0){
+        org.hl7.fhir.HumanName humanName = humanNameList.get(0);
+        firstName = humanName.getGiven().get(0).getValue();
+        if( humanName.getGiven().size() > 1){
+          middleName = humanName.getGiven().get(1).getValue();
+        }
+        lastName  = humanName.getFamily().get(0).getValue();      
+      }
+      PatientStatus status = new PatientStatus(); 
+      if(patientFHIR.getActive() != null && patientFHIR.getActive().isValue()){
+        status.setId(PatientStatus.ACTIVE);
+      }else{
+        status.setId(PatientStatus.INACTIVE);
+      }
+      if(StringUtils.isNotEmpty(firstName)){
+      cred.setFirstName(firstName);
+      }
+      if(StringUtils.isNotEmpty(middleName)){
+      cred.setMiddleName(middleName);
+      }
+      if(StringUtils.isNotEmpty(lastName)){
+      cred.setLastName(lastName);
+      }
+      if(StringUtils.isNotEmpty(email)){
+      cred.setEmail(email);
+      }
+      if(status != null ){
+      cred.setStatus(status);
+      }
+      patientDAO.update(cred);
+      PFSH pfsh = patient.getPfsh();
+      String caretakerName = null;
+      List<org.hl7.fhir.ResourceReference> careProviderList = patientFHIR.getCareProvider();
+      if(careProviderList.size() > 0){
+        caretakerName = careProviderList.get(0).getDisplay().getValue();
+      }
+      if(patientFHIR.getMultipleBirthInteger() != null){
+        Integer numChildren = patientFHIR.getMultipleBirthInteger().getValue();
+        pfsh.setNumChildren(numChildren);
+      }
+      if(StringUtils.isNotEmpty(caretakerName)){
+      pfsh.setCaretakerName(caretakerName);
+      }
+      patientDAO.update(pfsh);
+      /*MedicalHistory hist = patient.getHist();
+      patientDAO.update(hist);*/
+    }
   }
   
   public org.hl7.fhir.Patient getPatientFullRecord(String mrn) throws Exception{
-	  
-	  Patient patient = patientDAO.findPatientByMrn(mrn);
-	  
-	  org.hl7.fhir.Patient fhirpatient = getPatientFHIR(patient);
-	  
-	  return fhirpatient;
+    
+    Patient patient = patientDAO.findPatientByMrn(mrn);
+    
+    org.hl7.fhir.Patient fhirpatient = getPatientFHIR(patient);
+    
+    return fhirpatient;
   }
 
   public org.hl7.fhir.Patient getPatient(String mrn) throws Exception{
-	  
-	Patient patient = patientDAO.findPatientByMrn(mrn);
     
-	return getPatientFHIR(patient);
+  Patient patient = patientDAO.findPatientByMrn(mrn);
+    
+  return getPatientFHIR(patient);
   }
   
   private org.hl7.fhir.Patient getPatientFHIR(Patient patient){
-	  
-	org.hl7.fhir.Patient fhirpatient = new org.hl7.fhir.Patient();
-	
-	org.hl7.fhir.DateTime birthDate = new org.hl7.fhir.DateTime();
-	birthDate.setValue(patient.getDemo().getDob().toString());
-	    
+    
+  org.hl7.fhir.Patient fhirpatient = new org.hl7.fhir.Patient();
+  
+  org.hl7.fhir.DateTime birthDate = new org.hl7.fhir.DateTime();
+  birthDate.setValue(patient.getDemo().getDob().toString());
+      
     fhirpatient.setBirthDate(birthDate);
       
     org.hl7.fhir.Identifier identifier = new org.hl7.fhir.Identifier();
@@ -495,8 +495,8 @@ public class PatientService {
     numChildren.setValue(patient.getPfsh().getNumChildren());
     fhirpatient.setMultipleBirthInteger(numChildren);
     
-	return fhirpatient;
-	  
+  return fhirpatient;
+    
   }
   
   public  String importPatients(PatientsFHIR patientsFHIR) throws Exception {    
@@ -572,7 +572,7 @@ public class PatientService {
     String lastName  = null;
     List<org.hl7.fhir.HumanName> humanNameList = patientFHIR.getName();
     if(humanNameList.size() > 0){
-    	org.hl7.fhir.HumanName humanName = humanNameList.get(0);
+      org.hl7.fhir.HumanName humanName = humanNameList.get(0);
       firstName = humanName.getGiven().get(0).getValue();
       if( humanName.getGiven().size() > 1){
         middleName = humanName.getGiven().get(1).getValue();
@@ -588,7 +588,7 @@ public class PatientService {
     String mrn = null;
     List<org.hl7.fhir.Identifier> identifierList = patientFHIR.getIdentifier();
     if(identifierList.size() > 0){
-    	org.hl7.fhir.Identifier identifier = identifierList.get(0);
+      org.hl7.fhir.Identifier identifier = identifierList.get(0);
       if(identifier.getLabel().getValue().equalsIgnoreCase("MRN")){
         mrn = identifier.getValue().getValue();
       }
@@ -614,7 +614,7 @@ public class PatientService {
     pfsh.setPatientId(patient.getId());
     if(patientFHIR.getMultipleBirthInteger() != null){
         Integer numChildren = patientFHIR.getMultipleBirthInteger().getValue();
-    	pfsh.setNumChildren(numChildren);
+      pfsh.setNumChildren(numChildren);
     }
     pfsh.setCaretakerName(caretakerName);
     patientDAO.create(pfsh);
