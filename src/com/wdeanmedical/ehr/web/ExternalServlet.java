@@ -76,24 +76,29 @@ public class ExternalServlet extends AppServlet  {
       else { 
         if (pathInfo.equals("/patientExport")) {
           returnString = patientExport(request, response);  
-          //returnString = patientsImport(request, response); 
-        }else if(pathInfo.equals("/patientEncounter")) {
+        }
+        else if(pathInfo.equals("/patientEncounter")) {
           returnString = patientEncounter(request, response); 
-        }else if(pathInfo.equals("/patientImport")) {
-            returnString = patientsImport(request, response);  
-        }else if(pathInfo.split("/").length > 2){
+        }
+        else if(pathInfo.equals("/patientImport")) {
+          returnString = patientsImport(request, response);  
+        }
+        else if(pathInfo.split("/").length > 2) {
           String[] paths = pathInfo.split("/");          
-          if(paths[1].equals("json")){
-            if(paths[2].equals("auth")){
-               returnString = auth(request, response);
-            }else if(paths[2].equals("getPatient")){              
+          if(paths[1].equals("json")) {
+            if(paths[2].equals("auth")) {
+              returnString = auth(request, response);
+            }
+            else if(paths[2].equals("getPatient")) {              
               String mrn = paths[3];  
               returnString = getPatient(mrn);
             }            
-          }else if(paths[1].equals("xml")){
-            if(paths[2].equals("updatePatient")){
+          }
+          else if(paths[1].equals("xml")) {
+            if(paths[2].equals("updatePatient")) {
               returnString = updatePatient(request, response);
-            }else if(paths[2].equals("getPatientFullRecord")){              
+            }
+            else if(paths[2].equals("getPatientFullRecord")) {              
               String mrn = paths[3];
               returnString = getPatientFullRecord(mrn);
             }            
