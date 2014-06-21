@@ -8,6 +8,7 @@
 package com.wdeanmedical.ehr.web;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -74,8 +75,8 @@ public class ExternalServlet extends AppServlet  {
         returnString = logout(request, response);  
       }
       else { 
-        if (pathInfo.equals("/patientExport")) {
-          returnString = patientExport(request, response);  
+        if (pathInfo.equals("/getPatientXml")) {
+          returnString = getPatientXml(request, response);  
         }
         else if(pathInfo.equals("/patientEncounter")) {
           returnString = patientEncounter(request, response); 
@@ -145,22 +146,15 @@ public class ExternalServlet extends AppServlet  {
     System.out.println(json);
     return json;
   }
-    
-  public String patientExport(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    List<Patient> patients = appService.getPatients(dto); 
-    dto.setPatients(patients);
-//     System.out.println("number of patients: "+patients.size());
-//     System.out.println("all patients: "+patients);
+  
+  public PatientsFHIR buildPatientResource(List<Patient> patients){
     PatientsFHIR patientsFHIR = new PatientsFHIR();
     
     int patientsLength = 19;
     for(int i = 0; i < 1; i++){
       org.hl7.fhir.Patient fhirpatient = new org.hl7.fhir.Patient();
       org.hl7.fhir.DateTime birthDate = new org.hl7.fhir.DateTime();
-    birthDate.setValue(patients.get(i).getDemo().getDob().toString());
+      birthDate.setValue(patients.get(i).getDemo().getDob().toString());
         
       fhirpatient.setBirthDate(birthDate);
         
@@ -247,7 +241,17 @@ public class ExternalServlet extends AppServlet  {
       numChildren.setValue(patients.get(i).getPfsh().getNumChildren());
       fhirpatient.setMultipleBirthInteger(numChildren);
       patientsFHIR.getPatient().add(fhirpatient);
-    }      
+    }
+    return patientsFHIR;
+  }
+  
+  public String getPatientJson(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String data = request.getParameter("data");
+    Gson gson = new Gson();
+    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
+    List<Patient> patients = appService.getPatients(dto); 
+
+    PatientsFHIR patientsFHIR = buildPatientResource(patients);
     try {
         JAXBContext jaxbContext = JAXBContext.newInstance(PatientsFHIR.class);
         Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
@@ -259,6 +263,25 @@ public class ExternalServlet extends AppServlet  {
       String json = gson.toJson(patientsFHIR);
       System.out.println(json);
       return json;
+  }
+    
+  public String getPatientXml(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String data = request.getParameter("data");
+    Gson gson = new Gson();
+    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
+    List<Patient> patients = appService.getPatients(dto); 
+
+    PatientsFHIR patientsFHIR = buildPatientResource(patients);
+    StringWriter xml = new StringWriter();
+    try {
+        JAXBContext jaxbContext = JAXBContext.newInstance(PatientsFHIR.class);
+        Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        jaxbMarshaller.marshal(patientsFHIR, xml);
+      } catch (JAXBException e) {
+        e.printStackTrace();
+      }
+      return xml.toString();
   } 
   
   public String patientsImport(HttpServletRequest request, HttpServletResponse response) throws Exception {
