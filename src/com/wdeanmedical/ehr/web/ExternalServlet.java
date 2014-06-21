@@ -75,13 +75,13 @@ public class ExternalServlet extends AppServlet  {
         returnString = logout(request, response);  
       }
       else { 
-        if (pathInfo.equals("/getPatientXml")) {
-          returnString = getPatientXml(request, response);  
-        }
-        else if(pathInfo.equals("/getPatientEncounterJson")) {
-          returnString = getPatientEncounterJson(request, response); 
-        }
-        else if(pathInfo.equals("/patientImport")) {
+//        if (pathInfo.equals("/getPatientXml")) {
+//          returnString = getPatientXml(request, response);  
+//        }
+//        else if(pathInfo.equals("/getPatientEncounterJson")) {
+//          returnString = getPatientEncounterJson(request, response); 
+//        }
+        if(pathInfo.equals("/patientImport")) {
           returnString = patientsImport(request, response);  
         }
         else if(pathInfo.split("/").length > 2) {
@@ -93,6 +93,12 @@ public class ExternalServlet extends AppServlet  {
             else if(paths[2].equals("getPatient")) {              
               String mrn = paths[3];  
               returnString = getPatient(mrn);
+            } else if(paths[2].equals("getPatientJson")) {              
+//              String mrn = paths[3];  
+              returnString = getPatientJson(request, response);
+            } else if(paths[2].equals("getPatientEncounterJson")) {              
+//              String mrn = paths[3];  
+              returnString = getPatientEncounterJson(request, response);
             }            
           }
           else if(paths[1].equals("xml")) {
@@ -102,7 +108,13 @@ public class ExternalServlet extends AppServlet  {
             else if(paths[2].equals("getPatientFullRecord")) {              
               String mrn = paths[3];
               returnString = getPatientFullRecord(mrn);
-            }            
+            } else if(paths[2].equals("getPatientEncounterXml")) {              
+//              String mrn = paths[3];
+              returnString = getPatientEncounterXml(request, response);
+            } else if(paths[2].equals("getPatientXml")) {              
+//              String mrn = paths[3];
+              returnString = getPatientXml(request, response);
+            }           
           }         
         }
       }
@@ -166,6 +178,7 @@ public class ExternalServlet extends AppServlet  {
       JAXBContext jaxbContext = JAXBContext.newInstance(org.hl7.fhir.Encounter.class);
       Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
       jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+      jaxbMarshaller.marshal(encounter, System.out);
       jaxbMarshaller.marshal(encounter, xml);
     } catch (JAXBException e) {
       e.printStackTrace();
@@ -303,6 +316,7 @@ public class ExternalServlet extends AppServlet  {
         JAXBContext jaxbContext = JAXBContext.newInstance(PatientsFHIR.class);
         Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
         jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        jaxbMarshaller.marshal(patientsFHIR, System.out);
         jaxbMarshaller.marshal(patientsFHIR, xml);
       } catch (JAXBException e) {
         e.printStackTrace();

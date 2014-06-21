@@ -230,7 +230,7 @@ function getPatientEncounterJson() {
     sessionId: clinician.sessionId 
   });
   debug("json data: "+jsonData);
-  $.post("ext/getPatientEncounterJson", {data:jsonData}, function(data) {
+  $.post("ext/json/getPatientEncounterJson", {data:jsonData}, function(data) {
     var parsedData = $.parseJSON(data);
     var mypatients = parsedData.patients[0];
     debug("mypatients: "+JSON.stringify(mypatients));
@@ -251,7 +251,7 @@ function getPatientXml() {
     sessionId: clinician.sessionId 
   });
   debug("json data: "+jsonData);
-  $.post("ext/getPatientXml", {data:jsonData}, function(data) {
+  $.post("ext/xml/getPatientXml", {data:jsonData}, function(data) {
     var parsedData = $.parseJSON(data);
     var mypatients = parsedData.patients[0];
     debug("mypatients: "+JSON.stringify(mypatients));
