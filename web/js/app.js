@@ -216,7 +216,7 @@ function initPatientSearchTypeAheads() {
     });
 }
 
-function patientEncounter() {
+function getPatientEncounterJson() {
   $('#encounter').addClass("disabled");
   var dob = util_processDob("#patient-search-dob", dob);
   var jsonData = JSON.stringify({ 
@@ -230,7 +230,7 @@ function patientEncounter() {
     sessionId: clinician.sessionId 
   });
   debug("json data: "+jsonData);
-  $.post("ext/patientEncounter", {data:jsonData}, function(data) {
+  $.post("ext/getPatientEncounterJson", {data:jsonData}, function(data) {
     var parsedData = $.parseJSON(data);
     var mypatients = parsedData.patients[0];
     debug("mypatients: "+JSON.stringify(mypatients));
@@ -315,7 +315,7 @@ function patientSearchDialog() {
     $('.clickable-table-row').removeClass('table-row-highlight');
     $('#btn-patient-search-search').click(function(){ patientSearch(); });
     $('#export').click(function(){ getPatientXml(); });
-    $('#encounter').click(function(){ patientEncounter(); });
+    $('#encounter').click(function(){ getPatientEncounterJson(); });
     $('#btn-patient-search-clear').click(function(){ clearPatientSearchForm(); });
     $('#btn-patient-search-ok').click(function(){ getPatientChart(); });
     $('#patient-search-dob').mask("99/99/9999");

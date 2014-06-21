@@ -78,8 +78,8 @@ public class ExternalServlet extends AppServlet  {
         if (pathInfo.equals("/getPatientXml")) {
           returnString = getPatientXml(request, response);  
         }
-        else if(pathInfo.equals("/patientEncounter")) {
-          returnString = patientEncounter(request, response); 
+        else if(pathInfo.equals("/getPatientEncounterJson")) {
+          returnString = getPatientEncounterJson(request, response); 
         }
         else if(pathInfo.equals("/patientImport")) {
           returnString = patientsImport(request, response);  
@@ -136,15 +136,41 @@ public class ExternalServlet extends AppServlet  {
     doPost(request, response);  
   }
   
-  public String patientEncounter(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String getPatientEncounterJson(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String data = request.getParameter("data");
     Gson gson = new Gson();
     PatientDTO dto = gson.fromJson(data, PatientDTO.class);
     org.hl7.fhir.Encounter encounter = patientService.buildPatientEncounter(dto);
+    
+    try {
+      JAXBContext jaxbContext = JAXBContext.newInstance(org.hl7.fhir.Encounter.class);
+      Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+      jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+      jaxbMarshaller.marshal(encounter, System.out);
+    } catch (JAXBException e) {
+      e.printStackTrace();
+    }
 
     String json = gson.toJson(encounter);
     System.out.println(json);
     return json;
+  }
+  
+  public String getPatientEncounterXml(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String data = request.getParameter("data");
+    Gson gson = new Gson();
+    PatientDTO dto = gson.fromJson(data, PatientDTO.class);
+    org.hl7.fhir.Encounter encounter = patientService.buildPatientEncounter(dto);
+    StringWriter xml = new StringWriter();
+    try {
+      JAXBContext jaxbContext = JAXBContext.newInstance(org.hl7.fhir.Encounter.class);
+      Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+      jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+      jaxbMarshaller.marshal(encounter, xml);
+    } catch (JAXBException e) {
+      e.printStackTrace();
+    }
+    return xml.toString();
   }
   
   public PatientsFHIR buildPatientResource(List<Patient> patients){

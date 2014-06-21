@@ -851,14 +851,6 @@ public class PatientService {
     org.hl7.fhir.EncounterParticipant encP = new org.hl7.fhir.EncounterParticipant();
     encP.setIndividual(indRef);
     encounter.getParticipant().add(encP);
-    try {
-      JAXBContext jaxbContext = JAXBContext.newInstance(org.hl7.fhir.Encounter.class);
-      Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-      jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-      jaxbMarshaller.marshal(encounter, System.out);
-    } catch (JAXBException e) {
-      e.printStackTrace();
-    }
     return encounter;
   }
   
