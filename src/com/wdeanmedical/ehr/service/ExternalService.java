@@ -55,10 +55,12 @@ public class ExternalService {
     appDAO = (AppDAO) wac.getBean("appDAO");
     adminDAO = (AdminDAO) wac.getBean("adminDAO");
     externalDAO = (ExternalDAO) wac.getBean("externalDAO");
+    activityLogService = new ActivityLogService();
   }
   
   public AuthorizedDTO auth(LoginDTO loginDTO, String ipAddress) throws Exception {
     AuthorizedDTO dto = new AuthorizedDTO();
+    dto.setAuthenticated(false);
     Clinician clinician = appDAO.authenticateClinician(loginDTO.getUsername(), loginDTO.getPassword());
     if (clinician.getAuthStatus() == Clinician.STATUS_AUTHORIZED) {
       ClinicianSession clinicianSession = new ClinicianSession();
@@ -73,9 +75,8 @@ public class ExternalService {
       log.info("======= Added " + clinicianSession.toString()); 
       activityLogService.logLogin(clinician.getId());
       dto.setAuthenticated(true);
+      dto.setSessionId(clinician.getSessionId());
     }
-    dto.setSessionId(clinician.getSessionId());
-     
     return dto;
   }
   
