@@ -282,8 +282,8 @@ public class AppService {
       ClinicianSessionData clinicianSessionData = new ClinicianSessionData();
       clinicianSessionData.setClinicianSession(clinicianSession);
       logger.info("======= Added " + clinicianSession.toString()); 
+      activityLogService.logLogin(clinician.getId());
     }
-    activityLogService.logLogin(clinician.getId());
     return clinician;
   }
   

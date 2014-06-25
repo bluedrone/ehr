@@ -27,6 +27,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import com.wdeanmedical.ehr.dto.AuthorizedDTO;
 import com.wdeanmedical.ehr.dto.LoginDTO;
 import com.wdeanmedical.ehr.dto.PatientDTO;
 import com.wdeanmedical.ehr.entity.Clinician;
@@ -359,8 +360,8 @@ public class ExternalServlet extends AppServlet  {
     Gson gson = new Gson();
     LoginDTO loginDTO = gson.fromJson(data, LoginDTO.class);  
     String ipAddress = request.getRemoteHost();
-    Clinician clinician = externalService.auth(loginDTO, ipAddress); 
-    String json = gson.toJson(clinician);
+    AuthorizedDTO dto = externalService.auth(loginDTO, ipAddress); 
+    String json = gson.toJson(dto);
     return json;
   }
   

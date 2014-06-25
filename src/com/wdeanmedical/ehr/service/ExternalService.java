@@ -21,6 +21,7 @@ import com.wdeanmedical.ehr.persistence.AppDAO;
 import com.wdeanmedical.ehr.persistence.ExternalDAO;
 import com.wdeanmedical.ehr.core.Core;
 import com.wdeanmedical.ehr.dto.AdminDTO;
+import com.wdeanmedical.ehr.dto.AuthorizedDTO;
 import com.wdeanmedical.ehr.dto.LoginDTO;
 import com.wdeanmedical.ehr.entity.Clinician;
 import com.wdeanmedical.ehr.entity.ClinicianSession;
@@ -56,7 +57,8 @@ public class ExternalService {
     externalDAO = (ExternalDAO) wac.getBean("externalDAO");
   }
   
-  public Clinician auth(LoginDTO loginDTO, String ipAddress) throws Exception {
+  public AuthorizedDTO auth(LoginDTO loginDTO, String ipAddress) throws Exception {
+    AuthorizedDTO dto = new AuthorizedDTO();
     Clinician clinician = appDAO.authenticateClinician(loginDTO.getUsername(), loginDTO.getPassword());
     if (clinician.getAuthStatus() == Clinician.STATUS_AUTHORIZED) {
       ClinicianSession clinicianSession = new ClinicianSession();
@@ -69,9 +71,12 @@ public class ExternalService {
       ClinicianSessionData clinicianSessionData = new ClinicianSessionData();
       clinicianSessionData.setClinicianSession(clinicianSession);
       log.info("======= Added " + clinicianSession.toString()); 
+      activityLogService.logLogin(clinician.getId());
+      dto.setAuthenticated(true);
     }
-    activityLogService.logLogin(clinician.getId());
-    return clinician;
+    dto.setSessionId(clinician.getSessionId());
+     
+    return dto;
   }
   
 
