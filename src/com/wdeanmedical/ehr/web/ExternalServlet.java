@@ -34,6 +34,7 @@ import com.wdeanmedical.ehr.entity.Encounter;
 import com.wdeanmedical.ehr.entity.Patient;
 import com.wdeanmedical.ehr.entity.MaritalStatus;
 import com.wdeanmedical.ehr.service.AppService;
+import com.wdeanmedical.ehr.service.ExternalService;
 import com.wdeanmedical.ehr.service.PatientService;
 import com.wdeanmedical.ehr.util.JSONUtils;
 import com.wdeanmedical.external.fhir.PatientsFHIR;
@@ -47,8 +48,8 @@ public class ExternalServlet extends AppServlet  {
   private static final Logger log = Logger.getLogger(ExternalServlet.class);
   
   private AppService appService;
-  
   private PatientService patientService;
+  private ExternalService externalService;
 
   @Override
   public void init(ServletConfig config) throws ServletException {
@@ -57,6 +58,7 @@ public class ExternalServlet extends AppServlet  {
     try{
       appService = new AppService();
       patientService = new PatientService();
+      externalService = new ExternalService();
     }
     catch(MalformedURLException e){
       e.printStackTrace();
@@ -71,26 +73,26 @@ public class ExternalServlet extends AppServlet  {
     boolean isUploadResponse = false;
      
     try { 
-      if (isValidSession(request, response) == false) {
-        returnString = logout(request, response);  
+      if (pathInfo.equals("/auth")) {
+        returnString = auth(request, response);  
       }
       else { 
-//        if (pathInfo.equals("/getPatientXml")) {
-//          returnString = getPatientXml(request, response);  
-//        }
-//        else if(pathInfo.equals("/getPatientEncounterJson")) {
-//          returnString = getPatientEncounterJson(request, response); 
-//        }
+        if (isValidSession(request, response) == false) {
+          returnString = logout(request, response);  
+        }
+        else {
+        
+        
+        
+        
+       // this entire mess will be rewritten by Nick shortly 
         if(pathInfo.equals("/patientImport")) {
           returnString = patientsImport(request, response);  
         }
         else if(pathInfo.split("/").length > 2) {
           String[] paths = pathInfo.split("/");          
           if(paths[1].equals("json")) {
-            if(paths[2].equals("auth")) {
-              returnString = auth(request, response);
-            }
-            else if(paths[2].equals("getPatient")) {              
+            if(paths[2].equals("getPatient")) {              
               String mrn = paths[3];  
               returnString = getPatient(mrn);
             } else if(paths[2].equals("getPatientJson")) {              
@@ -117,6 +119,7 @@ public class ExternalServlet extends AppServlet  {
             }           
           }         
         }
+      }
       }
      
       ServletOutputStream  out = null;
@@ -356,7 +359,7 @@ public class ExternalServlet extends AppServlet  {
     Gson gson = new Gson();
     LoginDTO loginDTO = gson.fromJson(data, LoginDTO.class);  
     String ipAddress = request.getRemoteHost();
-    Clinician clinician = appService.login(loginDTO, ipAddress); 
+    Clinician clinician = externalService.auth(loginDTO, ipAddress); 
     String json = gson.toJson(clinician);
     return json;
   }
