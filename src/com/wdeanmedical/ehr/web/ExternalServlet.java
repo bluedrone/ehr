@@ -78,11 +78,14 @@ public class ExternalServlet extends AppServlet  {
   public void doPost( HttpServletRequest request, HttpServletResponse response) {
     String returnString = "";
     String format = ""; 
+    String arg1 = "";
+    String arg2 = "";
+    String arg3 = "";
     String pathInfo = request.getPathInfo();
     String servletPath = request.getServletPath();
     boolean isUploadResponse = false;
     
-    String[] paths = pathInfo.split("/");          
+    String[] paths = pathInfo.substring(1).split("/");          
     
     if (XML.equals(paths[FORMAT])) {
       format = XML;
@@ -92,13 +95,13 @@ public class ExternalServlet extends AppServlet  {
     }
     
     String method = paths[METHOD];
-    String arg1 = paths[ARG1];
-    String arg2 = paths[ARG2];
-    String arg3 = paths[ARG3];
+    if (paths.length > 2) {arg1 = paths[ARG1];}
+    if (paths.length > 3) {arg2 = paths[ARG2];}
+    if (paths.length > 4) {arg3 = paths[ARG3];}
     
      
     try { 
-      if (method.equals("/auth")) {
+      if (method.equals("auth")) {
         returnString = auth(request, response);  
       }
       else { 
@@ -106,7 +109,7 @@ public class ExternalServlet extends AppServlet  {
           returnString = logout(request, response);  
         }
         else {
-          if (method.equals("/getPatient")) {
+          if (method.equals("getPatient")) {
             returnString = getPatient(arg1);  
           }
         

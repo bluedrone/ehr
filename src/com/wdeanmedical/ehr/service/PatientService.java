@@ -384,27 +384,20 @@ public class PatientService {
   }
   
   public org.hl7.fhir.Patient getPatientFullRecord(String mrn) throws Exception{
-    
     Patient patient = patientDAO.findPatientByMrn(mrn);
-    
     org.hl7.fhir.Patient fhirpatient = getPatientFHIR(patient);
-    
     return fhirpatient;
   }
 
   public org.hl7.fhir.Patient getPatient(String mrn) throws Exception{
-    
-  Patient patient = patientDAO.findPatientByMrn(mrn);
-    
-  return getPatientFHIR(patient);
+    Patient patient = patientDAO.findPatientByMrn(mrn);
+    return getPatientFHIR(patient);
   }
   
   private org.hl7.fhir.Patient getPatientFHIR(Patient patient){
-    
-  org.hl7.fhir.Patient fhirpatient = new org.hl7.fhir.Patient();
-  
-  org.hl7.fhir.DateTime birthDate = new org.hl7.fhir.DateTime();
-  birthDate.setValue(patient.getDemo().getDob().toString());
+    org.hl7.fhir.Patient fhirpatient = new org.hl7.fhir.Patient();
+    org.hl7.fhir.DateTime birthDate = new org.hl7.fhir.DateTime();
+    birthDate.setValue(patient.getDemo().getDob().toString());
       
     fhirpatient.setBirthDate(birthDate);
       
@@ -494,8 +487,7 @@ public class PatientService {
     org.hl7.fhir.Integer numChildren = new org.hl7.fhir.Integer();
     numChildren.setValue(patient.getPfsh().getNumChildren());
     fhirpatient.setMultipleBirthInteger(numChildren);
-    
-  return fhirpatient;
+    return fhirpatient;
     
   }
   
