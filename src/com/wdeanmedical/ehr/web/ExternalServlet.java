@@ -41,6 +41,9 @@ import com.wdeanmedical.ehr.util.JSONUtils;
 import com.wdeanmedical.external.fhir.PatientsFHIR;
 import com.google.gson.Gson;
 
+import net.sf.json.JSONObject;
+import net.sf.json.xml.XMLSerializer;
+
 import org.apache.log4j.Logger;
 
 
@@ -151,6 +154,11 @@ public class ExternalServlet extends AppServlet  {
           }         
         }
         */
+      }
+      
+      if (XML.equals(format)) {
+        JSONObject json = JSONObject.fromObject(returnString);
+        returnString = new XMLSerializer().write(json);
       }
      
       ServletOutputStream  out = null;

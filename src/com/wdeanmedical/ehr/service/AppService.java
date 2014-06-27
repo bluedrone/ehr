@@ -318,7 +318,7 @@ public class AppService {
     String clinicianName = "";
    
     if(path.substring(1).split("/").length > 1) {
-      path = path.substring(1).split("/")[0];
+      path = path.substring(1).split("/")[1];
     }          
     
     appDAO.deleteExpiredClinicianSessions();
