@@ -115,47 +115,8 @@ public class ExternalServlet extends AppServlet  {
           if (method.equals("getPatient")) {
             returnString = getPatient(arg1);  
           }
-        
         }
-        
-       /* 
-       // this entire mess will be rewritten by Nick shortly 
-        if(pathInfo.equals("/patientImport")) {
-          returnString = patientsImport(request, response);  
-        }
-        else if(pathInfo.split("/").length > 2) {
-          //String[] paths = pathInfo.split("/");          
-          if(paths[1].equals("json")) {
-            if(paths[2].equals("getPatient")) {              
-              String mrn = paths[3];  
-              returnString = getPatient(mrn);
-            } else if(paths[2].equals("getPatientJson")) {              
-//              String mrn = paths[3];  
-              returnString = getPatientJson(request, response);
-            } else if(paths[2].equals("getPatientEncounterJson")) {              
-//              String mrn = paths[3];  
-              returnString = getPatientEncounterJson(request, response);
-            }            
-          }
-          else if(paths[1].equals("xml")) {
-            if(paths[2].equals("updatePatient")) {
-              returnString = updatePatient(request, response);
-            }
-            else if(paths[2].equals("getPatientFullRecord")) {              
-              String mrn = paths[3];
-              returnString = getPatientFullRecord(mrn);
-            } else if(paths[2].equals("getPatientEncounterXml")) {              
-//              String mrn = paths[3];
-              returnString = getPatientEncounterXml(request, response);
-            } else if(paths[2].equals("getPatientXml")) {              
-//              String mrn = paths[3];
-              returnString = getPatientXml(request, response);
-            }           
-          }         
-        }
-        */
       }
-      
       if (XML.equals(format)) {
         JSONObject json = JSONObject.fromObject(returnString);
         returnString = new XMLSerializer().write(json);
@@ -174,7 +135,6 @@ public class ExternalServlet extends AppServlet  {
         ajaxOut.write(returnString);
         ajaxOut.close();
       }
-    
     }  
     catch( IOException ioe ) {
       ioe.printStackTrace();
@@ -183,6 +143,7 @@ public class ExternalServlet extends AppServlet  {
       e.printStackTrace();
     }
   }
+  
   
   
   @Override
@@ -203,7 +164,7 @@ public class ExternalServlet extends AppServlet  {
   
   public String getPatient(String mrn) throws Exception {
     Gson gson = new Gson();
-    org.hl7.fhir.Patient patientFHIR = patientService.getPatient(mrn);
+    org.hl7.fhir.Patient patientFHIR = externalService.getPatient(mrn);
     String json = gson.toJson(patientFHIR);
     return json;
   }
@@ -279,7 +240,7 @@ public class ExternalServlet extends AppServlet  {
     String data = request.getParameter("data");
     Gson gson = new Gson();
     PatientDTO dto = gson.fromJson(data, PatientDTO.class);
-    org.hl7.fhir.Encounter encounter = patientService.buildPatientEncounter(dto);
+    org.hl7.fhir.Encounter encounter = externalService.buildPatientEncounter(dto);
     
     try {
       JAXBContext jaxbContext = JAXBContext.newInstance(org.hl7.fhir.Encounter.class);
@@ -299,7 +260,7 @@ public class ExternalServlet extends AppServlet  {
     String data = request.getParameter("data");
     Gson gson = new Gson();
     PatientDTO dto = gson.fromJson(data, PatientDTO.class);
-    org.hl7.fhir.Encounter encounter = patientService.buildPatientEncounter(dto);
+    org.hl7.fhir.Encounter encounter = externalService.buildPatientEncounter(dto);
     StringWriter xml = new StringWriter();
     try {
       JAXBContext jaxbContext = JAXBContext.newInstance(org.hl7.fhir.Encounter.class);
@@ -434,7 +395,7 @@ public class ExternalServlet extends AppServlet  {
     }
     
     if(patientsFHIR != null){
-         patientService.importPatients(patientsFHIR);
+         externalService.importPatients(patientsFHIR);
     }    
     return null;
   }
@@ -457,14 +418,14 @@ public class ExternalServlet extends AppServlet  {
         e.printStackTrace();
       }
     if(patientFHIR != null){
-      patientService.updatePatient(patientFHIR);
+      externalService.updatePatient(patientFHIR);
     }
     return null;
   }
   
   public String getPatientFullRecord(String mrn) throws Exception {
     
-    org.hl7.fhir.Patient patientFHIR = patientService.getPatientFullRecord(mrn);
+    org.hl7.fhir.Patient patientFHIR = externalService.getPatientFullRecord(mrn);
     
     StringWriter stringWriter = new StringWriter();
     
