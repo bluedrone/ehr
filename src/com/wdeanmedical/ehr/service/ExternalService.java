@@ -341,8 +341,6 @@ public class ExternalService {
       pfsh.setCaretakerName(caretakerName);
       }
       patientDAO.update(pfsh);
-      /*MedicalHistory hist = patient.getHist();
-      patientDAO.update(hist);*/
     }
   }
   

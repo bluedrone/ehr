@@ -113,16 +113,12 @@ public class ExternalServlet extends AppServlet  {
         }
         else {
           if (method.equals("getPatient")) {
-            returnString = getPatient(arg1);  
+            returnString = getPatient(arg1, format);  
           }
           if (method.equals("getPatients")) {
-            returnString = getPatients(request, response);  
+            returnString = getPatients(request, response, format);  
           }
         }
-      }
-      if (XML.equals(format)) {
-        JSONObject json = JSONObject.fromObject(returnString);
-        returnString = new XMLSerializer().write(json);
       }
      
       ServletOutputStream  out = null;
@@ -165,58 +161,40 @@ public class ExternalServlet extends AppServlet  {
     return json;
   }
   
-  public String getPatient(String mrn) throws Exception {
+  public String getPatient(String mrn, String format) throws Exception {
     Gson gson = new Gson();
     org.hl7.fhir.Patient patientFHIR = externalService.getPatient(mrn);
-    String json = gson.toJson(patientFHIR);
-    return json;
+    String returnString = gson.toJson(patientFHIR);
+    if (XML.equals(format)) {
+      JSONObject json = JSONObject.fromObject(returnString);
+      returnString = new XMLSerializer().write(json);
+   }
+    return returnString;
   }
   
     
-  public String getPatients(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String getPatients(HttpServletRequest request, HttpServletResponse response, String format) throws Exception {
     String data = request.getParameter("data");
     Gson gson = new Gson();
     PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
     List<Patient> patients = appService.getPatients(dto); 
 
     PatientsFHIR patientsFHIR = buildPatientResource(patients);
+    StringWriter out = new StringWriter();
     try {
-        JAXBContext jaxbContext = JAXBContext.newInstance(PatientsFHIR.class);
-        Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        jaxbMarshaller.marshal(patientsFHIR, System.out);
-      } catch (JAXBException e) {
+      JAXBContext jaxbContext = JAXBContext.newInstance(PatientsFHIR.class);
+      Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+      jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+      jaxbMarshaller.marshal(patientsFHIR, out);
+      } 
+      catch (JAXBException e) {
         e.printStackTrace();
       }
       String json = gson.toJson(patientsFHIR);
-      System.out.println(json);
+      //return out.toString();
       return json;
   }
     
-  public String getPatientXml(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    List<Patient> patients = appService.getPatients(dto); 
-
-    PatientsFHIR patientsFHIR = buildPatientResource(patients);
-    StringWriter xml = new StringWriter();
-    try {
-        JAXBContext jaxbContext = JAXBContext.newInstance(PatientsFHIR.class);
-        Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        jaxbMarshaller.marshal(patientsFHIR, System.out);
-        jaxbMarshaller.marshal(patientsFHIR, xml);
-      } catch (JAXBException e) {
-        e.printStackTrace();
-      }
-      return xml.toString();
-  } 
-  
-  
-  
-  
-  
   public String getPatientEncounterJson(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String data = request.getParameter("data");
     Gson gson = new Gson();
