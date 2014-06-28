@@ -179,21 +179,19 @@ public class ExternalServlet extends AppServlet  {
     PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
     List<Patient> patients = appService.getPatients(dto); 
 
-    PatientsFHIR patientsFHIR = buildPatientResource(patients);
+    PatientsFHIR patientsFHIR = externalService.buildPatientResource(patients);
     StringWriter out = new StringWriter();
-    try {
+    if (format.equals(XML)) {
       JAXBContext jaxbContext = JAXBContext.newInstance(PatientsFHIR.class);
       Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
       jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
       jaxbMarshaller.marshal(patientsFHIR, out);
-      } 
-      catch (JAXBException e) {
-        e.printStackTrace();
-      }
-      String json = gson.toJson(patientsFHIR);
-      //return out.toString();
-      return json;
+      return out.toString();
+    } 
+    String json = gson.toJson(patientsFHIR);
+    return json;
   }
+  
     
   public String getPatientEncounterJson(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String data = request.getParameter("data");
@@ -233,104 +231,6 @@ public class ExternalServlet extends AppServlet  {
     return xml.toString();
   }
   
-  public PatientsFHIR buildPatientResource(List<Patient> patients){
-    PatientsFHIR patientsFHIR = new PatientsFHIR();
-    
-    int patientsLength = 19;
-    for(int i = 0; i < 1; i++){
-      org.hl7.fhir.Patient fhirpatient = new org.hl7.fhir.Patient();
-      org.hl7.fhir.DateTime birthDate = new org.hl7.fhir.DateTime();
-      birthDate.setValue(patients.get(i).getDemo().getDob().toString());
-        
-      fhirpatient.setBirthDate(birthDate);
-        
-      org.hl7.fhir.Identifier identifier = new org.hl7.fhir.Identifier();
-      org.hl7.fhir.IdentifierUse identifierUse = new  org.hl7.fhir.IdentifierUse();
-      identifierUse.setId(org.hl7.fhir.IdentifierUseList.USUAL.value());
-      identifier.setUse(identifierUse);
-      org.hl7.fhir.String mrn = new org.hl7.fhir.String();
-      mrn.setValue("MRN");
-      identifier.setLabel(mrn);
-      org.hl7.fhir.String mrnValue = new org.hl7.fhir.String();
-      mrnValue.setValue(patients.get(i).getCred().getMrn());
-      identifier.setValue(mrnValue);
-      fhirpatient.getIdentifier().add(identifier);
-      
-      org.hl7.fhir.CodeableConcept maritalStatusCodeableConcept = new org.hl7.fhir.CodeableConcept();
-      org.hl7.fhir.Coding maritalStatusCoding = new org.hl7.fhir.Coding();
-      MaritalStatus maritalStatus = patients.get(i).getDemo().getMaritalStatus();
-      org.hl7.fhir.String maritalStatusDisplay = new org.hl7.fhir.String();
-      maritalStatusDisplay.setValue(maritalStatus.getName());
-      maritalStatusCoding.setDisplay(maritalStatusDisplay);
-      org.hl7.fhir.Code maritalStatusCode = new org.hl7.fhir.Code();
-      maritalStatusCode.setValue(maritalStatus.getCode());
-      maritalStatusCoding.setCode(maritalStatusCode);
-      maritalStatusCodeableConcept.getCoding().add(maritalStatusCoding);
-      fhirpatient.setMaritalStatus(maritalStatusCodeableConcept);
-      
-      org.hl7.fhir.HumanName humanName = new org.hl7.fhir.HumanName();
-      List<org.hl7.fhir.String> familyNameList = new ArrayList<org.hl7.fhir.String>();
-      org.hl7.fhir.String familyName = new org.hl7.fhir.String();
-      familyName.setValue(patients.get(i).getCred().getLastName());
-      familyNameList.add(familyName);
-      humanName.getFamily().addAll(familyNameList);
-      List<org.hl7.fhir.String> givenNameList = new ArrayList<org.hl7.fhir.String>();
-      org.hl7.fhir.String givenName1 = new org.hl7.fhir.String();
-      givenName1.setValue(patients.get(i).getCred().getFirstName());
-      givenNameList.add(givenName1);
-      org.hl7.fhir.String givenName2 = new org.hl7.fhir.String();
-      givenName2.setValue(patients.get(i).getCred().getMiddleName());
-      givenNameList.add(givenName2);
-      humanName.getGiven().addAll(givenNameList);
-      fhirpatient.getName().add(humanName);
-      
-      org.hl7.fhir.Contact telecom = new org.hl7.fhir.Contact();
-      org.hl7.fhir.String email = new org.hl7.fhir.String();
-      email.setValue(patients.get(i).getCred().getEmail());
-      telecom.setValue(email);
-      fhirpatient.getTelecom().add(telecom);
-      org.hl7.fhir.Contact telecom2 = new org.hl7.fhir.Contact();
-      org.hl7.fhir.String primaryPhone = new org.hl7.fhir.String();
-      primaryPhone.setValue(patients.get(i).getDemo().getPrimaryPhone());
-      telecom2.setValue(primaryPhone);
-      fhirpatient.getTelecom().add(telecom2);
-      
-      org.hl7.fhir.CodeableConcept genderCodeableConcept = new org.hl7.fhir.CodeableConcept();
-      org.hl7.fhir.Coding genderStatusCoding = new org.hl7.fhir.Coding();
-      org.hl7.fhir.Code genderCode = new org.hl7.fhir.Code();
-      org.hl7.fhir.String genderDisplay = new org.hl7.fhir.String();
-      genderDisplay.setValue(patients.get(i).getDemo().getGender().getName());
-      genderCode.setValue(patients.get(i).getDemo().getGender().getCode());
-      genderStatusCoding.setDisplay(genderDisplay);
-      genderStatusCoding.setCode(genderCode);
-      genderCodeableConcept.getCoding().add(genderStatusCoding);
-      fhirpatient.setGender(genderCodeableConcept);
-      
-      org.hl7.fhir.Address address = new org.hl7.fhir.Address();
-      org.hl7.fhir.String line = new org.hl7.fhir.String();
-      line.setValue(patients.get(i).getDemo().getStreetAddress1());
-      address.getLine().add(line);
-      org.hl7.fhir.String city = new org.hl7.fhir.String();
-      city.setValue(patients.get(i).getDemo().getCity());
-      address.setCity(city);
-      org.hl7.fhir.String state = new org.hl7.fhir.String();
-      state.setValue(patients.get(i).getDemo().getUsState().getName());
-      address.setState(state);
-      org.hl7.fhir.String zip = new org.hl7.fhir.String();
-      zip.setValue(patients.get(i).getDemo().getPostalCode());
-      address.setZip(zip);
-      org.hl7.fhir.String country = new org.hl7.fhir.String();
-      country.setValue(patients.get(i).getDemo().getCountry().getName());
-      address.setCountry(country);  
-      fhirpatient.getAddress().add(address);
-      org.hl7.fhir.Integer numChildren = new org.hl7.fhir.Integer();
-      numChildren.setValue(patients.get(i).getPfsh().getNumChildren());
-      fhirpatient.setMultipleBirthInteger(numChildren);
-      patientsFHIR.getPatient().add(fhirpatient);
-    }
-    return patientsFHIR;
-  }
-
   
   public String patientsImport(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String data = request.getParameter("data");
