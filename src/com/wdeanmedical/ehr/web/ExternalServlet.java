@@ -115,6 +115,9 @@ public class ExternalServlet extends AppServlet  {
           if (method.equals("getPatient")) {
             returnString = getPatient(arg1);  
           }
+          if (method.equals("getPatients")) {
+            returnString = getPatients(request, response);  
+          }
         }
       }
       if (XML.equals(format)) {
@@ -169,30 +172,8 @@ public class ExternalServlet extends AppServlet  {
     return json;
   }
   
-  
-  public String getPatientIncorrect(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    List<Patient> patients = appService.getPatients(dto); 
-
-    PatientsFHIR patientsFHIR = buildPatientResource(patients);
-    try {
-        JAXBContext jaxbContext = JAXBContext.newInstance(PatientsFHIR.class);
-        Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        jaxbMarshaller.marshal(patientsFHIR, System.out);
-      } catch (JAXBException e) {
-        e.printStackTrace();
-      }
-      String json = gson.toJson(patientsFHIR);
-      System.out.println(json);
-      return json;
-  }
-  
-  
     
-  public String getPatientJson(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String getPatients(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String data = request.getParameter("data");
     Gson gson = new Gson();
     PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
