@@ -477,7 +477,7 @@ public class ExternalService {
     return null;
   }
   
-  
+  /* Note: not finished, not ready */
   public org.hl7.fhir.Encounter buildPatientEncounter(PatientDTO dto) throws Exception {
     Patient patient = patientService.getPatient(dto.getId());
     Encounter wdmEncounter = patientService.getEncounter(patient.getCurrentEncounterId());
@@ -535,7 +535,7 @@ public class ExternalService {
   }
   
   
-    public PatientsFHIR buildPatientResource(List<Patient> patients){
+  public PatientsFHIR buildPatientResource(List<Patient> patients){
     PatientsFHIR patientsFHIR = new PatientsFHIR();
     
     for(int i = 0; i < patients.size(); i++){
