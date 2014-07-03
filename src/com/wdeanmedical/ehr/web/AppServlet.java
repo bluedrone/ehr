@@ -75,8 +75,9 @@ public void init(ServletConfig config) throws ServletException {
     }
   }
     
+    
   @Override
-public void doPost( HttpServletRequest request, HttpServletResponse response) {
+  public void doPost( HttpServletRequest request, HttpServletResponse response) {
     String returnString = "";
     String pathInfo = request.getPathInfo();
     String servletPath = request.getServletPath();
@@ -93,9 +94,7 @@ public void doPost( HttpServletRequest request, HttpServletResponse response) {
           returnString = logout(request, response);  
         }
         else { 
-          if(pathInfo.equals("/getFile/")) {
-                getFile(request, response);  
-          }else if (pathInfo.equals("/getClinicianDashboard")) {
+          if (pathInfo.equals("/getClinicianDashboard")) {
             returnString = getClinicianDashboard(request, response);  
           }
           else if (pathInfo.equals("/getClinicianMessage")) {
@@ -157,7 +156,7 @@ public void doPost( HttpServletRequest request, HttpServletResponse response) {
   
   
   @Override
-public void doGet(HttpServletRequest request, HttpServletResponse response) {
+  public void doGet(HttpServletRequest request, HttpServletResponse response) {
     doPost(request, response);  
   }
   
@@ -174,9 +173,6 @@ public void doGet(HttpServletRequest request, HttpServletResponse response) {
     return appService.isValidSession(dto, ipAddress, request.getPathInfo());
   }
   
-  public void getFile(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	 appService.getFile(request, response, getServletContext());  
-  }  
   
   public String searchICD10(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String searchText = request.getParameter("searchText");

@@ -808,8 +808,7 @@ function viewClinicianMessage() {
       app_patientChartMRN = parsedData.mrn;
       app_patientChartPrimaryPhone = parsedData.primaryPhone;
       app_patientChartSecondaryPhone = parsedData.secondaryPhone;
-      app_patientChartHeadshot = 'app/getFile/?sessionId=' + parsedData.sessionId + "&patientId=" + parsedData.id  + "&profileImagePath=" + parsedData.profileImagePath;
-      //app_patientChartHeadshot = 'files/patients/'+parsedData.id+'/'+parsedData.profileImagePath;
+      app_patientChartHeadshot = 'patient/getPatientProfileImage?sessionId=' + parsedData.sessionId + "&patientId=" + parsedData.id  + "&profileImagePath=" + parsedData.profileImagePath;
       $('.patient-chart-full-name').html(app_patientChartFullName);
       $('.patient-chart-dob').html(app_patientChartDOB);
       $('.patient-chart-gender').html(app_patientChartGender);

@@ -66,7 +66,8 @@ public class Core {
     clinicianPermissionsMap.put("/updateProgressNote",           new boolean[] {true,true});
     clinicianPermissionsMap.put("/getCurrentPatientEncounter",   new boolean[] {true,true});
     clinicianPermissionsMap.put("/patientSearch",                new boolean[] {true,true});
-    clinicianPermissionsMap.put("getPatient",                   new boolean[] {true,true});
+    clinicianPermissionsMap.put("getPatient",                    new boolean[] {true,true});
+    clinicianPermissionsMap.put("getPatientProfileImage",        new boolean[] {true,true});
     clinicianPermissionsMap.put("/getPatientChart",              new boolean[] {true,true});
     clinicianPermissionsMap.put("/getProgressNotes",             new boolean[] {true,true});
     clinicianPermissionsMap.put("/getPatientEncounters",         new boolean[] {true,true});

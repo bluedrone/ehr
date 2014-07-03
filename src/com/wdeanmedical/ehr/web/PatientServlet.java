@@ -29,6 +29,7 @@ import com.wdeanmedical.ehr.dto.PatientDTO;
 import com.wdeanmedical.ehr.entity.Encounter;
 import com.wdeanmedical.ehr.entity.Patient;
 import com.wdeanmedical.ehr.entity.ProgressNote;
+import com.wdeanmedical.ehr.service.AppService;
 import com.wdeanmedical.ehr.service.PatientService;
 import com.wdeanmedical.ehr.core.Core;
 import com.google.gson.Gson;
@@ -43,6 +44,7 @@ public class PatientServlet extends AppServlet  {
   private static final Logger log = Logger.getLogger(PatientServlet.class);
   
   private PatientService patientService;
+  private AppService appService;
 
   @Override
   public void init(ServletConfig config) throws ServletException {
@@ -50,6 +52,7 @@ public class PatientServlet extends AppServlet  {
     ServletContext context = getServletContext();
     try{
       patientService = new PatientService();
+      appService = new AppService();
     }
     catch(MalformedURLException e){
       e.printStackTrace();
@@ -97,6 +100,9 @@ public class PatientServlet extends AppServlet  {
         }
         else if (pathInfo.equals("/getPatientEncounters")) {
           returnString = getPatientEncounters(request, response);  
+        }
+        else if (pathInfo.equals("/getPatientProfileImage")) {
+          returnString = getPatientProfileImage(request, response);  
         }
         else if (pathInfo.equals("/getProgressNotes")) {
           returnString = getProgressNotes(request, response);  
@@ -192,6 +198,19 @@ public class PatientServlet extends AppServlet  {
     Gson gson = new Gson();
     PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
     patientService.createPatientAndEncounter(dto);
+    String json = gson.toJson(dto);
+    return json;
+  }
+  
+  
+  public String getPatientProfileImage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String data = request.getParameter("data");
+    String profileImagePath = request.getParameter("profileImagePath"); 
+    Gson gson = new Gson();
+    String patientId = request.getParameter("patientId");
+    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
+    String filesHomePatientDirPath =  Core.filesHome  + Core.patientDirPath + "/" + patientId + "/";
+	appService.getFile(request, response, getServletContext(), filesHomePatientDirPath, profileImagePath);  
     String json = gson.toJson(dto);
     return json;
   }
