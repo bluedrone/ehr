@@ -1,8 +1,8 @@
 # WDean Medical EHR
-# version 0.8.5  25-MAY-2014
+# version 0.8.6  03-JUL-2014
 
 Improvements:
-Work on external interface with FHIR
+Common and secure file location for all 3 applications in the suite.
 
 Bug Fixes:
 
