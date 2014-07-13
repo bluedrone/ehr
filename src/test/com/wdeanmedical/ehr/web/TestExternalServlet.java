@@ -99,7 +99,7 @@ public class TestExternalServlet {
 	@Test
     public void testGetPatient() throws Exception {
           
-		Mockito.when(request.getPathInfo()).thenReturn("/ext/json/getPatient/ABC123");
+		Mockito.when(request.getPathInfo()).thenReturn("/json/getPatient/ABC123");
       
 		ExternalServlet externalServlet = new ExternalServlet();
 
