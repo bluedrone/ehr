@@ -23,7 +23,6 @@
 	<classpathentry kind="lib" path="lib/javax.servlet.jsp.jstl.jar"/>
 	<classpathentry kind="lib" path="lib/javax.transaction.jar"/>
 	<classpathentry kind="lib" path="lib/junit-4.10.jar"/>
-	<classpathentry kind="lib" path="lib/junit-4.5.jar"/>
 	<classpathentry kind="lib" path="lib/mail.jar"/>
 	<classpathentry kind="lib" path="lib/mailapi.jar"/>
 	<classpathentry kind="lib" path="lib/smtp.jar"/>
@@ -74,5 +73,8 @@
 	<classpathentry kind="lib" path="web/WEB-INF/lib/ezmorph-1.0.6.jar"/>
 	<classpathentry kind="lib" path="web/WEB-INF/lib/commons-beanutils-1.8.0.jar"/>
 	<classpathentry kind="lib" path="web/WEB-INF/lib/xom-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/powermock-mockito-release-full-1.5.5-full.jar"/>
+	<classpathentry kind="lib" path="lib/mockito-all-1.9.5.jar"/>
+	<classpathentry kind="lib" path="lib/javassist-3.8.0.GA.jar"/>
 	<classpathentry kind="output" path="web/WEB-INF/classes"/>
 </classpath>
