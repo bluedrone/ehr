@@ -559,12 +559,15 @@ public class ExternalService {
       
       org.hl7.fhir.CodeableConcept maritalStatusCodeableConcept = new org.hl7.fhir.CodeableConcept();
       org.hl7.fhir.Coding maritalStatusCoding = new org.hl7.fhir.Coding();
-      MaritalStatus maritalStatus = patients.get(i).getDemo().getMaritalStatus();
       org.hl7.fhir.String maritalStatusDisplay = new org.hl7.fhir.String();
-      maritalStatusDisplay.setValue(maritalStatus.getName());
-      maritalStatusCoding.setDisplay(maritalStatusDisplay);
       org.hl7.fhir.Code maritalStatusCode = new org.hl7.fhir.Code();
-      maritalStatusCode.setValue(maritalStatus.getCode());
+      MaritalStatus maritalStatus = null;
+      if(patients.get(i).getDemo() != null && patients.get(i).getDemo().getMaritalStatus() != null){
+    	  maritalStatus = patients.get(i).getDemo().getMaritalStatus();
+    	  maritalStatusDisplay.setValue(maritalStatus.getName());
+    	  maritalStatusCoding.setDisplay(maritalStatusDisplay);
+    	  maritalStatusCode.setValue(maritalStatus.getCode());
+      }
       maritalStatusCoding.setCode(maritalStatusCode);
       maritalStatusCodeableConcept.getCoding().add(maritalStatusCoding);
       fhirpatient.setMaritalStatus(maritalStatusCodeableConcept);
@@ -621,7 +624,9 @@ public class ExternalService {
       zip.setValue(patients.get(i).getDemo().getPostalCode());
       address.setZip(zip);
       org.hl7.fhir.String country = new org.hl7.fhir.String();
-      country.setValue(patients.get(i).getDemo().getCountry().getName());
+      if(patients.get(i).getDemo() != null && patients.get(i).getDemo().getCountry() != null){
+    	  country.setValue(patients.get(i).getDemo().getCountry().getName());
+      }
       address.setCountry(country);  
       fhirpatient.getAddress().add(address);
       org.hl7.fhir.Integer numChildren = new org.hl7.fhir.Integer();
