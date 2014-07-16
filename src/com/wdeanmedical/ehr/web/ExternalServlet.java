@@ -37,7 +37,6 @@ import com.wdeanmedical.ehr.entity.MaritalStatus;
 import com.wdeanmedical.ehr.service.AppService;
 import com.wdeanmedical.ehr.service.ExternalService;
 import com.wdeanmedical.ehr.service.PatientService;
-import com.wdeanmedical.ehr.util.JSONUtils;
 import com.wdeanmedical.external.fhir.PatientsFHIR;
 import com.google.gson.Gson;
 
@@ -114,9 +113,14 @@ public class ExternalServlet extends AppServlet  {
         else {
           if (method.equals("getPatient")) {
             returnString = getPatient(arg1, format);  
-          }
-          if (method.equals("getPatients")) {
+          }else if (method.equals("getPatients")) {
             returnString = getPatients(request, response, format);  
+          }else if (method.equals("updatePatient")) {
+            returnString = updatePatient(request, response, format);  
+          }else if (method.equals("getPatientFullRecord")) {
+            returnString = getPatientFullRecord(arg1, format);  
+          }else if (method.equals("patientsImport")) {
+            returnString = patientsImport(request, response, format);  
           }
         }
       }
@@ -194,63 +198,57 @@ public class ExternalServlet extends AppServlet  {
 
   
   
-  public String patientsImport(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String patientsImport(HttpServletRequest request, HttpServletResponse response, String format) throws Exception {
     String data = request.getParameter("data");
-    PatientsFHIR patientsFHIR = null;
-    
-    if(JSONUtils.isJSONValid(data, PatientsFHIR.class)){
+    PatientsFHIR patientsFHIR = null;    
+    if(format.equals(JSON)){
       Gson gson = new Gson();
       patientsFHIR = gson.fromJson(data, PatientsFHIR.class); 
     }else{
-
-    try {
-          JAXBContext jaxbContext = JAXBContext.newInstance(PatientsFHIR.class);
-          Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-          StringReader stringReader = new StringReader(data);
-          patientsFHIR = (PatientsFHIR)jaxbUnmarshaller.unmarshal(stringReader);
-          } catch (JAXBException e) {
-          e.printStackTrace();
-        }
-    }
-    
+      JAXBContext jaxbContext = JAXBContext.newInstance(PatientsFHIR.class);
+      Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+      StringReader stringReader = new StringReader(data);
+      patientsFHIR = (PatientsFHIR)jaxbUnmarshaller.unmarshal(stringReader);
+    }    
     if(patientsFHIR != null){
-         externalService.importPatients(patientsFHIR);
+      externalService.importPatients(patientsFHIR);
     }    
     return null;
   }
   
   
-  public String updatePatient(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String updatePatient(HttpServletRequest request, HttpServletResponse response, String format) throws Exception {
     String data = request.getParameter("data");
-
     org.hl7.fhir.Patient patientFHIR = null;
-    try {
+    if (format.equals(XML)) {
         JAXBContext jaxbContext = JAXBContext.newInstance(org.hl7.fhir.Patient.class);
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
         StringReader stringReader = new StringReader(data);
         patientFHIR = (org.hl7.fhir.Patient)jaxbUnmarshaller.unmarshal(stringReader);
-      } catch (JAXBException e) {
-        e.printStackTrace();
-      }
+    }else{
+    	Gson gson = new Gson();
+    	patientFHIR = gson.fromJson(data, org.hl7.fhir.Patient.class); 	
+    }
     if(patientFHIR != null){
       externalService.updatePatient(patientFHIR);
     }
     return null;
   }
   
-  public String getPatientFullRecord(String mrn) throws Exception {
+  public String getPatientFullRecord(String mrn, String format) throws Exception {
     org.hl7.fhir.Patient patientFHIR = externalService.getPatientFullRecord(mrn);
-    StringWriter stringWriter = new StringWriter();
-    
-    try {
-        JAXBContext jaxbContext = JAXBContext.newInstance(org.hl7.fhir.Patient.class);
-        Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        jaxbMarshaller.marshal(patientFHIR, stringWriter);
-      } catch (JAXBException e) {
-        e.printStackTrace();
-      }
-    return stringWriter.toString();
+    if(format.equals(JSON)){
+    	Gson gson = new Gson();
+    	String json = gson.toJson(patientFHIR);
+        return json;
+      }else{
+        StringWriter stringWriter = new StringWriter();   
+	    JAXBContext jaxbContext = JAXBContext.newInstance(org.hl7.fhir.Patient.class);
+	    Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+	    jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+	    jaxbMarshaller.marshal(patientFHIR, stringWriter);
+	    return stringWriter.toString();
+	 }
   }
  
 }
