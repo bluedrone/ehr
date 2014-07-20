@@ -36,8 +36,11 @@ import com.wdeanmedical.ehr.entity.Credential;
 import com.wdeanmedical.ehr.entity.Credentials;
 import com.wdeanmedical.ehr.entity.Demographics;
 import com.wdeanmedical.ehr.entity.Encounter;
+import com.wdeanmedical.ehr.entity.EncounterMedication;
+import com.wdeanmedical.ehr.entity.EncounterQuestion;
 import com.wdeanmedical.ehr.entity.Gender;
 import com.wdeanmedical.ehr.entity.MaritalStatus;
+import com.wdeanmedical.ehr.entity.MedicalHistory;
 import com.wdeanmedical.ehr.entity.PFSH;
 import com.wdeanmedical.ehr.entity.Patient;
 import com.wdeanmedical.ehr.entity.PatientStatus;
@@ -46,6 +49,7 @@ import com.wdeanmedical.ehr.entity.USState;
 import com.wdeanmedical.ehr.dto.BooleanResultDTO;
 import com.wdeanmedical.ehr.util.ClinicianSessionData;
 import com.wdeanmedical.ehr.util.OneWayPasswordEncoder;
+import com.wdeanmedical.external.fhir.PatientFullRecordFHIR;
 import com.wdeanmedical.external.fhir.PatientsFHIR;
 
 import org.springframework.web.context.WebApplicationContext;
@@ -344,10 +348,100 @@ public class ExternalService {
     }
   }
   
-  public org.hl7.fhir.Patient getPatientFullRecord(String mrn) throws Exception{
+  public PatientFullRecordFHIR getPatientFullRecord(String mrn) throws Exception{
+    PatientFullRecordFHIR patientFullRecordFHIR = new PatientFullRecordFHIR();    
     Patient patient = patientDAO.findPatientByMrn(mrn);
     org.hl7.fhir.Patient fhirpatient = getPatientFHIR(patient);
-    return fhirpatient;
+    patientFullRecordFHIR.setPatient(fhirpatient);
+    MedicalHistory medicalHistory = patient.getHist();
+    List<org.hl7.fhir.SensitivityType> sensitivityTypes = new ArrayList<org.hl7.fhir.SensitivityType>();
+    
+    org.hl7.fhir.SensitivityType sensitivityTypeAllergyFood = new org.hl7.fhir.SensitivityType();
+    sensitivityTypeAllergyFood.setValue(org.hl7.fhir.SensitivityTypeList.ALLERGY);
+    sensitivityTypeAllergyFood.setId(medicalHistory.getAllergFood());
+    sensitivityTypes.add(sensitivityTypeAllergyFood);
+    
+    org.hl7.fhir.SensitivityType sensitivityTypeAllergyDrug = new org.hl7.fhir.SensitivityType();
+    sensitivityTypeAllergyDrug.setValue(org.hl7.fhir.SensitivityTypeList.ALLERGY);
+    sensitivityTypeAllergyDrug.setId(medicalHistory.getAllergDrug());
+    sensitivityTypes.add(sensitivityTypeAllergyDrug);
+    
+    org.hl7.fhir.SensitivityType sensitivityTypeAllergyEnv = new org.hl7.fhir.SensitivityType();
+    sensitivityTypeAllergyEnv.setValue(org.hl7.fhir.SensitivityTypeList.ALLERGY);
+    sensitivityTypeAllergyEnv.setId(medicalHistory.getAllergEnv());
+    sensitivityTypes.add(sensitivityTypeAllergyEnv);    
+    
+    patientFullRecordFHIR.setSensitivityTypes(sensitivityTypes);
+    
+    List<org.hl7.fhir.MedicationAdministration> medicationAdministrations = new ArrayList<org.hl7.fhir.MedicationAdministration>();
+    
+    List<EncounterMedication> encounterMedicationList = patientDAO.getEncounterMedicationsByPatient(patient.getId());
+    
+    if(encounterMedicationList != null){
+    
+      for(EncounterMedication encounterMedication : encounterMedicationList){
+        
+        org.hl7.fhir.MedicationAdministration medicationAdministration = new org.hl7.fhir.MedicationAdministration();
+        
+        org.hl7.fhir.ResourceReference medicationResourceReference = new org.hl7.fhir.ResourceReference();
+        org.hl7.fhir.String medicationString = new org.hl7.fhir.String();
+        medicationString.setValue(encounterMedication.getMedication());
+        medicationResourceReference.setDisplay(medicationString);
+        medicationResourceReference.setReference(medicationString);      
+        medicationAdministration.setMedication(medicationResourceReference);
+        
+        org.hl7.fhir.ResourceReference prescriptionResourceReference = new org.hl7.fhir.ResourceReference();
+        org.hl7.fhir.String prescriptionString = new org.hl7.fhir.String();
+        prescriptionString.setValue(encounterMedication.getDose());
+        prescriptionResourceReference.setDisplay(prescriptionString);
+        prescriptionResourceReference.setReference(prescriptionString);  
+        medicationAdministration.setPrescription(prescriptionResourceReference);
+        
+        /*org.hl7.fhir.Period period = new org.hl7.fhir.Period();
+        
+        period.setStart(value);
+        period.setStart(value);
+        
+        medicationAdministration.setWhenGiven(period);*/
+        
+        
+        medicationAdministrations.add(medicationAdministration);         
+        
+      }
+    
+    }
+    
+    patientFullRecordFHIR.setMedicationAdministrations(medicationAdministrations);
+    
+    List<EncounterQuestion> encounterQuestions = patientDAO.getEncounterQuestionsByEncounter(patient.getCurrentEncounterId());
+    
+    List<org.hl7.fhir.Questionnaire> questionnaires = new ArrayList<org.hl7.fhir.Questionnaire>();
+    
+    for(EncounterQuestion encounterQuestion : encounterQuestions){
+      
+      org.hl7.fhir.Questionnaire questionnaire = new org.hl7.fhir.Questionnaire();
+      
+      org.hl7.fhir.ResourceReference subjectResourceReference = new org.hl7.fhir.ResourceReference();
+      org.hl7.fhir.String subjectString = new org.hl7.fhir.String();
+      subjectString.setValue(encounterQuestion.getQuestion());
+      subjectResourceReference.setDisplay(subjectString);
+      subjectResourceReference.setReference(subjectString);       
+      questionnaire.setSubject(subjectResourceReference);
+      
+      org.hl7.fhir.Narrative narrative = new org.hl7.fhir.Narrative();
+      
+      narrative.setId(encounterQuestion.getResponse());
+      
+      questionnaire.setText(narrative);
+      
+      questionnaires.add(questionnaire);
+      
+    }
+    
+    patientFullRecordFHIR.setQuestionnaires(questionnaires);
+    
+    
+    return patientFullRecordFHIR;
   }
 
   

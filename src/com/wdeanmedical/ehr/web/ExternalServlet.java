@@ -37,6 +37,7 @@ import com.wdeanmedical.ehr.entity.MaritalStatus;
 import com.wdeanmedical.ehr.service.AppService;
 import com.wdeanmedical.ehr.service.ExternalService;
 import com.wdeanmedical.ehr.service.PatientService;
+import com.wdeanmedical.external.fhir.PatientFullRecordFHIR;
 import com.wdeanmedical.external.fhir.PatientsFHIR;
 import com.google.gson.Gson;
 
@@ -236,17 +237,17 @@ public class ExternalServlet extends AppServlet  {
   }
   
   public String getPatientFullRecord(String mrn, String format) throws Exception {
-    org.hl7.fhir.Patient patientFHIR = externalService.getPatientFullRecord(mrn);
+    PatientFullRecordFHIR patientFullRecordFHIR = externalService.getPatientFullRecord(mrn);
     if(format.equals(JSON)){
     	Gson gson = new Gson();
-    	String json = gson.toJson(patientFHIR);
+    	String json = gson.toJson(patientFullRecordFHIR);
         return json;
       }else{
         StringWriter stringWriter = new StringWriter();   
-	    JAXBContext jaxbContext = JAXBContext.newInstance(org.hl7.fhir.Patient.class);
+	    JAXBContext jaxbContext = JAXBContext.newInstance(PatientFullRecordFHIR.class);
 	    Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 	    jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-	    jaxbMarshaller.marshal(patientFHIR, stringWriter);
+	    jaxbMarshaller.marshal(patientFullRecordFHIR, stringWriter);
 	    return stringWriter.toString();
 	 }
   }
