@@ -440,6 +440,26 @@ public class ExternalService {
     
     patientFullRecordFHIR.setQuestionnaires(questionnaires);
     
+    List<org.hl7.fhir.RelatedPerson> relatedPersons = new ArrayList<org.hl7.fhir.RelatedPerson>();
+    
+    PFSH pfsh = patient.getPfsh();
+    
+    org.hl7.fhir.RelatedPerson motherRelatedPerson = new org.hl7.fhir.RelatedPerson();
+    org.hl7.fhir.String motherRelationshipString = new org.hl7.fhir.String();
+    motherRelationshipString.setValue("Mother");
+    org.hl7.fhir.CodeableConcept motherCodeableConcept = new org.hl7.fhir.CodeableConcept();
+    motherCodeableConcept.setText(motherRelationshipString);
+    org.hl7.fhir.HumanName motherHumanName = new  org.hl7.fhir.HumanName();
+    org.hl7.fhir.String motherNameString = new org.hl7.fhir.String();
+    motherNameString.setValue(pfsh.getMotherName());
+    motherHumanName.setText(motherNameString);
+    motherRelatedPerson.setName(motherHumanName);
+    motherRelatedPerson.setRelationship(motherCodeableConcept);
+    
+    relatedPersons.add(motherRelatedPerson);
+    
+    patientFullRecordFHIR.setRelatedPersons(relatedPersons);
+    
     
     return patientFullRecordFHIR;
   }
