@@ -1,7 +1,8 @@
 @import "bootstrap.min.css";
 @import "font-awesome.min.css";
-@import "app.css";
 @import "fullcalendar.css";
 @import "fullcalendar.print.css";
 @import "datepicker.css";
+@import "bootstrap-timepicker.css";
 @import "slider.css";
+@import "app.css";

@@ -16,6 +16,7 @@ head.js (
    "js/lib/bootstrap.min.js",           
    "js/lib/date.format.js",           
    "js/lib/bootstrap-datepicker.js",           
+   "js/lib/bootstrap-timepicker.min.js",
    "js/lib/bootstrap-slider.js",           
    "js/lib/jquery.maskedinput.min.js",
    "js/lib/fileuploader.custom.js",
