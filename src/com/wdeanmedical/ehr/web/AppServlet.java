@@ -9,7 +9,12 @@ package com.wdeanmedical.ehr.web;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -33,6 +38,8 @@ import com.wdeanmedical.ehr.entity.PatientMessage;
 import com.wdeanmedical.ehr.entity.Clinician;
 import com.wdeanmedical.ehr.service.AppService;
 import com.wdeanmedical.ehr.dto.MessageDTO;
+import com.wdeanmedical.ehr.dto.AppointmentDTO;
+import com.wdeanmedical.ehr.entity.Appointment;
 import com.google.gson.Gson;
 
 import org.apache.log4j.Logger;
@@ -135,6 +142,12 @@ public void init(ServletConfig config) throws ServletException {
           }
           else if (pathInfo.equals("/searchCPT")) {
             returnString = searchCPT(request, response);  
+          }
+          else if (pathInfo.equals("/getAppointment")) {
+            returnString = getAppointment(request, response);  
+          }
+          else if (pathInfo.equals("/getAppointments")) {
+            returnString = getAppointments(request, response);  
           }
         }
       }
@@ -348,6 +361,52 @@ public void init(ServletConfig config) throws ServletException {
     String json = gson.toJson(dto);
     return json;
   }
+  
+  
+  
+  public String getAppointment(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String data = request.getParameter("data");
+    Gson gson = new Gson();
+    AppointmentDTO dto = gson.fromJson(data, AppointmentDTO.class); 
+    boolean result = appService.getAppointment(dto);
+    String json = gson.toJson(dto);
+    return json;
+  }
+  
+  
+  
+  public String getAppointments(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    Gson gson = new Gson();
+    List<Appointment> bookedAppts = null;
+    bookedAppts = appService.getAllAppointments();
+        
+    ArrayList<Map<String, Object>> visitsList = new ArrayList<Map<String, Object>>();
+    Map<String, Object> visitInstance = null;
+    if(bookedAppts != null) {
+      for(Appointment event : bookedAppts) {
+        visitInstance = new HashMap<String, Object>();
+        visitInstance.put("id", event.getId());
+        visitInstance.put("title", event.getTitle());
+        visitInstance.put("start", formatDate(event.getStartTime()));
+        visitInstance.put("end", formatDate(event.getEndTime()));
+        visitInstance.put("desc", event.getDesc());
+        visitInstance.put("allDay", Boolean.FALSE);
+        visitsList.add(visitInstance);
+      }
+    }
+    return gson.toJson(visitsList);
+  }
+  
+  
+  public static String formatDate(Date date){
+    String value = null;
+    if (date != null){
+      SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+      value = dateformat.format(date);
+    }
+    return value;
+  }
+  
   
 }
  

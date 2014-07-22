@@ -469,5 +469,17 @@ public class AppDAO extends SiteDAO {
     return (PatientStatus) this.findById(PatientStatus.class, id);
   }
   
+  
+  
+  public List<Appointment> getAllAppointments() throws Exception {
+    return this.findAll(Appointment.class);
+  }
+  
+  
+  public Appointment findAppointmentById(int id) throws Exception {
+    return (Appointment) this.findById(Appointment.class, id);
+  }
+  
+  
 
 }
