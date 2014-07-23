@@ -32,6 +32,7 @@ import com.wdeanmedical.ehr.entity.PatientHealthIssue;
 import com.wdeanmedical.ehr.entity.PatientMessage;
 import com.wdeanmedical.ehr.entity.Clinician;
 import com.wdeanmedical.ehr.service.AppService;
+import com.wdeanmedical.ehr.util.JSONUtils;
 import com.wdeanmedical.ehr.dto.MessageDTO;
 import com.google.gson.Gson;
 
@@ -165,7 +166,10 @@ public void init(ServletConfig config) throws ServletException {
     String ipAddress = request.getRemoteHost();
     String data = request.getParameter("data");
     Gson gson = new Gson();
-    AuthorizedDTO dto = gson.fromJson(data, AuthorizedDTO.class);  
+    AuthorizedDTO dto = null;
+    if(JSONUtils.isJSONValid(data, AuthorizedDTO.class)){
+     dto = gson.fromJson(data, AuthorizedDTO.class);  
+    }
     if (dto == null){
       dto = new AuthorizedDTO();
       dto.setSessionId(request.getParameter("sessionId"));

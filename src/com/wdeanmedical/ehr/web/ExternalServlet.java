@@ -105,7 +105,7 @@ public class ExternalServlet extends AppServlet  {
      
     try { 
       if (method.equals("auth")) {
-        returnString = auth(request, response);  
+        returnString = auth(request, response, format);  
       }
       else { 
         if (isValidSession(request, response) == false) {
@@ -120,8 +120,8 @@ public class ExternalServlet extends AppServlet  {
             returnString = updatePatient(request, response, format);  
           }else if (method.equals("getPatientFullRecord")) {
             returnString = getPatientFullRecord(arg1, format);  
-          }else if (method.equals("patientsImport")) {
-            returnString = patientsImport(request, response, format);  
+          }else if (method.equals("importPatients")) {
+            returnString = importPatients(request, response, format);  
           }
         }
       }
@@ -156,14 +156,18 @@ public class ExternalServlet extends AppServlet  {
   }
   
   
-  public String auth(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String auth(HttpServletRequest request, HttpServletResponse response, String format) throws Exception {
     String data = request.getParameter("data");
     Gson gson = new Gson();
     LoginDTO loginDTO = gson.fromJson(data, LoginDTO.class);  
     String ipAddress = request.getRemoteHost();
     AuthorizedDTO dto = externalService.auth(loginDTO, ipAddress); 
-    String json = gson.toJson(dto);
-    return json;
+    String returnString = gson.toJson(dto);
+    if (XML.equals(format)) {
+      JSONObject json = JSONObject.fromObject(returnString);
+      returnString = new XMLSerializer().write(json);
+    }
+    return returnString;
   }
   
   public String getPatient(String mrn, String format) throws Exception {
@@ -199,7 +203,7 @@ public class ExternalServlet extends AppServlet  {
 
   
   
-  public String patientsImport(HttpServletRequest request, HttpServletResponse response, String format) throws Exception {
+  public String importPatients(HttpServletRequest request, HttpServletResponse response, String format) throws Exception {
     String data = request.getParameter("data");
     PatientsFHIR patientsFHIR = null;    
     if(format.equals(JSON)){
