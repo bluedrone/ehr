@@ -150,6 +150,9 @@ public void init(ServletConfig config) throws ServletException {
           else if (pathInfo.equals("/getAppointments")) {
             returnString = getAppointments(request, response);  
           }
+          else if (pathInfo.equals("/getAppointmentsByClinician")) {
+            returnString = getAppointmentsByClinician(request, response);  
+          }
         }
       }
      
@@ -383,6 +386,31 @@ public void init(ServletConfig config) throws ServletException {
     Gson gson = new Gson();
     List<Appointment> bookedAppts = null;
     bookedAppts = appService.getAllAppointments();
+        
+    ArrayList<Map<String, Object>> visitsList = new ArrayList<Map<String, Object>>();
+    Map<String, Object> visitInstance = null;
+    if(bookedAppts != null) {
+      for(Appointment event : bookedAppts) {
+        visitInstance = new HashMap<String, Object>();
+        visitInstance.put("id", event.getId());
+        visitInstance.put("title", event.getTitle());
+        visitInstance.put("start", formatDate(event.getStartTime()));
+        visitInstance.put("end", formatDate(event.getEndTime()));
+        visitInstance.put("desc", event.getDesc());
+        visitInstance.put("allDay", Boolean.FALSE);
+        visitsList.add(visitInstance);
+      }
+    }
+    return gson.toJson(visitsList);
+  }
+  
+  
+  
+  public String getAppointmentsByClinician(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    Gson gson = new Gson();
+    List<Appointment> bookedAppts = null;
+    Clinician clinician = appService.getClinicianBySessionId(request.getParameter("sessionId"));
+    bookedAppts = appService.getAllAppointmentsByClinician(clinician);
         
     ArrayList<Map<String, Object>> visitsList = new ArrayList<Map<String, Object>>();
     Map<String, Object> visitInstance = null;
