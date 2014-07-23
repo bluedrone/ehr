@@ -53,6 +53,7 @@ import com.wdeanmedical.ehr.entity.Clinician;
 import com.wdeanmedical.ehr.entity.ClinicianSession;
 import com.wdeanmedical.ehr.util.ClinicianSessionData;
 import com.wdeanmedical.ehr.dto.MessageDTO;
+import com.wdeanmedical.ehr.dto.AppointmentDTO;
 
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -218,10 +219,7 @@ public class AppService {
     return true;
   }
   
-  public  List<Appointment> getAppointments(PatientDTO dto, boolean isPast) throws Exception {
-    Patient patient = appDAO.findPatientById(dto.getId());
-    return appDAO.getAppointments(patient, isPast);
-  }
+
   
   public  boolean processMessage(PatientDTO dto) throws Exception {
     return true;
@@ -357,6 +355,27 @@ public class AppService {
     logger.info("======= isValidSession() clinician " + clinicianName + "'s timestamp updated to " + clinicianSession.getLastAccessTime()); 
     
     return true;
+  }
+  
+  
+  
+  public  List<Appointment> getAppointments(PatientDTO dto, boolean isPast) throws Exception {
+    Patient patient = appDAO.findPatientById(dto.getId());
+    return appDAO.getAppointments(patient, isPast);
+  }
+  
+  
+  
+  public boolean getAppointment(AppointmentDTO dto) throws Exception {
+    Appointment appointment = appDAO.findAppointmentById(dto.getId());
+    dto.setAppointment(appointment);
+    return true;
+  }
+  
+
+
+  public List<Appointment> getAllAppointments() throws Exception {
+    return appDAO.getAllAppointments();
   }
   
 

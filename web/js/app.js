@@ -78,6 +78,7 @@ var app_patientEncounterGroups = [];
 var app_groupOrderArray = [];
 var app_newPatientEncounterGroup = undefined;
 var app_oldLockStatus;
+var app_currentCalendarView = 'month';
 
 /***********      @JQUERY INIT    *******************/
 $(document).ready(function() {
