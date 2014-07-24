@@ -10,7 +10,7 @@ function app_loadCalendar() {
     type: "GET",
     contentType: "application/json",
     data:"{}",
-    url: "app/getAppointments?sessionId="+clinician.sessionId,
+    url: "app/getAppointmentsByClinician?sessionId="+clinician.sessionId,
     dataType: "json",
     success: function(data) {
       $('#app-calendar').fullCalendar('destroy');

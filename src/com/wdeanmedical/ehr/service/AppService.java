@@ -378,5 +378,17 @@ public class AppService {
     return appDAO.getAllAppointments();
   }
   
+  
+  public Clinician getClinicianBySessionId(String sessionId) throws Exception {
+    return appDAO.findClinicianBySessionId(sessionId);
+  }
+  
+  
+  
+    
+  public List<Appointment> getAllAppointmentsByClinician(Clinician clinician) throws Exception {
+    return appDAO.getAllAppointmentsByClinician(clinician);
+  }
+  
 
 }
