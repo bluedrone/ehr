@@ -7,6 +7,9 @@
  
 package com.wdeanmedical.ehr.dto;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "authorizedDTO")
 public class AuthorizedDTO extends BooleanResultDTO {
 
     private String sessionId;

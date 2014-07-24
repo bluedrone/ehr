@@ -1,5 +1,8 @@
 package com.wdeanmedical.ehr.dto;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "loginDTO")
 public class LoginDTO  {
   private String username;
   private String password;

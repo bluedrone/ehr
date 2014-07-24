@@ -188,9 +188,9 @@ public class ExternalServlet extends AppServlet  {
     PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
     List<Patient> patients = appService.getPatients(dto); 
 
-    PatientsFHIR patientsFHIR = externalService.buildPatientResource(patients);
-    StringWriter out = new StringWriter();
+    PatientsFHIR patientsFHIR = externalService.buildPatientResource(patients);    
     if (format.equals(XML)) {
+      StringWriter out = new StringWriter();
       JAXBContext jaxbContext = JAXBContext.newInstance(PatientsFHIR.class);
       Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
       jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);

@@ -17,9 +17,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "clinician")
+@XmlRootElement(name = "clinician")
 public class Clinician extends BaseEntity implements Serializable {
 
   public static final Integer STATUS_AUTHORIZED = 1;
