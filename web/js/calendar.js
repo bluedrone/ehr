@@ -34,7 +34,7 @@ function app_loadCalendar() {
           resizeAppt(event, jsEvent, ui, view);
         },
         lazyFetching: true,
-        editable: true,
+        editable: false,
         eventRender: function(event, element) {
           startDate = event.start.format('h:mm');
           endDate = event.end.format('h:mm');
@@ -172,8 +172,8 @@ function editApptForm(calEvent) {
   var offset = new Date().getTimezoneOffset();
   start.add('m', offset);
   end.add('m', offset);
-  var title = 'Edit Appointment';
-  RenderUtil.render('dialog/event', {title:title, deleteButton:'Delete',submitButtonLabel:'Update'}, function(s) {
+  var title = 'Appointment Details';
+  RenderUtil.render('dialog/event', {title:title, deleteButton:null,submitButtonLabel:null}, function(s) {
     $('#modals-placement').html(s);
     $('#modal-event').modal('show'); 
     $('.form_time').timepicker({
