@@ -1,8 +1,9 @@
 # WDean Medical EHR
-# version 0.8.7  23-JUL-2014
+# version 0.8.8  25-JUL-2014
 
 Improvements:
-Appointment rendering working.
+Removed bootstrap-timepicker
+Inproved time input handling and validation.
 
 Bug Fixes:
 

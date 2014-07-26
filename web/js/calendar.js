@@ -22,10 +22,10 @@ function app_loadCalendar() {
           right: 'month,agendaWeek,agendaDay'
         },
         windowResize: true,
-        selectable: true,
+        selectable: false,
         selectHelper: true,
         select: function(start, end) {
-          newApptForm(start, end)
+          //newApptForm(start, end)
         },
         eventDrop: function(event, jsEvent, ui, view) {
           moveAppt(event, jsEvent, ui, view);
@@ -104,20 +104,10 @@ function newApptForm(start, end) {
   RenderUtil.render('dialog/event', {title:title,deleteButton:null,submitButtonLabel:'Add'}, function(s) {
     $('#modals-placement').html(s);
     $('#modal-event').modal('show'); 
-    $('.form_time').timepicker({
-      template: false,
-      showInputs: false,
-      minuteStep: 5
-    });
+    
     if (app_currentCalendarView == 'month') {
       var startTimeString = dateFormat(start, 'mm/dd/yyyy') + ' 9:00 AM';
-  
-      var jsonData = JSON.stringify({ 
-        sessionId: clinician.sessionId,
-        startTime: startTimeString,
-        apptLengthInMinutes: 30
-      });
-  
+      var jsonData = JSON.stringify({ sessionId: clinician.sessionId, startTime: startTimeString, apptLengthInMinutes: 30 });
       $.post("app/suggestApptSlot", {data:jsonData}, function(data) {
         var parsedData = $.parseJSON(data);
         $('#app-appt-start').val(dateFormat(parsedData.newApptStartTime, 'h:MM TT'));
@@ -128,13 +118,14 @@ function newApptForm(start, end) {
       $('#app-appt-start').val(dateFormat(start, 'h:MM TT'));
       $('#app-appt-end').val(dateFormat(end, 'h:MM TT'));
     }
-    
     getClinicians();
     $('#app-appt-clinician').on('change',function(){
       selectedClinician = $('#app-appt-clinician').val();
       getClinicianPatients();
     });
-    $('#app-appt-submit').one("click", function (e) { handleNewAppt(e, start, end, offset); });
+    // note: sending start date as end date since we want to stay on the same day.
+    end = moment(start);
+    $('#app-appt-submit').off().on("click", function (e) { handleNewAppt(e, start, end, offset); });
   });
 }
 
@@ -176,11 +167,6 @@ function editApptForm(calEvent) {
   RenderUtil.render('dialog/event', {title:title, deleteButton:null,submitButtonLabel:null}, function(s) {
     $('#modals-placement').html(s);
     $('#modal-event').modal('show'); 
-    $('.form_time').timepicker({
-      template: false,
-      showInputs: false,
-      minuteStep: 5
-    });
     $('#app-appt-start').val(dateFormat(start, 'h:MM TT'));
     $('#app-appt-end').val(dateFormat(end, 'h:MM TT'));
     $('#app-appt-desc').val(calEvent.desc);
@@ -265,12 +251,15 @@ function handleUpdateAppt(e, start, end, id) {
   var isValid = true;
   handleNewAppt_clearErrors();
   
-  if($("#app-appt-start").val().length < 1) { 
-    showError('#app-appt-start-validation');
+  var apptStartValid = util_checkRegexp($.trim($("#app-appt-start").val()), /^(0?[1-9]|1[012])(:[0-5]\d) [APap][mM]$/);
+  if (apptStartValid == false) {
+    showError('#app-appt-start-validation', 'invalid time format');
     isValid = false;
   }
-  if($("#app-appt-end").val().length < 1) { 
-    showError('#app-appt-end-validation');
+  
+  var apptEndValid = util_checkRegexp($.trim($("#app-appt-end").val()), /^(0?[1-9]|1[012])(:[0-5]\d) [APap][mM]$/);
+  if (apptEndValid == false) {
+    showError('#app-appt-end-validation', 'invalid time format');
     isValid = false;
   }
 
@@ -280,6 +269,19 @@ function handleUpdateAppt(e, start, end, id) {
   
   var startTimeString = dateFormat(start, 'mm/dd/yyyy') + " " + $('#app-appt-start').val();
   var endTimeString = dateFormat(end, 'mm/dd/yyyy') + " " + $('#app-appt-end').val();
+  var startDate = new Date(startTimeString);
+  var endDate = new Date(endTimeString);
+  var startTimestamp = startDate.getTime();
+  var endTimestamp = endDate.getTime();
+ 
+  if (endTimestamp < startTimestamp) {
+    isValid = false;
+    showError('#app-appt-end-validation', 'invalid time range');
+  }
+  else if (endTimestamp - startTimestamp < 900000) {
+    isValid = false;
+    showError('#app-appt-end-validation', 'Appointment must be at least 15 minutes long.');
+  }
   
   var jsonData = JSON.stringify({ 
     sessionId: clinician.sessionId,
@@ -304,30 +306,47 @@ function handleNewAppt(e, start, end) {
   var isValid = true;
   handleNewAppt_clearErrors();
   
-  if($("#app-appt-start").val().length < 1) { 
-    showError('#app-appt-start-validation');
+  var apptStartValid = util_checkRegexp($.trim($("#app-appt-start").val()), /^(0?[1-9]|1[012])(:[0-5]\d) [APap][mM]$/);
+  if (apptStartValid == false) {
+    showError('#app-appt-start-validation', 'invalid time format');
     isValid = false;
   }
-  if($("#app-appt-end").val().length < 1) { 
-    showError('#app-appt-end-validation');
+  
+  var apptEndValid = util_checkRegexp($.trim($("#app-appt-end").val()), /^(0?[1-9]|1[012])(:[0-5]\d) [APap][mM]$/);
+  if (apptEndValid == false) {
+    showError('#app-appt-end-validation', 'invalid time format');
     isValid = false;
   }
+  
   if($("#app-appt-clinician").val().length < 1) { 
     showError('#app-appt-clinician-validation');
     isValid = false;
   }
-  if($("#app-appt-patient").val().length < 1) { 
+  if(!$("#app-appt-patient").val() || $("#app-appt-patient").val().length < 1) { 
     showError('#app-appt-patient-validation');
     isValid = false;
   }
+
+  
+  var startTimeString = dateFormat(start, 'mm/dd/yyyy') + " " + $('#app-appt-start').val();
+  var endTimeString = dateFormat(end, 'mm/dd/yyyy') + " " + $('#app-appt-end').val();
+  var startDate = new Date(startTimeString);
+  var endDate = new Date(endTimeString);
+  var startTimestamp = startDate.getTime();
+  var endTimestamp = endDate.getTime();
+ 
+  if (endTimestamp < startTimestamp) {
+    isValid = false;
+    showError('#app-appt-end-validation', 'invalid time range');
+  }
+  else if (endTimestamp - startTimestamp < 900000) {
+    isValid = false;
+    showError('#app-appt-end-validation', 'Appointment must be at least 15 minutes long.');
+  }
+  
   if (isValid == false) {
     return;
   }
-  
-  var startTimeString = dateFormat(start, 'mm/dd/yyyy') + " " + $('#app-appt-start').val();
-  var startTime = moment (startTimeString, "mm/dd/yyyy HH:mm A");
-  var endTimeString = dateFormat(end, 'mm/dd/yyyy') + " " + $('#app-appt-end').val();
-  var endTime = moment (endTimeString, "mm/dd/yyyy HH:mm A");
   
   var jsonData = JSON.stringify({ 
     sessionId: clinician.sessionId,
