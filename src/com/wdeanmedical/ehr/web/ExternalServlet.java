@@ -158,14 +158,27 @@ public class ExternalServlet extends AppServlet  {
   
   public String auth(HttpServletRequest request, HttpServletResponse response, String format) throws Exception {
     String data = request.getParameter("data");
-    Gson gson = new Gson();
-    LoginDTO loginDTO = gson.fromJson(data, LoginDTO.class);  
     String ipAddress = request.getRemoteHost();
-    AuthorizedDTO dto = externalService.auth(loginDTO, ipAddress); 
-    String returnString = gson.toJson(dto);
-    if (XML.equals(format)) {
-      JSONObject json = JSONObject.fromObject(returnString);
-      returnString = new XMLSerializer().write(json);
+    LoginDTO loginDTO = null;
+    String returnString = null;
+    AuthorizedDTO dto = null;
+    if(JSON.equals(format)){
+      Gson gson = new Gson();
+      loginDTO = gson.fromJson(data, LoginDTO.class);        
+      dto = externalService.auth(loginDTO, ipAddress); 
+      returnString = gson.toJson(dto);
+    }else if (XML.equals(format)) {
+      JAXBContext jaxbRequestContext = JAXBContext.newInstance(LoginDTO.class);
+      Unmarshaller jaxbUnmarshaller = jaxbRequestContext.createUnmarshaller();
+      StringReader stringReader = new StringReader(data);
+      loginDTO = (LoginDTO)jaxbUnmarshaller.unmarshal(stringReader);
+      dto = externalService.auth(loginDTO, ipAddress); 
+      StringWriter out = new StringWriter();
+      JAXBContext jaxbResponseContext = JAXBContext.newInstance(AuthorizedDTO.class);
+      Marshaller jaxbMarshaller = jaxbResponseContext.createMarshaller();
+      jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+      jaxbMarshaller.marshal(dto, out);
+      returnString = out.toString();
     }
     return returnString;
   }

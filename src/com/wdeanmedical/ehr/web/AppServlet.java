@@ -8,8 +8,6 @@
 package com.wdeanmedical.ehr.web;
 
 import java.io.IOException;
-import java.io.StringReader;
-import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,7 +41,6 @@ import com.wdeanmedical.ehr.util.JSONUtils;
 import com.wdeanmedical.ehr.dto.MessageDTO;
 import com.wdeanmedical.ehr.dto.AppointmentDTO;
 import com.wdeanmedical.ehr.entity.Appointment;
-import com.wdeanmedical.external.fhir.PatientsFHIR;
 import com.google.gson.Gson;
 
 import org.apache.log4j.Logger;
@@ -51,7 +48,6 @@ import org.apache.log4j.Logger;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 
 
 public class AppServlet extends HttpServlet  {
@@ -323,31 +319,12 @@ public void init(ServletConfig config) throws ServletException {
   
   public String login(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String data = request.getParameter("data");
+    Gson gson = new Gson();
+    LoginDTO loginDTO = gson.fromJson(data, LoginDTO.class);  
     String ipAddress = request.getRemoteHost();
-    LoginDTO loginDTO = null;
-    Gson gson = null;
-    if(JSONUtils.isJSONValid(data, LoginDTO.class)){
-      gson = new Gson();
-      loginDTO = gson.fromJson(data, LoginDTO.class); 
-    }else{
-      JAXBContext jaxbContext = JAXBContext.newInstance(LoginDTO.class);
-      Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-      StringReader stringReader = new StringReader(data);
-      loginDTO = (LoginDTO)jaxbUnmarshaller.unmarshal(stringReader);
-    }
-    String returnString = null;
-    Clinician clinician = appService.login(loginDTO, ipAddress);
-    if(JSONUtils.isJSONValid(data, LoginDTO.class)){
-      returnString = gson.toJson(clinician);
-      return returnString;
-    }else{
-      StringWriter out = new StringWriter();
-      JAXBContext jaxbContext = JAXBContext.newInstance(Clinician.class);
-      Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-      jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-      jaxbMarshaller.marshal(clinician, out);
-      return out.toString();
-    }
+    Clinician clinician = appService.login(loginDTO, ipAddress); 
+    String json = gson.toJson(clinician);
+    return json;
   }
   
   
