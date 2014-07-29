@@ -183,10 +183,10 @@ public void init(ServletConfig config) throws ServletException {
     String data = request.getParameter("data");
     Gson gson = new Gson();
     AuthorizedDTO dto = null;
-    if(JSONUtils.isJSONValid(data, AuthorizedDTO.class)){
+    try{
      dto = gson.fromJson(data, AuthorizedDTO.class);  
-    }
-    if (dto == null){
+    }catch (Exception e){}
+    if (dto == null || dto.getSessionId() == null){
       dto = new AuthorizedDTO();
       dto.setSessionId(request.getParameter("sessionId"));
     }

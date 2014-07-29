@@ -184,12 +184,20 @@ public class ExternalServlet extends AppServlet  {
   }
   
   public String getPatient(String mrn, String format) throws Exception {
-    Gson gson = new Gson();
     org.hl7.fhir.Patient patientFHIR = externalService.getPatient(mrn);
-    String returnString = gson.toJson(patientFHIR);
-    if (XML.equals(format)) {
-      JSONObject json = JSONObject.fromObject(returnString);
-      returnString = new XMLSerializer().write(json);
+    String returnString = null;
+    if (JSON.equals(format)) {
+      Gson gson = new Gson();
+      returnString = gson.toJson(patientFHIR);
+    }else  if (XML.equals(format)) {
+      //JSONObject json = JSONObject.fromObject(returnString);
+      //returnString = new XMLSerializer().write(json);
+      StringWriter out = new StringWriter();
+      JAXBContext jaxbContext = JAXBContext.newInstance(org.hl7.fhir.Patient.class);
+      Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+      jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+      jaxbMarshaller.marshal(patientFHIR, out);
+      returnString = out.toString();
    }
     return returnString;
   }
