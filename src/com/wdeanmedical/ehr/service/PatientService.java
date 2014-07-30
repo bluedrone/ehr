@@ -97,6 +97,13 @@ public class PatientService {
   }
   
   
+  
+  public List<VitalSigns> getPatientVitalSigns(PatientDTO dto) throws Exception {
+    Patient patient = appDAO.findPatientById(dto.getId());
+    return appDAO.getPatientVitalSigns(patient);
+  }
+  
+  
   public  void deactivatePatient(PatientDTO dto) throws Exception {
     Patient patient = patientDAO.findPatientById(dto.getPatientId());
     PatientStatus status = patientDAO.findPatientStatusById(PatientStatus.INACTIVE);

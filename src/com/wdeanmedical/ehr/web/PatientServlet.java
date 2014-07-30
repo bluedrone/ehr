@@ -32,6 +32,7 @@ import com.wdeanmedical.ehr.entity.ProgressNote;
 import com.wdeanmedical.ehr.service.AppService;
 import com.wdeanmedical.ehr.service.PatientService;
 import com.wdeanmedical.ehr.core.Core;
+import com.wdeanmedical.ehr.entity.VitalSigns;
 import com.google.gson.Gson;
 
 import org.apache.commons.io.IOUtils;
@@ -162,6 +163,9 @@ public class PatientServlet extends AppServlet  {
           isUploadResponse = true;
           returnString = uploadProfileImage(request, response);  
         }
+        else if (pathInfo.equals("/getPatientVitalSigns")) {
+          returnString = getPatientVitalSigns(request, response);  
+        }
       }
      
       ServletOutputStream  out = null;
@@ -280,6 +284,20 @@ public class PatientServlet extends AppServlet  {
     String json = gson.toJson(dto);
     return json;
   }
+  
+  
+    
+  public String getPatientVitalSigns(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String data = request.getParameter("data");
+    Gson gson = new Gson();
+    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
+    List<VitalSigns> patientVitalSigns = patientService.getPatientVitalSigns(dto); 
+    dto.setVitalSigns(patientVitalSigns);
+    String json = gson.toJson(dto);
+    return json;
+  }
+  
+  
   
   public String createFamily(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String data = request.getParameter("data");

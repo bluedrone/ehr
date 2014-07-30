@@ -32,5 +32,6 @@ head.js (
    "js/view_stacks.js",           
    "js/dto.js",           
    "js/RenderUtil.js",           
-   "js/print.js"           
+   "js/print.js",           
+   "js/patient_vital_signs.js"           
  );

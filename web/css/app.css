@@ -785,3 +785,15 @@ table.encounter-form td {
 .tt-suggestion p {
   margin: 0;
 }
+
+
+#health-trends-chart-canvas {
+  margin-top:50px;
+  margin-bottom:100px;
+  width: 100% !important;
+  max-width: 1200px;
+  height: auto !important;
+}
+
+th.highlighted { background:#FFFF66 }
+td.highlighted { background:#FFFF66 }

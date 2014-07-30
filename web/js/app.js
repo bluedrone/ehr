@@ -645,7 +645,7 @@ $('#vital-signs-link').click(function(){
     $('#modals-placement').html(s);
     $('#modal-vital-signs').modal('show'); 
     loadPatientInfo();
-    loadPatientVitalsScreen(1);        
+    loadPatientVitalsScreen(app_currentPatientId);
   });
 });
 
@@ -1181,4 +1181,16 @@ function displayNotification(text) {
 $('.app-check-in-link').click(function(){ 
   viewPatientCheckInList();
 });
+
+
+function getDataTableName(item) {
+  var value = '';
+  if(item.medicalTest) {
+    value = item.medicalTest.name;
+  }
+  else if(item.healthTrendReport) {
+    value = item.healthTrendReport.name;
+  }
+  return value;
+}
 

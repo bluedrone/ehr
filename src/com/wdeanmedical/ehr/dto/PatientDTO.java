@@ -29,6 +29,7 @@ import com.wdeanmedical.ehr.entity.PatientMedicalTest;
 import com.wdeanmedical.ehr.entity.PatientMedication;
 import com.wdeanmedical.ehr.entity.PatientMessage;
 import com.wdeanmedical.ehr.entity.ProgressNote;
+import com.wdeanmedical.ehr.entity.VitalSigns;
 
 public class PatientDTO extends AuthorizedDTO {
   private int id;
@@ -219,6 +220,7 @@ public class PatientDTO extends AuthorizedDTO {
   private String cityFilter; 
   private String genderFilter; 
   private String dobFilter; 
+  private List<VitalSigns> vitalSigns;
 
   public PatientDTO() {
   }
@@ -789,5 +791,8 @@ public class PatientDTO extends AuthorizedDTO {
 
   public String getGenderFilter() { return genderFilter; }
   public void setGenderFilter(String genderFilter) { this.genderFilter = genderFilter; }   
+  
+  public List<VitalSigns> getVitalSigns() { return vitalSigns; }
+  public void setVitalSigns(List<VitalSigns> vitalSigns) { this.vitalSigns = vitalSigns; }
   
 }

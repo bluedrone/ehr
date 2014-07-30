@@ -1,6 +1,6 @@
-function loadPatientVitalsScreen(id) {
-  var jsonData = JSON.stringify({ id: patient.id, sessionId: patient.cred.sessionId });
-  $.post("app/getPatientVitalSigns", {data:jsonData}, function(data) {
+function loadPatientVitalsScreen(patientId) {
+  var jsonData = JSON.stringify({ id: patientId, sessionId: clinician.sessionId });
+  $.post("patient/getPatientVitalSigns", {data:jsonData}, function(data) {
     var parsedData = $.parseJSON(data);
     var columns = [
       {title:'Date', field:'date', type:'date'}, 
@@ -15,7 +15,7 @@ function loadPatientVitalsScreen(id) {
       {title:'Ox', field:'oximetry', type:'simple'}
     ];
     patientVitalSigns = parsedData.vitalSigns;
-    RenderUtil.render('simple_data_table', 
+    RenderUtil.render('component/portal_data_table', 
     {items:patientVitalSigns, 
     title:'Vital Signs', 
     clickable:false, 

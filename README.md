@@ -1,9 +1,8 @@
 # WDean Medical EHR
-# version 0.8.8  25-JUL-2014
+# version 0.8.9  30-JUL-2014
 
 Improvements:
-Removed bootstrap-timepicker
-Inproved time input handling and validation.
+Rewritten Vital Signs section
 
 Bug Fixes:
 
