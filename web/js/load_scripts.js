@@ -20,6 +20,8 @@ head.js (
    "js/lib/jquery.maskedinput.min.js",
    "js/lib/fileuploader.custom.js",
    "js/lib/typeahead.bundle.min.js",
+   "js/lib/Chart.min.js",
+   "js/charting.js",
    "js/app_jquery_functions.js",           
    "js/calendar.js",           
    "js/util.js",

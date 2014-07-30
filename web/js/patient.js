@@ -266,40 +266,6 @@ function loadChiefComplaintScreenForm() {
   $('#denies-other').html(app_patientCC[app_patientCCIndex].deniesOther)
 }
 
-    
-function loadCurrentVitalsScreen() {
-  app_patientVitals = []; 	
-  for (i=0;i<app_patientEncounters.length;i++) {
-    app_patientVitals.push(app_patientEncounters[i].vitals); 
-  }
-  if (app_patientVitals.length == 0) {
-    return;
-  }
-  app_patientVitalsIndex = 0;
-  loadVitalsScreenForm();
-  $('#patient-vitals-print').click(function() { printPatientForm('print_patient_vitals', 'VITALS', app_patientVitals[app_patientVitalsIndex])});
-}
-
-function changeVitalsScreen(adjustment) {
-  if ((app_patientVitalsIndex == 0 && adjustment == -1) || (app_patientVitalsIndex == app_patientVitals.length-1 && adjustment == 1)) {
-    return;
-  }
-  app_patientVitalsIndex += adjustment;
-  loadVitalsScreenForm();
-}
-
-function loadVitalsScreenForm() {
-  var date = dateFormat(app_patientVitals[app_patientVitalsIndex].date, 'mm/dd/yyyy')
-  $('#patient-vitals-date').html(date);
-  $('#vitals-height').html(app_patientVitals[app_patientVitalsIndex].height);
-  $('#vitals-weight').html(app_patientVitals[app_patientVitalsIndex].weight);
-  $('#vitals-sys').html(app_patientVitals[app_patientVitalsIndex].systolic);
-  $('#vitals-dia').html(app_patientVitals[app_patientVitalsIndex].diastolic);
-  $('#vitals-hr').html(app_patientVitals[app_patientVitalsIndex].pulse);
-  $('#vitals-rr').html(app_patientVitals[app_patientVitalsIndex].respiration);
-  $('#vitals-temp').html(app_patientVitals[app_patientVitalsIndex].temperature);
-}
-
 
 function loadProgressNotesScreen() {
   var jsonData = JSON.stringify({ patientId: app_currentPatientId, sessionId: clinician.sessionId });

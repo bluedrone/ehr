@@ -645,9 +645,7 @@ $('#vital-signs-link').click(function(){
     $('#modals-placement').html(s);
     $('#modal-vital-signs').modal('show'); 
     loadPatientInfo();
-    loadCurrentVitalsScreen();        
-    $('#patient-vitals-next-btn').click(function(){changeVitalsScreen(1)}); 
-    $('#patient-vitals-prev-btn').click(function(){changeVitalsScreen(-1)}); 
+    loadPatientVitalsScreen(1);        
   });
 });
 

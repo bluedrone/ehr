@@ -28,65 +28,15 @@
           </div>
         </div>
         <br>
+        
         <div class="container-fluid">
-          <div class="row">
-            <div class="col-sm-12">
-			        <div class="pull-right">
-			          <button id="patient-vitals-prev-btn" class="btn btn-default encounter-group-up navbar-btn navbar-link" type="button"><i class="icon-chevron-left"></i></button>
-			          <span id="patient-vitals-date"></span>
-			          <button id="patient-vitals-next-btn" class="btn btn-default encounter-group-down navbar-btn navbar-link" type="button"><i class="icon-chevron-right"></i> </button>
-			        </div>
-		        </div>
-	        </div>
-	        <br>
-	        <div class="row">
-	          <div class="col-sm-2">
-	            <div class="form-group">
-	              <label for="vitals-height">Height (cm)</label>
-	              <div class="form-control-saved" id="vitals-height">&nbsp;</div>
-	            </div>
-	          </div>
-	          <div class="col-sm-2">
-	            <div class="form-group">
-	              <label for="vitals-weight">Weight (kg)</label>
-	              <div class="form-control-saved" id="vitals-weight">&nbsp;</div>
-	            </div>
-	          </div>
-	          <div class="col-sm-1">
-	            <div class="form-group">
-	              <label for="vitals-sys">SYS</label>
-	              <div class="form-control-saved" id="vitals-sys">&nbsp;</div>
-	            </div>
-	          </div>
-	          <div class="col-sm-1">
-	            <div class="form-group">
-	              <label for="vitals-dia">DIA</label>
-	              <div class="form-control-saved" id="vitals-dia">&nbsp;</div>
-	            </div>
-	          </div>
-	          <div class="col-sm-1">
-	            <div class="form-group">
-	              <label for="vitals-hr">HR</label>
-	              <div class="form-control-saved" id="vitals-hr">&nbsp;</div>
-	            </div>
-	          </div>
-	          <div class="col-sm-1">
-	            <div class="form-group">
-	              <label for="vitals-rr">RR</label>
-	              <div class="form-control-saved" id="vitals-rr">&nbsp;</div>
-	            </div>
-	          </div>
-	          <div class="col-sm-2">
-	            <div class="form-group">
-	              <label for="vitals-temp">Temp (C)</label>
-	              <div class="form-control-saved" id="vitals-temp">&nbsp;</div>
-	            </div>
-	          </div>
-	        </div>
-	      </div>
+          <div id="patient_health_issue_detail_table" class="table-responsive"></div>
+          <canvas id="health-trends-chart-canvas" height="400" width="1200"></canvas> 
+        </div>
+          
+
 	    </div>
       <div class="modal-footer">
-        <a href="#" id="btn-vital-signs-close" class="btn btn-success btn-lg" data-dismiss="modal">Save</a>
         <a id="patient-vitals-print" class="btn btn-primary btn-lg">Print</a>
         <a href="#" id="btn-vital-signs-close" class="btn btn-default btn-lg" data-dismiss="modal">Close</a>
       </div>
