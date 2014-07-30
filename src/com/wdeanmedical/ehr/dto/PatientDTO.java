@@ -102,7 +102,6 @@ public class PatientDTO extends AuthorizedDTO {
   private String hr;
   private String rr;
   private String temp;
-  private String arm;
   private boolean familySaved; 
   private String motherName;
   private String motherDob;
@@ -427,9 +426,6 @@ public class PatientDTO extends AuthorizedDTO {
   
   public String getTemp() { return temp; }
   public void setTemp(String temp) { this.temp = temp; }
-  
-  public String getArm() { return arm; }
-  public void setArm(String arm) { this.arm = arm; }
   
   public boolean isFamilySaved() { return familySaved; }
   public void setFamilySaved(boolean familySaved) { this.familySaved = familySaved; }

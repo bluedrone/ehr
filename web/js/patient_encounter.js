@@ -167,7 +167,7 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
       $('#encounter-mother-dob-'+id).mask("99/99/9999");
     }
     else if (section == 'vitals') {
-      $("#encounter-height-"+id+", #encounter-weight-"+id+", #encounter-temp-"+id+", #encounter-arm-"+id).keydown(function(e) { util_filterDecimalInput(e); });
+      $("#encounter-height-"+id+", #encounter-weight-"+id+", #encounter-temp-"+id).keydown(function(e) { util_filterDecimalInput(e); });
     }
     else if (section == 'cc') {
       $("#encounter-hours-since-"+id+", #encounter-days-since-"+id+", #encounter-weeks-since-"+id+", #encounter-months-since-"+id+", #encounter-years-since-"+id).keydown(function(e) { util_filterDecimalInput(e); });
@@ -272,7 +272,6 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
       $('#encounter-hr-saved-'+id).html(encounter.vitals.pulse);
       $('#encounter-rr-saved-'+id).html(encounter.vitals.respiration);
       $('#encounter-temp-saved-'+id).html(encounter.vitals.temperature);
-      $('#encounter-arm-saved-'+id).html(encounter.vitals.arm);
       $('#encounter-height-saved-'+id).blur(function() { updateSavedPatientEncounter("height", $(this).html(), id); });
       $('#encounter-weight-saved-'+id).blur(function() { updateSavedPatientEncounter("weight", $(this).html(), id); });
       $('#encounter-sys-saved-'+id).blur(function() { updateSavedPatientEncounter("systolic", $(this).html(), id); });
@@ -280,7 +279,6 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
       $('#encounter-hr-saved-'+id).blur(function() { updateSavedPatientEncounter("pulse", $(this).html(), id); });
       $('#encounter-rr-saved-'+id).blur(function() { updateSavedPatientEncounter("respiration", $(this).html(), id); });
       $('#encounter-temp-saved-'+id).blur(function() { updateSavedPatientEncounter("temp", $(this).html(), id); });
-      $('#encounter-arm-saved-'+id).blur(function() { updateSavedPatientEncounter("arm", $(this).html(), id); });
     }
     else if (section == 'cc') {
       $('#encounter-pain-scale-'+id).slider({value:encounter.cc.painScale}).on('slide', function(ev){
@@ -647,7 +645,6 @@ function saveVitalsEncounterForm(encounter) {
   encounter.vitals.pulse = util_processNumber("#encounter-hr-"+id, encounter.vitals.pulse);
   encounter.vitals.respiration = util_processNumber("#encounter-rr-"+id, encounter.vitals.respiration);
   encounter.vitals.temperature = util_processNumber("#encounter-temp-"+id, encounter.vitals.temperature);
-  encounter.vitals.arm = util_processNumber("#encounter-arm-"+id, encounter.vitals.arm);
   encounter.vitalsSaved = true;
   var jsonData = JSON.stringify({ 
     sessionId: clinician.sessionId, 

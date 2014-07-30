@@ -298,7 +298,6 @@ function loadVitalsScreenForm() {
   $('#vitals-hr').html(app_patientVitals[app_patientVitalsIndex].pulse);
   $('#vitals-rr').html(app_patientVitals[app_patientVitalsIndex].respiration);
   $('#vitals-temp').html(app_patientVitals[app_patientVitalsIndex].temperature);
-  $('#vitals-arm').html(app_patientVitals[app_patientVitalsIndex].arm);
 }
 
 

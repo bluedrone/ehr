@@ -598,11 +598,6 @@ public class PatientService {
       vitals.setTemperature(temp);
       updateClass = "Vitals";
     } 
-    else if (property.equals("arm")) {
-      Float arm; try { arm = new Float(value); } catch (NumberFormatException nfe) {arm = null;}
-      vitals.setArm(arm);
-      updateClass = "Vitals";
-    } 
     else if (property.equals("motherName")) {pfsh.setMotherName(value);updateClass = "PFSH";} 
     else if (property.equals("caretakerName")) {pfsh.setCaretakerName(value);updateClass = "PFSH";} 
     else if (property.equals("patientRelationship")) {pfsh.setCaretakerRelationship(value);updateClass = "PFSH";} 

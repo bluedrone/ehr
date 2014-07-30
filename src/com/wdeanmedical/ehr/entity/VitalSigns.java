@@ -36,7 +36,6 @@ public class VitalSigns extends BaseEntity implements Serializable {
   private Integer systolic;
   private Integer diastolic;
   private Float oximetry;
-  private Float arm;
 
   public VitalSigns() {
   }
@@ -169,20 +168,10 @@ public class VitalSigns extends BaseEntity implements Serializable {
     this.oximetry = oximetry;
   }
 
-  @Column(name = "arm")
-  public Float getArm() {
-    return arm;
-  }
-
-  public void setArm(Float arm) {
-    this.arm = arm;
-  }
-
   @Override
   public int hashCode() {
     final int prime = 31;
     int result = super.hashCode();
-    result = prime * result + ((arm == null) ? 0 : arm.hashCode());
     result = prime * result + ((bmi == null) ? 0 : bmi.hashCode());
     result = prime * result
         + ((clinician == null) ? 0 : clinician.hashCode());
@@ -216,11 +205,6 @@ public class VitalSigns extends BaseEntity implements Serializable {
     if (getClass() != obj.getClass())
       {return false;}
     VitalSigns other = (VitalSigns) obj;
-    if (arm == null) {
-      if (other.arm != null)
-        {return false;}
-    } else if (!arm.equals(other.arm))
-      {return false;}
     if (bmi == null) {
       if (other.bmi != null)
         {return false;}
@@ -302,7 +286,7 @@ public class VitalSigns extends BaseEntity implements Serializable {
         + ", ofc=" + ofc + ", temperature=" + temperature + ", pulse="
         + pulse + ", respiration=" + respiration + ", systolic="
         + systolic + ", diastolic=" + diastolic + ", oximetry="
-        + oximetry + ", arm=" + arm + "]";
+        + oximetry + "]";
   }
 
 }
