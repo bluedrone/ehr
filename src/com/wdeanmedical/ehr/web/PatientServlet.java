@@ -29,6 +29,7 @@ import com.wdeanmedical.ehr.dto.PatientDTO;
 import com.wdeanmedical.ehr.entity.Encounter;
 import com.wdeanmedical.ehr.entity.Patient;
 import com.wdeanmedical.ehr.entity.ProgressNote;
+import com.wdeanmedical.ehr.entity.SOAPNote;
 import com.wdeanmedical.ehr.service.AppService;
 import com.wdeanmedical.ehr.service.PatientService;
 import com.wdeanmedical.ehr.core.Core;
@@ -107,6 +108,9 @@ public class PatientServlet extends AppServlet  {
         }
         else if (pathInfo.equals("/getProgressNotes")) {
           returnString = getProgressNotes(request, response);  
+        }
+        else if (pathInfo.equals("/getSOAPNotes")) {
+          returnString = getSOAPNotes(request, response);  
         }
         else if (pathInfo.equals("/createPatientAndEncounter")) {
           returnString = createPatientAndEncounter(request, response);  
@@ -439,6 +443,21 @@ public class PatientServlet extends AppServlet  {
     String json = gson.toJson(dto);
     return json;
   }
+  
+  
+  
+  
+  public String getSOAPNotes(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String data = request.getParameter("data");
+    Gson gson = new Gson();
+    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
+    List<SOAPNote> notes =  patientService.getSOAPNotes(dto);
+    dto.setSOAPNotes(notes);
+    String json = gson.toJson(dto);
+    return json;
+  }
+  
+  
   
   
   public String getProgressNotes(HttpServletRequest request, HttpServletResponse response) throws Exception {

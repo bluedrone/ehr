@@ -1,0 +1,61 @@
+<div class="modal fade" id="modal-soap-notes" tabindex="-1" role="dialog" aria-labelledby="modal-soap-notes" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title"><i class="icon-reply icon-2x"></i> SOAP Notes<h4>
+      </div>
+      <div class="modal-body">
+          <div id="soap-notes-list" class="table-responsive"></div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="panel-top" data-toggle="collapse" data-target="#soap-note">
+                SOAP Note <i class="icon-chevron-down pull-right collapse-arrow"></i>
+              </div>
+              <div id="soap-note" class="panel panel-default collapse in">
+                <div id="encounter-family-panel-${id}" class="panel-body">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label class="sub-title">Subjective</label>
+                      <div class="form-group">
+                        <textarea id="encounter-soap-subjective-${id}" class="form-control form-control-unsaved" rows="5"></textarea>
+                        <div class="form-control-saved edit-on-select" id="encounter-soap-subjective-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="sub-title">Objective</label>
+                      <div class="form-group">
+                        <textarea id="encounter-soap-objective-${id}" class="form-control form-control-unsaved" rows="5"></textarea>
+                        <div class="form-control-saved edit-on-select" id="encounter-soap-objective-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label class="sub-title">Asessment</label>
+                      <div class="form-group">
+                        <textarea id="encounter-soap-asessment-${id}" class="form-control form-control-unsaved" rows="5"></textarea>
+                        <div class="form-control-saved edit-on-select" id="encounter-soap-asessment-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="sub-title">Plan</label>
+                      <div class="form-group">
+                        <textarea id="encounter-soap-plan-${id}" class="form-control form-control-unsaved" rows="5"></textarea>
+                        <div class="form-control-saved edit-on-select" id="encounter-soap-plan-saved-${id}" contenteditable="true">&nbsp;</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-success btn-lg" href="#">Save</a>
+        <a id="soap-notes-print" class="btn btn-primary btn-lg" href="#">Print</a>
+        <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

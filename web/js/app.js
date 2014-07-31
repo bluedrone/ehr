@@ -114,10 +114,10 @@ $(document).ready(function() {
 /***********      @JQUERY INIT    *******************/
 
 
-$('#soap-note-link').click(function() { 
-  RenderUtil.render('soap_note', {}, function(s) {
+$('#soap-notes-link').click(function() { 
+  RenderUtil.render('soap_notes', {}, function(s) {
     $('#modals-placement').html(s);
-    $('#modal-soap-note').modal('show'); 
+    $('#modal-soap-notes').modal('show'); 
   });
 });
 

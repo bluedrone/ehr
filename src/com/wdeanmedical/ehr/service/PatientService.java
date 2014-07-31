@@ -55,6 +55,7 @@ import com.wdeanmedical.ehr.entity.ClinicianSession;
 import com.wdeanmedical.ehr.entity.PFSH;
 import com.wdeanmedical.ehr.entity.PatientStatus;
 import com.wdeanmedical.ehr.entity.ProgressNote;
+import com.wdeanmedical.ehr.entity.SOAPNote;
 import com.wdeanmedical.ehr.entity.SuppQuestions;
 import com.wdeanmedical.ehr.entity.USState;
 import com.wdeanmedical.ehr.entity.VitalSigns;
@@ -94,6 +95,13 @@ public class PatientService {
   public List<ProgressNote> getProgressNotes(PatientDTO dto) throws Exception {
     Patient patient = patientDAO.findPatientById(dto.getPatientId());
     return patientDAO.findProgressNotesByPatient(patient);
+  }
+  
+  
+  
+  public List<SOAPNote> getSOAPNotes(PatientDTO dto) throws Exception {
+    Patient patient = patientDAO.findPatientById(dto.getPatientId());
+    return patientDAO.findSOAPNotesByPatient(patient);
   }
   
   

@@ -43,6 +43,7 @@ import com.wdeanmedical.ehr.entity.PatientMedication;
 import com.wdeanmedical.ehr.entity.PatientMessage;
 import com.wdeanmedical.ehr.entity.PFSH;
 import com.wdeanmedical.ehr.entity.PatientStatus;
+import com.wdeanmedical.ehr.entity.SOAPNote;
 import com.wdeanmedical.ehr.entity.SuppQuestions;
 import com.wdeanmedical.ehr.entity.USState;
 import com.wdeanmedical.ehr.entity.VitalSigns;
@@ -167,6 +168,18 @@ public class PatientDAO extends SiteDAO {
     List<ProgressNote> list = crit.list();
     return list;
   }
+  
+  
+  
+  public  List<SOAPNote> findSOAPNotesByPatient(Patient patient) throws Exception {
+    Session session = this.getSession();
+    Criteria crit = session.createCriteria(SOAPNote.class);
+    crit.add(Restrictions.eq("patient", patient));
+    crit.addOrder(Order.desc("date"));
+    List<SOAPNote> list = crit.list();
+    return list;
+  }
+  
 
   
   public void updateEncounterMedication(EncounterMedication encounterMedication) throws Exception {

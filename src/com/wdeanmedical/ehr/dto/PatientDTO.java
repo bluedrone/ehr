@@ -29,6 +29,7 @@ import com.wdeanmedical.ehr.entity.PatientMedicalTest;
 import com.wdeanmedical.ehr.entity.PatientMedication;
 import com.wdeanmedical.ehr.entity.PatientMessage;
 import com.wdeanmedical.ehr.entity.ProgressNote;
+import com.wdeanmedical.ehr.entity.SOAPNote;
 import com.wdeanmedical.ehr.entity.VitalSigns;
 
 public class PatientDTO extends AuthorizedDTO {
@@ -221,6 +222,7 @@ public class PatientDTO extends AuthorizedDTO {
   private String genderFilter; 
   private String dobFilter; 
   private List<VitalSigns> vitalSigns;
+  private List<SOAPNote> soapNotes;
 
   public PatientDTO() {
   }
@@ -270,6 +272,9 @@ public class PatientDTO extends AuthorizedDTO {
 
   public boolean isPurged() { return purged; }
   public void setPurged(boolean purged) { this.purged = purged; }
+  
+  public List<SOAPNote> getSOAPNotes() { return soapNotes; }
+  public void setSOAPNotes(List<SOAPNote> soapNotes) { this.soapNotes = soapNotes; }
 
   @Override
   public String getSessionId() { return sessionId; }
