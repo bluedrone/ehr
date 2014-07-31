@@ -14,7 +14,7 @@ var uploader;
 function setEncounterFormModes(hasOwnership) {
   setEncounterFormMode(app_currentEncounter, 'basic-info', app_currentEncounter.basicInfoSaved, hasOwnership);
   setEncounterFormMode(app_currentEncounter, 'vitals', app_currentEncounter.vitalsSaved, hasOwnership);
-  setEncounterFormMode(app_currentEncounter, 'family', app_currentEncounter.familySaved, hasOwnership);
+  setEncounterFormMode(app_currentEncounter, 'soapNote', app_currentEncounter.soapNoteSaved, hasOwnership);
   setEncounterFormMode(app_currentEncounter, 'cc', app_currentEncounter.ccSaved, hasOwnership);
   setEncounterFormMode(app_currentEncounter, 'obgyn', app_currentEncounter.obgynSaved, hasOwnership);
   setEncounterFormMode(app_currentEncounter, 'pfsh', app_currentEncounter.pfshSaved, hasOwnership);
@@ -74,7 +74,7 @@ function renderPatientEncounterForm(encounter, hasOwnership) {
   
   renderEncounterFormSection (encounter, 'basic-info', encounter.basicInfoSaved, hasOwnership);
   renderEncounterFormSection (encounter, 'vitals', encounter.vitalsSaved, hasOwnership);
-  renderEncounterFormSection (encounter, 'family', encounter.familySaved, hasOwnership);
+  renderEncounterFormSection (encounter, 'soapNote', encounter.soapNote, hasOwnership);
   renderEncounterFormSection (encounter, 'cc', encounter.ccSaved, hasOwnership);
   renderEncounterFormSection (encounter, 'obgyn', encounter.obgynSaved, hasOwnership);
   renderEncounterFormSection (encounter, 'pfsh', encounter.pfshSaved, hasOwnership);
@@ -87,7 +87,7 @@ function renderPatientEncounterForm(encounter, hasOwnership) {
   
   $('#encounter-basic-info-save-'+id).click(function() { saveBasicInfoEncounterForm(encounter); });
   $('#encounter-vitals-save-'+id).click(function() { saveVitalsEncounterForm(encounter); });
-  $('#encounter-family-save-'+id).click(function() { saveFamilyEncounterForm(encounter); });
+  $('#encounter-soap-note-save-'+id).click(function() { saveSOAPNoteEcounterForm(encounter); });
   $('#encounter-cc-save-'+id).click(function() { saveCCEncounterForm(encounter); });
   $('#encounter-obgyn-save-'+id).click(function() { saveOBGYNEncounterForm(encounter); });
   $('#encounter-pfsh-save-'+id).click(function() { savePFSHEncounterForm(encounter); });
@@ -98,7 +98,7 @@ function renderPatientEncounterForm(encounter, hasOwnership) {
   setupPictureUpload(encounter.id, encounter.patient.id);
   $('#encounter-basic-info-print-'+id).click(function() { printEncounterForm('print_encounter_basic_info', 'PATIENT ENCOUNTER')});
   $('#encounter-vitals-print-'+id).click(function() { printEncounterForm('print_encounter_vitals', 'VITALS')});
-  $('#encounter-family-print-'+id).click(function() { printEncounterForm('print_encounter_family', 'FAMILY')});
+  $('#encounter-soap-print-'+id).click(function() { printEncounterForm('print_encounter_soap', 'SOAP NOTE')});
   $('#encounter-cc-print-'+id).click(function() { printEncounterForm('print_encounter_cc', 'CHIEF COMPLAINT')});
   $('#encounter-obgyn-print-'+id).click(function() { printEncounterForm('print_encounter_obgyn', 'OBGYN')});
   $('#encounter-pfsh-print-'+id).click(function() { printEncounterForm('print_encounter_pfsh', 'SOCIAL & FAMILY HISTORY')});
@@ -163,8 +163,7 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
       $("#encounter-gender-"+id).keydown(function(e) { util_filterGenderInput(e); });
       $("#encounter-age-years-"+id+", #encounter-age-months-"+id).keydown(function(e) { util_filterAgeInput(e); });
     }
-    else if (section == 'family') {
-      $('#encounter-mother-dob-'+id).mask("99/99/9999");
+    else if (section == 'soapNote') {
     }
     else if (section == 'vitals') {
       $("#encounter-height-"+id+", #encounter-weight-"+id+", #encounter-temp-"+id).keydown(function(e) { util_filterDecimalInput(e); });
@@ -253,16 +252,15 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
       $('#encounter-age-months-saved-'+id).blur(function() { updateSavedPatientEncounter("ageInMonths", $(this).html(), id); });
       $('#encounter-dob-saved-'+id).blur(function() { updateSavedPatientEncounter("dob", $(this).html(), id); });
     }
-    else if (section == 'family') {
-      $('#encounter-mother-name-saved-'+id).html(encounter.patient.pfsh.motherName);
-      var motherDob = dateFormat(encounter.patient.pfsh.motherDob, 'mm/dd/yyyy')
-      $('#encounter-mother-dob-saved-'+id).html(motherDob);
-      $('#encounter-caretaker-name-saved-'+id).html(encounter.patient.pfsh.caretakerName);
-      $('#encounter-patient-relationship-saved-'+id).html(encounter.patient.pfsh.patientRelationship);
-      $('#encounter-mother-name-saved-'+id).blur(function() { updateSavedPatientEncounter("motherName", $(this).html(), id); });
-      $('#encounter-mother-dob-saved-'+id).blur(function() { updateSavedPatientEncounter("motherDob", $(this).html(), id); });
-      $('#encounter-caretaker-name-saved-'+id).blur(function() { updateSavedPatientEncounter("caretakerName", $(this).html(), id); });
-      $('#encounter-patient-relationship-saved-'+id).blur(function() { updateSavedPatientEncounter("patientRelationship", $(this).html(), id); });
+    else if (section == 'soapNote') {
+      $('#encounter-soap-subjective-saved-'+id).html(encounter.soapNote.subjective);
+      $('#encounter-soap-objective-saved-'+id).html(encounter.soapNote.objective);
+      $('#encounter-soap-asessment-saved-'+id).html(encounter.soapNote.asessment);
+      $('#encounter-soap-plan-saved-'+id).html(encounter.plan.subjective);
+      $('#encounter-mother-subjective-saved-'+id).blur(function() { updateSavedPatientEncounter("subjective", $(this).html(), id); });
+      $('#encounter-mother-objective-saved-'+id).blur(function() { updateSavedPatientEncounter("objective", $(this).html(), id); });
+      $('#encounter-mother-asessment-saved-'+id).blur(function() { updateSavedPatientEncounter("asessment", $(this).html(), id); });
+      $('#encounter-mother-plan-saved-'+id).blur(function() { updateSavedPatientEncounter("plan", $(this).html(), id); });
     }
     else if (section == 'vitals') {
       $('#encounter-height-saved-'+id).html(encounter.vitals.height);
@@ -305,7 +303,7 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
       util_selectCheckboxesFromList(encounter.cc.denies, 'encounter-denies-'+id);
       $('#encounter-denies-other-saved-'+id).html(encounter.cc.deniesOther);
       $('#encounter-chief-complaint-saved-'+id).blur(function() { updateSavedPatientEncounter("ccDescription", $(this).html(), id); });
-      $('#encounter-specific-location-saved-'+id).blur(function() { updateSavedPatientEncounter("specificLocation", $(this).html(), id); });
+      $('#encounter-specific-location-saved-'+id).blur(function() { on upientEncounter("specificLocation", $(this).html(), id); });
       $('#encounter-hours-since-saved-'+id).blur(function() { updateSavedPatientEncounter("hoursSince", $(this).html(), id); });
       $('#encounter-days-since-saved-'+id).blur(function() { updateSavedPatientEncounter("daysSince", $(this).html(), id); });
       $('#encounter-weeks-since-saved-'+id).blur(function() { updateSavedPatientEncounter("weeksSince", $(this).html(), id); });
@@ -688,20 +686,20 @@ function saveCCEncounterForm(encounter) {
 }
 
 
-function saveFamilyEncounterForm(encounter) {
+function saveSOAPNoteEncounterForm(encounter) {
   var id = encounter.id;  
-  encounter.patient.pfsh.motherName = $.trim($("#encounter-mother-name-"+id).val()); 
-  util_processDate("#encounter-mother-dob-"+id, encounter.patient.pfsh.motherDob);
-  encounter.patient.pfsh.caretakerName = $.trim($("#encounter-caretaker-name-"+id).val()); 
-  encounter.patient.pfsh.patientRelationship = $.trim($("#encounter-patient-relationship-"+id).val()); 
-  encounter.familySaved = true;
+  encounter.soapNote.subjective = $.trim($("#encounter-soap-subjective-"+id).val()); 
+  encounter.soapNote.objective = $.trim($("#encounter-soap-objective-"+id).val()); 
+  encounter.soapNote.asessment = $.trim($("#encounter-soap-asessment-"+id).val()); 
+  encounter.soapNote.plan = $.trim($("#encounter-soap-plan-"+id).val()); 
+  encounter.soapNoteSaved = true;
   var jsonData = JSON.stringify({ 
     sessionId: clinician.sessionId, 
     encounter: encounter,
-    familySaved: true
+    soapNoteSaved: true
   });
-  $.post("patient/createFamily", {data:jsonData}, function(data) {
-    renderEncounterFormSection (encounter, 'family', true, true);
+  $.post("patient/createSOAPNote", {data:jsonData}, function(data) {
+    renderEncounterFormSection (encounter, 'soapNote', true, true);
   });
 }
 

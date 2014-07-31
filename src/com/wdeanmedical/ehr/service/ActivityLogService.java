@@ -148,13 +148,10 @@ public class ActivityLogService {
   }
 
   public Set<String> getListOfChangedFields(BaseEntity newEntity) throws Exception {
-
     return getChangedFields(activityLogDAO.getOldEntity(newEntity), newEntity);
-
   }
 
   private static Set<String> getChangedFields(Object oldEntity, Object newEntity) throws Exception {
-
     Set<String> hashSet = new HashSet<String>();
     Method[] oldEntityMethods = null;
     if (oldEntity != null) {

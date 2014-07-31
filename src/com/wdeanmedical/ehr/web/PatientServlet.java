@@ -147,8 +147,8 @@ public class PatientServlet extends AppServlet  {
         else if (pathInfo.equals("/createVitals")) {
           returnString = createVitals(request, response);  
         }
-        else if (pathInfo.equals("/createFamily")) {
-          returnString = createFamily(request, response);  
+        else if (pathInfo.equals("/createSOAPNote")) {
+          returnString = createSOAPNote(request, response);  
         }
         else if (pathInfo.equals("/createOBGYN")) {
           returnString = createOBGYN(request, response);  
@@ -299,11 +299,11 @@ public class PatientServlet extends AppServlet  {
   
   
   
-  public String createFamily(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String createSOAPNote(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String data = request.getParameter("data");
     Gson gson = new Gson();
     PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.createFamily(dto);
+    patientService.createSOAPNote(dto);
     String json = gson.toJson(dto);
     return json;
   }

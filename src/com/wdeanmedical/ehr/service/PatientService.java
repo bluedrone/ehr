@@ -123,6 +123,17 @@ public class PatientService {
   }
   
   
+  
+  
+  public void createSOAPNote(PatientDTO dto) throws Exception {
+    Set<String> fieldSetSOAPNote = activityLogService.getListOfChangedFields(dto.getEncounter().getSOAPNote());
+    patientDAO.update(dto.getEncounter().getSOAPNote());
+    patientDAO.update(dto.getEncounter());
+    activityLogService.logEditEncounter(dto.getClinicianId(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSetSOAPNote); 
+  }
+  
+  
+  
   public void createCC(PatientDTO dto) throws Exception {
   Set<String> fieldSetCc = activityLogService.getListOfChangedFields(dto.getEncounter().getCc());
     patientDAO.update(dto.getEncounter().getCc());
@@ -137,14 +148,6 @@ public class PatientService {
     activityLogService.logEditEncounter(dto.getClinicianId(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSetObgyn); 
   }
   
-  
-  public void createFamily(PatientDTO dto) throws Exception {
-  Set<String> fieldSetPfsh = activityLogService.getListOfChangedFields(dto.getEncounter().getPatient().getPfsh());
-    patientDAO.update(dto.getEncounter().getPatient().getPfsh());
-    patientDAO.update(dto.getEncounter().getPatient());
-    patientDAO.update(dto.getEncounter());
-    activityLogService.logEditEncounter(dto.getClinicianId(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSetPfsh);
-  }
   
   
   public void createPFSH(PatientDTO dto) throws Exception {

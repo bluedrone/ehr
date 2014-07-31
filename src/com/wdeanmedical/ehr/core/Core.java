@@ -88,7 +88,7 @@ public class Core {
     clinicianPermissionsMap.put("/createBasicInfo",              new boolean[] {true,true});
     clinicianPermissionsMap.put("/createCC",                     new boolean[] {true,true});
     clinicianPermissionsMap.put("/createExam",                   new boolean[] {true,true});
-    clinicianPermissionsMap.put("/createFamily",                 new boolean[] {true,true});
+    clinicianPermissionsMap.put("/createSOAPNote",               new boolean[] {true,true});
     clinicianPermissionsMap.put("/createFollowUp",               new boolean[] {true,true});
     clinicianPermissionsMap.put("/createHist",                   new boolean[] {true,true});
     clinicianPermissionsMap.put("/createOBGYN",                  new boolean[] {true,true});
