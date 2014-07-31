@@ -217,48 +217,48 @@
         
           <div class="row">
             <div class="col-md-12">
-              <div class="panel-top" data-toggle="collapse" data-target="#fam-visit">Family Visit (patient less than 18 years of age)
+              <div class="panel-top" data-toggle="collapse" data-target="#soap-note">SOAP Note
               <i class="icon-chevron-down pull-right collapse-arrow"></i></div>
-              <div id="fam-visit" class="panel panel-default collapse in">
+              <div id="soap-note" class="panel panel-default collapse in">
                 <div id="encounter-family-panel-${id}" class="panel-body">
                   <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-6">
+                      <label class="sub-title">Subjective</label>
                       <div class="form-group">
-                        <label for="encounter-mother-name-${id}">Mother Name</label>
-                        <input type="text" class="form-control form-control-unsaved" id="encounter-mother-name-${id}">
-                        <div class="form-control-saved edit-on-select" id="encounter-mother-name-saved-${id}" contenteditable="true">&nbsp;</div>
+                        <textarea id="encounter-soap-subjective-${id}" class="form-control form-control-unsaved" rows="5"></textarea>
+                        <div class="form-control-saved edit-on-select" id="encounter-soap-subjective-saved-${id}" contenteditable="true">&nbsp;</div>
                       </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
+                      <label class="sub-title">Objective</label>
                       <div class="form-group">
-                        <label for="encounter-mother-dob-${id}">Mother DOB</label>
-                        <input type="text" class="form-control form-control-unsaved" id="encounter-mother-dob-${id}">
-                        <div class="form-control-saved edit-on-select" id="encounter-mother-dob-saved-${id}" contenteditable="true">&nbsp;</div>
+                        <textarea id="encounter-soap-objective-${id}" class="form-control form-control-unsaved" rows="5"></textarea>
+                        <div class="form-control-saved edit-on-select" id="encounter-soap-objective-saved-${id}" contenteditable="true">&nbsp;</div>
                       </div>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-6">
+                      <label class="sub-title">Asessment</label>
                       <div class="form-group">
-                        <label for="encounter-caretaker-name-${id}">Caretaker Name (if mother/father not present)</label>
-                        <input type="text" class="form-control form-control-unsaved" id="encounter-caretaker-name-${id}">
-                        <div class="form-control-saved edit-on-select" id="encounter-caretaker-name-saved-${id}" contenteditable="true">&nbsp;</div>
+                        <textarea id="encounter-soap-asessment-${id}" class="form-control form-control-unsaved" rows="5"></textarea>
+                        <div class="form-control-saved edit-on-select" id="encounter-soap-asessment-saved-${id}" contenteditable="true">&nbsp;</div>
                       </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
+                      <label class="sub-title">Plan</label>
                       <div class="form-group">
-                        <label for="encounter-patient-relationship-${id}">Relationship To Patient</label>
-                        <input type="text" class="form-control form-control-unsaved" id="encounter-patient-relationship-${id}">
-                        <div class="form-control-saved edit-on-select" id="encounter-patient-relationship-saved-${id}" contenteditable="true">&nbsp;</div>
+                        <textarea id="encounter-soap-plan-${id}" class="form-control form-control-unsaved" rows="5"></textarea>
+                        <div class="form-control-saved edit-on-select" id="encounter-soap-plan-saved-${id}" contenteditable="true">&nbsp;</div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="panel-footer">
-                  <button id="encounter-family-clear-${id}" type="button" class="btn btn-default pull-right">Clear</button>
-                  <a id="encounter-family-save-${id}" class="btn btn-success">Save</a>
-                  <a id="encounter-family-saved-${id}" class="btn btn-success disabled">Saved</a>
-                  <a id="encounter-family-print-${id}" class="btn btn-primary">Print</a>
+                  <button id="encounter-soap-clear-${id}" type="button" class="btn btn-default pull-right">Clear</button>
+                  <a id="encounter-soap-save-${id}" class="btn btn-success">Save</a>
+                  <a id="encounter-soap-saved-${id}" class="btn btn-success disabled">Saved</a>
+                  <a id="encounter-soap-print-${id}" class="btn btn-primary">Print</a>
                 </div>
               </div>
             </div>
@@ -530,7 +530,7 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label for="encounter-fam-hist-notes">Family History Notes</label>
-                        <textarea id="encounter-fam-hist-notes" class="form-control form-control-unsaved" rows="5"></textarea>
+                        <textarea id="encounter-fam-hist-notes-${id}" class="form-control form-control-unsaved" rows="5"></textarea>
                         <div class="form-control-saved edit-on-select" id="encounter-fam-hist-notes-saved-${id}" contenteditable="true">&nbsp;</div>
                       </div>
                     </div>

@@ -272,6 +272,7 @@
             <value>com.wdeanmedical.ehr.entity.ProgressNote</value>
             <value>com.wdeanmedical.ehr.entity.Race</value>
             <value>com.wdeanmedical.ehr.entity.Role</value>
+            <value>com.wdeanmedical.ehr.entity.SOAPNote</value>
             <value>com.wdeanmedical.ehr.entity.ToDoNote</value>
             <value>com.wdeanmedical.ehr.entity.User</value>
             <value>com.wdeanmedical.ehr.entity.USState</value>

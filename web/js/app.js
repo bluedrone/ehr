@@ -114,34 +114,10 @@ $(document).ready(function() {
 /***********      @JQUERY INIT    *******************/
 
 
-  
-
-$('#follow-up-link').click(function() { 
-  RenderUtil.render('follow-up', {}, function(s) {
+$('#soap-note-link').click(function() { 
+  RenderUtil.render('soap_note', {}, function(s) {
     $('#modals-placement').html(s);
-    $('#modal-follow-up').modal('show'); 
-    var currentDate = dateFormat(new Date(), 'mm/dd/yyyy')
-    $('#follow-up-todays-date').val(currentDate);
-  
-    $('#follow-up-print').click(function(){ 
-      RenderUtil.render('print/print_follow-up', {
-        todaysDate:currentDate,
-        patientLocation:$('#follow-up-location').val(),
-        firstName:$('#follow-up-first-name').val(),
-        middleName:$('#follow-up-middle-name').val(),
-        lastName:$('#follow-up-last-name').val(),
-        age:$('#follow-up-age').val(),
-        motherName:$('#follow-up-mother-name').val(),
-        reason:$('#follow-up-reason').val(),
-        actionsTaken:$('#follow-up-actions-taken').val(),
-        toBeDoneNext:$('#follow-up-to-be-done-next').val(),
-        toBeDoneWhen:$('#follow-up-to-be-done-when').val(),
-        followUpCompleted:$("input:radio[name=follow-up-completed]:checked").val()
-      }, function(obj) {
-      var s = obj[0].outerHTML;
-      print_openPrintWindow('print.html', s, 'FOLLOW-UP FORM');
-    });
-   });
+    $('#modal-soap-note').modal('show'); 
   });
 });
 
