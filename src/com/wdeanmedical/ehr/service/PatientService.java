@@ -553,6 +553,7 @@ public class PatientService {
     PatientFollowUp followUp = encounter.getFollowUp();
     Credentials cred = patient.getCred();
     Demographics demo = patient.getDemo();
+    SOAPNote soapNote = encounter.getSOAPNote();
     
     String property = dto.getUpdateProperty();
     String value = dto.getUpdatePropertyValue();
@@ -564,6 +565,11 @@ public class PatientService {
     else if (property.equals("notes")) {encounter.setNotes(value);updateClass = "Encounter";} 
     else if (property.equals("community")) {encounter.setCommunity(value);updateClass = "Encounter";} 
     else if (property.equals("govtId")) {cred.setGovtId(value);updateClass = "Credentials";} 
+    
+    else if (property.equals("subjective")) {soapNote.setSubjective(value);updateClass = "SOAPNote";} 
+    else if (property.equals("objective")) {soapNote.setObjective(value);updateClass = "SOAPNote";} 
+    else if (property.equals("assessment")) {soapNote.setAssessment(value);updateClass = "SOAPNote";} 
+    else if (property.equals("plan")) {soapNote.setPlan(value);updateClass = "SOAPNote";} 
     
     else if (property.equals("ageInYears")) {
       Integer ageInYears; try { ageInYears = new Integer(value); } catch (NumberFormatException nfe) {ageInYears = null;}
@@ -827,6 +833,7 @@ public class PatientService {
     else if(updateClass.equals("Vitals")) {patientDAO.update(vitals);}
     else if(updateClass.equals("Exam")) {patientDAO.update(exam);}
     else if(updateClass.equals("OBGYNEncounterData")) {patientDAO.update(obgyn);}
+    else if(updateClass.equals("SOAPNote")) {patientDAO.update(soapNote);}
     else if(updateClass.equals("Lab")) {patientDAO.update(lab);}
     else if(updateClass.equals("ChiefComplaint")) {patientDAO.update(cc);}
     else if(updateClass.equals("SuppQuestions")) {patientDAO.update(supp);}

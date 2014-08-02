@@ -257,10 +257,10 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
       $('#encounter-soap-note-objective-saved-'+id).html(encounter.soapNote.objective);
       $('#encounter-soap-note-assessment-saved-'+id).html(encounter.soapNote.assessment);
       $('#encounter-soap-note-plan-saved-'+id).html(encounter.soapNote.plan);
-      $('#encounter-mother-subjective-saved-'+id).blur(function() { updateSavedPatientEncounter("subjective", $(this).html(), id); });
-      $('#encounter-mother-objective-saved-'+id).blur(function() { updateSavedPatientEncounter("objective", $(this).html(), id); });
-      $('#encounter-mother-assessment-saved-'+id).blur(function() { updateSavedPatientEncounter("assessment", $(this).html(), id); });
-      $('#encounter-mother-plan-saved-'+id).blur(function() { updateSavedPatientEncounter("plan", $(this).html(), id); });
+      $('#encounter-soap-note-subjective-saved-'+id).blur(function() { updateSavedPatientEncounter("subjective", $(this).html(), id); });
+      $('#encounter-soap-note-objective-saved-'+id).blur(function() { updateSavedPatientEncounter("objective", $(this).html(), id); });
+      $('#encounter-soap-note-assessment-saved-'+id).blur(function() { updateSavedPatientEncounter("assessment", $(this).html(), id); });
+      $('#encounter-soap-note-plan-saved-'+id).blur(function() { updateSavedPatientEncounter("plan", $(this).html(), id); });
     }
     else if (section == 'vitals') {
       $('#encounter-height-saved-'+id).html(encounter.vitals.height);
