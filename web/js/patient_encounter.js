@@ -74,7 +74,7 @@ function renderPatientEncounterForm(encounter, hasOwnership) {
   
   renderEncounterFormSection (encounter, 'basic-info', encounter.basicInfoSaved, hasOwnership);
   renderEncounterFormSection (encounter, 'vitals', encounter.vitalsSaved, hasOwnership);
-  renderEncounterFormSection (encounter, 'soap-note', encounter.soapNote, hasOwnership);
+  renderEncounterFormSection (encounter, 'soap-note', encounter.soapNoteSaved, hasOwnership);
   renderEncounterFormSection (encounter, 'cc', encounter.ccSaved, hasOwnership);
   renderEncounterFormSection (encounter, 'obgyn', encounter.obgynSaved, hasOwnership);
   renderEncounterFormSection (encounter, 'pfsh', encounter.pfshSaved, hasOwnership);
@@ -255,11 +255,11 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
     else if (section == 'soap-note') {
       $('#encounter-soap-subjective-saved-'+id).html(encounter.soapNote.subjective);
       $('#encounter-soap-objective-saved-'+id).html(encounter.soapNote.objective);
-      $('#encounter-soap-asessment-saved-'+id).html(encounter.soapNote.asessment);
+      $('#encounter-soap-assessment-saved-'+id).html(encounter.soapNote.assessment);
       $('#encounter-soap-plan-saved-'+id).html(encounter.plan.subjective);
       $('#encounter-mother-subjective-saved-'+id).blur(function() { updateSavedPatientEncounter("subjective", $(this).html(), id); });
       $('#encounter-mother-objective-saved-'+id).blur(function() { updateSavedPatientEncounter("objective", $(this).html(), id); });
-      $('#encounter-mother-asessment-saved-'+id).blur(function() { updateSavedPatientEncounter("asessment", $(this).html(), id); });
+      $('#encounter-mother-assessment-saved-'+id).blur(function() { updateSavedPatientEncounter("assessment", $(this).html(), id); });
       $('#encounter-mother-plan-saved-'+id).blur(function() { updateSavedPatientEncounter("plan", $(this).html(), id); });
     }
     else if (section == 'vitals') {
@@ -690,7 +690,7 @@ function saveSOAPNoteEncounterForm(encounter) {
   var id = encounter.id;  
   encounter.soapNote.subjective = $.trim($("#encounter-soap-subjective-"+id).val()); 
   encounter.soapNote.objective = $.trim($("#encounter-soap-objective-"+id).val()); 
-  encounter.soapNote.asessment = $.trim($("#encounter-soap-asessment-"+id).val()); 
+  encounter.soapNote.assessment = $.trim($("#encounter-soap-assessment-"+id).val()); 
   encounter.soapNote.plan = $.trim($("#encounter-soap-plan-"+id).val()); 
   encounter.soapNoteSaved = true;
   var jsonData = JSON.stringify({ 
