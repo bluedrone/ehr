@@ -14,7 +14,7 @@ var uploader;
 function setEncounterFormModes(hasOwnership) {
   setEncounterFormMode(app_currentEncounter, 'basic-info', app_currentEncounter.basicInfoSaved, hasOwnership);
   setEncounterFormMode(app_currentEncounter, 'vitals', app_currentEncounter.vitalsSaved, hasOwnership);
-  setEncounterFormMode(app_currentEncounter, 'soapNote', app_currentEncounter.soapNoteSaved, hasOwnership);
+  setEncounterFormMode(app_currentEncounter, 'soap-note', app_currentEncounter.soapNoteSaved, hasOwnership);
   setEncounterFormMode(app_currentEncounter, 'cc', app_currentEncounter.ccSaved, hasOwnership);
   setEncounterFormMode(app_currentEncounter, 'obgyn', app_currentEncounter.obgynSaved, hasOwnership);
   setEncounterFormMode(app_currentEncounter, 'pfsh', app_currentEncounter.pfshSaved, hasOwnership);
@@ -74,7 +74,7 @@ function renderPatientEncounterForm(encounter, hasOwnership) {
   
   renderEncounterFormSection (encounter, 'basic-info', encounter.basicInfoSaved, hasOwnership);
   renderEncounterFormSection (encounter, 'vitals', encounter.vitalsSaved, hasOwnership);
-  renderEncounterFormSection (encounter, 'soapNote', encounter.soapNote, hasOwnership);
+  renderEncounterFormSection (encounter, 'soap-note', encounter.soapNote, hasOwnership);
   renderEncounterFormSection (encounter, 'cc', encounter.ccSaved, hasOwnership);
   renderEncounterFormSection (encounter, 'obgyn', encounter.obgynSaved, hasOwnership);
   renderEncounterFormSection (encounter, 'pfsh', encounter.pfshSaved, hasOwnership);
@@ -98,7 +98,7 @@ function renderPatientEncounterForm(encounter, hasOwnership) {
   setupPictureUpload(encounter.id, encounter.patient.id);
   $('#encounter-basic-info-print-'+id).click(function() { printEncounterForm('print_encounter_basic_info', 'PATIENT ENCOUNTER')});
   $('#encounter-vitals-print-'+id).click(function() { printEncounterForm('print_encounter_vitals', 'VITALS')});
-  $('#encounter-soap-print-'+id).click(function() { printEncounterForm('print_encounter_soap', 'SOAP NOTE')});
+  $('#encounter-soap-note-print-'+id).click(function() { printEncounterForm('print_encounter_soap', 'SOAP NOTE')});
   $('#encounter-cc-print-'+id).click(function() { printEncounterForm('print_encounter_cc', 'CHIEF COMPLAINT')});
   $('#encounter-obgyn-print-'+id).click(function() { printEncounterForm('print_encounter_obgyn', 'OBGYN')});
   $('#encounter-pfsh-print-'+id).click(function() { printEncounterForm('print_encounter_pfsh', 'SOCIAL & FAMILY HISTORY')});
@@ -154,7 +154,7 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
   if (savedState == false) {
 
     if (section == 'basic-info') {
-      $("#encounter-basic-info-photo-"+id).attr("src","files/patients/"+encounter.patient.id+"/"+encounter.patient.demo.profileImagePath);
+      $("#encounter-basic-info-photo-"+id).attr("src", app_patientChartHeadshot);
       $('#encounter-first-name-'+id).val(encounter.patient.cred.firstName);
       $('#encounter-middle-name-'+id).val(encounter.patient.cred.middleName);
       $('#encounter-last-name-'+id).val(encounter.patient.cred.lastName);
@@ -163,7 +163,7 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
       $("#encounter-gender-"+id).keydown(function(e) { util_filterGenderInput(e); });
       $("#encounter-age-years-"+id+", #encounter-age-months-"+id).keydown(function(e) { util_filterAgeInput(e); });
     }
-    else if (section == 'soapNote') {
+    else if (section == 'soap-note') {
     }
     else if (section == 'vitals') {
       $("#encounter-height-"+id+", #encounter-weight-"+id+", #encounter-temp-"+id).keydown(function(e) { util_filterDecimalInput(e); });
@@ -224,7 +224,7 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
   else if (savedState == true) {
 
     if (section == 'basic-info') {
-      $("#encounter-basic-info-photo-"+id).attr("src","files/patients/"+encounter.patient.id+"/"+encounter.patient.demo.profileImagePath);
+      $("#encounter-basic-info-photo-"+id).attr("src", app_patientChartHeadshot);
       $('#encounter-first-name-'+id).val(encounter.patient.cred.firstName);
       $('#encounter-middle-name-'+id).val(encounter.patient.cred.middleName);
       $('#encounter-last-name-'+id).val(encounter.patient.cred.lastName);
@@ -252,7 +252,7 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
       $('#encounter-age-months-saved-'+id).blur(function() { updateSavedPatientEncounter("ageInMonths", $(this).html(), id); });
       $('#encounter-dob-saved-'+id).blur(function() { updateSavedPatientEncounter("dob", $(this).html(), id); });
     }
-    else if (section == 'soapNote') {
+    else if (section == 'soap-note') {
       $('#encounter-soap-subjective-saved-'+id).html(encounter.soapNote.subjective);
       $('#encounter-soap-objective-saved-'+id).html(encounter.soapNote.objective);
       $('#encounter-soap-asessment-saved-'+id).html(encounter.soapNote.asessment);
@@ -303,7 +303,7 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
       util_selectCheckboxesFromList(encounter.cc.denies, 'encounter-denies-'+id);
       $('#encounter-denies-other-saved-'+id).html(encounter.cc.deniesOther);
       $('#encounter-chief-complaint-saved-'+id).blur(function() { updateSavedPatientEncounter("ccDescription", $(this).html(), id); });
-      $('#encounter-specific-location-saved-'+id).blur(function() { on upientEncounter("specificLocation", $(this).html(), id); });
+      $('#encounter-specific-location-saved-'+id).blur(function() { updateSavedPatientEncounter("specificLocation", $(this).html(), id); });
       $('#encounter-hours-since-saved-'+id).blur(function() { updateSavedPatientEncounter("hoursSince", $(this).html(), id); });
       $('#encounter-days-since-saved-'+id).blur(function() { updateSavedPatientEncounter("daysSince", $(this).html(), id); });
       $('#encounter-weeks-since-saved-'+id).blur(function() { updateSavedPatientEncounter("weeksSince", $(this).html(), id); });
@@ -699,7 +699,7 @@ function saveSOAPNoteEncounterForm(encounter) {
     soapNoteSaved: true
   });
   $.post("patient/createSOAPNote", {data:jsonData}, function(data) {
-    renderEncounterFormSection (encounter, 'soapNote', true, true);
+    renderEncounterFormSection (encounter, 'soap-note', true, true);
   });
 }
 
@@ -1015,8 +1015,6 @@ function setEncounterFormMode(encounter, section, isSaved, hasOwnership) {
     $(".slider-track").css({display: "none"});
     $("#encounter-pain-type-saved-"+id).css({display: "inline"});
     $("#encounter-pain-type-saved-"+id).off( "click");
-    
-    
     return;
   }
   
@@ -1056,7 +1054,7 @@ function  setupPictureUpload(encounterId, patientId) {
    var response = parsedData = $.parseJSON(responseJSON);
    var path = response.filename;
    var patientId = response.patientId;
-     $("#encounter-basic-info-photo-"+encounterId).attr("src","files/patients/"+patientId+"/"+path);
+     $("#encounter-basic-info-photo-"+encounterId).attr("src", app_patientChartHeadshot);
    }
   }); 
 }
