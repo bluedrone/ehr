@@ -87,7 +87,7 @@ function renderPatientEncounterForm(encounter, hasOwnership) {
   
   $('#encounter-basic-info-save-'+id).click(function() { saveBasicInfoEncounterForm(encounter); });
   $('#encounter-vitals-save-'+id).click(function() { saveVitalsEncounterForm(encounter); });
-  $('#encounter-soap-note-save-'+id).click(function() { saveSOAPNoteEcounterForm(encounter); });
+  $('#encounter-soap-note-save-'+id).click(function() { saveSOAPNoteEncounterForm(encounter); });
   $('#encounter-cc-save-'+id).click(function() { saveCCEncounterForm(encounter); });
   $('#encounter-obgyn-save-'+id).click(function() { saveOBGYNEncounterForm(encounter); });
   $('#encounter-pfsh-save-'+id).click(function() { savePFSHEncounterForm(encounter); });
@@ -98,7 +98,7 @@ function renderPatientEncounterForm(encounter, hasOwnership) {
   setupPictureUpload(encounter.id, encounter.patient.id);
   $('#encounter-basic-info-print-'+id).click(function() { printEncounterForm('print_encounter_basic_info', 'PATIENT ENCOUNTER')});
   $('#encounter-vitals-print-'+id).click(function() { printEncounterForm('print_encounter_vitals', 'VITALS')});
-  $('#encounter-soap-note-print-'+id).click(function() { printEncounterForm('print_encounter_soap', 'SOAP NOTE')});
+  $('#encounter-soap-note-print-'+id).click(function() { printEncounterForm('print_encounter_soap_note', 'SOAP NOTE')});
   $('#encounter-cc-print-'+id).click(function() { printEncounterForm('print_encounter_cc', 'CHIEF COMPLAINT')});
   $('#encounter-obgyn-print-'+id).click(function() { printEncounterForm('print_encounter_obgyn', 'OBGYN')});
   $('#encounter-pfsh-print-'+id).click(function() { printEncounterForm('print_encounter_pfsh', 'SOCIAL & FAMILY HISTORY')});
@@ -253,10 +253,10 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
       $('#encounter-dob-saved-'+id).blur(function() { updateSavedPatientEncounter("dob", $(this).html(), id); });
     }
     else if (section == 'soap-note') {
-      $('#encounter-soap-subjective-saved-'+id).html(encounter.soapNote.subjective);
-      $('#encounter-soap-objective-saved-'+id).html(encounter.soapNote.objective);
-      $('#encounter-soap-assessment-saved-'+id).html(encounter.soapNote.assessment);
-      $('#encounter-soap-plan-saved-'+id).html(encounter.plan.subjective);
+      $('#encounter-soap-note-subjective-saved-'+id).html(encounter.soapNote.subjective);
+      $('#encounter-soap-note-objective-saved-'+id).html(encounter.soapNote.objective);
+      $('#encounter-soap-note-assessment-saved-'+id).html(encounter.soapNote.assessment);
+      $('#encounter-soap-note-plan-saved-'+id).html(encounter.soapNote.plan);
       $('#encounter-mother-subjective-saved-'+id).blur(function() { updateSavedPatientEncounter("subjective", $(this).html(), id); });
       $('#encounter-mother-objective-saved-'+id).blur(function() { updateSavedPatientEncounter("objective", $(this).html(), id); });
       $('#encounter-mother-assessment-saved-'+id).blur(function() { updateSavedPatientEncounter("assessment", $(this).html(), id); });
@@ -688,10 +688,10 @@ function saveCCEncounterForm(encounter) {
 
 function saveSOAPNoteEncounterForm(encounter) {
   var id = encounter.id;  
-  encounter.soapNote.subjective = $.trim($("#encounter-soap-subjective-"+id).val()); 
-  encounter.soapNote.objective = $.trim($("#encounter-soap-objective-"+id).val()); 
-  encounter.soapNote.assessment = $.trim($("#encounter-soap-assessment-"+id).val()); 
-  encounter.soapNote.plan = $.trim($("#encounter-soap-plan-"+id).val()); 
+  encounter.soapNote.subjective = $.trim($("#encounter-soap-note-subjective-"+id).val()); 
+  encounter.soapNote.objective = $.trim($("#encounter-soap-note-objective-"+id).val()); 
+  encounter.soapNote.assessment = $.trim($("#encounter-soap-note-assessment-"+id).val()); 
+  encounter.soapNote.plan = $.trim($("#encounter-soap-note-plan-"+id).val()); 
   encounter.soapNoteSaved = true;
   var jsonData = JSON.stringify({ 
     sessionId: clinician.sessionId, 

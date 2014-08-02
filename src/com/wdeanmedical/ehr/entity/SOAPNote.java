@@ -27,7 +27,7 @@ public class SOAPNote extends BaseEntity implements Serializable {
   private Integer clinicianId;
   private String subjective;
   private String objective;
-  private String asessment;
+  private String assessment;
   private String plan;
 
   public SOAPNote() {
@@ -57,9 +57,9 @@ public class SOAPNote extends BaseEntity implements Serializable {
   public String getObjective() { return objective; }
   public void setObjective(String objective) { this.objective = objective; }
 
-  @Column(name = "asessment", columnDefinition="text")
-  public String getAsessment() { return asessment; }
-  public void setAsessment(String asessment) { this.asessment = asessment; }
+  @Column(name = "assessment", columnDefinition="text")
+  public String getAssessment() { return assessment; }
+  public void setAssessment(String assessment) { this.assessment = assessment; }
 
   @Column(name = "plan", columnDefinition="text")
   public String getPlan() { return plan; }

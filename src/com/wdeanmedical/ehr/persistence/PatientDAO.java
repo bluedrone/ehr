@@ -233,6 +233,13 @@ public class PatientDAO extends SiteDAO {
     session.save(vitals);
     encounter.setVitals(vitals);
     
+    SOAPNote soapNote = new SOAPNote();
+    soapNote.setPatientId(patient.getId());
+    soapNote.setClinicianId(clinician.getId());
+    soapNote.setEncounterId(encounter.getId());
+    session.save(soapNote);
+    encounter.setSOAPNote(soapNote);
+    
     SuppQuestions supp = new SuppQuestions();
     supp.setPatientId(patient.getId());
     supp.setEncounterId(encounter.getId());
