@@ -797,3 +797,7 @@ table.encounter-form td {
 
 th.highlighted { background:#FFFF66 }
 td.highlighted { background:#FFFF66 }
+
+.form-control-saved {
+  border: 1px solid #EEEEEE;
+}

@@ -1008,6 +1008,7 @@ function setEncounterFormMode(encounter, section, isSaved, hasOwnership) {
     $('#encounter-'+section+'-saved-'+id).css({display: "none"});
     $('#encounter-'+section+'-clear-'+id).css({display: "none"});
     $('#encounter-'+section+'-panel-'+id+' .form-control-saved').removeAttr('contenteditable');
+    $('#encounter-'+section+'-panel-'+id+' .form-control-saved').css({border:"none"});
     $('#encounter-basic-info-photo-upload-control-'+id).css({display:"none"});
     
     $('#encounter-pain-scale-value-'+id).css({display: "inline"});
