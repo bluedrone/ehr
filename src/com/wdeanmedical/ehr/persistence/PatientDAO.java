@@ -171,10 +171,10 @@ public class PatientDAO extends SiteDAO {
   
   
   
-  public  List<SOAPNote> findSOAPNotesByPatient(Patient patient) throws Exception {
+  public  List<SOAPNote> findSOAPNotesByPatientId(Integer patientId) throws Exception {
     Session session = this.getSession();
     Criteria crit = session.createCriteria(SOAPNote.class);
-    crit.add(Restrictions.eq("patient", patient));
+    crit.add(Restrictions.eq("patientId", patientId));
     crit.addOrder(Order.desc("date"));
     List<SOAPNote> list = crit.list();
     return list;

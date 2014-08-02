@@ -100,14 +100,13 @@ public class PatientService {
   
   
   public List<SOAPNote> getSOAPNotes(PatientDTO dto) throws Exception {
-    Patient patient = patientDAO.findPatientById(dto.getPatientId());
-    return patientDAO.findSOAPNotesByPatient(patient);
+    return patientDAO.findSOAPNotesByPatientId(dto.getPatientId());
   }
   
   
   
   public List<VitalSigns> getPatientVitalSigns(PatientDTO dto) throws Exception {
-    Patient patient = appDAO.findPatientById(dto.getId());
+    Patient patient = appDAO.findPatientById(dto.getPatientId());
     return appDAO.getPatientVitalSigns(patient);
   }
   

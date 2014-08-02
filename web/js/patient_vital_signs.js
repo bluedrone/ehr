@@ -1,5 +1,5 @@
 function loadPatientVitalsScreen(patientId) {
-  var jsonData = JSON.stringify({ id: patientId, sessionId: clinician.sessionId });
+  var jsonData = JSON.stringify({ patientId: patientId, sessionId: clinician.sessionId });
   $.post("patient/getPatientVitalSigns", {data:jsonData}, function(data) {
     var parsedData = $.parseJSON(data);
     var columns = [

@@ -52,6 +52,7 @@ var app_oldEncounter;
 var clinician = null;
 var encounter = null;
 var patients;
+var soapNotes;
 var clinicians;
 var patientChartSummary;
 var clinicianDashboard;
@@ -118,8 +119,37 @@ $('#soap-notes-link').click(function() {
   RenderUtil.render('soap_notes', {}, function(s) {
     $('#modals-placement').html(s);
     $('#modal-soap-notes').modal('show'); 
+    getSOAPNotes(app_currentPatientId);
   });
 });
+
+
+
+function getSOAPNotes(patientId) {
+  var jsonData = JSON.stringify({ patientId: patientId, sessionId: clinician.sessionId });
+  $.post("patient/getSOAPNotes", {data:jsonData}, function(data) {
+    var parsedData = $.parseJSON(data);
+    soapNotes = parsedData.soapNotes;
+    RenderUtil.render('component/simple_data_table', 
+     {items:soapNotes, 
+      title:'SOAP Notes', 
+      tableName:'soap-notes-list', 
+      clickable:true, 
+      columns:[
+        {title:'Subjective', field:'subjective', type:'simple'},
+        {title:'Objective', field:'objective', type:'simple'},
+        {title:'Assessment', field:'assessment', type:'simple'},
+        {title:'Plan', field:'plan', type:'simple'}
+      ]}, function(s) {
+      $('#soap-notes-list').html(s);
+      $('#soap-notes-list-title').html("SOAP Notes");
+      $('.clickable-table-row').click( function(e){ 
+        $(this).addClass('table-row-highlight').siblings().removeClass('table-row-highlight');
+        handleClickableRow(e); 
+      });
+    });
+  });
+}
 
 
 $('#about').click(function() { 
