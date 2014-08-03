@@ -113,11 +113,25 @@ ul.nav-tabs {
   font-size: 1.15em;
   font-weight: bold;
 }
-#size1, #size2, #size3, #size4, #size5, #size6, #size7 {
+
+.default-modal-width {
   width: auto;
   margin-left: 2%;
   margin-right: 2%;
 }
+
+.medium-modal-width {
+  width: auto;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.narrow-modal-width {
+  width: auto;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
 .modal-header {
   background-color: #2a6496;
   color: #fff;

@@ -136,6 +136,7 @@ function getSOAPNotes(patientId) {
       tableName:'soap-notes-list', 
       clickable:true, 
       columns:[
+        {title:'Date', field:'date', type:'date'},
         {title:'Subjective', field:'subjective', type:'html'},
         {title:'Objective', field:'objective', type:'html'},
         {title:'Assessment', field:'assessment', type:'html'},
