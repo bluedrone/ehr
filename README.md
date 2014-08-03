@@ -3,6 +3,7 @@
 
 Improvements:
 New SOAP Notes encounter section up and running.
+Patient Vitals form now has a printable table.
 
 Bug Fixes:
 
