@@ -23,6 +23,7 @@ function loadPatientVitalsScreen(patientId) {
     },
     function(s) { 
       $('#patient_health_issue_detail_table').html(s);
+      $('#patient-vitals-print').off().on('click', function () { printPatientTable('print_patient_vitals', 'VITAL SIGNS', patientVitalSigns, columns)});
    
       var cellIndexMap = {};
       for (i=0;i<columns.length;i++) {

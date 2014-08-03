@@ -62,6 +62,15 @@ function printPatientForm(template, title, object) {
 }
 
 
+function printPatientTable(template, title, items, columns) { 
+  var currentDate = dateFormat(new Date(), 'mm/dd/yyyy');
+  RenderUtil.render('print/'+template,  {items:items, currentDate:currentDate, columns:columns}, function(obj) {
+    var s = obj[0].outerHTML;
+    print_openPrintWindow('print.html', s, title);
+  });
+}
+
+
 function loadHistScreenForm() {
   app_currentEncounter = app_patientEncounters[0];
   var id = app_patientEncounters[0].id; 

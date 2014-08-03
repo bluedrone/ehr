@@ -1,54 +1,21 @@
 <div id="form-wrapper-basic-info">
  <div class="page-title-background"><div class="page-title">VITALS</div></div>
+ 
  <table class="form-table">
- <tr>
-   <td>
-     <div class="item-wrapper-basic-info">
-       <span class="item-label">HEIGHT</span>
-       <div class="basic-info-input">${object.height}</div>
-     </div>
-   </td>
-    <td>
-     <div class="item-wrapper-basic-info">
-       <span class="item-label">WEIGHT</span>
-       <div class="basic-info-input">${object.weight}</div>
-     </div>
-   </td>
-   <td>
-     <div class="item-wrapper-basic-info">
-       <span class="item-label">SYS</span>
-       <div class="basic-info-input">${object.systolic}</div>
-     </div>
-   </td>
-   <td>
-     <div class="item-wrapper-basic-info">
-       <span class="item-label">DIA</span>
-       <div class="basic-info-input">${object.diastolic}</div>
-     </div>
-   </td>
-   <td>
-     <div class="item-wrapper-basic-info">
-       <span class="item-label">HR</span>
-       <div class="basic-info-input">${object.pulse}</div>
-     </div>
-   </td>
-   <td>
-     <div class="item-wrapper-basic-info">
-       <span class="item-label">RR</span>
-       <div class="basic-info-input">${object.respiration}</div>
-     </div>
-   </td>
-   <td>
-     <div class="item-wrapper-basic-info">
-       <span class="item-label">TEMP (C)</span>
-       <div class="basic-info-input">${object.temperature}</div>
-     </div>
-   </td>
-   <td>
-     <div class="item-wrapper-basic-info">
-     </div>
-   </td>
+  <thead>
+  <tr>
+    {{each(i, column) columns}} <th>${column.title}</th> {{/each}}
   </tr>
+  </thead>
+  <tbody>
+  {{each(i, item) items}}
+    <tr>
+    {{each(j, column) columns}} 
+      <td style='text-align:${column.type == 'numeric' ? "right" : "left"}'>${getColumnValue(column, item)}</td>
+    {{/each}}
+    </tr>
+  {{/each}}
+  </tbody>
+</table>
 
- </table>
 </div>
