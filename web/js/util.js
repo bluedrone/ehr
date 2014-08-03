@@ -201,6 +201,13 @@ var util_substringMatcher = function(strs) {
 
 
 
+function util_stripHtml(s) {
+  s = s.replace(/<(?:.|\n)*?>/gm, '');
+  return s;
+}
+
+
+
 function createGender(code) {
   var gender = new Gender();
   gender.code = code; 

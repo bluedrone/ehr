@@ -14,14 +14,12 @@ var RenderUtil = Backbone.Model.extend({}, {
   render: function (templateName, templateValues, callback) {
     var that = this;
     if (templateName in this.templates == false) {
-      debug('Fetching template: ' + templateName);
       $.get('template/' + templateName + '.html', function(data) {
        that.templates[templateName] = data; 
        that.render(templateName, templateValues, callback);
       });
     }
     else {
-      debug('Loading preloaded template: ' + templateName);
       var s = $.tmpl(this.templates[templateName], templateValues);
       callback(s);
     }
