@@ -187,6 +187,14 @@ td.numeric-cell {
   top:15px; 
 }
 
+.basic-info-input-soap {
+  min-height: 200px;
+  font-size: 20px;
+  position:relative;
+  left:10px; 
+  top:15px; 
+}
+
 .form-radio {
   display:table-cell;
   width: 120px;
