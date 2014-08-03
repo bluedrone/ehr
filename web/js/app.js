@@ -45,6 +45,7 @@ var app_patientExamIndex = 0;
 var app_patientSupp;
 var app_patientSuppIndex = 0;
 var app_currentEncounter;
+var app_currentSOAPNoteId; 
 var app_currentEncounterId;
 var app_currentScreen = '';
 var app_previousScreen = '';
@@ -53,6 +54,7 @@ var clinician = null;
 var encounter = null;
 var patients;
 var soapNotes;
+var soapNote;
 var clinicians;
 var patientChartSummary;
 var clinicianDashboard;
@@ -123,34 +125,6 @@ $('#soap-notes-link').click(function() {
   });
 });
 
-
-
-function getSOAPNotes(patientId) {
-  var jsonData = JSON.stringify({ patientId: patientId, sessionId: clinician.sessionId });
-  $.post("patient/getSOAPNotes", {data:jsonData}, function(data) {
-    var parsedData = $.parseJSON(data);
-    soapNotes = parsedData.soapNotes;
-    RenderUtil.render('component/simple_data_table', 
-     {items:soapNotes, 
-      title:'SOAP Notes', 
-      tableName:'soap-notes-list', 
-      clickable:true, 
-      columns:[
-        {title:'Date', field:'date', type:'date'},
-        {title:'Subjective', field:'subjective', type:'soap-note'},
-        {title:'Objective', field:'objective', type:'soap-note'},
-        {title:'Assessment', field:'assessment', type:'soap-note'},
-        {title:'Plan', field:'plan', type:'soap-note'}
-      ]}, function(s) {
-      $('#soap-notes-list').html(s);
-      $('#soap-notes-list-title').html("SOAP Notes");
-      $('.clickable-table-row').click( function(e){ 
-        $(this).addClass('table-row-highlight').siblings().removeClass('table-row-highlight');
-        handleClickableRow(e); 
-      });
-    });
-  });
-}
 
 
 $('#about').click(function() { 
@@ -798,6 +772,10 @@ function viewClinicianMessage() {
       else if (tableName == 'chart-encounters-list') {
         app_currentEncounterId = id; 
         viewPatientEncounter(id);
+      }
+      else if (tableName == 'soap-notes-list') {
+        app_currentSOAPNoteId = id; 
+        viewSOAPNote(id);
       }
     }
   }

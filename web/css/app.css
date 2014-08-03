@@ -815,3 +815,9 @@ td.highlighted { background:#FFFF66 }
 .form-control-saved {
   border: 1px solid #EEEEEE;
 }
+
+.soap-note-field {
+  border: 1px solid #EEEEEE;
+  height: 120px;
+  overflow: auto;
+}

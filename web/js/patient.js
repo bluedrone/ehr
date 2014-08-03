@@ -5,6 +5,51 @@
  * copyright 2013-2014 WDean Medical
  */
 
+
+function getSOAPNotes(patientId) {
+  var jsonData = JSON.stringify({ patientId: patientId, sessionId: clinician.sessionId });
+  $.post("patient/getSOAPNotes", {data:jsonData}, function(data) {
+    var parsedData = $.parseJSON(data);
+    soapNotes = parsedData.soapNotes;
+    RenderUtil.render('component/simple_data_table', 
+     {items:soapNotes, 
+      title:'SOAP Notes', 
+      tableName:'soap-notes-list', 
+      clickable:true, 
+      columns:[
+        {title:'Date', field:'date', type:'date'},
+        {title:'Subjective', field:'subjective', type:'soap-note'},
+        {title:'Objective', field:'objective', type:'soap-note'},
+        {title:'Assessment', field:'assessment', type:'soap-note'},
+        {title:'Plan', field:'plan', type:'soap-note'}
+      ]}, function(s) {
+      $('#soap-notes-list').html(s);
+      $('#soap-notes-list-title').html("SOAP Notes");
+      $('.clickable-table-row').click( function(e){ 
+        $(this).addClass('table-row-highlight').siblings().removeClass('table-row-highlight');
+        handleClickableRow(e); 
+      });
+    });
+  });
+}
+
+
+
+function viewSOAPNote(soapNoteId) {
+  for (i=0;i<soapNotes.length;i++) {
+    if (soapNotes[i].id == soapNoteId) {
+      soapNote = soapNotes[i]; 
+      break;
+    }
+  }
+  $('#soap-note-subjective').html(soapNote.subjective);
+  $('#soap-note-objective').html(soapNote.objective);
+  $('#soap-note-assessment').html(soapNote.assessment);
+  $('#soap-note-plan').html(soapNote.plan);
+}
+
+
+
 function printPatientForm(template, title, object) { 
   var currentDate = dateFormat(new Date(), 'mm/dd/yyyy');
   RenderUtil.render('print/'+template,  {object:object, currentDate:currentDate}, function(obj) {
