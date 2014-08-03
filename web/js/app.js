@@ -121,6 +121,7 @@ $('#soap-notes-link').click(function() {
   RenderUtil.render('soap_notes', {}, function(s) {
     $('#modals-placement').html(s);
     $('#modal-soap-notes').modal('show'); 
+    loadPatientInfo();
     getSOAPNotes(app_currentPatientId);
   });
 });
