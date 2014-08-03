@@ -199,51 +199,7 @@ function initPatientSearchTypeAheads() {
     });
 }
 
-function getPatientEncounterJson() {
-  $('#encounter').addClass("disabled");
-  var dob = util_processDob("#patient-search-dob", dob);
-  var jsonData = JSON.stringify({ 
-    id: clinician.id, 
-    firstNameFilter: patients[0].cred.firstName,
-    middleNameFilter: patients[0].cred.middleName,
-    lastNameFilter: patients[0].cred.lastName,
-    cityFilter: patients[0].demo.city,
-    genderFilter: patients[0].demo.gender.name,
-    dobFilter: dob,
-    sessionId: clinician.sessionId 
-  });
-  debug("json data: "+jsonData);
-  $.post("ext/json/getPatientEncounterJson", {data:jsonData}, function(data) {
-    var parsedData = $.parseJSON(data);
-    var mypatients = parsedData.patients[0];
-    debug("mypatients: "+JSON.stringify(mypatients));
-  });
-}
-
-function getPatientXml() {
-  $('#export').addClass("disabled");
-  var dob = util_processDob("#patient-search-dob", dob);
-  var jsonData = JSON.stringify({ 
-    id: clinician.id, 
-    firstNameFilter: patients[0].cred.firstName,
-    middleNameFilter: patients[0].cred.middleName,
-    lastNameFilter: patients[0].cred.lastName,
-    cityFilter: patients[0].demo.city,
-    genderFilter: patients[0].demo.gender.name,
-    dobFilter: dob,
-    sessionId: clinician.sessionId 
-  });
-  debug("json data: "+jsonData);
-  $.post("ext/xml/getPatientXml", {data:jsonData}, function(data) {
-    var parsedData = $.parseJSON(data);
-    var mypatients = parsedData.patients[0];
-    debug("mypatients: "+JSON.stringify(mypatients));
-  });
-}
-
 function patientSearch() {
-  $('#export').removeClass("disabled");
-  $('#encounter').removeClass("disabled");
   var dob = util_processDob("#patient-search-dob", dob);
   var jsonData = JSON.stringify({ 
     id: clinician.id, 
@@ -297,8 +253,6 @@ function patientSearchDialog() {
     $('#btn-patient-search-ok').addClass('disabled');
     $('.clickable-table-row').removeClass('table-row-highlight');
     $('#btn-patient-search-search').click(function(){ patientSearch(); });
-    $('#export').click(function(){ getPatientXml(); });
-    $('#encounter').click(function(){ getPatientEncounterJson(); });
     $('#btn-patient-search-clear').click(function(){ clearPatientSearchForm(); });
     $('#btn-patient-search-ok').click(function(){ getPatientChart(); });
     $('#patient-search-dob').mask("99/99/9999");
