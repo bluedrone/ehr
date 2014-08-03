@@ -208,6 +208,15 @@ function util_stripHtml(s) {
 
 
 
+function util_truncate(s, max) {
+  if (s.length > max) {
+    return s.substring(0,max)+'...';
+  }
+  return s;
+};
+
+
+
 function createGender(code) {
   var gender = new Gender();
   gender.code = code; 

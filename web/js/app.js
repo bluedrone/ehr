@@ -137,10 +137,10 @@ function getSOAPNotes(patientId) {
       clickable:true, 
       columns:[
         {title:'Date', field:'date', type:'date'},
-        {title:'Subjective', field:'subjective', type:'html'},
-        {title:'Objective', field:'objective', type:'html'},
-        {title:'Assessment', field:'assessment', type:'html'},
-        {title:'Plan', field:'plan', type:'html'}
+        {title:'Subjective', field:'subjective', type:'soap-note'},
+        {title:'Objective', field:'objective', type:'soap-note'},
+        {title:'Assessment', field:'assessment', type:'soap-note'},
+        {title:'Plan', field:'plan', type:'soap-note'}
       ]}, function(s) {
       $('#soap-notes-list').html(s);
       $('#soap-notes-list-title').html("SOAP Notes");
@@ -951,6 +951,10 @@ function viewClinicianMessage() {
     }
     else if (column.type == 'html') {
       value = util_stripHtml(item[column.field]);
+    }
+    else if (column.type == 'soap-note') {
+      value = util_stripHtml(item[column.field]);
+      value =  util_truncate(value, 50);
     }
     else if (column.type == 'date') {
       value = dateFormat(item[column.field], 'mm/dd/yyyy')
