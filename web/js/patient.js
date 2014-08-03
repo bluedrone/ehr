@@ -25,6 +25,7 @@ function getSOAPNotes(patientId) {
       ]}, function(s) {
       $('#soap-notes-list').html(s);
       $('#soap-notes-list-title').html("SOAP Notes");
+      $('#soap-notes-print').addClass("disabled");
       $('.clickable-table-row').click( function(e){ 
         $(this).addClass('table-row-highlight').siblings().removeClass('table-row-highlight');
         handleClickableRow(e); 
@@ -46,7 +47,8 @@ function viewSOAPNote(soapNoteId) {
   $('#soap-note-objective').html(soapNote.objective);
   $('#soap-note-assessment').html(soapNote.assessment);
   $('#soap-note-plan').html(soapNote.plan);
-  $('#soap-notes-print').click(function() { printPatientForm('print_soap_note', 'SOAP NOTE', soapNote)});
+  $('#soap-notes-print').removeClass("disabled");
+  $('#soap-notes-print').off().on('click', function () { printPatientForm('print_soap_note', 'SOAP NOTE', soapNote)});
 }
 
 
