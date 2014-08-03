@@ -61,7 +61,7 @@ public class AdminServlet extends AppServlet  {
     String returnString = "";
     String pathInfo = request.getPathInfo();
     String servletPath = request.getServletPath();
-    boolean isUploadResponse = false;
+    boolean isBinaryResponse = false;
      
     try { 
       if (isValidSession(request, response) == false) {
@@ -88,7 +88,7 @@ public class AdminServlet extends AppServlet  {
       ServletOutputStream  out = null;
       response.setContentType("text/plain");
      
-      if (isUploadResponse == false) { 
+      if (isBinaryResponse == true) { 
         out = response.getOutputStream();
         out.println(returnString);
         out.close();

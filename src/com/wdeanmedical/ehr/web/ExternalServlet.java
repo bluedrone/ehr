@@ -86,7 +86,7 @@ public class ExternalServlet extends AppServlet  {
     String arg3 = "";
     String pathInfo = request.getPathInfo();
     String servletPath = request.getServletPath();
-    boolean isUploadResponse = false;
+    boolean isBinaryResponse = false;
     
     String[] paths = pathInfo.substring(1).split("/");          
     
@@ -129,7 +129,7 @@ public class ExternalServlet extends AppServlet  {
       ServletOutputStream  out = null;
       response.setContentType("text/plain");
      
-      if (isUploadResponse == false) { 
+      if (isBinaryResponse == true) { 
         out = response.getOutputStream();
         out.println(returnString);
         out.close();

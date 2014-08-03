@@ -8,6 +8,7 @@
 package com.wdeanmedical.ehr.web;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -89,6 +90,7 @@ public void init(ServletConfig config) throws ServletException {
     String returnString = "";
     String pathInfo = request.getPathInfo();
     String servletPath = request.getServletPath();
+    boolean isBinaryResponse = false;
      
     try { 
       if (pathInfo.equals("/login")) {
@@ -158,10 +160,18 @@ public void init(ServletConfig config) throws ServletException {
      
       ServletOutputStream  out = null;
       response.setContentType("text/plain");
-      out = response.getOutputStream();
-      out.println(returnString);
-      logger.debug(returnString);
-      out.close();
+      
+      if (isBinaryResponse == true) { 
+        out = response.getOutputStream();
+        out.println(returnString);
+        out.close();
+      }
+      else { 
+        PrintWriter ajaxOut = response.getWriter();
+        ajaxOut.write(returnString);
+        ajaxOut.close();
+      }
+      
     }  
     catch( IOException ioe ) {
       ioe.printStackTrace();

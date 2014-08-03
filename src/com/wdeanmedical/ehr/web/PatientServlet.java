@@ -66,7 +66,7 @@ public class PatientServlet extends AppServlet  {
     String returnString = "";
     String pathInfo = request.getPathInfo();
     String servletPath = request.getServletPath();
-    boolean isUploadResponse = false;
+    boolean isBinaryResponse = false;
      
     try { 
       if (isValidSession(request, response) == false) {
@@ -104,6 +104,7 @@ public class PatientServlet extends AppServlet  {
           returnString = getPatientEncounters(request, response);  
         }
         else if (pathInfo.equals("/getPatientProfileImage")) {
+          isBinaryResponse = true;
           returnString = getPatientProfileImage(request, response);  
         }
         else if (pathInfo.equals("/getProgressNotes")) {
@@ -164,7 +165,6 @@ public class PatientServlet extends AppServlet  {
           returnString = createSupp(request, response);  
         }
         else if (pathInfo.equals("/uploadProfileImage")) {
-          isUploadResponse = true;
           returnString = uploadProfileImage(request, response);  
         }
         else if (pathInfo.equals("/getPatientVitalSigns")) {
@@ -175,7 +175,7 @@ public class PatientServlet extends AppServlet  {
       ServletOutputStream  out = null;
       response.setContentType("text/plain");
      
-      if (isUploadResponse == false) { 
+      if (isBinaryResponse == true) { 
         out = response.getOutputStream();
         out.println(returnString);
         out.close();
