@@ -137,39 +137,37 @@
   </tr>
 
  </table>
- <div class="page-title-background"><div class="page-title">FAMILY</div></div>
+ <div class="page-title-background"><div class="page-title">SOAP NOTE</div></div>
  <table class="form-table">
  <tr>
-   <td>
+   <td colspan="8">
      <div class="item-wrapper-basic-info">
-       <span class="item-label">MOTHER NAME</span>
-       <div class="basic-info-input">${encounter.patient.pfsh.motherName}</div>
+       <span class="item-label">SUBJECTIVE</span>
+       <div class="basic-info-input-soap">${encounter.soapNote.subjective}</div>
      </div>
    </td>
-   <td>
+  </tr>
+   <tr>
+   <td colspan="8">
      <div class="item-wrapper-basic-info">
-       <span class="item-label">MOTHER DOB</span>
-       <div class="basic-info-input">${encounter.patient.pfsh.motherDob ? encounter.patient.pfsh.motherDob : '___ /___ /___'}</div>
-       <div class="item-date-input-legend" style="visibility:${encounter.patient.pfsh.motherDob ? 'hidden' : 'visible'}">
-         <span class="date-legend-month">month</span>
-         <span class="date-legend-day">day</span>
-         <span class="date-legend-year">year</span>
-       </div>
+       <span class="item-label">OBJECTIVE</span>
+       <div class="basic-info-input-soap">${encounter.soapNote.objective}</div>
      </div>
    </td>
- </tr>
- <tr>
-    <td>
+  </tr>
+   <tr>
+   <td colspan="8">
      <div class="item-wrapper-basic-info">
-       <span class="item-label">FATHER NAME</span>
-       <div class="basic-info-input">${encounter.patient.pfsh.fatherName}</div>
+       <span class="item-label">ASSESSMENT</span>
+       <div class="basic-info-input-soap">${encounter.soapNote.assessment}</div>
      </div>
    </td>
-   <td>
-    <td>
+  </tr>
+   <tr>
+   <td colspan="8">
      <div class="item-wrapper-basic-info">
-       <span class="item-label">PATIENT RELATIONSHIP</span>
-       <div class="basic-info-input">${encounter.patient.pfsh.patientRelationship}</div>
+       <span class="item-label">PLAN</span>
+       <div class="basic-info-input-soap">${encounter.soapNote.plan}</div>
      </div>
    </td>
   </tr>

@@ -46,6 +46,7 @@ function viewSOAPNote(soapNoteId) {
   $('#soap-note-objective').html(soapNote.objective);
   $('#soap-note-assessment').html(soapNote.assessment);
   $('#soap-note-plan').html(soapNote.plan);
+  $('#soap-notes-print').click(function() { printPatientForm('print_soap_note', 'SOAP NOTE', soapNote)});
 }
 
 
