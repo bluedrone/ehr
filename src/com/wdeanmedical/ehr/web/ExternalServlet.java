@@ -88,7 +88,34 @@ public class ExternalServlet extends AppServlet  {
     String servletPath = request.getServletPath();
     boolean isBinaryResponse = false;
     
-    String[] paths = pathInfo.substring(1).split("/");          
+    String[] paths = pathInfo.substring(1).split("/"); 
+    if(paths.length < 3) {
+    	returnString = "USAGE:\n\n"
+    			+ "{GET/POST} /ext/{json/xml}/{method}/{arg1}/{arg2}/{arg3}\n\n"
+    			+ "Method List:\n\n"
+    			+ "POST /ext/{json/xml}/auth\n"
+    			+ "Authorize a service client by credentials submitted via POST.\n\n"
+    			+ "GET /ext/{json/xml}/getPatient/{patientMRN}\n"
+    			+ "Get a patient by ID\n\n"
+    			+ "GET /ext/{json/xml}/getPatients\n"
+    			+ "Get all patients\n\n"
+    			+ "GET /ext/{json/xml}/getPatientFullRecord/{patientMRN}\n"
+    			+ "Get the patient's full record, including all encounters\n\n"
+    			+ "POST /ext/{json/xml}/updatePatient/{patientMRN}\n"
+    			+ "Update a patient by ID with FHIR formatted patient data in POST header.\n\n"
+    			+ "POST /ext/{json/xml}/importPatients\n"
+    			+ "Import patients from FHIR formatted patient data in POST header.\n\n";
+    	ServletOutputStream ouut = null;
+    	response.setContentType("text/plain");
+    	try {
+    		ouut = response.getOutputStream();
+            ouut.println(returnString);
+            ouut.close();
+            return;
+    	} catch( Exception e ) {
+    	      e.printStackTrace();
+        }
+    }
     
     if (XML.equals(paths[FORMAT])) {
       format = XML;
