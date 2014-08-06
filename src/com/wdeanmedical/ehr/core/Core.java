@@ -68,7 +68,7 @@ public class Core {
     clinicianPermissionsMap.put("/admin/activateClinician",              new boolean[] {true,true});
     clinicianPermissionsMap.put("/admin/deactivateClinician",            new boolean[] {true,true});
     clinicianPermissionsMap.put("/admin/purgeClinician",                 new boolean[] {true,true});
-    clinicianPermissionsMap.put("/admin/save    newClinician",           new boolean[] {true,true});
+    clinicianPermissionsMap.put("/admin/saveNewClinician",               new boolean[] {true,true});
     clinicianPermissionsMap.put("/admin/updateClinician",                new boolean[] {true,true});
     
     clinicianPermissionsMap.put("/ext/auth",                             new boolean[] {true,true});
