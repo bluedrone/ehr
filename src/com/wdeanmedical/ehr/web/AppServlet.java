@@ -196,7 +196,7 @@ public void init(ServletConfig config) throws ServletException {
     try{
      dto = gson.fromJson(data, AuthorizedDTO.class);  
     }catch (Exception e){}
-    if (dto == null || dto.getSessionId() == null){
+    if (dto == null || dto.getSessionId() == null) {
       dto = new AuthorizedDTO();
       dto.setSessionId(request.getParameter("sessionId"));
     }

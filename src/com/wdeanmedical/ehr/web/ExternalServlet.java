@@ -222,8 +222,6 @@ public class ExternalServlet extends AppServlet  {
       Gson gson = new Gson();
       returnString = gson.toJson(patientFHIR);
     }else  if (XML.equals(format)) {
-      //JSONObject json = JSONObject.fromObject(returnString);
-      //returnString = new XMLSerializer().write(json);
       StringWriter out = new StringWriter();
       JAXBContext jaxbContext = JAXBContext.newInstance(org.hl7.fhir.Patient.class);
       Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
