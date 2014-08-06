@@ -37,6 +37,7 @@ import com.wdeanmedical.ehr.entity.MaritalStatus;
 import com.wdeanmedical.ehr.service.AppService;
 import com.wdeanmedical.ehr.service.ExternalService;
 import com.wdeanmedical.ehr.service.PatientService;
+import com.wdeanmedical.ehr.util.JSONUtils;
 import com.wdeanmedical.external.fhir.PatientFullRecordFHIR;
 import com.wdeanmedical.external.fhir.PatientsFHIR;
 import com.google.gson.Gson;
@@ -191,6 +192,10 @@ public class ExternalServlet extends AppServlet  {
     AuthorizedDTO dto = null;
     if(JSON.equals(format)){
       Gson gson = new Gson();
+      if(!(JSONUtils.isJSONValid(data, LoginDTO.class))) {
+    	System.out.println("Invalid json.");
+        return "Invalid JSON.";
+      }
       loginDTO = gson.fromJson(data, LoginDTO.class);        
       dto = externalService.auth(loginDTO, ipAddress); 
       returnString = gson.toJson(dto);
