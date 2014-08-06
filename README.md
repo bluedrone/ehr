@@ -1,9 +1,8 @@
 # WDean Medical EHR
-# version 0.8.11  03-AUG-2014
+# version 0.8.12  06-AUG-2014
 
 Improvements:
-New SOAP Notes encounter section up and running.
-Patient Vitals form now has a printable table.
+isValidSession() now accounts for the servlet name as well.
 
 Bug Fixes:
 
