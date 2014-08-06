@@ -89,7 +89,7 @@ public class ExternalServlet extends AppServlet  {
     boolean isBinaryResponse = false;
     
     String[] paths = pathInfo.substring(1).split("/"); 
-    if(paths.length < 3) {
+    if(paths.length < 2 || !(paths[0].equals("json") || paths[0].equals("xml"))) {
     	returnString = "USAGE:\n\n"
     			+ "{GET/POST} /ext/{json/xml}/{method}/{arg1}/{arg2}/{arg3}\n\n"
     			+ "Method List:\n\n"
