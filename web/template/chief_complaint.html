@@ -1,5 +1,5 @@
 <div class="modal fade" id="modal-chief-complaint" tabindex="-1" role="dialog" aria-labelledby="modal-chief-complaint" aria-hidden="true">
-  <div class="modal-dialog default-modal-width">
+  <div class="modal-dialog narrow-modal-width">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -47,17 +47,15 @@
           </div>
         </div>
         <br>
+        <div id="chief-complaint-list" class="table-responsive"></div>
         <div class="row">
           <div class="col-md-12">
-		        <div class="pull-right">
-		          <button id="patient-cc-prev-btn" class="btn btn-default group-up navbar-btn navbar-link" type="button"><i class="icon-chevron-left"></i> </button>
-		          <span id="patient-cc-date"></span>
-		          <button id="patient-cc-next-btn" class="btn btn-default group-down navbar-btn navbar-link" type="button"><i class="icon-chevron-right"></i> </button>
-		        </div>
-		      </div>
-		    </div>
-        <div class="container-fluid" id="chief-comp">
-          <form role="form" id="patient-cc-panel">
+            <div class="panel-top" data-toggle="collapse" data-target="#chief-complaint">
+              Chief Complaint <i class="icon-chevron-down pull-right collapse-arrow"></i>
+            </div>
+            <div id="chief-complaint" class="panel panel-default collapse in">
+              <div id="chief-complaint-panel" class="panel-body">
+            <form role="form" id="patient-cc-panel">
             <label class="sub-title">Description</label>
             <div class="row">
               <div class="col-md-12">
@@ -245,13 +243,16 @@
                 </div>  
               </div>
             </div>
-          </form>
+          </form>            
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="modal-footer">
         <a href="#" id="btn-patient-cc-ok" class="btn btn-success btn-lg" data-dismiss="modal">Save</a>
-        <a id="patient-cc-print" class="btn btn-primary btn-lg">Print</a>
-        <a href="#" id="btn-patient-cc-ok" class="btn btn-default btn-lg" data-dismiss="modal">Close</a>
+        <a id="chief-complaint-print" class="btn btn-primary btn-lg">Print</a>
+        <a href="#" id="btn-chief-complaint-ok" class="btn btn-default btn-lg" data-dismiss="modal">Close</a>
       </div>
     </div>
   </div>

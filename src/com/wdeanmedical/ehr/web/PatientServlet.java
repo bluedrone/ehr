@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.wdeanmedical.ehr.dto.PatientDTO;
+import com.wdeanmedical.ehr.entity.ChiefComplaint;
 import com.wdeanmedical.ehr.entity.Encounter;
 import com.wdeanmedical.ehr.entity.Patient;
 import com.wdeanmedical.ehr.entity.ProgressNote;
@@ -123,6 +124,9 @@ public class PatientServlet extends AppServlet  {
         }
         else if (pathInfo.equals("/deletePatient")) {
           returnString = deletePatient(request, response);  
+        }
+        else if (pathInfo.equals("/getChiefComplaints")) {
+          returnString = getChiefComplaints(request, response);  
         }
         else if (pathInfo.equals("/getCurrentPatientEncounter")) {
           returnString = getCurrentPatientEncounter(request, response);  
@@ -440,6 +444,19 @@ public class PatientServlet extends AppServlet  {
     PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
     List<Encounter> encounters =  patientService.getPatientEncounters(dto);
     dto.setPatientEncounters(encounters);
+    String json = gson.toJson(dto);
+    return json;
+  }
+  
+  
+  
+  
+  public String getChiefComplaints(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String data = request.getParameter("data");
+    Gson gson = new Gson();
+    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
+    List<ChiefComplaint> chiefComplaints =  patientService.getChiefComplaints(dto);
+    dto.setChiefComplaints(chiefComplaints);
     String json = gson.toJson(dto);
     return json;
   }

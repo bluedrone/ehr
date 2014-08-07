@@ -5,6 +5,48 @@
  * copyright 2013-2014 WDean Medical
  */
 
+function getChiefComplaints(patientId) {
+  var jsonData = JSON.stringify({ patientId: patientId, sessionId: clinician.sessionId });
+  $.post("patient/getChiefComplaints", {data:jsonData}, function(data) {
+    var parsedData = $.parseJSON(data);
+    chiefComplaints = parsedData.chiefComplaints;
+    RenderUtil.render('component/simple_data_table', 
+     {items:chiefComplaints, 
+      title:'Chief Complaints', 
+      tableName:'chief-complaints-list', 
+      clickable:true, 
+      columns:[
+        {title:'Date', field:'date', type:'date'},
+        {title:'Description', field:'plan', type:'strip-html'}
+      ]}, function(s) {
+      $('#chief-complaints-list').html(s);
+      $('#chief-complaints-list-title').html("Chief Complaints");
+      $('#chief-complaint-print').addClass("disabled");
+      $('.clickable-table-row').click( function(e){ 
+        $(this).addClass('table-row-highlight').siblings().removeClass('table-row-highlight');
+        handleClickableRow(e); 
+      });
+    });
+  });
+}
+
+
+
+function viewChiefComplaint(soapNoteId) {
+  for (i=0;i<soapNotes.length;i++) {
+    if (soapNotes[i].id == soapNoteId) {
+      soapNote = soapNotes[i]; 
+      break;
+    }
+  }
+  $('#soap-note-subjective').html(soapNote.subjective);
+  $('#soap-note-objective').html(soapNote.objective);
+  $('#soap-note-assessment').html(soapNote.assessment);
+  $('#soap-note-plan').html(soapNote.plan);
+  $('#soap-notes-print').removeClass("disabled");
+  $('#soap-notes-print').off().on('click', function () { printPatientForm('print_soap_note', 'SOAP NOTE', soapNote)});
+}
+
 
 function getSOAPNotes(patientId) {
   var jsonData = JSON.stringify({ patientId: patientId, sessionId: clinician.sessionId });

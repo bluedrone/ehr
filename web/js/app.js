@@ -46,6 +46,7 @@ var app_patientSupp;
 var app_patientSuppIndex = 0;
 var app_currentEncounter;
 var app_currentSOAPNoteId; 
+var app_chiefComplaintId; 
 var app_currentEncounterId;
 var app_currentScreen = '';
 var app_previousScreen = '';
@@ -54,6 +55,7 @@ var clinician = null;
 var encounter = null;
 var patients;
 var soapNotes;
+var chiefComplaints;
 var soapNote;
 var clinicians;
 var patientChartSummary;
@@ -732,6 +734,10 @@ function viewClinicianMessage() {
         app_currentSOAPNoteId = id; 
         viewSOAPNote(id);
       }
+      else if (tableName == 'chief-complaints-list') {
+        app_currentChiefComplaintId = id; 
+        viewChiefComplaint(id);
+      }
     }
   }
   
@@ -886,6 +892,10 @@ function viewClinicianMessage() {
       value = util_stripHtml(item[column.field]);
     }
     else if (column.type == 'soap-note') {
+      value = util_stripHtml(item[column.field]);
+      value =  util_truncate(value, 50);
+    }
+    else if (column.type == 'strip-html') {
       value = util_stripHtml(item[column.field]);
       value =  util_truncate(value, 50);
     }

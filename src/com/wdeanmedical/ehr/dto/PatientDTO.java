@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.wdeanmedical.ehr.entity.Appointment;
+import com.wdeanmedical.ehr.entity.ChiefComplaint;
 import com.wdeanmedical.ehr.entity.Encounter;
 import com.wdeanmedical.ehr.entity.Gender;
 import com.wdeanmedical.ehr.entity.EncounterMedication;
@@ -223,6 +224,7 @@ public class PatientDTO extends AuthorizedDTO {
   private String dobFilter; 
   private List<VitalSigns> vitalSigns;
   private List<SOAPNote> soapNotes;
+  private List<ChiefComplaint> chiefComplaints;
 
   public PatientDTO() {
   }
@@ -799,5 +801,8 @@ public class PatientDTO extends AuthorizedDTO {
   
   public List<VitalSigns> getVitalSigns() { return vitalSigns; }
   public void setVitalSigns(List<VitalSigns> vitalSigns) { this.vitalSigns = vitalSigns; }
+
+  public List<ChiefComplaint> getChiefComplaints() { return chiefComplaints; }
+  public void setChiefComplaints(List<ChiefComplaint> chiefComplaints) { this.chiefComplaints = chiefComplaints; }
   
 }
