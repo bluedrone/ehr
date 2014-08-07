@@ -32,19 +32,38 @@ function getChiefComplaints(patientId) {
 
 
 
-function viewChiefComplaint(soapNoteId) {
-  for (i=0;i<soapNotes.length;i++) {
-    if (soapNotes[i].id == soapNoteId) {
-      soapNote = soapNotes[i]; 
+function viewChiefComplaint(chiefComplaintId) {
+  for (i=0;i<chiefComplaints.length;i++) {
+    if (chiefComplaints[i].id == chiefComplaintId) {
+      chiefComplaint = chiefComplaint[i]; 
       break;
     }
   }
-  $('#soap-note-subjective').html(soapNote.subjective);
-  $('#soap-note-objective').html(soapNote.objective);
-  $('#soap-note-assessment').html(soapNote.assessment);
-  $('#soap-note-plan').html(soapNote.plan);
-  $('#soap-notes-print').removeClass("disabled");
-  $('#soap-notes-print').off().on('click', function () { printPatientForm('print_soap_note', 'SOAP NOTE', soapNote)});
+  
+  var date = dateFormat(chiefComplaint.date, 'mm/dd/yyyy')
+  $('#patient-cc-date').html(date);
+  $('#pain-scale-value').html(chiefComplaint.painScale);
+  $('#chief-complaint').html(chiefComplaint.description);
+  $('#specific-location').html(chiefComplaint.specificLocation);
+  util_selectCheckboxesFromList(chiefComplaint.occursWhen, 'occurs-when');
+  $('#hours-since').html(chiefComplaint.hoursSince);
+  $('#days-since').html(chiefComplaint.daysSince);
+  $('#weeks-since').html(chiefComplaint.weeksSince);
+  $('#months-since').html(chiefComplaint.monthsSince);
+  $('#years-since').html(chiefComplaint.yearsSince);
+  $('#how-long-other').html(chiefComplaint.howLongOther);
+  $('#pain-scale').html(chiefComplaint.painScale);
+  $('#pain-type').html(chiefComplaint.painType);
+  $('#pain-x-hour').html(chiefComplaint.painXHour);
+  $('#pain-x-day').html(chiefComplaint.painXDay);
+  $('#pain-x-week').html(chiefComplaint.painXWeek);
+  $('#pain-x-month').html(chiefComplaint.painXMonth);
+  $('#pain-duration').html(chiefComplaint.painDuration);
+  util_selectCheckboxesFromList(chiefComplaint.denies, 'denies');
+  $('#denies-other').html(chiefComplaint.deniesOther);
+  
+  $('#chief-complaint-print').removeClass("disabled");
+  $('#chief-complaint-print').off().on('click', function () { printPatientForm('print_chief_complaint', 'CHIEF COMPLAINT', chiefComplaint)});
 }
 
 
@@ -362,7 +381,7 @@ function loadChiefComplaintScreenForm() {
   $('#pain-x-month').html(app_patientCC[app_patientCCIndex].painXMonth);
   $('#pain-duration').html(app_patientCC[app_patientCCIndex].painDuration);
   util_selectCheckboxesFromList(app_patientCC[app_patientCCIndex].denies, 'denies');
-  $('#denies-other').html(app_patientCC[app_patientCCIndex].deniesOther)
+  $('#denies-other').html(app_patientCC[app_patientCCIndex].deniesOther);
 }
 
 
