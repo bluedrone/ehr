@@ -202,14 +202,16 @@ var util_substringMatcher = function(strs) {
 
 
 function util_stripHtml(s) {
-  s = s.replace(/<(?:.|\n)*?>/gm, '');
+  if (s) {
+    s = s.replace(/<(?:.|\n)*?>/gm, '');
+  }
   return s;
 }
 
 
 
 function util_truncate(s, max) {
-  if (s.length > max) {
+  if (s && s.length > max) {
     return s.substring(0,max)+'...';
   }
   return s;

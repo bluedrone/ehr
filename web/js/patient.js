@@ -17,10 +17,10 @@ function getChiefComplaints(patientId) {
       clickable:true, 
       columns:[
         {title:'Date', field:'date', type:'date'},
-        {title:'Description', field:'plan', type:'strip-html'}
+        {title:'Description', field:'description', type:'strip-html'}
       ]}, function(s) {
-      $('#chief-complaints-list').html(s);
-      $('#chief-complaints-list-title').html("Chief Complaints");
+      $('#chief-complaint-list').html(s);
+      $('#chief-complaint-list-title').html("Chief Complaints");
       $('#chief-complaint-print').addClass("disabled");
       $('.clickable-table-row').click( function(e){ 
         $(this).addClass('table-row-highlight').siblings().removeClass('table-row-highlight');
@@ -35,7 +35,7 @@ function getChiefComplaints(patientId) {
 function viewChiefComplaint(chiefComplaintId) {
   for (i=0;i<chiefComplaints.length;i++) {
     if (chiefComplaints[i].id == chiefComplaintId) {
-      chiefComplaint = chiefComplaint[i]; 
+      chiefComplaint = chiefComplaints[i]; 
       break;
     }
   }
@@ -335,53 +335,6 @@ function loadConsultsScreenForm() {
   $('input[name=follow-up-completed][value='+app_patientConsults[app_patientConsultsIndex].followUpCompleted+']').attr("checked", true) == 'true';
   var followUpDate = dateFormat(app_patientConsults[app_patientConsultsIndex].followUpDate, 'mm/dd/yyyy')
   $('#follow-up-date').html(followUpDate);
-}
-
-
-function loadCurrentChiefComplaintScreen() {
-  app_patientCC = []; 	
-  for (i=0;i<app_patientEncounters.length;i++) {
-    app_patientCC.push(app_patientEncounters[i].cc); 
-  }
-  if (app_patientCC.length == 0) {
-    return;
-  }
-  app_patientCCIndex = 0;
-  loadChiefComplaintScreenForm();
-  $('#patient-cc-print').click(function() { printPatientForm('print_patient_cc', 'CHIEF COMPLAINT', app_patientCC[app_patientCCIndex])});
-}
-
-
-function changeChiefComplaintScreen(adjustment) {
-  if ((app_patientCCIndex == 0 && adjustment == -1) || (app_patientCCIndex == app_patientCC.length-1 && adjustment == 1)) {
-    return;
-  }
-  app_patientCCIndex += adjustment;
-  loadChiefComplaintScreenForm();
-}
-
-function loadChiefComplaintScreenForm() {
-  var date = dateFormat(app_patientCC[app_patientCCIndex].date, 'mm/dd/yyyy')
-  $('#patient-cc-date').html(date);
-  $('#pain-scale-value').html(app_patientCC[app_patientCCIndex].painScale);
-  $('#chief-complaint').html(app_patientCC[app_patientCCIndex].description);
-  $('#specific-location').html(app_patientCC[app_patientCCIndex].specificLocation);
-  util_selectCheckboxesFromList(app_patientCC[app_patientCCIndex].occursWhen, 'occurs-when');
-  $('#hours-since').html(app_patientCC[app_patientCCIndex].hoursSince);
-  $('#days-since').html(app_patientCC[app_patientCCIndex].daysSince);
-  $('#weeks-since').html(app_patientCC[app_patientCCIndex].weeksSince);
-  $('#months-since').html(app_patientCC[app_patientCCIndex].monthsSince);
-  $('#years-since').html(app_patientCC[app_patientCCIndex].yearsSince);
-  $('#how-long-other').html(app_patientCC[app_patientCCIndex].howLongOther);
-  $('#pain-scale').html(app_patientCC[app_patientCCIndex].painScale);
-  $('#pain-type').html(app_patientCC[app_patientCCIndex].painType);
-  $('#pain-x-hour').html(app_patientCC[app_patientCCIndex].painXHour);
-  $('#pain-x-day').html(app_patientCC[app_patientCCIndex].painXDay);
-  $('#pain-x-week').html(app_patientCC[app_patientCCIndex].painXWeek);
-  $('#pain-x-month').html(app_patientCC[app_patientCCIndex].painXMonth);
-  $('#pain-duration').html(app_patientCC[app_patientCCIndex].painDuration);
-  util_selectCheckboxesFromList(app_patientCC[app_patientCCIndex].denies, 'denies');
-  $('#denies-other').html(app_patientCC[app_patientCCIndex].deniesOther);
 }
 
 

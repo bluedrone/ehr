@@ -46,7 +46,7 @@ var app_patientSupp;
 var app_patientSuppIndex = 0;
 var app_currentEncounter;
 var app_currentSOAPNoteId; 
-var app_chiefComplaintId; 
+var app_currentChiefComplaintId; 
 var app_currentEncounterId;
 var app_currentScreen = '';
 var app_previousScreen = '';
@@ -524,9 +524,7 @@ $('#chief-complaints-link').click(function(){
     $('#modals-placement').html(s);
     $('#modal-chief-complaint').modal('show'); 
     loadPatientInfo();
-    loadCurrentChiefComplaintScreen();        
-    $('#patient-cc-next-btn').click(function(){changeChiefComplaintScreen(1)}); 
-    $('#patient-cc-prev-btn').click(function(){changeChiefComplaintScreen(-1)}); 
+    getChiefComplaints(app_currentPatientId);
   });
 });
 
@@ -897,7 +895,7 @@ function viewClinicianMessage() {
     }
     else if (column.type == 'strip-html') {
       value = util_stripHtml(item[column.field]);
-      value =  util_truncate(value, 50);
+      value =  util_truncate(value, 100);
     }
     else if (column.type == 'date') {
       value = dateFormat(item[column.field], 'mm/dd/yyyy')
