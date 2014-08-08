@@ -171,6 +171,17 @@ public class PatientDAO extends SiteDAO {
   
   
   
+  public  List<ChiefComplaint> findChiefComplaintsByPatientId(Integer patientId) throws Exception {
+    Session session = this.getSession();
+    Criteria crit = session.createCriteria(ChiefComplaint.class);
+    crit.add(Restrictions.eq("patientId", patientId));
+    crit.addOrder(Order.desc("date"));
+    List<ChiefComplaint> list = crit.list();
+    return list;
+  }
+  
+  
+  
   public  List<SOAPNote> findSOAPNotesByPatientId(Integer patientId) throws Exception {
     Session session = this.getSession();
     Criteria crit = session.createCriteria(SOAPNote.class);

@@ -13,6 +13,7 @@ body {
   margin-bottom: 80px;
   margin-top: 48px;
   background-color: #f8f8f8;
+  max-width: 1500px;
 }
 h1, h2, h3, h4, h5, h6 {
   font-family: "Segoe UI Light", "Open Sans Light" ,Verdana, Arial, Helvetica, sans-serif;
@@ -109,6 +110,10 @@ button .clear-stop, button .clear-stop i {
 
 /* CUSTOMIZE THE MODALS
 -------------------------------------------------- */
+.modal {
+  max-width: 1450px;  
+}
+
 ul.nav-tabs {
   font-size: 1.15em;
   font-weight: bold;

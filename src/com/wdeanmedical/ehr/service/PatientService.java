@@ -99,6 +99,12 @@ public class PatientService {
   
   
   
+  public List<ChiefComplaint> getChiefComplaints(PatientDTO dto) throws Exception {
+    return patientDAO.findChiefComplaintsByPatientId(dto.getPatientId());
+  }
+  
+  
+  
   public List<SOAPNote> getSOAPNotes(PatientDTO dto) throws Exception {
     return patientDAO.findSOAPNotesByPatientId(dto.getPatientId());
   }

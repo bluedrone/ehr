@@ -104,7 +104,16 @@ public void init(ServletConfig config) throws ServletException {
           returnString = logout(request, response);  
         }
         else { 
-          if (pathInfo.equals("/getClinicianDashboard")) {
+          if (pathInfo.equals("/getAppointment")) {
+            returnString = getAppointment(request, response);  
+          }
+          else if (pathInfo.equals("/getAppointments")) {
+            returnString = getAppointments(request, response);  
+          }
+          else if (pathInfo.equals("/getAppointmentsByClinician")) {
+            returnString = getAppointmentsByClinician(request, response);  
+          }
+          else if (pathInfo.equals("/getClinicianDashboard")) {
             returnString = getClinicianDashboard(request, response);  
           }
           else if (pathInfo.equals("/getClinicianMessage")) {
@@ -115,12 +124,6 @@ public void init(ServletConfig config) throws ServletException {
           }
           else if (pathInfo.equals("/getClinicians")) {
             returnString = getClinicians(request, response);  
-          }
-          else if (pathInfo.equals("/patientSearch")) {
-            returnString = patientSearch(request, response);  
-          }
-          else if (pathInfo.equals("/getRecentPatients")) {
-            returnString = getRecentPatients(request, response);  
           }
           else if (pathInfo.equals("/getPatientChart")) {
             returnString = getPatientChart(request, response);  
@@ -134,26 +137,23 @@ public void init(ServletConfig config) throws ServletException {
           else if (pathInfo.equals("/getPatientSearchTypeAheads")) {
             returnString = getPatientSearchTypeAheads(request, response);  
           }
+          else if (pathInfo.equals("/getRecentPatients")) {
+            returnString = getRecentPatients(request, response);  
+          }
           else if (pathInfo.equals("/park")) {
             returnString = park(request, response);  
           }
-          else if (pathInfo.equals("/unpark")) {
-            returnString = unpark(request, response);  
-          }
-          else if (pathInfo.equals("/searchICD10")) {
-            returnString = searchICD10(request, response);  
+          else if (pathInfo.equals("/patientSearch")) {
+            returnString = patientSearch(request, response);  
           }
           else if (pathInfo.equals("/searchCPT")) {
             returnString = searchCPT(request, response);  
           }
-          else if (pathInfo.equals("/getAppointment")) {
-            returnString = getAppointment(request, response);  
+          else if (pathInfo.equals("/searchICD10")) {
+            returnString = searchICD10(request, response);  
           }
-          else if (pathInfo.equals("/getAppointments")) {
-            returnString = getAppointments(request, response);  
-          }
-          else if (pathInfo.equals("/getAppointmentsByClinician")) {
-            returnString = getAppointmentsByClinician(request, response);  
+          else if (pathInfo.equals("/unpark")) {
+            returnString = unpark(request, response);  
           }
         }
       }
@@ -200,7 +200,12 @@ public void init(ServletConfig config) throws ServletException {
       dto = new AuthorizedDTO();
       dto.setSessionId(request.getParameter("sessionId"));
     }
-    return appService.isValidSession(dto, ipAddress, request.getPathInfo());
+    String path = request.getPathInfo();
+    if(path.substring(1).split("/").length > 1) {
+      path = path.substring(1).split("/")[1];
+    } 
+    path = request.getServletPath() + path;
+    return appService.isValidSession(dto, ipAddress, path);
   }
   
   

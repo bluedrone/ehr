@@ -142,14 +142,18 @@ public class ExternalServlet extends AppServlet  {
         else {
           if (method.equals("getPatient")) {
             returnString = getPatient(arg1, format);  
-          }else if (method.equals("getPatients")) {
-            returnString = getPatients(request, response, format);  
-          }else if (method.equals("updatePatient")) {
-            returnString = updatePatient(request, response, format);  
-          }else if (method.equals("getPatientFullRecord")) {
+          }
+          else if (method.equals("getPatientFullRecord")) {
             returnString = getPatientFullRecord(arg1, format);  
-          }else if (method.equals("importPatients")) {
+          }
+          else if (method.equals("getPatients")) {
+            returnString = getPatients(request, response, format);  
+          }
+          else if (method.equals("importPatients")) {
             returnString = importPatients(request, response, format);  
+          }
+          else if (method.equals("updatePatient")) {
+            returnString = updatePatient(request, response, format);  
           }
         }
       }

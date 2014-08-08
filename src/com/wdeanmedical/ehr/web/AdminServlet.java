@@ -70,13 +70,7 @@ public class AdminServlet extends AppServlet  {
         returnString = logout(request, response);  
       }
       else { 
-        if (pathInfo.equals("/saveNewClinician")) {
-          returnString = saveNewClinician(request, response);  
-        }
-        else if (pathInfo.equals("/updateClinician")) {
-          returnString = updateClinician(request, response);  
-        }
-        else if (pathInfo.equals("/activateClinician")) {
+        if (pathInfo.equals("/activateClinician")) {
           returnString = activateClinician(request, response);  
         }
         else if (pathInfo.equals("/deactivateClinician")) {
@@ -87,6 +81,12 @@ public class AdminServlet extends AppServlet  {
         }
         else if (pathInfo.equals("/getActivityLog")) {
           returnString = getActivityLog(request, response);  
+        }
+        else if (pathInfo.equals("/saveNewClinician")) {
+          returnString = saveNewClinician(request, response);  
+        }
+        else if (pathInfo.equals("/updateClinician")) {
+          returnString = updateClinician(request, response);  
         }
       }
      

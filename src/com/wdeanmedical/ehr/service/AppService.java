@@ -313,10 +313,6 @@ public class AppService {
   public  boolean isValidSession(AuthorizedDTO dto, String ipAddress, String path) throws Exception {
     String clinicianName = "";
    
-    if(path.substring(1).split("/").length > 1) {
-      path = path.substring(1).split("/")[1];
-    }          
-    
     appDAO.deleteExpiredClinicianSessions();
     
     if (dto == null || dto.getSessionId() == null) {

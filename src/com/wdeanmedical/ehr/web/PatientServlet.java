@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.wdeanmedical.ehr.dto.PatientDTO;
+import com.wdeanmedical.ehr.entity.ChiefComplaint;
 import com.wdeanmedical.ehr.entity.Encounter;
 import com.wdeanmedical.ehr.entity.Patient;
 import com.wdeanmedical.ehr.entity.ProgressNote;
@@ -76,56 +77,13 @@ public class PatientServlet extends AppServlet  {
         if (pathInfo.equals("/acquirePatient")) {
           returnString = acquirePatient(request, response);  
         }
-        else if (pathInfo.equals("/overridePatient")) {
-          returnString = overridePatient(request, response);  
+        else if (pathInfo.equals("/addEncounterQuestion")) {
+          returnString = addEncounterQuestion(request, response);  
         }
         else if (pathInfo.equals("/addEncounterMedication")) {
           returnString = addEncounterMedication(request, response);  
         }
-        else if (pathInfo.equals("/addEncounterQuestion")) {
-          returnString = addEncounterQuestion(request, response);  
-        }
-        else if (pathInfo.equals("/closeEncounter")) {
-          returnString = closeEncounter(request, response);  
-        }
-        else if (pathInfo.equals("/getEncounter")) {
-          returnString = getEncounter(request, response);  
-        }
-        else if (pathInfo.equals("/closeProgressNote")) {
-          returnString = closeProgressNote(request, response);  
-        }
-        else if (pathInfo.equals("/newEncounter")) {
-          returnString = newEncounter(request, response);  
-        }
-        else if (pathInfo.equals("/newProgressNote")) {
-          returnString = newProgressNote(request, response);  
-        }
-        else if (pathInfo.equals("/getPatientEncounters")) {
-          returnString = getPatientEncounters(request, response);  
-        }
-        else if (pathInfo.equals("/getPatientProfileImage")) {
-          isBinaryResponse = true;
-          returnString = getPatientProfileImage(request, response);  
-        }
-        else if (pathInfo.equals("/getProgressNotes")) {
-          returnString = getProgressNotes(request, response);  
-        }
-        else if (pathInfo.equals("/getSOAPNotes")) {
-          returnString = getSOAPNotes(request, response);  
-        }
-        else if (pathInfo.equals("/createPatientAndEncounter")) {
-          returnString = createPatientAndEncounter(request, response);  
-        }
-        else if (pathInfo.equals("/getCurrentPatientEncounter")) {
-          returnString = getCurrentPatientEncounter(request, response);  
-        }
-        else if (pathInfo.equals("/deletePatient")) {
-          returnString = deletePatient(request, response);  
-        }
-        if (pathInfo.equals("/releasePatient")) {
-          returnString = releasePatient(request, response);  
-        }
-        if (pathInfo.equals("/createBasicInfo")) {
+        else if (pathInfo.equals("/createBasicInfo")) {
           returnString = createBasicInfo(request, response);  
         }
         else if (pathInfo.equals("/createCC")) {
@@ -140,6 +98,70 @@ public class PatientServlet extends AppServlet  {
         else if (pathInfo.equals("/createHist")) {
           returnString = createHist(request, response);  
         }
+        else if (pathInfo.equals("/closeEncounter")) {
+          returnString = closeEncounter(request, response);  
+        }
+        else if (pathInfo.equals("/closeProgressNote")) {
+          returnString = closeProgressNote(request, response);  
+        }
+        else if (pathInfo.equals("/createOBGYN")) {
+          returnString = createOBGYN(request, response);  
+        }
+        else if (pathInfo.equals("/createPatientAndEncounter")) {
+          returnString = createPatientAndEncounter(request, response);  
+        }
+        else if (pathInfo.equals("/createPFSH")) {
+          returnString = createPFSH(request, response);  
+        }
+        else if (pathInfo.equals("/createSOAPNote")) {
+          returnString = createSOAPNote(request, response);  
+        }
+        else if (pathInfo.equals("/createSupp")) {
+          returnString = createSupp(request, response);  
+        }
+        else if (pathInfo.equals("/createVitals")) {
+          returnString = createVitals(request, response);  
+        }
+        else if (pathInfo.equals("/deletePatient")) {
+          returnString = deletePatient(request, response);  
+        }
+        else if (pathInfo.equals("/getChiefComplaints")) {
+          returnString = getChiefComplaints(request, response);  
+        }
+        else if (pathInfo.equals("/getCurrentPatientEncounter")) {
+          returnString = getCurrentPatientEncounter(request, response);  
+        }
+        else if (pathInfo.equals("/getEncounter")) {
+          returnString = getEncounter(request, response);  
+        }
+        else if (pathInfo.equals("/getPatientEncounters")) {
+          returnString = getPatientEncounters(request, response);  
+        }
+        else if (pathInfo.equals("/getPatientProfileImage")) {
+          isBinaryResponse = true;
+          returnString = getPatientProfileImage(request, response);  
+        }
+        else if (pathInfo.equals("/getPatientVitalSigns")) {
+          returnString = getPatientVitalSigns(request, response);  
+        }
+        else if (pathInfo.equals("/getProgressNotes")) {
+          returnString = getProgressNotes(request, response);  
+        }
+        else if (pathInfo.equals("/getSOAPNotes")) {
+          returnString = getSOAPNotes(request, response);  
+        }
+        else if (pathInfo.equals("/newEncounter")) {
+          returnString = newEncounter(request, response);  
+        }
+        else if (pathInfo.equals("/newProgressNote")) {
+          returnString = newProgressNote(request, response);  
+        }
+        else if (pathInfo.equals("/overridePatient")) {
+          returnString = overridePatient(request, response);  
+        } 
+        else if (pathInfo.equals("/releasePatient")) {
+          returnString = releasePatient(request, response);  
+        }
         else if (pathInfo.equals("/updateEncounterMedication")) {
           returnString = updateEncounterMedication(request, response);  
         }
@@ -149,26 +171,8 @@ public class PatientServlet extends AppServlet  {
         else if (pathInfo.equals("/updatePatient")) {
           returnString = updatePatient(request, response);  
         }
-        else if (pathInfo.equals("/createVitals")) {
-          returnString = createVitals(request, response);  
-        }
-        else if (pathInfo.equals("/createSOAPNote")) {
-          returnString = createSOAPNote(request, response);  
-        }
-        else if (pathInfo.equals("/createOBGYN")) {
-          returnString = createOBGYN(request, response);  
-        }
-        else if (pathInfo.equals("/createPFSH")) {
-          returnString = createPFSH(request, response);  
-        }
-        else if (pathInfo.equals("/createSupp")) {
-          returnString = createSupp(request, response);  
-        }
         else if (pathInfo.equals("/uploadProfileImage")) {
           returnString = uploadProfileImage(request, response);  
-        }
-        else if (pathInfo.equals("/getPatientVitalSigns")) {
-          returnString = getPatientVitalSigns(request, response);  
         }
       }
      
@@ -440,6 +444,19 @@ public class PatientServlet extends AppServlet  {
     PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
     List<Encounter> encounters =  patientService.getPatientEncounters(dto);
     dto.setPatientEncounters(encounters);
+    String json = gson.toJson(dto);
+    return json;
+  }
+  
+  
+  
+  
+  public String getChiefComplaints(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String data = request.getParameter("data");
+    Gson gson = new Gson();
+    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
+    List<ChiefComplaint> chiefComplaints =  patientService.getChiefComplaints(dto);
+    dto.setChiefComplaints(chiefComplaints);
     String json = gson.toJson(dto);
     return json;
   }
