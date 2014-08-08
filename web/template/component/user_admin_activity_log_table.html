@@ -1,0 +1,45 @@
+<!--
+  WDean Medical is distributed under the
+  GNU Lesser General Public License (GNU LGPL).
+  For details see: http://www.wdeanmedical.com
+  copyright 2013-2014 WDean Medical
+--> 
+
+<table class="table table-bordered table-hover table-condensed">
+  <thead class="text-center">
+  <tr>
+    <td>User Id</td>
+    <td>Patient Id</td>
+    <td>Time Performed</td>
+    <td>Clinician Id</td>
+    <td>Encounter Id</td>
+    <td>Field Name</td>
+    <td>Activity</td>
+    <td>Module</td>
+  </tr>
+  </thead>
+  <tbody>
+  {{each(i, item) items}}
+  <tr 
+    id="${tableId}-${item.id}" 
+    name="${item.id}"
+    data-row-key="${item.id}" 
+    data-table-name="${tableName}" 
+  >
+    <td>${item.userId}</td>
+    <td>${item.patientId}</td>
+    <td>${item.timePerformed}</td>
+    <td>${item.clinicianId}</td>
+    <td>${item.encounterId}</td>
+    <td>${item.fieldName}</td>
+    <td>${item.activity.activityType}</td>
+    <td>${item.module.moduleType}</td>
+  </tr>
+  {{/each}}
+  <tr class="simple-data-table-footer">
+    <td class="simple-data-table-footer" colspan='8'>
+      <p><span>${title} ${items.length == 0 ? '0' : '1'}-<wbr>${items.length}</span></p>
+    </td>
+  </tr>
+  </tbody>
+</table>
