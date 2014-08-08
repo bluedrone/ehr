@@ -63,7 +63,7 @@ function viewChiefComplaint(chiefComplaintId) {
   $('#denies-other').html(chiefComplaint.deniesOther);
   
   $('#chief-complaint-print').removeClass("disabled");
-  $('#chief-complaint-print').off().on('click', function () { printPatientForm('print_chief_complaint', 'CHIEF COMPLAINT', chiefComplaint)});
+  $('#chief-complaint-print').off().on('click', function () { printPatientForm('print_patient_cc', 'CHIEF COMPLAINT', chiefComplaint)});
 }
 
 
