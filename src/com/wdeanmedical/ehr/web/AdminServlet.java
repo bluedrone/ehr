@@ -27,6 +27,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.wdeanmedical.ehr.dto.AdminDTO;
 import com.wdeanmedical.ehr.dto.PatientDTO;
+import com.wdeanmedical.ehr.entity.ActivityLog;
+import com.wdeanmedical.ehr.entity.Clinician;
 import com.wdeanmedical.ehr.entity.Encounter;
 import com.wdeanmedical.ehr.entity.Patient;
 import com.wdeanmedical.ehr.service.AdminService;
@@ -82,6 +84,9 @@ public class AdminServlet extends AppServlet  {
         }
         else if (pathInfo.equals("/purgeClinician")) {
           returnString = purgeClinician(request, response);  
+        }
+        else if (pathInfo.equals("/getActivityLog")) {
+          returnString = getActivityLog(request, response);  
         }
       }
      
@@ -158,6 +163,15 @@ public class AdminServlet extends AppServlet  {
     AdminDTO dto = gson.fromJson(data, AdminDTO.class); 
     adminService.purgeClinician(dto);
     String json = gson.toJson(dto);
+    return json;
+  }
+  
+  public String getActivityLog(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String data = request.getParameter("data");
+    Gson gson = new Gson();
+    AdminDTO dto = gson.fromJson(data, AdminDTO.class);
+    List<ActivityLog> activityLogs = adminService.getActivityLog(dto);
+    String json = gson.toJson(activityLogs);
     return json;
   }
  

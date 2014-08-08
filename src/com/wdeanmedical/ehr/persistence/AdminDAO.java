@@ -4,7 +4,7 @@
  * For details see: http://www.wdeanmedical.com
  * copyright 2013-2014 WDean Medical
  */
- 
+
 package com.wdeanmedical.ehr.persistence;
 
 import java.text.DateFormat;
@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.wdeanmedical.ehr.core.Core;
+import com.wdeanmedical.ehr.entity.ActivityLog;
 import com.wdeanmedical.ehr.entity.Appointment;
 import com.wdeanmedical.ehr.entity.BaseEntity;
 import com.wdeanmedical.ehr.entity.ChiefComplaint;
@@ -59,6 +60,8 @@ import com.wdeanmedical.ehr.util.OneWayPasswordEncoder;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.ScrollMode;
+import org.hibernate.ScrollableResults;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Expression;
@@ -87,35 +90,35 @@ public class AdminDAO extends SiteDAO {
   protected Session getSession() {
     return this.sessionFactory.getCurrentSession();
   }
-  
+
   public void create(BaseEntity item) throws Exception {
     item.setLastUpdated(new Date());
     this.createEntity(item);
   }
-  
+
   public void update(BaseEntity item) throws Exception {
     item.setLastUpdated(new Date());
     this.updateEntity(item);
   }
-  
+
   public void delete(BaseEntity item) throws Exception {
     this.deleteEntity(item);
   }
-  
+
   public void createClinician(Clinician clinician) throws Exception {
     Session session = this.getSession();
     clinician.setLastAccessed(new Date());
     session.save(clinician);
   }
-  
-  public Role findRoleById(int id ) throws Exception {
+
+  public Role findRoleById(int id) throws Exception {
     return (Role) this.findById(Role.class, id);
   }
-  
-  public Credential findCredentialById(int id ) throws Exception {
+
+  public Credential findCredentialById(int id) throws Exception {
     return (Credential) this.findById(Credential.class, id);
   }
-  
+
   public Boolean checkUsername(String username) throws Exception {
     Session session = this.getSession();
     Criteria crit = session.createCriteria(Clinician.class);
@@ -123,9 +126,24 @@ public class AdminDAO extends SiteDAO {
     Clinician clinician = (Clinician) crit.uniqueResult();
     return (clinician == null);
   }
-  
-  public Clinician findClinicianById(int id ) throws Exception {
+
+  public Clinician findClinicianById(int id) throws Exception {
     return (Clinician) this.findById(Clinician.class, id);
+  }
+  
+  public Clinician findClinicianBySessionId(String sessionId ) throws Exception {
+    Session session = this.getSession();
+    Criteria crit = session.createCriteria(ClinicianSession.class);
+    crit.add(Restrictions.eq("sessionId", sessionId));
+    ClinicianSession clinicianSession = (ClinicianSession) crit.uniqueResult();
+    return (Clinician) this.findById(Clinician.class, clinicianSession.getClinician().getId());
+  }
+
+  public List<ActivityLog> getActivityLog(Integer clinicianId) {
+    Session session = this.getSession();
+    Query activityLogQuery = session.createQuery("SELECT al FROM ActivityLog al WHERE al.clinicianId = '" + clinicianId + "' ORDER BY al.createdDate DESC");
+    activityLogQuery.setMaxResults(200);
+    return activityLogQuery.list();
   }
 
 }

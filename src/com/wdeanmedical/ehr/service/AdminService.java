@@ -9,6 +9,7 @@ package com.wdeanmedical.ehr.service;
 
 
 import java.net.MalformedURLException;
+import java.util.List;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -16,8 +17,10 @@ import java.util.regex.Pattern;
 import javax.servlet.ServletContext;
 
 import com.wdeanmedical.ehr.persistence.AdminDAO;
+import com.wdeanmedical.ehr.persistence.AppDAO;
 import com.wdeanmedical.ehr.core.Core;
 import com.wdeanmedical.ehr.dto.AdminDTO;
+import com.wdeanmedical.ehr.entity.ActivityLog;
 import com.wdeanmedical.ehr.entity.Clinician;
 import com.wdeanmedical.ehr.entity.Credential;
 import com.wdeanmedical.ehr.entity.Role;
@@ -198,5 +201,11 @@ public class AdminService {
     
     adminDAO.update(clinician);
   }
+  
+  public List<ActivityLog> getActivityLog(AdminDTO dto) throws Exception{
+     Clinician clinician = adminDAO.findClinicianBySessionId(dto.getSessionId());
+     return adminDAO.getActivityLog(clinician.getId());
+  }
 
+  
 }

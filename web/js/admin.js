@@ -9,6 +9,7 @@
 $('#admin').click(function() { 
   app_viewStack('user-admin-screen', DO_SCROLL);
   getCliniciansList();
+  getActivityLog();
 });
 
 
@@ -45,6 +46,22 @@ function getCliniciansList() {
     });
   });
 }
+
+function getActivityLog() {
+	  var jsonData = JSON.stringify({ sessionId: clinician.sessionId });
+	  $.post("admin/getActivityLog", {data:jsonData}, function(data) {
+	    var activityLogs = $.parseJSON(data);
+	    RenderUtil.render('component/user_admin_activity_log_table', 
+	     {items:activityLogs, 
+	      title:'Activity Logs', 
+	      tableName:'user-admin-activityLogs-list', 
+	      clickable:false
+	      }, function(s) {
+	      $('#user-admin-activityLogs-list').html(s);
+	      $('#user-admin-activity-log-list-title').html("Activity Logs");	      
+	    });
+	  });
+	}
 
 function findClinicianFromList(id) {
   for (i=0;i<clinicians.length;i++) {
@@ -151,6 +168,7 @@ function handleDeleteUser(e) {
         $('#modal-confirm').modal('hide'); 
         displayNotification('Clinician '+clinicianFullName+' deleted.');
         getCliniciansList();
+        getActivityLog();
       }); 
     });
   });
@@ -173,6 +191,7 @@ function handleChangeUserStatus(e) {
         $('#modal-admin-change-user-status').modal('hide'); 
         displayNotification('Clinician '+clinicianFullName+' '+activationMode+'d.');
         getCliniciansList();
+        getActivityLog();
       }); 
     });
   });
@@ -260,6 +279,7 @@ function saveNewUser() {
     var clinicianFullName = util_buildFullName(parsedData.firstName, parsedData.middleName, parsedData.lastName);
     displayNotification('New user '+ clinicianFullName + ' created.');
     getCliniciansList();
+    getActivityLog();
   });
 }
 
@@ -305,6 +325,7 @@ function updateSavedUser(property, value, id) {
         updateClinicianInList(id, property, value);
       }
       getCliniciansList();
+      getActivityLog();
     }
   }); 
 }
