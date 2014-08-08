@@ -393,7 +393,7 @@ function newProgressNotesFormDialog() {
   RenderUtil.render('dialog/confirm', args, function(s) { 
     $('#modals-placement').append(s);
     $('#modal-confirm').modal('show'); 
-    $('#app-modal-confirmation-btn').click(function(){  
+    $('#app-modal-confirmation-btn').click(function() {  
       var jsonData = JSON.stringify({ sessionId: clinician.sessionId, progressNoteId: app_progressNotes[app_progressNotesIndex].id});
       $.post("patient/closeProgressNote", {data:jsonData}, function(data) {
         var parsedData = $.parseJSON(data);

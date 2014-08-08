@@ -60,7 +60,7 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
-                  <div class="form-control-saved" id="chief-complaint">&nbsp;</div>
+                  <div class="form-control-closed" id="chief-complaint">&nbsp;</div>
                 </div>
               </div>
             </div>
@@ -91,7 +91,7 @@
                     <div class="checkbox"><label><input type="checkbox" name="occurs-when" value="holding_gripping">Holding/Gripping</label></div>
                     <div class="checkbox"><label><input type="checkbox" name="occurs-when" value="other">Other-specify</label></div>
                   </div>
-                  <div class="form-control-saved" id="occurs-other">&nbsp;</div>
+                  <div class="form-control-closed" id="occurs-other">&nbsp;</div>
                 </div>
               </div>
             </div>
@@ -99,7 +99,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label for="specific-location">Specific Location</label>
-                  <div class="form-control-saved" id="specific-location">&nbsp;</div>
+                  <div class="form-control-closed" id="specific-location">&nbsp;</div>
                 </div>
               </div>
             </div>
@@ -111,37 +111,37 @@
                     <div class="col-xs-2">
                       <div class="form-group text-center">
                         <label for="hours-since">Hours</label>
-                       <div class="form-control-saved" id="hours-since">&nbsp;</div>
+                       <div class="form-control-closed" id="hours-since">&nbsp;</div>
                       </div>
                     </div>
                     <div class="col-xs-2">
                       <div class="form-group text-center">
                         <label for="days-since">Days</label>
-                       <div class="form-control-saved" id="days-since">&nbsp;</div>
+                       <div class="form-control-closed" id="days-since">&nbsp;</div>
                       </div>
                     </div>
                     <div class="col-xs-2">
                       <div class="form-group text-center">
                         <label for="weeks-since">Weeks</label>
-                       <div class="form-control-saved" id="weeks-since">&nbsp;</div>
+                       <div class="form-control-closed" id="weeks-since">&nbsp;</div>
                       </div>
                     </div>
                     <div class="col-xs-2">
                       <div class="form-group text-center">
                         <label for="months-since">Months</label>
-                       <div class="form-control-saved" id="months-since">&nbsp;</div>
+                       <div class="form-control-closed" id="months-since">&nbsp;</div>
                       </div>
                     </div>
                     <div class="col-xs-2">
                       <div class="form-group text-center">
                         <label for="years-since">Years</label>
-                       <div class="form-control-saved" id="years-since">&nbsp;</div>
+                       <div class="form-control-closed" id="years-since">&nbsp;</div>
                       </div>
                     </div>
                     <div class="col-xs-2">
                       <div class="form-group text-center">
                         <label for="how-long-other">Other</label>
-                       <div class="form-control-saved" id="how-long-other">&nbsp;</div>
+                       <div class="form-control-closed" id="how-long-other">&nbsp;</div>
                       </div>
                     </div>
                   </div>
@@ -151,25 +151,13 @@
                   <div class="col-md-12">
                     <div class="col-md-3">
                       <div class="form-group">
-                        <label for="encounter-pain-scale">Pain Scale: <span id="encounter-pain-scale-value">0</span></label>
-                        <input type="text" class="form-control span2 input-lg" data-slider-value="0" id="encounter-pain-scale" data-slider-tooltip="hide">
+                        <label>Pain Scale: <span id="pain-scale-value"></span></label>
                       </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
                         <label for="pain-type">Pain Type</label>
-                        <select id="pain-type" class="form-control form-control-saved">
-                          <option></option>
-                          <option value="dull">Dull</option>
-                          <option value="tingly">Tingly</option>
-                          <option value="hot">Hot</option>
-                          <option value="sharp">Sharp</option>
-                          <option value="achey">Achey</option>
-                          <option value="uncomfortable">Uncomfortable</option>
-                          <option value="superficial">Superficial</option>
-                          <option value="deep">Deep</option>
-                        </select>
-                       <div class="form-control-saved" id="pain-type">&nbsp;</div>
+                        <div class="form-control-closed" id="pain-type">&nbsp;</div>
                       </div>
                     </div>
                   </div>
@@ -180,31 +168,31 @@
                     <div class="col-md-2">
                       <div class="form-group">
                         <label for="pain-x-hour">X Hour</label>
-                       <div class="form-control-saved" id="pain-x-hour">&nbsp;</div>
+                       <div class="form-control-closed" id="pain-x-hour">&nbsp;</div>
                       </div>
                     </div>
                     <div class="col-md-2">
                       <div class="form-group">
                         <label for="pain-x-day">X Day</label>
-                       <div class="form-control-saved" id="pain-x-day">&nbsp;</div>
+                       <div class="form-control-closed" id="pain-x-day">&nbsp;</div>
                       </div>
                     </div>
                     <div class="col-md-2">
                       <div class="form-group">
                         <label for="pain-x-week">X Week</label>
-                       <div class="form-control-saved" id="pain-x-week">&nbsp;</div>
+                       <div class="form-control-closed" id="pain-x-week">&nbsp;</div>
                       </div>
                     </div>
                     <div class="col-md-2">
                       <div class="form-group">
                         <label for="pain-x-month">X Month</label>
-                       <div class="form-control-saved" id="pain-x-month">&nbsp;</div>
+                       <div class="form-control-closed" id="pain-x-month">&nbsp;</div>
                       </div>
                     </div>
                     <div class="col-md-4">
                       <div class="form-group">
                         <label for="pain-duration">Duration</label>
-                       <div class="form-control-saved" id="pain-duration">&nbsp;</div>
+                       <div class="form-control-closed" id="pain-duration">&nbsp;</div>
                       </div>
                     </div>
                   </div>
@@ -236,8 +224,8 @@
                         <div class="checkbox"><label><input type="checkbox" name="denies" value="fatigue">Fatigue</label></div>
                         <div class="checkbox"><label><input type="checkbox" name="denies" value="other">Other</label></div>
                       </div>
-                      <input type="text" class="form-control-saved input-sm " id="denies-other">
-                       <div class="form-control-saved" id="denies-other">&nbsp;</div>
+                      <input type="text" class="form-control-closed input-sm " id="denies-other">
+                       <div class="form-control-closed" id="denies-other">&nbsp;</div>
                     </div>
                   </div>
                 </div>  
