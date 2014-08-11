@@ -76,5 +76,11 @@
 	<classpathentry kind="lib" path="lib/powermock-mockito-release-full-1.5.5-full.jar"/>
 	<classpathentry kind="lib" path="lib/mockito-all-1.9.5.jar"/>
 	<classpathentry kind="lib" path="lib/javassist-3.8.0.GA.jar"/>
+	<classpathentry kind="lib" path="lib/poi-3.10-FINAL-20140208.jar"/>
+	<classpathentry kind="lib" path="lib/poi-examples-3.10-FINAL-20140208.jar"/>
+	<classpathentry kind="lib" path="lib/poi-excelant-3.10-FINAL-20140208.jar"/>
+	<classpathentry kind="lib" path="lib/poi-ooxml-3.10-FINAL-20140208.jar"/>
+	<classpathentry kind="lib" path="lib/poi-ooxml-schemas-3.10-FINAL-20140208.jar"/>
+	<classpathentry kind="lib" path="lib/poi-scratchpad-3.10-FINAL-20140208.jar"/>
 	<classpathentry kind="output" path="web/WEB-INF/classes"/>
 </classpath>
