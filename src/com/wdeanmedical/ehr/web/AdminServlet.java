@@ -38,6 +38,7 @@ import com.google.gson.Gson;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 
 public class AdminServlet extends AppServlet  {
@@ -88,6 +89,9 @@ public class AdminServlet extends AppServlet  {
         else if (pathInfo.equals("/updateClinician")) {
           returnString = updateClinician(request, response);  
         }
+        else if (pathInfo.equals("/exportCsv")) {
+          returnString = exportCsv(request, response);  
+        }
       }
      
       ServletOutputStream  out = null;
@@ -99,9 +103,11 @@ public class AdminServlet extends AppServlet  {
         out.close();
       }
       else { 
-        PrintWriter ajaxOut = response.getWriter();
-        ajaxOut.write(returnString);
-        ajaxOut.close();
+    	  if(returnString != null){
+    		  PrintWriter ajaxOut = response.getWriter();
+    		  ajaxOut.write(returnString);
+    		  ajaxOut.close();
+    	  }
       }
     
     }  
@@ -111,10 +117,9 @@ public class AdminServlet extends AppServlet  {
     catch( Exception e ) {
       e.printStackTrace();
     }
-  }
-  
-  
-  @Override
+  }  
+
+@Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) {
     doPost(request, response);  
   }
@@ -173,6 +178,18 @@ public class AdminServlet extends AppServlet  {
     List<ActivityLog> activityLogs = adminService.getActivityLog(dto);
     String json = gson.toJson(activityLogs);
     return json;
+  }
+  
+  private String exportCsv(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	String data = request.getParameter("data");
+	Gson gson = new Gson();
+	AdminDTO dto = gson.fromJson(data, AdminDTO.class);
+	HSSFWorkbook workbook = adminService.getWorkbook(dto);
+	response.setContentType("application/vnd.ms-excel");
+	response.setHeader("Content-Disposition", "attachment; filename=ActivityLog.xls");
+    workbook.write(response.getOutputStream());
+    response.getOutputStream().close();	  
+	return null;
   }
  
 }

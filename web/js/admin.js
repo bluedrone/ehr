@@ -25,6 +25,14 @@ $('#user-admin-new-user-lg, #user-admin-new-user-sm').click(function() {
   });
 });
 
+$('#export-csv-activity-log-lg, #export-csv-activity-log-sm').click(function() { 
+	exportCsv()
+});
+
+function exportCsv() {
+	 var jsonData = JSON.stringify({ sessionId: clinician.sessionId });
+	 $.post("admin/exportCsv", {data:jsonData});
+}
 
 function getCliniciansList() {
   var jsonData = JSON.stringify({ sessionId: clinician.sessionId });

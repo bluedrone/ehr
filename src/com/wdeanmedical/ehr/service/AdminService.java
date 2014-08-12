@@ -9,15 +9,18 @@ package com.wdeanmedical.ehr.service;
 
 
 import java.net.MalformedURLException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.wdeanmedical.ehr.persistence.AdminDAO;
-import com.wdeanmedical.ehr.persistence.AppDAO;
 import com.wdeanmedical.ehr.core.Core;
 import com.wdeanmedical.ehr.dto.AdminDTO;
 import com.wdeanmedical.ehr.entity.ActivityLog;
@@ -31,6 +34,13 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
 
 public class AdminService {
 
@@ -206,6 +216,100 @@ public class AdminService {
      Clinician clinician = adminDAO.findClinicianBySessionId(dto.getSessionId());
      return adminDAO.getActivityLog(clinician.getId());
   }
-
+  
+  public HSSFWorkbook getWorkbook(AdminDTO dto) throws Exception{
+   
+    List<ActivityLog> activityLogs = getActivityLog(dto);
+  
+    HSSFWorkbook workbook = new HSSFWorkbook();
+    // create a new Excel sheet
+    HSSFSheet sheet = workbook.createSheet("Activity Logs");
+    sheet.setDefaultColumnWidth(30);
+  
+	// create style for header cells
+	CellStyle style = workbook.createCellStyle();
+	Font font = workbook.createFont();
+	font.setFontName("Arial");
+	style.setFillForegroundColor(HSSFColor.BLUE.index);
+	style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+	font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+	font.setColor(HSSFColor.WHITE.index);
+	style.setFont(font);
+	
+	// create header row
+	HSSFRow header = sheet.createRow(0);
+	
+	header.createCell(0).setCellValue("User Id");
+	header.getCell(0).setCellStyle(style);
+	
+	header.createCell(1).setCellValue("Patient Id");
+	header.getCell(1).setCellStyle(style);
+	
+	header.createCell(2).setCellValue("Time Performed");
+	header.getCell(2).setCellStyle(style);
+	
+	header.createCell(3).setCellValue("Clinician Id");
+	header.getCell(3).setCellStyle(style);
+	
+	header.createCell(4).setCellValue("Encounter Id");
+	header.getCell(4).setCellStyle(style);
+	
+	header.createCell(5).setCellValue("Field Name");
+	header.getCell(5).setCellStyle(style);
+	
+	header.createCell(6).setCellValue("Activity");
+	header.getCell(6).setCellStyle(style);
+	
+	header.createCell(7).setCellValue("Module");
+	header.getCell(7).setCellStyle(style);
+	
+	// create data rows
+	int rowCount = 1;
+			
+	for (ActivityLog activityLog : activityLogs) {
+		HSSFRow aRow = sheet.createRow(rowCount++);
+		if(activityLog.getUserId() != null){
+			aRow.createCell(0).setCellValue(activityLog.getUserId());
+		}else{
+			aRow.createCell(0).setCellValue("");
+		}
+		if(activityLog.getPatientId() != null){
+			aRow.createCell(1).setCellValue(activityLog.getPatientId());
+		}else{
+			aRow.createCell(1).setCellValue("");
+		}
+		if(activityLog.getTimePerformed() != null){
+			aRow.createCell(2).setCellValue(activityLog.getTimePerformed());
+		}else{
+			aRow.createCell(2).setCellValue("");
+		}
+		if(activityLog.getClinicianId() != null){
+			aRow.createCell(3).setCellValue(activityLog.getClinicianId());
+		}else{
+			aRow.createCell(3).setCellValue("");
+		}
+		if(activityLog.getEncounterId() != null){
+			aRow.createCell(4).setCellValue(activityLog.getEncounterId());
+		}else{
+			aRow.createCell(4).setCellValue("");
+		}
+		if(activityLog.getFieldName() != null){
+			aRow.createCell(5).setCellValue(activityLog.getFieldName());
+		}else{
+			aRow.createCell(5).setCellValue("");
+		}
+		if(activityLog.getActivity() != null){
+			aRow.createCell(6).setCellValue(activityLog.getActivity().getActivityType());
+		}else{
+			aRow.createCell(6).setCellValue("");
+		}
+		if(activityLog.getModule() != null){
+			aRow.createCell(7).setCellValue(activityLog.getModule().getModuleType());
+		}else{
+			aRow.createCell(7).setCellValue("");
+		}
+	}
+	return workbook;	  
+  }
   
 }
