@@ -95,6 +95,7 @@ public class Core {
     clinicianPermissionsMap.put("/patient/createSupp",                   new boolean[] {true,true});
     clinicianPermissionsMap.put("/patient/createVitals",                 new boolean[] {true,true});
     clinicianPermissionsMap.put("/patient/deletePatient",                new boolean[] {true,true});
+    clinicianPermissionsMap.put("/patient/encryptPatients",              new boolean[] {true,true});
     clinicianPermissionsMap.put("/patient/getChiefComplaints",           new boolean[] {true,true});
     clinicianPermissionsMap.put("/patient/getCurrentPatientEncounter",   new boolean[] {true,true});
     clinicianPermissionsMap.put("/patient/getPatientEncounters",         new boolean[] {true,true});

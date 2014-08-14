@@ -1061,6 +1061,8 @@ function login(demoMode, destination) {
         }
         else {
           app_viewStack('dashboard-screen', DO_SCROLL); 
+          //jsonData = JSON.stringify({sessionId: clinician.sessionId});
+          //$.post("patient/encryptPatients", {data:jsonData}, function(data) { });
         }
       }  
       else  {

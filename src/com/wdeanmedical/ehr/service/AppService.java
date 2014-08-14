@@ -380,11 +380,9 @@ public class AppService {
   }
   
   
-  
     
   public List<Appointment> getAllAppointmentsByClinician(Clinician clinician) throws Exception {
     return appDAO.getAllAppointmentsByClinician(clinician);
   }
-  
 
 }

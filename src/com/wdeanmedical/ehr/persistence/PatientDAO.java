@@ -409,55 +409,5 @@ public class PatientDAO extends SiteDAO {
 	 Patient patient = (Patient) this.findById(Patient.class, cred.getPatientId());
 	 return patient;
   }
-  
-  
-   public Patient encrypt(Patient patient) throws Exception { 
-     Credentials cred = patient.getCred();
-     Demographics demo = patient.getDemo();
-     if (cred.getUsername() != null) { cred.setUsername(DataEncryptor.encrypt(cred.getUsername()));}
-     if (cred.getMrn() != null) { cred.setMrn(DataEncryptor.encrypt(cred.getMrn()));}
-     if (cred.getFirstName() != null) { cred.setFirstName(DataEncryptor.encrypt(cred.getFirstName()));}
-     if (cred.getMiddleName() != null) { cred.setMiddleName(DataEncryptor.encrypt(cred.getMiddleName()));}
-     if (cred.getLastName() != null) { cred.setLastName(DataEncryptor.encrypt(cred.getLastName()));}
-     if (cred.getAdditionalName() != null) { cred.setAdditionalName(DataEncryptor.encrypt(cred.getAdditionalName()));}
-     if (cred.getEmail() != null) { cred.setEmail(DataEncryptor.encrypt(cred.getEmail()));}
-     if (cred.getGovtId() != null) { cred.setGovtId(DataEncryptor.encrypt(cred.getGovtId()));}
-     if (demo.getPrimaryPhone() != null) { demo.setPrimaryPhone(DataEncryptor.encrypt(demo.getPrimaryPhone()));}
-     if (demo.getSecondaryPhone() != null) { demo.setSecondaryPhone(DataEncryptor.encrypt(demo.getSecondaryPhone()));}
-     if (demo.getStreetAddress1() != null) { demo.setStreetAddress1(DataEncryptor.encrypt(demo.getStreetAddress1()));}
-     if (demo.getStreetAddress2() != null) { demo.setStreetAddress2(DataEncryptor.encrypt(demo.getStreetAddress2()));}
-     if (demo.getCity() != null) { demo.setCity(DataEncryptor.encrypt(demo.getCity()));}
-     if (demo.getPostalCode() != null) { demo.setPostalCode(DataEncryptor.encrypt(demo.getPostalCode()));}
-     if (demo.getEmployer() != null) { demo.setEmployer(DataEncryptor.encrypt(demo.getEmployer()));}
-     if (demo.getSchoolName() != null) { demo.setSchoolName(DataEncryptor.encrypt(demo.getSchoolName()));}
-     patient.setCred(cred);
-     patient.setDemo(demo);
-     return patient;
-   }
-   
-   
-   public Patient decrypt(Patient patient) throws Exception { 
-     Credentials cred = patient.getCred();
-     Demographics demo = patient.getDemo();
-     if (cred.getUsername() != null) { cred.setUsername(DataEncryptor.decrypt(cred.getUsername()));}
-     if (cred.getMrn() != null) { cred.setMrn(DataEncryptor.decrypt(cred.getMrn()));}
-     if (cred.getFirstName() != null) { cred.setFirstName(DataEncryptor.decrypt(cred.getFirstName()));}
-     if (cred.getMiddleName() != null) { cred.setMiddleName(DataEncryptor.decrypt(cred.getMiddleName()));}
-     if (cred.getLastName() != null) { cred.setLastName(DataEncryptor.decrypt(cred.getLastName()));}
-     if (cred.getAdditionalName() != null) { cred.setAdditionalName(DataEncryptor.decrypt(cred.getAdditionalName()));}
-     if (cred.getEmail() != null) { cred.setEmail(DataEncryptor.decrypt(cred.getEmail()));}
-     if (cred.getGovtId() != null) { cred.setGovtId(DataEncryptor.decrypt(cred.getGovtId()));}
-     if (demo.getPrimaryPhone() != null) { demo.setPrimaryPhone(DataEncryptor.decrypt(demo.getPrimaryPhone()));}
-     if (demo.getSecondaryPhone() != null) { demo.setSecondaryPhone(DataEncryptor.decrypt(demo.getSecondaryPhone()));}
-     if (demo.getStreetAddress1() != null) { demo.setStreetAddress1(DataEncryptor.decrypt(demo.getStreetAddress1()));}
-     if (demo.getStreetAddress2() != null) { demo.setStreetAddress2(DataEncryptor.decrypt(demo.getStreetAddress2()));}
-     if (demo.getCity() != null) { demo.setCity(DataEncryptor.decrypt(demo.getCity()));}
-     if (demo.getPostalCode() != null) { demo.setPostalCode(DataEncryptor.decrypt(demo.getPostalCode()));}
-     if (demo.getEmployer() != null) { demo.setEmployer(DataEncryptor.decrypt(demo.getEmployer()));}
-     if (demo.getSchoolName() != null) { demo.setSchoolName(DataEncryptor.decrypt(demo.getSchoolName()));}
-     patient.setCred(cred);
-     patient.setDemo(demo);
-     return patient;
-   }
 
 }
