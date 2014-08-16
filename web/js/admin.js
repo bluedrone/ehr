@@ -26,12 +26,44 @@ $('#user-admin-new-user-lg, #user-admin-new-user-sm').click(function() {
 });
 
 $('#export-csv-activity-log-lg, #export-csv-activity-log-sm').click(function() { 
-	exportCsv()
+	//exportCsv();
+    exportTableToCSV.apply(this, [$('#user-admin-activityLogs-list>table'), 'ActivityLog.csv']);
 });
 
+function exportTableToCSV($table, filename) {
+	$rows = $table.find('tr');
+	var csvData = "";
+	var csv = "";
+	for(var i=0;i<$rows.length;i++){
+	   var $cells = $($rows[i]).children('th,td'); //header or content cells
+	       for(var y=0;y<$cells.length;y++){
+	          if(y>0){
+	              csv += ",";
+	          }
+              var txt = ($($cells[y]).text()).toString().trim();
+              if(txt.indexOf(',')>=0 || txt.indexOf('\"')>=0 || txt.indexOf('\n')>=0){
+                txt = "\"" + txt.replace(/\"/g, "\"\"") + "\"";
+              }
+              csv += txt;
+           }
+       csv += '\n';
+	}
+       csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);
+    $(this)
+        .attr({
+        'download': filename,
+        'href': csvData,
+        'target': '_blank'
+    });
+}
 function exportCsv() {
 	 var jsonData = JSON.stringify({ sessionId: clinician.sessionId });
-	 $.post("admin/exportCsv", {data:jsonData});
+	 $.post("admin/exportCsv", {data:jsonData}, function(data) {
+	      var parsedData = $.parseJSON(data);
+	      var excelExport = 'admin/exportCsv?sessionId=' + parsedData.sessionId;
+	      $('.export-csv-activity-log-lg').attr('href', excelExport);
+	      $('.export-csv-activity-log-sm').attr('href', excelExport);
+	 });
 }
 
 function getCliniciansList() {
