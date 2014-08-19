@@ -14,6 +14,11 @@
 	</context-param>
 	
   <context-param>
+    <param-name>encryptionKey</param-name>
+    <param-value>ThisIsASecretKey</param-value>
+  </context-param>
+	
+  <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>/WEB-INF/spring-servlet.xml</param-value>
   </context-param> 

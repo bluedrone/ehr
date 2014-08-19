@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.wdeanmedical.ehr.core.Core;
+import com.wdeanmedical.ehr.core.Permissions;
 import com.wdeanmedical.ehr.dto.AuthorizedDTO;
 import com.wdeanmedical.ehr.dto.ClinicianDTO;
 import com.wdeanmedical.ehr.dto.LoginDTO;
@@ -38,6 +39,7 @@ import com.wdeanmedical.ehr.entity.PatientHealthIssue;
 import com.wdeanmedical.ehr.entity.PatientMessage;
 import com.wdeanmedical.ehr.entity.Clinician;
 import com.wdeanmedical.ehr.service.AppService;
+import com.wdeanmedical.ehr.util.DataEncryptor;
 import com.wdeanmedical.ehr.util.JSONUtils;
 import com.wdeanmedical.ehr.dto.MessageDTO;
 import com.wdeanmedical.ehr.dto.AppointmentDTO;
@@ -63,6 +65,7 @@ public void init(ServletConfig config) throws ServletException {
     super.init(config);
     ServletContext context = getServletContext();
     Core.servletContext = context;
+    try { DataEncryptor.setEncryptionKey(context.getInitParameter("encryptionKey")); } catch (Exception e1) { e1.printStackTrace();}
     Core.timeZone = context.getInitParameter("timeZone");
     Core.sendMail = context.getInitParameter("mail.send");
     Core.mailFrom = context.getInitParameter("mail.from");
@@ -75,13 +78,8 @@ public void init(ServletConfig config) throws ServletException {
     Core.appSessionTimeout = Integer.parseInt(context.getInitParameter("appSessionTimeout"));
     Core.imageMagickHome = context.getInitParameter("IMAGE_MAGICK_HOME");
     Core.imagesDir = context.getInitParameter("imagesDir");
-    Core.buildUserPermissionsMap();
-    try{
-      appService = new AppService();
-    }
-    catch(MalformedURLException e){
-      e.printStackTrace();
-    }
+    Permissions.buildClinicianPermissionsMap();
+    try{ appService = new AppService(); } catch(MalformedURLException e){ e.printStackTrace(); }
   }
     
     
@@ -288,7 +286,6 @@ public void init(ServletConfig config) throws ServletException {
     List<Patient> patients = appService.getFilteredPatients(dto); 
     dto.setPatients(patients);
     String json = gson.toJson(dto);
-    System.out.println(json);
     return json;
   }
   

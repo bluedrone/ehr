@@ -24,8 +24,8 @@ public class VitalSigns extends BaseEntity implements Serializable {
 
   private Integer encounterId;
   private Date date;
-  private Patient patient;
-  private Clinician clinician;
+  private Integer patientId;
+  private Integer clinicianId;
   private Float height;
   private Float weight;
   private Float bmi;
@@ -41,132 +41,60 @@ public class VitalSigns extends BaseEntity implements Serializable {
   }
 
   @Column(name = "encounter_id")
-  public Integer getEncounterId() {
-    return encounterId;
-  }
+  public Integer getEncounterId() { return encounterId; }
+  public void setEncounterId(Integer encounterId) { this.encounterId = encounterId; }
 
-  public void setEncounterId(Integer encounterId) {
-    this.encounterId = encounterId;
-  }
+  @Column(name = "patient_id")
+  public Integer getPatientId() { return patientId; }
+  public void setPatientId(Integer patientId) { this.patientId = patientId; }
 
-  @JoinColumn(name = "patient", referencedColumnName = "id")
-  @ManyToOne(optional = false)
-  public Patient getPatient() {
-    return patient;
-  }
-
-  public void setPatient(Patient patient) {
-    this.patient = patient;
-  }
+  @Column(name = "clinician_id")
+  public Integer getClinicianId() { return clinicianId; }
+  public void setClinicianId(Integer clinicianId) { this.clinicianId = clinicianId; }
 
   @Column(name = "date")
-  public Date getDate() {
-    return date;
-  }
-
-  public void setDate(Date date) {
-    this.date = date;
-  }
-
-  @JoinColumn(name = "clinician", referencedColumnName = "id")
-  @ManyToOne(optional = false)
-  public Clinician getClinician() {
-    return clinician;
-  }
-
-  public void setClinician(Clinician clinician) {
-    this.clinician = clinician;
-  }
+  public Date getDate() { return date; }
+  public void setDate(Date date) { this.date = date; }
 
   @Column(name = "height")
-  public Float getHeight() {
-    return height;
-  }
-
-  public void setHeight(Float height) {
-    this.height = height;
-  }
+  public Float getHeight() { return height; }
+  public void setHeight(Float height) { this.height = height; }
 
   @Column(name = "weight")
-  public Float getWeight() {
-    return weight;
-  }
-
-  public void setWeight(Float weight) {
-    this.weight = weight;
-  }
+  public Float getWeight() { return weight; }
+  public void setWeight(Float weight) { this.weight = weight; }
 
   @Column(name = "bmi")
-  public Float getBmi() {
-    return bmi;
-  }
-
-  public void setBmi(Float bmi) {
-    this.bmi = bmi;
-  }
+  public Float getBmi() { return bmi; }
+  public void setBmi(Float bmi) { this.bmi = bmi; }
 
   @Column(name = "ofc")
-  public Float getOfc() {
-    return ofc;
-  }
-
-  public void setOfc(Float ofc) {
-    this.ofc = ofc;
-  }
+  public Float getOfc() { return ofc; }
+  public void setOfc(Float ofc) { this.ofc = ofc; }
 
   @Column(name = "temperature")
-  public Float getTemperature() {
-    return temperature;
-  }
-
-  public void setTemperature(Float temperature) {
-    this.temperature = temperature;
-  }
+  public Float getTemperature() { return temperature; }
+  public void setTemperature(Float temperature) { this.temperature = temperature; }
 
   @Column(name = "pulse")
-  public Integer getPulse() {
-    return pulse;
-  }
-
-  public void setPulse(Integer pulse) {
-    this.pulse = pulse;
-  }
+  public Integer getPulse() { return pulse; }
+  public void setPulse(Integer pulse) { this.pulse = pulse; }
 
   @Column(name = "respiration")
-  public Integer getRespiration() {
-    return respiration;
-  }
-
-  public void setRespiration(Integer respiration) {
-    this.respiration = respiration;
-  }
+  public Integer getRespiration() { return respiration; }
+  public void setRespiration(Integer respiration) { this.respiration = respiration; }
 
   @Column(name = "systolic")
-  public Integer getSystolic() {
-    return systolic;
-  }
-
-  public void setSystolic(Integer systolic) {
-    this.systolic = systolic;
-  }
+  public Integer getSystolic() { return systolic; }
+  public void setSystolic(Integer systolic) { this.systolic = systolic; }
 
   @Column(name = "diastolic")
-  public Integer getDiastolic() {
-    return diastolic;
-  }
-
-  public void setDiastolic(Integer diastolic) {
-    this.diastolic = diastolic;
-  }
+  public Integer getDiastolic() { return diastolic; }
+  public void setDiastolic(Integer diastolic) { this.diastolic = diastolic; }
 
   @Column(name = "oximetry")
-  public Float getOximetry() {
-    return oximetry;
-  }
-
-  public void setOximetry(Float oximetry) {
-    this.oximetry = oximetry;
-  }
+  public Float getOximetry() { return oximetry; }
+  public void setOximetry(Float oximetry) { this.oximetry = oximetry; }
 
   @Override
   public int hashCode() {
@@ -174,7 +102,7 @@ public class VitalSigns extends BaseEntity implements Serializable {
     int result = super.hashCode();
     result = prime * result + ((bmi == null) ? 0 : bmi.hashCode());
     result = prime * result
-        + ((clinician == null) ? 0 : clinician.hashCode());
+        + ((clinicianId == null) ? 0 : clinicianId.hashCode());
     result = prime * result + ((date == null) ? 0 : date.hashCode());
     result = prime * result
         + ((diastolic == null) ? 0 : diastolic.hashCode());
@@ -184,7 +112,7 @@ public class VitalSigns extends BaseEntity implements Serializable {
     result = prime * result + ((ofc == null) ? 0 : ofc.hashCode());
     result = prime * result
         + ((oximetry == null) ? 0 : oximetry.hashCode());
-    result = prime * result + ((patient == null) ? 0 : patient.hashCode());
+    result = prime * result + ((patientId == null) ? 0 : patientId.hashCode());
     result = prime * result + ((pulse == null) ? 0 : pulse.hashCode());
     result = prime * result
         + ((respiration == null) ? 0 : respiration.hashCode());
@@ -210,10 +138,10 @@ public class VitalSigns extends BaseEntity implements Serializable {
         {return false;}
     } else if (!bmi.equals(other.bmi))
       {return false;}
-    if (clinician == null) {
-      if (other.clinician != null)
+    if (clinicianId == null) {
+      if (other.clinicianId != null)
         {return false;}
-    } else if (!clinician.equals(other.clinician))
+    } else if (!clinicianId.equals(other.clinicianId))
       {return false;}
     if (date == null) {
       if (other.date != null)
@@ -245,10 +173,10 @@ public class VitalSigns extends BaseEntity implements Serializable {
         {return false;}
     } else if (!oximetry.equals(other.oximetry))
       {return false;}
-    if (patient == null) {
-      if (other.patient != null)
+    if (patientId == null) {
+      if (other.patientId != null)
         {return false;}
-    } else if (!patient.equals(other.patient))
+    } else if (!patientId.equals(other.patientId))
       {return false;}
     if (pulse == null) {
       if (other.pulse != null)
@@ -281,7 +209,7 @@ public class VitalSigns extends BaseEntity implements Serializable {
   @Override
   public String toString() {
     return "VitalSigns [encounterId=" + encounterId + ", date=" + date
-        + ", patient=" + patient + ", clinician=" + clinician
+        + ", patientId=" + patientId + ", clinicianId=" + clinicianId
         + ", height=" + height + ", weight=" + weight + ", bmi=" + bmi
         + ", ofc=" + ofc + ", temperature=" + temperature + ", pulse="
         + pulse + ", respiration=" + respiration + ", systolic="

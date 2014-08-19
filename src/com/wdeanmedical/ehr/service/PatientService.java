@@ -89,13 +89,21 @@ public class PatientService {
   }
   
   public List<Encounter> getPatientEncounters(PatientDTO dto) throws Exception {
-    return patientDAO.findEncountersByPatient(dto.getPatientId());
+    List<Encounter> encounters = patientDAO.findEncountersByPatient(dto.getPatientId());
+    for (Encounter encounter : encounters) {
+      decrypt(encounter.getPatient()); 
+    }
+    return encounters;
   }
   
   
   public List<ProgressNote> getProgressNotes(PatientDTO dto) throws Exception {
     Patient patient = patientDAO.findPatientById(dto.getPatientId());
-    return patientDAO.findProgressNotesByPatient(patient);
+    List<ProgressNote> progressNotes = patientDAO.findProgressNotesByPatient(patient);
+    for (ProgressNote pn : progressNotes) {
+      decrypt(pn.getPatient()); 
+    }
+    return progressNotes;
   }
   
   
@@ -113,8 +121,8 @@ public class PatientService {
   
   
   public List<VitalSigns> getPatientVitalSigns(PatientDTO dto) throws Exception {
-    Patient patient = appDAO.findPatientById(dto.getPatientId());
-    return appDAO.getPatientVitalSigns(patient);
+    List<VitalSigns> vitals = appDAO.getPatientVitalSigns(dto.getPatientId());
+    return vitals;
   }
   
   
@@ -127,6 +135,7 @@ public class PatientService {
     patientDAO.delete(encounter);
     activityLogService.logDeletePatient(dto.getClinicianId(), patient.getId(), dto.getClinicianId(), encounter.getId()); 
   }
+  
   
   
   public void createVitals(PatientDTO dto) throws Exception {
@@ -214,6 +223,7 @@ public class PatientService {
   
   public void createBasicInfo(PatientDTO dto) throws Exception {
   Set<String> fieldSetDemo = activityLogService.getListOfChangedFields(dto.getEncounter().getPatient().getDemo());
+    encrypt(dto.getEncounter().getPatient()); 
     patientDAO.update(dto.getEncounter().getPatient().getDemo());
     Set<String> fieldSetCred = activityLogService.getListOfChangedFields(dto.getEncounter().getPatient().getCred());
     patientDAO.update(dto.getEncounter().getPatient().getCred());
@@ -263,6 +273,7 @@ public class PatientService {
   
   public void getCurrentPatientEncounter(PatientDTO dto) throws Exception {
     Encounter encounter = patientDAO.findCurrentEncounterByPatientId(dto.getPatientId());
+    decrypt(encounter.getPatient());
     dto.setEncounter(encounter);
   }
   
@@ -293,6 +304,10 @@ public class PatientService {
     cred.setPatientId(patient.getId());
     patientDAO.create(cred);
     patient.setCred(cred);
+   
+    encrypt(patient); 
+    patientDAO.update(cred);
+    patientDAO.update(demo);
     
     PFSH pfsh = new PFSH();
     pfsh.setPatientId(patient.getId());
@@ -398,6 +413,7 @@ public class PatientService {
   
   public Encounter newEncounter(PatientDTO dto) throws Exception {
     Patient patient = patientDAO.findPatientById(dto.getPatientId());
+    encrypt(patient);
     Clinician clinician = appDAO.findClinicianBySessionId(dto.getSessionId());
     Encounter encounter = patientDAO.createEncounter(patient, clinician);
     for (int i=0; i<3; i++) {
@@ -428,16 +444,19 @@ public class PatientService {
   
   public Encounter getEncounter(PatientDTO dto) throws Exception {
     Encounter encounter = patientDAO.findEncounterById(dto.getEncounterId());
+    decrypt(encounter.getPatient());
     return encounter;
   }
   
   public Encounter getEncounter(int id) throws Exception {
     Encounter encounter = patientDAO.findEncounterById(id);
+    decrypt(encounter.getPatient());
     return encounter;
   }
   
   public Patient getPatient(int id) throws Exception {
     Patient patient = patientDAO.findPatientById(id);
+    decrypt(patient);
     return patient;
   }
   
@@ -453,10 +472,12 @@ public class PatientService {
       encounter.setDate(new Date());
       encounter.setEncounterType(patientDAO.findEncounterTypeById(EncounterType.CHECK_UP));
       patientDAO.create(encounter); 
-    }else{
+    }
+    else{
       clinician = encounter.getClinician();
     }    
     activityLogService.logViewEncounter(clinician.getId(), patient.getId(), clinician.getId(), encounter.getId());
+    decrypt(encounter.getPatient());
     return encounter;
   }
   
@@ -543,6 +564,7 @@ public class PatientService {
     return returnString;
  }
  
+  /****************************************   DONE  ***************************************/
   public void updatePatient(PatientDTO dto) throws Exception {
   Set<String> fieldSet = new HashSet<String>();
     String updateClass = "";
@@ -844,8 +866,8 @@ public class PatientService {
     else if(updateClass.equals("ChiefComplaint")) {patientDAO.update(cc);}
     else if(updateClass.equals("SuppQuestions")) {patientDAO.update(supp);}
     else if(updateClass.equals("MedicalHistory")) {patientDAO.update(hist);}
-    else if(updateClass.equals("Credentials")) {patientDAO.update(cred);}
-    else if(updateClass.equals("Demographics")) {patientDAO.update(demo);}
+    else if(updateClass.equals("Credentials")) {encrypt(patient);patientDAO.update(cred);}
+    else if(updateClass.equals("Demographics")) {encrypt(patient);patientDAO.update(demo);}
     else if(updateClass.equals("FollowUp")) {patientDAO.update(followUp);}
     fieldSet.add(updateClass);
     activityLogService.logEditPatient(dto.getClinicianId(), patient.getId(), dto.getClinicianId(), encounter.getId(), fieldSet); 
@@ -853,6 +875,10 @@ public class PatientService {
   
   
    public void encrypt(Patient patient) throws Exception { 
+     //log.info("encrypt()");
+     if (patient == null || patient.isEncrypted()) {
+       return;
+     }
      Credentials cred = patient.getCred();
      Demographics demo = patient.getDemo();
      if (cred.getUsername() != null) { cred.setUsername(DataEncryptor.encrypt(cred.getUsername()));}
@@ -873,10 +899,15 @@ public class PatientService {
      if (demo.getSchoolName() != null) { demo.setSchoolName(DataEncryptor.encrypt(demo.getSchoolName()));}
      patient.setCred(cred);
      patient.setDemo(demo);
+     patient.setEncrypted(true);
    }
    
    
    public void decrypt(Patient patient) throws Exception { 
+     //log.info("decrypt()");
+     if (patient == null || patient.isEncrypted() == false) {
+       return;
+     }
      Credentials cred = patient.getCred();
      Demographics demo = patient.getDemo();
      if (cred.getUsername() != null) { cred.setUsername(DataEncryptor.decrypt(cred.getUsername()));}
@@ -897,6 +928,7 @@ public class PatientService {
      if (demo.getSchoolName() != null) { demo.setSchoolName(DataEncryptor.decrypt(demo.getSchoolName()));}
      patient.setCred(cred);
      patient.setDemo(demo);
+     patient.setEncrypted(false);
    }
    
    

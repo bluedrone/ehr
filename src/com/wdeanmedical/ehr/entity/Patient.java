@@ -42,58 +42,42 @@ public class Patient extends BaseEntity implements Serializable {
   private PFSH pfsh;
   private MedicalHistory hist;
   private Integer currentEncounterId;
+  private Boolean encrypted = true;
 
   public Patient() {
   }
 
   @JoinColumn(name = "credentials", referencedColumnName = "id")
   @ManyToOne(optional = true)
-  public Credentials getCred() {
-    return cred;
-  }
-
-  public void setCred(Credentials cred) {
-    this.cred = cred;
-  }
+  public Credentials getCred() { return cred; }
+  public void setCred(Credentials cred) { this.cred = cred; }
 
   @JoinColumn(name = "demographics", referencedColumnName = "id")
   @ManyToOne(optional = true)
-  public Demographics getDemo() {
-    return demo;
-  }
-
-  public void setDemo(Demographics demo) {
-    this.demo = demo;
-  }
+  public Demographics getDemo() { return demo; }
+  public void setDemo(Demographics demo) { this.demo = demo; }
 
   @JoinColumn(name = "pfsh", referencedColumnName = "id")
   @ManyToOne(optional = true)
-  public PFSH getPfsh() {
-    return pfsh;
-  }
-
-  public void setPfsh(PFSH pfsh) {
-    this.pfsh = pfsh;
-  }
+  public PFSH getPfsh() { return pfsh; }
+  public void setPfsh(PFSH pfsh) { this.pfsh = pfsh; }
 
   @JoinColumn(name = "patient_medical_history", referencedColumnName = "id")
   @ManyToOne(optional = true)
-  public MedicalHistory getHist() {
-    return hist;
-  }
-
-  public void setHist(MedicalHistory hist) {
-    this.hist = hist;
-  }
+  public MedicalHistory getHist() { return hist; }
+  public void setHist(MedicalHistory hist) { this.hist = hist; }
 
   @Column(name = "current_encounter_id")
-  public Integer getCurrentEncounterId() {
-    return currentEncounterId;
-  }
+  public Integer getCurrentEncounterId() { return currentEncounterId; }
+  public void setCurrentEncounterId(Integer currentEncounterId) { this.currentEncounterId = currentEncounterId; }
 
-  public void setCurrentEncounterId(Integer currentEncounterId) {
-    this.currentEncounterId = currentEncounterId;
-  }
+
+  @Transient
+  public Boolean isEncrypted() { return encrypted; }
+  public void setEncrypted(Boolean encrypted) { this.encrypted = encrypted; }
+
+
+
 
   @Override
   public int hashCode() {
@@ -110,7 +94,9 @@ public class Patient extends BaseEntity implements Serializable {
     return result;
   }
 
-  @Override
+
+
+@Override
   public boolean equals(Object obj) {
     if (this == obj)
       return true;

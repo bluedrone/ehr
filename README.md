@@ -1,9 +1,10 @@
 # WDean Medical EHR
-# version 0.8.13  07-AUG-2014
+# version 0.8.14  18-AUG-2014
 
 Improvements:
-New Chief Complaint Form.
-Basic Activity Log display in User Admin section.
+Implemented Data Encryption for Patient PHI
+Rewrote data output filtering
+Implemented Excel Export of reports.
 
 Bug Fixes:
 

@@ -9,10 +9,11 @@ import sun.misc.*;
 public class DataEncryptor {
 
   private static final String ALGORITHM = "AES";
-  private static final byte[] keyValue =
-          new byte[]{'T', 'h', 'i', 's', 'I', 's', 'A', 'S', 'e', 'c', 'r', 'e', 't', 'K', 'e', 'y'};
+  private static byte[] encryptionKey;
 
-
+  public static void setEncryptionKey(String key) throws Exception {
+    encryptionKey = key.getBytes("UTF-8");
+  }
 
 
   public static String encrypt(String valueToEnc) throws Exception {
@@ -54,7 +55,7 @@ public class DataEncryptor {
   
 
   private static Key generateKey() throws Exception {
-    Key key = new SecretKeySpec(keyValue, ALGORITHM);
+    Key key = new SecretKeySpec(encryptionKey, ALGORITHM);
     return key;
   }
   

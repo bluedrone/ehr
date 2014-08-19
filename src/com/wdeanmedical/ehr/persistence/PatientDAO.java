@@ -240,8 +240,8 @@ public class PatientDAO extends SiteDAO {
     encounter.setCc(cc);
     
     VitalSigns vitals = new VitalSigns();
-    vitals.setPatient(patient);
-    vitals.setClinician(clinician);
+    vitals.setPatientId(patient.getId());
+    vitals.setClinicianId(clinician.getId());
     vitals.setEncounterId(encounter.getId());
     vitals.setDate(encounter.getDate());
     session.save(vitals);

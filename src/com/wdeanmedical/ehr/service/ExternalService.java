@@ -108,6 +108,7 @@ public class ExternalService {
   
   public org.hl7.fhir.Patient getPatient(String mrn) throws Exception{
     Patient patient = patientDAO.findPatientByMrn(mrn);
+    patientService.decrypt(patient);
     return getPatientFHIR(patient);
   }
   
@@ -345,12 +346,15 @@ public class ExternalService {
       pfsh.setCaretakerName(caretakerName);
       }
       patientDAO.update(pfsh);
+      patientService.encrypt(patient);
+      patientDAO.update(patient);
     }
   }
   
-  public PatientFullRecordFHIR getPatientFullRecord(String mrn) throws Exception{
+  public PatientFullRecordFHIR getPatientFullRecord(String mrn) throws Exception {
     PatientFullRecordFHIR patientFullRecordFHIR = new PatientFullRecordFHIR();    
     Patient patient = patientDAO.findPatientByMrn(mrn);
+    patientService.decrypt(patient);
     org.hl7.fhir.Patient fhirpatient = getPatientFHIR(patient);
     patientFullRecordFHIR.setPatient(fhirpatient);
     MedicalHistory medicalHistory = patient.getHist();
@@ -586,7 +590,9 @@ public class ExternalService {
     pfsh.setCaretakerName(caretakerName);
     patientDAO.create(pfsh);
     patient.setPfsh(pfsh);
-    
+    patientService.encrypt(patient); 
+    patientDAO.update(cred);
+    patientDAO.update(demo);
     patientDAO.update(patient);
     return null;
   }
@@ -594,6 +600,7 @@ public class ExternalService {
   /* Note: not finished, not ready */
   public org.hl7.fhir.Encounter buildPatientEncounter(PatientDTO dto) throws Exception {
     Patient patient = patientService.getPatient(dto.getId());
+    patientService.decrypt(patient);
     Encounter wdmEncounter = patientService.getEncounter(patient.getCurrentEncounterId());
     
     org.hl7.fhir.Encounter encounter = new org.hl7.fhir.Encounter();
@@ -649,10 +656,11 @@ public class ExternalService {
   }
   
   
-  public PatientsFHIR buildPatientResource(List<Patient> patients){
+  public PatientsFHIR buildPatientResource(List<Patient> patients) throws Exception {
     PatientsFHIR patientsFHIR = new PatientsFHIR();
     
     for(int i = 0; i < patients.size(); i++){
+      patientService.decrypt(patients.get(i));
       org.hl7.fhir.Patient fhirpatient = new org.hl7.fhir.Patient();
       org.hl7.fhir.DateTime birthDate = new org.hl7.fhir.DateTime();
       birthDate.setValue(patients.get(i).getDemo().getDob().toString());

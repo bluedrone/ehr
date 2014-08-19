@@ -25,6 +25,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.wdeanmedical.ehr.persistence.AppDAO;
 import com.wdeanmedical.ehr.core.Core;
+import com.wdeanmedical.ehr.core.ExcludedFields;
+import com.wdeanmedical.ehr.core.ExcludedObjects;
+import com.wdeanmedical.ehr.core.Permissions;
 import com.wdeanmedical.ehr.dto.AuthorizedDTO;
 import com.wdeanmedical.ehr.dto.ClinicianDTO;
 import com.wdeanmedical.ehr.dto.LoginDTO;
@@ -32,10 +35,12 @@ import com.wdeanmedical.ehr.dto.PatientDTO;
 import com.wdeanmedical.ehr.dto.TerminologyDTO;
 import com.wdeanmedical.ehr.entity.Appointment;
 import com.wdeanmedical.ehr.entity.CPT;
+import com.wdeanmedical.ehr.entity.ClinicianSchedule;
 import com.wdeanmedical.ehr.entity.Credentials;
 import com.wdeanmedical.ehr.entity.Demographics;
 import com.wdeanmedical.ehr.entity.EncounterQuestion;
 import com.wdeanmedical.ehr.entity.ICD10;
+import com.wdeanmedical.ehr.entity.LabReview;
 import com.wdeanmedical.ehr.entity.MedicalHistory;
 import com.wdeanmedical.ehr.entity.PFSH;
 import com.wdeanmedical.ehr.entity.Patient;
@@ -51,7 +56,10 @@ import com.wdeanmedical.ehr.entity.PatientMedication;
 import com.wdeanmedical.ehr.entity.PatientMessage;
 import com.wdeanmedical.ehr.entity.Clinician;
 import com.wdeanmedical.ehr.entity.ClinicianSession;
+import com.wdeanmedical.ehr.entity.ProgressNote;
+import com.wdeanmedical.ehr.entity.ToDoNote;
 import com.wdeanmedical.ehr.util.ClinicianSessionData;
+import com.wdeanmedical.ehr.util.DataEncryptor;
 import com.wdeanmedical.ehr.dto.MessageDTO;
 import com.wdeanmedical.ehr.dto.AppointmentDTO;
 
@@ -69,6 +77,7 @@ public class AppService {
   private WebApplicationContext wac;
   private AppDAO appDAO;
   private ActivityLogService activityLogService;
+  private PatientService patientService;
 
 
   public AppService() throws MalformedURLException {
@@ -76,35 +85,64 @@ public class AppService {
     wac = WebApplicationContextUtils.getRequiredWebApplicationContext(context);
     appDAO = (AppDAO) wac.getBean("appDAO");
     activityLogService = new ActivityLogService();
+    patientService = new PatientService();
   }
   
-  public  List<Patient> getFilteredPatients(PatientDTO dto) throws Exception {
+  
+  
+  
+  public String capitalize(String s) {
+    return Character.toUpperCase(s.charAt(0)) + s.substring(1); 
+  }
+  
+  
+  
+  
+  public List<Patient> getFilteredPatients(PatientDTO dto) throws Exception {
     SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
     Date dobFilter = null; 
     if (dto.getDobFilter() != null) {
       try { dobFilter = sdf.parse(dto.getDobFilter()); } catch (ParseException pe) {dobFilter = null;}
     }
-    return appDAO.getFilteredPatients(
-      dto.getFirstNameFilter(), 
-      dto.getMiddleNameFilter(), 
-      dto.getLastNameFilter(),
-      dto.getCityFilter(),
+    String firstNameFilter = dto.getFirstNameFilter(); 
+    String middleNameFilter = dto.getMiddleNameFilter(); 
+    String lastNameFilter = dto.getLastNameFilter(); 
+    String cityFilter = dto.getCityFilter(); 
+    String encryptedFirstNameFilter = firstNameFilter.length() > 0 ? DataEncryptor.encrypt(capitalize(firstNameFilter)) : firstNameFilter;
+    String encryptedMiddleNameFilter = middleNameFilter.length() > 0 ? DataEncryptor.encrypt(capitalize(middleNameFilter)) : middleNameFilter;
+    String encryptedLastNameFilter = lastNameFilter.length() > 0 ? DataEncryptor.encrypt(capitalize(lastNameFilter)) : lastNameFilter;
+    String encryptedCityFilter = cityFilter.length() > 0 ? DataEncryptor.encrypt(capitalize(cityFilter)) : cityFilter;
+    
+    
+    List<Patient> patients = appDAO.getFilteredPatients(
+      encryptedFirstNameFilter, 
+      encryptedMiddleNameFilter, 
+      encryptedLastNameFilter,
+      encryptedCityFilter,
       dto.getGenderFilter(),
       dobFilter
     );
+    for (Patient p : patients) { patientService.decrypt(p); }
+    return patients;
   }
   
   public  List<Patient> getPatients(PatientDTO dto) throws Exception {
-    return appDAO.getPatients();
+    List<Patient> patients = appDAO.getPatients();
+    for (Patient p : patients) { patientService.decrypt(p); }
+    return patients;
   }
   
   public  List<Patient> getRecentPatients(PatientDTO dto) throws Exception {
-    return appDAO.getRecentPatients(RECENT_PATIENT_SIZE);
+    List<Patient> patients = appDAO.getRecentPatients(RECENT_PATIENT_SIZE);
+    for (Patient p : patients) { patientService.decrypt(p); }
+    return patients;
   }
   
   public  List<Patient> getRecentPatientsByClinician(PatientDTO dto) throws Exception {
     Clinician clinician = appDAO.findClinicianById(dto.getClinicianId());
-    return appDAO.getRecentPatientsByClinician(clinician, RECENT_PATIENT_SIZE);
+    List<Patient> patients = appDAO.getRecentPatientsByClinician(clinician, RECENT_PATIENT_SIZE);
+    for (Patient p : patients) { patientService.decrypt(p); }
+    return patients;
   }
   
   public  List<PatientAllergen> getPatientAllergens(PatientDTO dto) throws Exception {
@@ -156,11 +194,31 @@ public class AppService {
   
   public  boolean getClinicianDashboard(ClinicianDTO dto) throws Exception {
     Clinician clinician = appDAO.findClinicianById(dto.getId());
-    dto.dashboard.put("messages", appDAO.getPatientMessagesByClinician(clinician));
-    dto.dashboard.put("progressNotes", appDAO.getProgressNotes(clinician));
-    dto.dashboard.put("toDoNotes", appDAO.getToDoNotes(clinician));
-    dto.dashboard.put("labReview", appDAO.getLabReview(clinician));
-    dto.dashboard.put("clinicianSchedule", appDAO.getClinicianSchedule(clinician));
+    
+    List<PatientMessage> messages = appDAO.getPatientMessagesByClinician(clinician); 
+    for (PatientMessage m : messages) { patientService.decrypt(m.getPatient()); }
+    dto.dashboard.put("messages", messages);
+    
+    List<ProgressNote> progressNotes = appDAO.getProgressNotes(clinician); 
+    for (ProgressNote note : progressNotes) { patientService.decrypt(note.getPatient()); }
+    dto.dashboard.put("progressNotes", progressNotes);
+    
+    List<ToDoNote> toDoNotes = appDAO.getToDoNotes(clinician); 
+    for (ToDoNote note : toDoNotes) { patientService.decrypt(note.getPatient()); }
+    dto.dashboard.put("toDoNotes", toDoNotes);
+    
+    List<LabReview> labReviews = appDAO.getLabReview(clinician); 
+    for (LabReview lr : labReviews) { patientService.decrypt(lr.getPatient()); }
+    dto.dashboard.put("labReview", labReviews);
+    
+    List<ClinicianSchedule> schedule = appDAO.getClinicianSchedule(clinician); 
+    for (ClinicianSchedule item : schedule) { 
+      patientService.decrypt(item.getPatient()); 
+      ExcludedFields.excludeFields(item.getPatient());
+      ExcludedObjects.excludeObjects(item.getPatient());
+    }
+    dto.dashboard.put("clinicianSchedule", schedule);
+    
     return true;
   }
   
@@ -173,6 +231,7 @@ public class AppService {
     Set<String> cities = new TreeSet<String>();
     
     for (Patient patient : patients) {
+      patientService.decrypt(patient);
       firstNames.add(patient.getCred().getFirstName());
       if (patient.getCred().getMiddleName() != null) {
         middleNames.add(patient.getCred().getMiddleName());
@@ -193,7 +252,7 @@ public class AppService {
     Patient patient = appDAO.findPatientById(dto.getId());
     Clinician clinician = appDAO.findClinicianById(dto.getClinicianId());
     dto.patientChartSummary.put("patientEncounters", appDAO.getEncountersByPatient(patient, clinician));
-    dto.patientChartSummary.put("patientVitalSigns", appDAO.getPatientVitalSigns(patient));
+    dto.patientChartSummary.put("patientVitalSigns", appDAO.getPatientVitalSigns(patient.getId()));
     dto.patientChartSummary.put("patientHealthIssues", appDAO.getPatientHealthIssues(patient));
     dto.patientChartSummary.put("patientAllergens", appDAO.getPatientAllergens(patient));
     dto.patientChartSummary.put("patientMedications", appDAO.getPatientMedications(patient));
@@ -202,20 +261,31 @@ public class AppService {
     return true;
   }
   
-  public  List<PatientLetter> getPatientLetters(PatientDTO dto) throws Exception {
+  
+  
+  public List<PatientLetter> getPatientLetters(PatientDTO dto) throws Exception {
     Patient patient = appDAO.findPatientById(dto.getId());
-    return appDAO.getPatientLetters(patient);
+    List<PatientLetter> letters =  appDAO.getPatientLetters(patient);
+    for (PatientLetter pl : letters) { patientService.decrypt(pl.getPatient()); }
+    return letters;
   }
   
-  public  List<PatientMessage> getClinicianMessages(ClinicianDTO dto, Boolean fromClinician) throws Exception {
+  
+  
+  public List<PatientMessage> getClinicianMessages(ClinicianDTO dto, Boolean fromClinician) throws Exception {
     Clinician clinician = appDAO.findClinicianById(dto.getId());
-    return appDAO.getClinicianMessages(clinician, fromClinician);
+    List<PatientMessage> messages = appDAO.getClinicianMessages(clinician, fromClinician);
+    for (PatientMessage m : messages) { patientService.decrypt(m.getPatient()); }
+    return messages;
   }
+  
+  
   
   public boolean getClinicianMessage(MessageDTO dto) throws Exception {
     PatientMessage patientMessage = appDAO.findClinicianMessageById(dto.getId());
     dto.setContent(patientMessage.getContent());
     dto.setPatient(patientMessage.getPatient());
+    patientService.decrypt(patientMessage.getPatient()); 
     return true;
   }
   
@@ -228,6 +298,7 @@ public class AppService {
   public  boolean getPatientChart(PatientDTO dto) throws Exception {
     SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
     Patient patient = appDAO.findPatientById(dto.getId());
+    patientService.decrypt(patient); 
     dto.setFirstName(patient.getCred().getFirstName());
     dto.setMiddleName(patient.getCred().getMiddleName());
     dto.setLastName(patient.getCred().getLastName());
@@ -336,10 +407,10 @@ public class AppService {
      // check for proper access level
     int accessLevel = clinicianSession.getClinician().getRole().getId();
     logger.info("======= isValidSession() checking " + path); 
-    if (Core.clinicianPermissionsMap.get(path) != null) {
+    if (Permissions.clinicianPermissionsMap.get(path) != null) {
       clinicianName = clinicianSession.getClinician().getUsername(); 
       logger.info("======= isValidSession() checking " + path + " for clinician " + clinicianName + " with a permissions level of " + accessLevel); 
-      if (Core.clinicianPermissionsMap.get(path)[accessLevel] == false) {
+      if (Permissions.clinicianPermissionsMap.get(path)[accessLevel] == false) {
         logger.info("======= isValidSession() clinician " + clinicianName + " lacks permission level to execute " + path); 
         return false;
       }
@@ -357,13 +428,16 @@ public class AppService {
   
   public  List<Appointment> getAppointments(PatientDTO dto, boolean isPast) throws Exception {
     Patient patient = appDAO.findPatientById(dto.getId());
-    return appDAO.getAppointments(patient, isPast);
+    List<Appointment> appointments = appDAO.getAppointments(patient, isPast);
+    for (Appointment a : appointments) { patientService.decrypt(a.getPatient()); }
+    return appointments;
   }
   
   
   
   public boolean getAppointment(AppointmentDTO dto) throws Exception {
     Appointment appointment = appDAO.findAppointmentById(dto.getId());
+    patientService.decrypt(appointment.getPatient());
     dto.setAppointment(appointment);
     return true;
   }
@@ -371,7 +445,11 @@ public class AppService {
 
 
   public List<Appointment> getAllAppointments() throws Exception {
-    return appDAO.getAllAppointments();
+    List<Appointment> appointments = appDAO.getAllAppointments();
+    for (Appointment a : appointments) {
+       patientService.decrypt(a.getPatient()); 
+    }
+    return appointments;
   }
   
   
@@ -382,7 +460,11 @@ public class AppService {
   
     
   public List<Appointment> getAllAppointmentsByClinician(Clinician clinician) throws Exception {
-    return appDAO.getAllAppointmentsByClinician(clinician);
+    List<Appointment> appointments = appDAO.getAllAppointmentsByClinician(clinician);
+    for (Appointment a : appointments) {
+       patientService.decrypt(a.getPatient()); 
+    }
+    return appointments;
   }
 
 }

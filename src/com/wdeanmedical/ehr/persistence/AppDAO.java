@@ -41,13 +41,8 @@ import com.wdeanmedical.ehr.entity.VitalSigns;
 import com.wdeanmedical.ehr.entity.ProgressNote;
 import com.wdeanmedical.ehr.entity.ToDoNote;
 import com.wdeanmedical.ehr.persistence.SiteDAO;
-import com.wdeanmedical.ehr.util.DashboardUtility;
 import com.wdeanmedical.ehr.util.OneWayPasswordEncoder;
 import com.wdeanmedical.ehr.entity.PatientStatus;
-import com.wdeanmedical.ehr.entity.dto.ClinicianScheduleDTO;
-import com.wdeanmedical.ehr.entity.dto.PatientMessageDTO;
-import com.wdeanmedical.ehr.entity.dto.ProgressNoteDTO;
-import com.wdeanmedical.ehr.entity.dto.ToDoNoteDTO;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
@@ -95,13 +90,14 @@ public class AppDAO extends SiteDAO {
   }
   
   
-  public  List<ClinicianScheduleDTO> getClinicianSchedule(Clinician clinician) throws Exception {
+  public  List<ClinicianSchedule> getClinicianSchedule(Clinician clinician) throws Exception {
     Session session = this.getSession();
     Criteria crit = session.createCriteria(ClinicianSchedule.class);
     crit.add(Restrictions.eq("clinician", clinician));
     crit.addOrder(Order.desc("date"));
     List<ClinicianSchedule> list =  crit.list();
-    return DashboardUtility.getClinicianScheduleDTOList(list);
+    return list; 
+    //return DashboardUtility.getClinicianScheduleDTOList(list);
   }
   
   public  List<LabReview> getLabReview(Clinician clinician) throws Exception {
@@ -113,13 +109,14 @@ public class AppDAO extends SiteDAO {
     return list;
   }
   
-  public  List<ToDoNoteDTO> getToDoNotes(Clinician clinician) throws Exception {
+  public  List<ToDoNote> getToDoNotes(Clinician clinician) throws Exception {
     Session session = this.getSession();
     Criteria crit = session.createCriteria(ToDoNote.class);
     crit.add(Restrictions.eq("clinician", clinician));
     crit.addOrder(Order.desc("date"));
     List<ToDoNote> list =  crit.list();
-    return DashboardUtility.getToDoNoteDTOList(list);
+    return list; 
+    //return DashboardUtility.getToDoNoteDTOList(list);
   }
   
   public  List<Clinician> getClinicians() throws Exception {
@@ -147,23 +144,25 @@ public class AppDAO extends SiteDAO {
     return list;
   }
   
-  public  List<ProgressNoteDTO> getProgressNotes(Clinician clinician) throws Exception {
+  public  List<ProgressNote> getProgressNotes(Clinician clinician) throws Exception {
     Session session = this.getSession();
     Criteria crit = session.createCriteria(ProgressNote.class);
     crit.add(Restrictions.eq("clinician", clinician));
     crit.addOrder(Order.desc("date"));
     List<ProgressNote> list =  crit.list();
-    return DashboardUtility.getProgressNoteDTOList(list);
+    return list; 
+    //return DashboardUtility.getProgressNoteDTOList(list);
   }
   
-  public List<PatientMessageDTO> getPatientMessagesByClinician(Clinician clinician) throws Exception {
+  public List<PatientMessage> getPatientMessagesByClinician(Clinician clinician) throws Exception {
     Session session = this.getSession();
     Criteria crit = session.createCriteria(PatientMessage.class);
     crit.add(Restrictions.eq("clinician", clinician));
     crit.add(Restrictions.eq("fromClinician", false));
     crit.addOrder(Order.desc("date"));
     List<PatientMessage> list =  crit.list();
-    return DashboardUtility.getPatientMessageDTOList(list);
+    return list; 
+    //return DashboardUtility.getPatientMessageDTOList(list);
   }
   
   public List<PatientAllergen> getPatientAllergens(Patient patient) throws Exception {
@@ -255,10 +254,10 @@ public class AppDAO extends SiteDAO {
     return list;
   }
 
-  public List <VitalSigns> getPatientVitalSigns(Patient patient) throws Exception {
+  public List <VitalSigns> getPatientVitalSigns(Integer patientId) throws Exception {
     Session session = this.getSession();
     Criteria crit = session.createCriteria(VitalSigns.class);
-    crit.add(Restrictions.eq("patient", patient));
+    crit.add(Restrictions.eq("patientId", patientId));
     crit.addOrder(Order.desc("date"));
     List<VitalSigns> list =  crit.list();
     return list;
