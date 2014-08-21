@@ -246,6 +246,8 @@ function clearPatientSearchForm() {
   $('#patient-search-dob').val('');
 }
 
+
+
 function patientSearchDialog() {
   RenderUtil.render('patient_search', {}, function(s) {
     clearPatientSearchForm();
@@ -259,20 +261,9 @@ function patientSearchDialog() {
     $('#btn-patient-search-ok').click(function(){ getPatientChart(); });
     $('#patient-search-dob').mask("99/99/9999");
     getRecentPatients();
-  
-    $('#btn-patient-search-new-patient').click(function() { 
-      RenderUtil.render('new_patient', {}, function(s) {
-      $('#modals-placement').append(s);
-      $('#modal-new-patient').modal('show');
-      $('#new-patient-save, #new-patient-cancel').click(function(){ $('#modal-new-patient').modal('hide'); });
-      $('#modal-new-patient').on('hidden.bs.modal', function () { debug("new-patient modal hidden"); });
-      $('#modal-new-patient').on('hide.bs.modal', function () { debug("new-patient hide called"); });
-    });
   });
-  $('#modal-patient-search').on('hidden.bs.modal', function () { debug("patient-search modal hidden"); });
-  $('#modal-patient-search').on('hide.bs.modal', function () { debug("patient-search hide called"); });
- });
 }
+
 
 
 function getRecentPatients() {
