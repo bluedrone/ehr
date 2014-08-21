@@ -308,6 +308,15 @@ a.nav-selected-xm:active {
 .patient-chart-full-name { 
 	font-size: 1.5em; 
 }
+
+p.patient-chart-demographics { 
+  margin: 0px 0px 0px;
+}
+
+.patient-chart-demographics { 
+  font-size: .9em; 
+}
+
 .patient-chart-next-appt, .patient-chart-gender, .patient-chart-mrn, .patient-chart-dob, .patient-chart-primary-phone, .patient-chart-secondary-phone { 
   padding-left: 5px;	 
 }
