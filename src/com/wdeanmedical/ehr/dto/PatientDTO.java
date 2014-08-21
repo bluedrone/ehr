@@ -75,8 +75,6 @@ public class PatientDTO extends AuthorizedDTO {
   private Patient patient;
   private int patientId;
   private int clinicianId;
-  private boolean bioFinger;
-  private boolean bioPhoto;
   private String age;
   private String triage;
   private String notes;
@@ -222,10 +220,25 @@ public class PatientDTO extends AuthorizedDTO {
   private List<VitalSigns> vitalSigns;
   private List<SOAPNote> soapNotes;
   private List<ChiefComplaint> chiefComplaints;
+  private String streetAddress1; 
+  private String city; 
+  private String usState; 
+  private String postalCode; 
 
   public PatientDTO() {
   }
 
+  public String getCity() { return city; }
+  public void setCity(String city) { this.city = city; }
+
+  public String getUSState() { return usState; }
+  public void setUSState(String usState) { this.usState = usState; }
+
+  public String getPostalCode() { return postalCode; }
+  public void setPostalCode(String postalCode) { this.postalCode = postalCode; }
+
+  public String getStreetAddress1() { return streetAddress1; }
+  public void setStreetAddress1(String streetAddress1) { this.streetAddress1 = streetAddress1; }
 
   public ProgressNote getProgressNote() { return progressNote; }
   public void setProgressNote(ProgressNote progressNote) { this.progressNote = progressNote; }
@@ -342,12 +355,6 @@ public class PatientDTO extends AuthorizedDTO {
   
   public Patient getPatient() { return patient; }
   public void setPatient(Patient patient) { this.patient = patient; }
-  
-  public boolean isBioFinger() { return bioFinger; }
-  public void setBioFinger(boolean bioFinger) { this.bioFinger = bioFinger; }
-  
-  public boolean isBioPhoto() { return bioPhoto; }
-  public void setBioPhoto(boolean bioPhoto) { this.bioPhoto = bioPhoto; }
   
   public String getAge() { return age; }
   public void setAge(String age) { this.age = age; }

@@ -20,8 +20,6 @@ function Patient() {
   this.firstName = undefined;
   this.middleName = undefined;
   this.lastName = undefined;
-  this.bioFinger = undefined;
-  this.bioPhoto = undefined;
   this.gender = undefined;
   this.age = undefined;
   this.patientEncounterGroupId = undefined;

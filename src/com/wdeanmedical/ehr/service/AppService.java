@@ -303,8 +303,13 @@ public class AppService {
     dto.setMiddleName(patient.getCred().getMiddleName());
     dto.setLastName(patient.getCred().getLastName());
     dto.setDob(sdf.format(patient.getDemo().getDob()));
+    dto.setCity(patient.getDemo().getCity());
+    dto.setStreetAddress1(patient.getDemo().getCity());
+    dto.setUSState(patient.getDemo().getUsState().getCode());
+    dto.setPostalCode(patient.getDemo().getPostalCode());
     dto.setGender(patient.getDemo().getGender().getCode());
     dto.setMrn(patient.getCred().getMrn());
+    dto.setEmail(patient.getCred().getEmail());
     dto.setPrimaryPhone(patient.getDemo().getPrimaryPhone());
     dto.setSecondaryPhone(patient.getDemo().getSecondaryPhone());
     dto.setProfileImagePath(patient.getDemo().getProfileImagePath());
