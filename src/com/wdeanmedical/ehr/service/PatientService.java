@@ -221,7 +221,7 @@ public class PatientService {
   }
   
   
-  public void createBasicInfo(PatientDTO dto) throws Exception {
+  public void createDemographics(PatientDTO dto) throws Exception {
   Set<String> fieldSetDemo = activityLogService.getListOfChangedFields(dto.getEncounter().getPatient().getDemo());
     encrypt(dto.getEncounter().getPatient()); 
     patientDAO.update(dto.getEncounter().getPatient().getDemo());
@@ -589,9 +589,7 @@ public class PatientService {
     else if (property.equals("middleName")) {cred.setMiddleName(value);updateClass = "Credentials";} 
     else if (property.equals("lastName")) {cred.setLastName(value);updateClass = "Credentials";} 
     else if (property.equals("gender")) {demo.setGender(patientDAO.findGenderByCode(value));updateClass = "Demographics";} 
-    else if (property.equals("consultLocation")) {encounter.setConsultLocation(value);updateClass = "Encounter";} 
     else if (property.equals("notes")) {encounter.setNotes(value);updateClass = "Encounter";} 
-    else if (property.equals("community")) {encounter.setCommunity(value);updateClass = "Encounter";} 
     else if (property.equals("govtId")) {cred.setGovtId(value);updateClass = "Credentials";} 
     
     else if (property.equals("subjective")) {soapNote.setSubjective(value);updateClass = "SOAPNote";} 
@@ -599,16 +597,6 @@ public class PatientService {
     else if (property.equals("assessment")) {soapNote.setAssessment(value);updateClass = "SOAPNote";} 
     else if (property.equals("plan")) {soapNote.setPlan(value);updateClass = "SOAPNote";} 
     
-    else if (property.equals("ageInYears")) {
-      Integer ageInYears; try { ageInYears = new Integer(value); } catch (NumberFormatException nfe) {ageInYears = null;}
-      encounter.setAgeInYears(ageInYears);
-      updateClass = "Encounter";
-    }
-    else if (property.equals("ageInMonths")) {
-      Integer ageInMonths; try { ageInMonths = new Integer(value); } catch (NumberFormatException nfe) {ageInMonths = null;}
-      encounter.setAgeInMonths(ageInMonths);
-      updateClass = "Encounter";
-    }
     else if (property.equals("dob")) {
       SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
       Date dob; try { dob = sdf.parse(value); } catch (ParseException pe) {dob = null;}

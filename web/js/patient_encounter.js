@@ -12,7 +12,7 @@ var uploader;
 
 
 function setEncounterFormModes(hasOwnership) {
-  setEncounterFormMode(app_currentEncounter, 'basic-info', app_currentEncounter.basicInfoSaved, hasOwnership);
+  setEncounterFormMode(app_currentEncounter, 'basic-info', app_currentEncounter.demographicsSaved, hasOwnership);
   setEncounterFormMode(app_currentEncounter, 'vitals', app_currentEncounter.vitalsSaved, hasOwnership);
   setEncounterFormMode(app_currentEncounter, 'soap-note', app_currentEncounter.soapNoteSaved, hasOwnership);
   setEncounterFormMode(app_currentEncounter, 'cc', app_currentEncounter.ccSaved, hasOwnership);
@@ -72,7 +72,7 @@ function renderPatientEncounterForm(encounter, hasOwnership) {
   var id = encounter.id;
   var currentDate = dateFormat(new Date(), 'mm/dd/yyyy');
   
-  renderEncounterFormSection (encounter, 'basic-info', encounter.basicInfoSaved, hasOwnership);
+  renderEncounterFormSection (encounter, 'basic-info', encounter.demographicsSaved, hasOwnership);
   renderEncounterFormSection (encounter, 'vitals', encounter.vitalsSaved, hasOwnership);
   renderEncounterFormSection (encounter, 'soap-note', encounter.soapNoteSaved, hasOwnership);
   renderEncounterFormSection (encounter, 'cc', encounter.ccSaved, hasOwnership);
@@ -85,7 +85,7 @@ function renderPatientEncounterForm(encounter, hasOwnership) {
   
   $(".edit-on-select").focus(function() { $(this).selectContentEditableText(); });
   
-  $('#encounter-basic-info-save-'+id).click(function() { saveBasicInfoEncounterForm(encounter); });
+  $('#encounter-basic-info-save-'+id).click(function() { saveDemographicsEncounterForm(encounter); });
   $('#encounter-vitals-save-'+id).click(function() { saveVitalsEncounterForm(encounter); });
   $('#encounter-soap-note-save-'+id).click(function() { saveSOAPNoteEncounterForm(encounter); });
   $('#encounter-cc-save-'+id).click(function() { saveCCEncounterForm(encounter); });
@@ -229,27 +229,19 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
       $('#encounter-middle-name-'+id).val(encounter.patient.cred.middleName);
       $('#encounter-last-name-'+id).val(encounter.patient.cred.lastName);
       $('#encounter-todays-date-saved-'+id).html(currentDate);
-      $('#encounter-consult-location-saved-'+id).html(encounter.consultLocation);
       $('#encounter-govt-id-saved-'+id).html(encounter.patient.cred.govtId);
       var dob = dateFormat(encounter.patient.demo.dob, 'mm/dd/yyyy')
       $('#encounter-dob-saved-'+id).html(dob);
       $('#encounter-gender-saved-'+id).html(encounter.patient.demo.gender.code);
-      $('#encounter-age-years-saved-'+id).html(encounter.ageInYears);
-      $('#encounter-age-months-saved-'+id).html(encounter.ageInMonths);
       $('#encounter-phone-saved-'+id).html(encounter.patient.demo.primaryPhone);
-      $('#encounter-community-saved-'+id).html(encounter.community);
       $('#encounter-notes-saved-'+id).html(encounter.notes);
       $('#encounter-first-name-saved-'+id).blur(function() { updateSavedPatientEncounter("firstName", $(this).html(), id); });
       $('#encounter-middle-name-saved-'+id).blur(function() { updateSavedPatientEncounter("middleName", $(this).html(), id); });
       $('#encounter-last-name-saved-'+id).blur(function() { updateSavedPatientEncounter("lastName", $(this).html(), id); });
-      $('#encounter-consult-location-saved-'+id).blur(function() { updateSavedPatientEncounter("consultLocation", $(this).html(), id); });
       $('#encounter-govt-id-saved-'+id).blur(function() { updateSavedPatientEncounter("govtId", $(this).html(), id); });
       $('#encounter-gender-saved-'+id).blur(function() { updateSavedPatientEncounter("gender", $(this).html(), id); });
       $('#encounter-phone-saved-'+id).blur(function() { updateSavedPatientEncounter("phone", $(this).html(), id); });
-      $('#encounter-community-saved-'+id).blur(function() { updateSavedPatientEncounter("community", $(this).html(), id); });
       $('#encounter-notes-saved-'+id).blur(function() { updateSavedPatientEncounter("notes", $(this).html(), id); });
-      $('#encounter-age-years-saved-'+id).blur(function() { updateSavedPatientEncounter("ageInYears", $(this).html(), id); });
-      $('#encounter-age-months-saved-'+id).blur(function() { updateSavedPatientEncounter("ageInMonths", $(this).html(), id); });
       $('#encounter-dob-saved-'+id).blur(function() { updateSavedPatientEncounter("dob", $(this).html(), id); });
     }
     else if (section == 'soap-note') {
@@ -610,26 +602,22 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
   }
 }
 
-function saveBasicInfoEncounterForm(encounter) {
+function saveDemographicsEncounterForm(encounter) {
   var id = encounter.id;
-  encounter.consultLocation = $.trim($("#encounter-consult-location-"+id).val());
   encounter.patient.cred.govtId = $.trim($("#encounter-govt-id-"+id).val());
   encounter.patient.demo.dob = util_processDate("#encounter-dob-"+id, encounter.patient.demo.dob); //"Mar 17, 2014 10:01:12 PM";
   encounter.patient.cred.firstName = $.trim($("#encounter-first-name-"+id).val());
   encounter.patient.cred.middleName = $.trim($("#encounter-middle-name-"+id).val());
   encounter.patient.cred.lastName = $.trim($("#encounter-last-name-"+id).val());
   encounter.patient.demo.gender = createGender($.trim($("#encounter-gender-"+id).val().toUpperCase()));
-  encounter.ageInMonths = util_processNumber("#encounter-age-months-"+id, encounter.ageInMonths);
-  encounter.ageInYears = util_processNumber("#encounter-age-years-"+id, encounter.ageInYears);
   encounter.patient.demo.primaryPhone = $.trim($("#encounter-phone-"+id).val());
-  encounter.community = $.trim($("#encounter-community-"+id).val());
   encounter.notes = $.trim($("#encounter-notes-"+id).val());
-  encounter.basicInfoSaved = true;
+  encounter.demographicsSaved = true;
   var jsonData = JSON.stringify({ 
     sessionId: clinician.sessionId, 
     encounter: encounter
   });
-  $.post("patient/createBasicInfo", {data:jsonData}, function(data) {
+  $.post("patient/createDemographics", {data:jsonData}, function(data) {
     renderEncounterFormSection (encounter, 'basic-info', true, true);
   });
 }

@@ -1,5 +1,5 @@
 <div id="form-wrapper-basic-info">
- <div class="page-title-background"><div class="page-title">BASIC INFORMATION</div></div>
+ <div class="page-title-background"><div class="page-title">DEMOGRAPHICS</div></div>
  <table class="form-table">
  <tr>
    <td>
@@ -14,14 +14,16 @@
      </div>
    </td>
    <td>
+   <!--
      <div class="item-wrapper-basic-info">
        <span class="item-label">CONSULT LOCATION</span>
        <div class="basic-info-input">${encounter.consultLocation}</div>
      </div>
+   -->
    </td>
    <td>
      <div class="item-wrapper-basic-info">
-       <span class="item-label">Patient's GOV ID # (CEDULA)</span>
+       <span class="item-label">Patient's GOV ID</span>
        <div class="basic-info-input">${encounter.patient.cred.govtId}</div>
      </div>
    </td>
@@ -51,6 +53,7 @@
      </div>
    </td>
    <td>
+   <!--
      <div class="item-wrapper-basic-info">
        <span class="item-label">AGE IN YEARS</span> 
        <span class="item-label" style="padding-left:100px">AGE IN MONTHS</span>
@@ -59,6 +62,7 @@
          <span class="basic-info-input"style="padding-left:200px">${encounter.patient.demo.ageInMonths}</span>
        </div>
      </div>
+    --> 
    </td>
    <td>
      <div class="item-wrapper-basic-info">
@@ -75,10 +79,12 @@
      </div>
    </td>
    <td>
+   <!--
      <div class="item-wrapper-basic-info">
        <span class="item-label">COMMUNITY LOCATION</span>
        <div class="basic-info-input">${encounter.patient.demo.community}</div>
      </div>
+    -->
    </td>
    <td colspan="2"  style="max-width:650px; min-height:100px">
      <div class="item-wrapper-basic-info" style="min-height:100px">

@@ -39,7 +39,6 @@ public class Demographics extends BaseEntity implements Serializable {
   private String employer;
   private String schoolStatus;
   private String schoolName;
-  private String region;
   private Date dob;
   private String profileImagePath;
 
@@ -91,14 +90,6 @@ public class Demographics extends BaseEntity implements Serializable {
     this.schoolStatus = schoolStatus;
   }
 
-  @Column(name = "region")
-  public String getRegion() {
-    return region;
-  }
-
-  public void setRegion(String region) {
-    this.region = region;
-  }
 
   @Column(name = "postal_code")
   public String getPostalCode() {
@@ -259,7 +250,6 @@ public class Demographics extends BaseEntity implements Serializable {
         * result
         + ((profileImagePath == null) ? 0 : profileImagePath.hashCode());
     result = prime * result + ((race == null) ? 0 : race.hashCode());
-    result = prime * result + ((region == null) ? 0 : region.hashCode());
     result = prime * result
         + ((schoolName == null) ? 0 : schoolName.hashCode());
     result = prime * result
@@ -348,11 +338,6 @@ public class Demographics extends BaseEntity implements Serializable {
         {return false;}
     } else if (!race.equals(other.race))
       {return false;}
-    if (region == null) {
-      if (other.region != null)
-        {return false;}
-    } else if (!region.equals(other.region))
-      {return false;}
     if (schoolName == null) {
       if (other.schoolName != null)
         {return false;}
@@ -397,7 +382,7 @@ public class Demographics extends BaseEntity implements Serializable {
         + gender + ", maritalStatus=" + maritalStatus
         + ", employmentStatus=" + employmentStatus + ", employer="
         + employer + ", schoolStatus=" + schoolStatus + ", schoolName="
-        + schoolName + ", region=" + region + ", dob=" + dob
+        + schoolName + ", dob=" + dob
         + ", profileImagePath=" + profileImagePath + "]";
   }
 

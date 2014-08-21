@@ -89,14 +89,11 @@ public class PatientDTO extends AuthorizedDTO {
   private int swapGroupId;
   private String updateProperty;
   private String updatePropertyValue;
-  private boolean basicInfoSaved;
+  private boolean demographicsSaved;
   private String consultLocation;
   private String govtId;
   private String dob;
-  private String ageInYears;
-  private String ageInMonths;
   private String phone;
-  private String community;
   private boolean vitalsSaved;
   private String height;
   private String weight;
@@ -388,9 +385,9 @@ public class PatientDTO extends AuthorizedDTO {
   public String getUpdatePropertyValue() { return updatePropertyValue; }
   public void setUpdatePropertyValue(String updatePropertyValue) { this.updatePropertyValue = updatePropertyValue; }
   
-  public boolean isBasicInfoSaved() { return basicInfoSaved; }
-  public void setBasicInfoSaved(boolean basicInfoSaved) { this.basicInfoSaved = basicInfoSaved; }
-  
+  public boolean isDemographicsSaved() { return demographicsSaved; }
+  public void setDemographicsSaved(boolean demographicsSaved) { this.demographicsSaved = demographicsSaved; }
+
   public String getConsultLocation() { return consultLocation; }
   public void setConsultLocation(String consultLocation) { this.consultLocation = consultLocation; }
 
@@ -399,18 +396,6 @@ public class PatientDTO extends AuthorizedDTO {
 
   public String getDob() { return dob; }
   public void setDob(String dob) { this.dob = dob; }
-
-  public String getAgeInYears() { return ageInYears; }
-  public void setAgeInYears(String ageInYears) { this.ageInYears = ageInYears; }
-
-  public String getAgeInMonths() { return ageInMonths; }
-  public void setAgeInMonths(String ageInMonths) { this.ageInMonths = ageInMonths; }
-
-  public String getPhone() { return phone; }
-  public void setPhone(String phone) { this.phone = phone; }
-
-  public String getCommunity() { return community; }
-  public void setCommunity(String community) { this.community = community; }
   
   public boolean isVitalsSaved() { return vitalsSaved; }
   public void setVitalsSaved(boolean vitalsSaved) { this.vitalsSaved = vitalsSaved; }

@@ -40,12 +40,8 @@ public class Encounter extends BaseEntity implements Serializable {
   private PatientFollowUp followUp;
   private Integer lockStatus;
   private Boolean completed = false;
-  private String consultLocation;
   private String notes;
-  private Integer ageInYears;
-  private Integer ageInMonths;
-  private String community;
-  private Boolean basicInfoSaved = false;
+  private Boolean demographicsSaved = false;
   private Boolean vitalsSaved = false;
   private Boolean soapNoteSaved = false;
   private Boolean ccSaved = false;
@@ -121,32 +117,16 @@ public class Encounter extends BaseEntity implements Serializable {
   public Integer getLockStatus() { return lockStatus; }
   public void setLockStatus(Integer lockStatus) { this.lockStatus = lockStatus; }
 
-  @Column(name = "consult_location")
-  public String getConsultLocation() { return consultLocation; }
-  public void setConsultLocation(String consultLocation) { this.consultLocation = consultLocation; }
-
-  @Column(name = "age_in_years")
-  public Integer getAgeInYears() { return ageInYears; }
-  public void setAgeInYears(Integer ageInYears) { this.ageInYears = ageInYears; }
-
-  @Column(name = "age_in_months")
-  public Integer getAgeInMonths() { return ageInMonths; }
-  public void setAgeInMonths(Integer ageInMonths) { this.ageInMonths = ageInMonths; }
-
-  @Column(name = "community")
-  public String getCommunity() { return community; }
-  public void setCommunity(String community) { this.community = community; }
-
   @JoinColumn(name = "supp_questions", referencedColumnName = "id")
   @ManyToOne(optional = true)
   public SuppQuestions getSupp() { return supp; }
   public void setSupp(SuppQuestions supp) { this.supp = supp; }
 
-  @Column(name = "basic_info_saved")
-  public Boolean getBasicInfoSaved() { return basicInfoSaved; }
-  public void setBasicInfoSaved(Boolean basicInfoSaved) { this.basicInfoSaved = basicInfoSaved; }
+  @Column(name = "demographics_saved")
+  public Boolean getDemographicsSaved() { return demographicsSaved; }
+  public void setDemographicsSaved(Boolean demographicsSaved) { this.demographicsSaved = demographicsSaved; }
 
-  @Column(name = "vitals_saved")
+@Column(name = "vitals_saved")
   public Boolean getVitalsSaved() { return vitalsSaved; }
   public void setVitalsSaved(Boolean vitalsSaved) { this.vitalsSaved = vitalsSaved; }
 
@@ -191,21 +171,13 @@ public class Encounter extends BaseEntity implements Serializable {
     final int prime = 31;
     int result = super.hashCode();
     result = prime * result
-        + ((ageInMonths == null) ? 0 : ageInMonths.hashCode());
-    result = prime * result
-        + ((ageInYears == null) ? 0 : ageInYears.hashCode());
-    result = prime * result
-        + ((basicInfoSaved == null) ? 0 : basicInfoSaved.hashCode());
+        + ((demographicsSaved == null) ? 0 : demographicsSaved.hashCode());
     result = prime * result + ((cc == null) ? 0 : cc.hashCode());
     result = prime * result + ((ccSaved == null) ? 0 : ccSaved.hashCode());
     result = prime * result
         + ((clinician == null) ? 0 : clinician.hashCode());
     result = prime * result
-        + ((community == null) ? 0 : community.hashCode());
-    result = prime * result
         + ((completed == null) ? 0 : completed.hashCode());
-    result = prime * result
-        + ((consultLocation == null) ? 0 : consultLocation.hashCode());
     result = prime * result + ((date == null) ? 0 : date.hashCode());
     result = prime * result
         + ((encounterType == null) ? 0 : encounterType.hashCode());
@@ -248,20 +220,10 @@ public class Encounter extends BaseEntity implements Serializable {
     if (getClass() != obj.getClass())
       {return false;}
     Encounter other = (Encounter) obj;
-    if (ageInMonths == null) {
-      if (other.ageInMonths != null)
+    if (demographicsSaved == null) {
+      if (other.demographicsSaved != null)
         {return false;}
-    } else if (!ageInMonths.equals(other.ageInMonths))
-      {return false;}
-    if (ageInYears == null) {
-      if (other.ageInYears != null)
-        {return false;}
-    } else if (!ageInYears.equals(other.ageInYears))
-      {return false;}
-    if (basicInfoSaved == null) {
-      if (other.basicInfoSaved != null)
-        {return false;}
-    } else if (!basicInfoSaved.equals(other.basicInfoSaved))
+    } else if (!demographicsSaved.equals(other.demographicsSaved))
       {return false;}
     if (cc == null) {
       if (other.cc != null)
@@ -278,20 +240,10 @@ public class Encounter extends BaseEntity implements Serializable {
         {return false;}
     } else if (!clinician.equals(other.clinician))
       {return false;}
-    if (community == null) {
-      if (other.community != null)
-        {return false;}
-    } else if (!community.equals(other.community))
-      {return false;}
     if (completed == null) {
       if (other.completed != null)
         {return false;}
     } else if (!completed.equals(other.completed))
-      {return false;}
-    if (consultLocation == null) {
-      if (other.consultLocation != null)
-        {return false;}
-    } else if (!consultLocation.equals(other.consultLocation))
       {return false;}
     if (date == null) {
       if (other.date != null)
@@ -399,10 +351,8 @@ public class Encounter extends BaseEntity implements Serializable {
         + ", supp=" + supp + ", exam=" + exam + ", lab=" + lab
         + ", obgyn=" + obgyn + ", followUp=" + followUp
         + ", lockStatus=" + lockStatus + ", completed=" + completed
-        + ", consultLocation=" + consultLocation + ", notes=" + notes
-        + ", ageInYears=" + ageInYears + ", ageInMonths=" + ageInMonths
-        + ", community=" + community + ", basicInfoSaved="
-        + basicInfoSaved + ", vitalsSaved=" + vitalsSaved
+        + ", notes=" + notes + ", demographicsSaved="
+        + demographicsSaved + ", vitalsSaved=" + vitalsSaved
         + ", soapNoteSaved=" + soapNoteSaved + ", ccSaved=" + ccSaved
         + ", obgynSaved=" + obgynSaved + ", pfshSaved=" + pfshSaved
         + ", suppSaved=" + suppSaved + ", histSaved=" + histSaved
