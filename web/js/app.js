@@ -1121,6 +1121,16 @@ function loadPatientInfo() {
   $('.patient-chart-primary-phone').html(app_patientChartPrimaryPhone);
   $('.patient-chart-secondary-phone').html(app_patientChartSecondaryPhone);
   $('.patient-chart-headshot').attr('src', app_patientChartHeadshot);
+  $('.patient-chart-us-state').html(app_patientChartUSState);
+  $('.patient-chart-postal-code').html(app_patientChartPostalCode);
+  $('.patient-chart-email').html(app_patientChartEmail);
+  $('.patient-chart-address').html(app_patientChartAddress);
+  $('#section-notification').css("visibility", "visible");
+  $('.patient-navbar-btn').css("display", "inline-block");
+  $('.check-in-navbar-btn').css("display", "none");
+  $('.encounter-navbar-btn').css("display", "none");
+  $('#section-notification-text').html("Patient: " + app_patientChartFullName);
+  viewPatientChart();
 }
 
 function resetNavButtons() {

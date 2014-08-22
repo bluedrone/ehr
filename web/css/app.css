@@ -296,7 +296,7 @@ a.nav-selected-xm:active {
 -------------------------------------------------- */
 .chartheader {
   display: block;
-  min-height: 110px;
+  min-height: 130px;
   font-size: 1em;
   margin: 3px 0px 3px 0px;
   padding: 5px 15px 5px 15px;
@@ -309,12 +309,17 @@ a.nav-selected-xm:active {
 	font-size: 1.5em; 
 }
 
+span.patient-chart-demographics { 
+  padding-left: 3px;
+  padding-right: 5px;
+}
+
 p.patient-chart-demographics { 
   margin: 0px 0px 0px;
 }
 
 .patient-chart-demographics { 
-  font-size: .9em; 
+  font-size: 1.0em; 
 }
 
 .patient-chart-next-appt, .patient-chart-gender, .patient-chart-mrn, .patient-chart-dob, .patient-chart-primary-phone, .patient-chart-secondary-phone { 
