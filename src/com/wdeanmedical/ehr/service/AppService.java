@@ -38,6 +38,7 @@ import com.wdeanmedical.ehr.entity.CPT;
 import com.wdeanmedical.ehr.entity.ClinicianSchedule;
 import com.wdeanmedical.ehr.entity.Credentials;
 import com.wdeanmedical.ehr.entity.Demographics;
+import com.wdeanmedical.ehr.entity.Encounter;
 import com.wdeanmedical.ehr.entity.EncounterQuestion;
 import com.wdeanmedical.ehr.entity.ICD10;
 import com.wdeanmedical.ehr.entity.LabReview;
@@ -314,6 +315,8 @@ public class AppService {
     dto.setSecondaryPhone(patient.getDemo().getSecondaryPhone());
     dto.setProfileImagePath(patient.getDemo().getProfileImagePath());
     patient.setLastAccessed(new Date());
+    Encounter encounter = patientService.getCurrentEncounter(patient, dto);
+    dto.setLastApptDate(sdf.format(encounter.getDate()));
     appDAO.update(patient);
     activityLogService.logViewPatient(dto.getId(), patient.getId(), dto.getClinicianId());
     return true;

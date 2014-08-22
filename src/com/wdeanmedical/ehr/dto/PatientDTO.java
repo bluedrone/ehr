@@ -224,9 +224,14 @@ public class PatientDTO extends AuthorizedDTO {
   private String city; 
   private String usState; 
   private String postalCode; 
+  private String lastApptDate;
 
   public PatientDTO() {
   }
+
+  public String getLastApptDate() { return lastApptDate; }
+  public void setLastApptDate(String lastApptDate) { this.lastApptDate = lastApptDate; }
+
 
   public String getCity() { return city; }
   public void setCity(String city) { this.city = city; }

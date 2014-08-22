@@ -81,6 +81,7 @@ var app_patientChartAddress;
 var app_patientChartGender;
 var app_patientChartMRN;
 var app_patientChartEmail;
+var app_patientChartLastApptDate;
 var app_patientChartPrimaryPhone;
 var app_patientChartSecondaryPhone;
 var app_patientChartHeadshot;
@@ -752,6 +753,7 @@ function viewClinicianMessage() {
       app_patientChartEmail = parsedData.email;
       app_patientChartPrimaryPhone = parsedData.primaryPhone;
       app_patientChartSecondaryPhone = parsedData.secondaryPhone;
+      app_patientChartLastApptDate = parsedData.lastApptDate;
       app_patientChartHeadshot = 'patient/getPatientProfileImage?sessionId=' + parsedData.sessionId + "&patientId=" + parsedData.id  + "&profileImagePath=" + parsedData.profileImagePath;
       $('.patient-chart-full-name').html(app_patientChartFullName);
       $('.patient-chart-dob').html(app_patientChartDOB);
@@ -764,6 +766,7 @@ function viewClinicianMessage() {
       $('.patient-chart-address').html(app_patientChartAddress);
       $('.patient-chart-primary-phone').html(app_patientChartPrimaryPhone);
       $('.patient-chart-secondary-phone').html(app_patientChartSecondaryPhone);
+      $('.patient-chart-last-appt').html(app_patientChartLastApptDate);
       $('.patient-chart-headshot').attr('src', app_patientChartHeadshot);
       $('#section-notification').css("visibility", "visible");
       $('.patient-navbar-btn').css("display", "inline-block");
@@ -1125,6 +1128,7 @@ function loadPatientInfo() {
   $('.patient-chart-postal-code').html(app_patientChartPostalCode);
   $('.patient-chart-email').html(app_patientChartEmail);
   $('.patient-chart-address').html(app_patientChartAddress);
+  $('.patient-chart-last-appt').html(app_patientChartLastApptDate);
   $('#section-notification').css("visibility", "visible");
   $('.patient-navbar-btn').css("display", "inline-block");
   $('.check-in-navbar-btn').css("display", "none");
