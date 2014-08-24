@@ -153,15 +153,6 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
   if (savedState == false) {
 
     if (section == 'demo') {
-      $("#encounter-demo-photo-"+id).attr("src", app_patientChartHeadshot);
-      $('#encounter-demo-first-name-'+id).val(encounter.patient.cred.firstName);
-      $('#encounter-demo-middle-name-'+id).val(encounter.patient.cred.middleName);
-      $('#encounter-demo-last-name-'+id).val(encounter.patient.cred.lastName);
-      $('#encounter-demo-mrn-'+id).val(encounter.patient.cred.mrn);
-      $('#encounter-demo-govt-id-'+id).val(encounter.patient.cred.govtId);
-      $('#encounter-demo-date-'+id).val(currentDate);
-      $('#encounter-demo-dob-'+id).mask("99/99/9999");
-      $("#encounter-demo-gender-"+id).keydown(function(e) { util_filterGenderInput(e); });
     }
     else if (section == 'soap-note') {
     }
@@ -224,11 +215,12 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
   else if (savedState == true) {
 
     if (section == 'demo') {
+      $('#encounter-demo-date-saved-'+id).html(dateFormat(encounter.date, 'mm/dd/yyyy'));
+      $('#encounter-demo-mrn-saved-'+id).html(encounter.patient.cred.mrn);
       $("#encounter-demo-photo-"+id).attr("src", app_patientChartHeadshot);
-      $('#encounter-demo-first-name-'+id).val(encounter.patient.cred.firstName);
-      $('#encounter-demo-middle-name-'+id).val(encounter.patient.cred.middleName);
-      $('#encounter-demo-last-name-'+id).val(encounter.patient.cred.lastName);
-      $('#encounter-demo-date-saved-'+id).html(currentDate);
+      $('#encounter-demo-first-name-saved-'+id).html(encounter.patient.cred.firstName);
+      $('#encounter-demo-middle-name-saved-'+id).html(encounter.patient.cred.middleName);
+      $('#encounter-demo-last-name-saved-'+id).html(encounter.patient.cred.lastName);
       $('#encounter-demo-govt-id-saved-'+id).html(encounter.patient.cred.govtId);
       var dob = dateFormat(encounter.patient.demo.dob, 'mm/dd/yyyy')
       $('#encounter-demo-dob-saved-'+id).html(dob);

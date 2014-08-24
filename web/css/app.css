@@ -831,8 +831,16 @@ table.encounter-form td {
 th.highlighted { background:#FFFF66 }
 td.highlighted { background:#FFFF66 }
 
+.form-field-readonly {
+  padding-top: 4px;
+  padding-left: 6px;
+}
+
 .form-control-saved {
   border: 1px solid #EEEEEE;
+  padding-top: 4px;
+  padding-left: 6px;
+  min-height: 32px;
 }
 
 .form-control-saved:hover {
