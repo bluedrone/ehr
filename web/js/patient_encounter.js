@@ -12,7 +12,7 @@ var uploader;
 
 
 function setEncounterFormModes(hasOwnership) {
-  setEncounterFormMode(app_currentEncounter, 'basic-info', app_currentEncounter.demographicsSaved, hasOwnership);
+  setEncounterFormMode(app_currentEncounter, 'demo', app_currentEncounter.demographicsSaved, hasOwnership);
   setEncounterFormMode(app_currentEncounter, 'vitals', app_currentEncounter.vitalsSaved, hasOwnership);
   setEncounterFormMode(app_currentEncounter, 'soap-note', app_currentEncounter.soapNoteSaved, hasOwnership);
   setEncounterFormMode(app_currentEncounter, 'cc', app_currentEncounter.ccSaved, hasOwnership);
@@ -72,7 +72,7 @@ function renderPatientEncounterForm(encounter, hasOwnership) {
   var id = encounter.id;
   var currentDate = dateFormat(new Date(), 'mm/dd/yyyy');
   
-  renderEncounterFormSection (encounter, 'basic-info', encounter.demographicsSaved, hasOwnership);
+  renderEncounterFormSection (encounter, 'demo', encounter.demographicsSaved, hasOwnership);
   renderEncounterFormSection (encounter, 'vitals', encounter.vitalsSaved, hasOwnership);
   renderEncounterFormSection (encounter, 'soap-note', encounter.soapNoteSaved, hasOwnership);
   renderEncounterFormSection (encounter, 'cc', encounter.ccSaved, hasOwnership);
@@ -85,7 +85,7 @@ function renderPatientEncounterForm(encounter, hasOwnership) {
   
   $(".edit-on-select").focus(function() { $(this).selectContentEditableText(); });
   
-  $('#encounter-basic-info-save-'+id).click(function() { saveDemographicsEncounterForm(encounter); });
+  $('#encounter-demo-save-'+id).click(function() { saveDemographicsEncounterForm(encounter); });
   $('#encounter-vitals-save-'+id).click(function() { saveVitalsEncounterForm(encounter); });
   $('#encounter-soap-note-save-'+id).click(function() { saveSOAPNoteEncounterForm(encounter); });
   $('#encounter-cc-save-'+id).click(function() { saveCCEncounterForm(encounter); });
@@ -96,7 +96,7 @@ function renderPatientEncounterForm(encounter, hasOwnership) {
   $('#encounter-exam-save-'+id).click(function() { saveExamEncounterForm(encounter); });
   $('#encounter-follow-up-save-'+id).click(function() { saveFollowUpEncounterForm(encounter); });
   setupPictureUpload(encounter.id, encounter.patient.id);
-  $('#encounter-basic-info-print-'+id).click(function() { printEncounterForm('print_encounter_basic_info', 'PATIENT ENCOUNTER')});
+  $('#encounter-demo-print-'+id).click(function() { printEncounterForm('print_encounter_basic_info', 'PATIENT ENCOUNTER')});
   $('#encounter-vitals-print-'+id).click(function() { printEncounterForm('print_encounter_vitals', 'VITALS')});
   $('#encounter-soap-note-print-'+id).click(function() { printEncounterForm('print_encounter_soap_note', 'SOAP NOTE')});
   $('#encounter-cc-print-'+id).click(function() { printEncounterForm('print_encounter_cc', 'CHIEF COMPLAINT')});
@@ -153,15 +153,16 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
   
   if (savedState == false) {
 
-    if (section == 'basic-info') {
-      $("#encounter-basic-info-photo-"+id).attr("src", app_patientChartHeadshot);
-      $('#encounter-first-name-'+id).val(encounter.patient.cred.firstName);
-      $('#encounter-middle-name-'+id).val(encounter.patient.cred.middleName);
-      $('#encounter-last-name-'+id).val(encounter.patient.cred.lastName);
-      $('#encounter-todays-date-'+id).val(currentDate);
-      $('#encounter-dob-'+id).mask("99/99/9999");
-      $("#encounter-gender-"+id).keydown(function(e) { util_filterGenderInput(e); });
-      $("#encounter-age-years-"+id+", #encounter-age-months-"+id).keydown(function(e) { util_filterAgeInput(e); });
+    if (section == 'demo') {
+      $("#encounter-demo-photo-"+id).attr("src", app_patientChartHeadshot);
+      $('#encounter-demo-first-name-'+id).val(encounter.patient.cred.firstName);
+      $('#encounter-demo-middle-name-'+id).val(encounter.patient.cred.middleName);
+      $('#encounter-demo-last-name-'+id).val(encounter.patient.cred.lastName);
+      $('#encounter-demo-mrn-'+id).val(encounter.patient.cred.mrn);
+      $('#encounter-demo-govt-id-'+id).val(encounter.patient.cred.govtId);
+      $('#encounter-demo-date-'+id).val(currentDate);
+      $('#encounter-demo-dob-'+id).mask("99/99/9999");
+      $("#encounter-demo-gender-"+id).keydown(function(e) { util_filterGenderInput(e); });
     }
     else if (section == 'soap-note') {
     }
@@ -223,26 +224,26 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
   }
   else if (savedState == true) {
 
-    if (section == 'basic-info') {
-      $("#encounter-basic-info-photo-"+id).attr("src", app_patientChartHeadshot);
-      $('#encounter-first-name-'+id).val(encounter.patient.cred.firstName);
-      $('#encounter-middle-name-'+id).val(encounter.patient.cred.middleName);
-      $('#encounter-last-name-'+id).val(encounter.patient.cred.lastName);
-      $('#encounter-todays-date-saved-'+id).html(currentDate);
-      $('#encounter-govt-id-saved-'+id).html(encounter.patient.cred.govtId);
+    if (section == 'demo') {
+      $("#encounter-demo-photo-"+id).attr("src", app_patientChartHeadshot);
+      $('#encounter-demo-first-name-'+id).val(encounter.patient.cred.firstName);
+      $('#encounter-demo-middle-name-'+id).val(encounter.patient.cred.middleName);
+      $('#encounter-demo-last-name-'+id).val(encounter.patient.cred.lastName);
+      $('#encounter-demo-date-saved-'+id).html(currentDate);
+      $('#encounter-demo-govt-id-saved-'+id).html(encounter.patient.cred.govtId);
       var dob = dateFormat(encounter.patient.demo.dob, 'mm/dd/yyyy')
-      $('#encounter-dob-saved-'+id).html(dob);
-      $('#encounter-gender-saved-'+id).html(encounter.patient.demo.gender.code);
-      $('#encounter-phone-saved-'+id).html(encounter.patient.demo.primaryPhone);
-      $('#encounter-notes-saved-'+id).html(encounter.notes);
-      $('#encounter-first-name-saved-'+id).blur(function() { updateSavedPatientEncounter("firstName", $(this).html(), id); });
-      $('#encounter-middle-name-saved-'+id).blur(function() { updateSavedPatientEncounter("middleName", $(this).html(), id); });
-      $('#encounter-last-name-saved-'+id).blur(function() { updateSavedPatientEncounter("lastName", $(this).html(), id); });
-      $('#encounter-govt-id-saved-'+id).blur(function() { updateSavedPatientEncounter("govtId", $(this).html(), id); });
-      $('#encounter-gender-saved-'+id).blur(function() { updateSavedPatientEncounter("gender", $(this).html(), id); });
-      $('#encounter-phone-saved-'+id).blur(function() { updateSavedPatientEncounter("phone", $(this).html(), id); });
-      $('#encounter-notes-saved-'+id).blur(function() { updateSavedPatientEncounter("notes", $(this).html(), id); });
-      $('#encounter-dob-saved-'+id).blur(function() { updateSavedPatientEncounter("dob", $(this).html(), id); });
+      $('#encounter-demo-dob-saved-'+id).html(dob);
+      $('#encounter-demo-gender-saved-'+id).html(encounter.patient.demo.gender.code);
+      $('#encounter-demo-phone-saved-'+id).html(encounter.patient.demo.primaryPhone);
+      $('#encounter-demo-notes-saved-'+id).html(encounter.notes);
+      $('#encounter-demo-first-name-saved-'+id).blur(function() { updateSavedPatientEncounter("firstName", $(this).html(), id); });
+      $('#encounter-demo-middle-name-saved-'+id).blur(function() { updateSavedPatientEncounter("middleName", $(this).html(), id); });
+      $('#encounter-demo-last-name-saved-'+id).blur(function() { updateSavedPatientEncounter("lastName", $(this).html(), id); });
+      $('#encounter-demo-govt-id-saved-'+id).blur(function() { updateSavedPatientEncounter("govtId", $(this).html(), id); });
+      $('#encounter-demo-gender-saved-'+id).blur(function() { updateSavedPatientEncounter("gender", $(this).html(), id); });
+      $('#encounter-demo-phone-saved-'+id).blur(function() { updateSavedPatientEncounter("phone", $(this).html(), id); });
+      $('#encounter-demo-notes-saved-'+id).blur(function() { updateSavedPatientEncounter("notes", $(this).html(), id); });
+      $('#encounter-demo-dob-saved-'+id).blur(function() { updateSavedPatientEncounter("dob", $(this).html(), id); });
     }
     else if (section == 'soap-note') {
       $('#encounter-soap-note-subjective-saved-'+id).html(encounter.soapNote.subjective);
@@ -604,21 +605,21 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
 
 function saveDemographicsEncounterForm(encounter) {
   var id = encounter.id;
-  encounter.patient.cred.govtId = $.trim($("#encounter-govt-id-"+id).val());
-  encounter.patient.demo.dob = util_processDate("#encounter-dob-"+id, encounter.patient.demo.dob); //"Mar 17, 2014 10:01:12 PM";
-  encounter.patient.cred.firstName = $.trim($("#encounter-first-name-"+id).val());
-  encounter.patient.cred.middleName = $.trim($("#encounter-middle-name-"+id).val());
-  encounter.patient.cred.lastName = $.trim($("#encounter-last-name-"+id).val());
-  encounter.patient.demo.gender = createGender($.trim($("#encounter-gender-"+id).val().toUpperCase()));
-  encounter.patient.demo.primaryPhone = $.trim($("#encounter-phone-"+id).val());
-  encounter.notes = $.trim($("#encounter-notes-"+id).val());
+  encounter.patient.cred.govtId = $.trim($("#encounter-demo-govt-id-"+id).val());
+  encounter.patient.demo.dob = util_processDate("#encounter-demo-dob-"+id, encounter.patient.demo.dob); //"Mar 17, 2014 10:01:12 PM";
+  encounter.patient.cred.firstName = $.trim($("#encounter-demo-first-name-"+id).val());
+  encounter.patient.cred.middleName = $.trim($("#encounter-demo-middle-name-"+id).val());
+  encounter.patient.cred.lastName = $.trim($("#encounter-demo-last-name-"+id).val());
+  encounter.patient.demo.gender = createGender($.trim($("#encounter-demo-gender-"+id).val().toUpperCase()));
+  encounter.patient.demo.primaryPhone = $.trim($("#encounter-demo-phone-"+id).val());
+  encounter.notes = $.trim($("#encounter-demo-notes-"+id).val());
   encounter.demographicsSaved = true;
   var jsonData = JSON.stringify({ 
     sessionId: clinician.sessionId, 
     encounter: encounter
   });
   $.post("patient/createDemographics", {data:jsonData}, function(data) {
-    renderEncounterFormSection (encounter, 'basic-info', true, true);
+    renderEncounterFormSection (encounter, 'demo', true, true);
   });
 }
 
@@ -998,7 +999,7 @@ function setEncounterFormMode(encounter, section, isSaved, hasOwnership) {
     $('#encounter-'+section+'-panel-'+id+' .form-control-saved').removeAttr('contenteditable');
     $('#encounter-'+section+'-panel-'+id+' .form-control-saved').css({border:"none"});
     $('#encounter-'+section+'-panel-'+id+' .form-control-saved').removeClass('form-control-saved').addClass('form-control-closed');
-    $('#encounter-basic-info-photo-upload-control-'+id).css({display:"none"});
+    $('#encounter-demo-photo-upload-control-'+id).css({display:"none"});
     
     $('#encounter-pain-scale-value-'+id).css({display: "inline"});
     $("#encounter-pain-type-"+id).css({display: "none"});
@@ -1016,35 +1017,35 @@ function setEncounterFormMode(encounter, section, isSaved, hasOwnership) {
   $('#encounter-'+section+'-panel-'+id+' .form-control-unsaved').prop("readonly",!hasOwnership);
   if (hasOwnership == false) {
     $('#encounter-'+section+'-panel-'+id+' .form-control-saved').removeAttr('contenteditable').blur();
-    $('#encounter-basic-info-photo-upload-control-'+id).css({display:"none"});
+    $('#encounter-demo-photo-upload-control-'+id).css({display:"none"});
   }
   else {
-    $('#encounter-basic-info-photo-upload-control-'+id).css({display:"block"});
+    $('#encounter-demo-photo-upload-control-'+id).css({display:"block"});
     $('#encounter-'+section+'-panel-'+id+' .form-control-saved').prop('contenteditable', true);
     $('#encounter-'+section+'-panel-'+id+' .form-control-readonly').removeAttr('contenteditable').blur();
   }
 }
 
 function  setupPictureUpload(encounterId, patientId) {
-  $('#encounter-basic-info-photo-upload-'+encounterId).click(function(){ 
-    $('#encounter-basic-info-photo-upload-progress-'+encounterId+' .progress-bar').css('width', '0');
+  $('#encounter-demo-photo-upload-'+encounterId).click(function(){ 
+    $('#encounter-demo-photo-upload-progress-'+encounterId+' .progress-bar').css('width', '0');
   });
   uploader = new qq.FileUploader({
-   element: document.getElementById('encounter-basic-info-photo-upload-'+encounterId),
+   element: document.getElementById('encounter-demo-photo-upload-'+encounterId),
    action: 'patient/uploadProfileImage?patientId='+patientId+'&sessionId=' + clinician.sessionId,
    debug: true,
    sizeLimit: 1048576,   
    allowedExtensions: ['jpg', 'jpeg', 'png', 'gif'],
    onProgress: function(id, fileName, loaded, total) {
       var progress = parseInt(loaded / total * 100, 10);
-      $('#encounter-basic-info-photo-upload-progress-'+encounterId+' .progress-bar').css('width', progress + '%');
+      $('#encounter-demo-photo-upload-progress-'+encounterId+' .progress-bar').css('width', progress + '%');
    },
    onComplete: function(id, fileName, responseJSON){
-     $('#encounter-basic-info-photo-upload-progress-'+encounterId+' .progress-bar').css('width', '100%');
+     $('#encounter-demo-photo-upload-progress-'+encounterId+' .progress-bar').css('width', '100%');
    var response = parsedData = $.parseJSON(responseJSON);
    var path = response.filename;
    var patientId = response.patientId;
-     $("#encounter-basic-info-photo-"+encounterId).attr("src", app_patientChartHeadshot);
+     $("#encounter-demo-photo-"+encounterId).attr("src", app_patientChartHeadshot);
    }
   }); 
 }

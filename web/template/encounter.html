@@ -18,131 +18,251 @@
         <form role="form">
           <div class="row">
             <div class="col-md-12">
-              <div class="panel-top" data-toggle="collapse" data-target="#basic-info">Demographics<i class="icon-chevron-down pull-right collapse-arrow"></i></div>
-              <div id="basic-info" class="panel panel-default collapse in">
-                <div id="encounter-basic-info-panel-${id}" class="panel-body">
+              <div class="panel-top" data-toggle="collapse" data-target="#demo">Demographics<i class="icon-chevron-down pull-right collapse-arrow"></i></div>
+              <div id="demo" class="panel panel-default collapse in">
+                <div id="encounter-demo-panel-${id}" class="panel-body">
                   <div class="row">
-                    <div class="col-md-3 pull-right">
-                        <div><img id="encounter-basic-info-photo-${id}" class="img-responsive headshot-sm img-rounded headshot"></div>
-                        <div id="encounter-basic-info-photo-upload-control-${id}" class="btn-group-vertical-sm">              
+                      <div class="col-md-2">
+                      <div class="form-group">
+                        <label for="encounter-demo-date-${id}">Date</label>
+                        <input id="encounter-demo-date-${id}" type="text" class="form-control form-control-unsaved form-control-readonly" readonly="readonly">
+                        <div class="form-control-saved form-control-readonly" id="encounter-demo-date-saved-${id}"></div>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label for="encounter-demo-mrn-${id}">MRN</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-demo-mrn-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-demo-mrn-${id}" contenteditable="true"></div>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label for="encounter-demo-first-name-${id}">First Name</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-demo-first-name-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-demo-first-name-saved-${id}" contenteditable="true"></div>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label for="encounter-demo-middle-name-${id}">Middle Name</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-demo-middle-name-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-demo-middle-name-saved-${id}" contenteditable="true"></div>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label for="encounter-demo-last-name-${id}">Last Name</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-demo-last-name-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-demo-last-name-saved-${id}" contenteditable="true"></div>
+                      </div>
+                    </div>
+                    <div class="col-md-2 pull-right">
+                        <div><img id="encounter-demo-photo-${id}" class="img-responsive headshot-sm img-rounded headshot"></div>
+                        <div id="encounter-demo-photo-upload-control-${id}" class="btn-group-vertical-sm">              
                          <span class="btn btn-success fileinput-button">
-                           <div id="encounter-basic-info-photo-upload-${id}"></div>
+                           <div id="encounter-demo-photo-upload-${id}"></div>
                          </span>
                          <br>
                          <br>
-                         <div id="encounter-basic-info-photo-upload-progress-${id}" class="progress"> 
+                         <div id="encounter-demo-photo-upload-progress-${id}" class="progress"> 
                            <div class="progress-bar progress-bar-success"></div> 
                          </div>
                         </div>
                       </div> 
                     </div> 
                   <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                       <div class="form-group">
-                        <label for="encounter-todays-date-${id}">Today's Date</label>
-                        <input id="encounter-todays-date-${id}" type="text" class="form-control form-control-unsaved form-control-readonly" readonly="readonly">
-                        <div class="form-control-saved form-control-readonly" id="encounter-todays-date-saved-${id}"></div>
+                        <label for="encounter-demo-govt-id-${id}">SSN</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-demo-govt-id-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-demo-govt-id-saved-${id}" contenteditable="true"></div>
                       </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                       <div class="form-group">
-                        <label for="consult-location-${id}">Consult Location</label>
-                        <input id="encounter-consult-location-${id}" type="text" class="form-control form-control-unsaved">
-                        <div class="form-control-saved edit-on-select" id="encounter-consult-location-saved-${id}" contenteditable="true">&nbsp;</div>
+                        <label for="encounter-demo-dob-${id}">Date Of Birth</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-demo-dob-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-demo-dob-saved-${id}" contenteditable="true"></div>
                       </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                       <div class="form-group">
-                        <label for="encounter-govt-id-${id}">GOV ID #</label>
-                        <input type="text" class="form-control form-control-unsaved" id="encounter-govt-id-${id}">
-                        <div class="form-control-saved edit-on-select" id="encounter-govt-id-saved-${id}" contenteditable="true">&nbsp;</div>
+                        <label for="encounter-demo-gender-${id}">Gender</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-demo-gender-${id}">
+                        <select class="form-control" id="encounter-demo-gender-${id}">
+                          <option value="">Choose</option>
+                          <option value="M">Male</option>
+                          <option value="F">Female</option>
+                        </select>
+                        <div class="form-control-saved edit-on-select" id="encounter-demo-gender-saved-${id}" contenteditable="true"></div>
                       </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                       <div class="form-group">
-                        <label for="encounter-dob-${id}">Date Of Birth</label>
-                        <input type="text" class="form-control form-control-unsaved" id="encounter-dob-${id}">
-                        <div class="form-control-saved edit-on-select" id="encounter-dob-saved-${id}" contenteditable="true">&nbsp;</div>
+                        <label for="encounter-demo-marital-${id}">Marital</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-demo-marital-${id}">
+                        <select class="form-control" id="encounter-demo-marital-${id}">
+                          <option value="null">Choose</option>
+                          <option value="1">Single</option>
+                          <option value="2">Married</option>
+                          <option value="3">Divorced</option>
+                          <option value="4">Widowed</option>
+                          <option value="5">Other</option>
+                        </select>
+                        <div class="form-control-saved edit-on-select" id="encounter-demo-marital-saved-${id}" contenteditable="true"></div>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label for="encounter-demo-race-${id}">Race</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-demo-race-${id}">
+                        <select class="form-control" id="encounter-demo-race-${id}">
+                          <option value="7">Choose</option>
+                          <option value="1">White</option>
+                          <option value="2">Black or African American</option>
+                          <option value="3">Asian</option>
+                          <option value="4">American Indian/ Alaskan Native</option>
+                          <option value="5">Native Hawaiian or Other Pacific Islander</option>
+                          <option value="6">More than one race</option>
+                          <option value="7">Unknown or Not Reported</option>
+                        </select>
+                        <div class="form-control-saved edit-on-select" id="encounter-demo-race-saved-${id}" contenteditable="true"></div>
+                      </div>
+                    </div>                    
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label for="encounter-demo-ethnicity-${id}">Ethnicity</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-demo-ethnicity-${id}">
+                        <select class="form-control" id="encounter-demo-ethnicity-${id}">
+                          <option value="3">Choose</option>
+                          <option value="1">Not Hispanic or Latino</option>
+                          <option value="2">Hispanic or Latino</option>
+                          <option value="3">Unknown or Not Reported</option>
+                        </select>
+                        <div class="form-control-saved edit-on-select" id="encounter-demo-ethnicity-saved-${id}" contenteditable="true"></div>
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-4">
                       <div class="form-group">
-                        <label for="encounter-first-name-${id}">First Name</label>
-                        <input type="text" class="form-control form-control-unsaved" id="encounter-first-name-${id}">
-                        <div class="form-control-saved edit-on-select" id="encounter-first-name-saved-${id}" contenteditable="true">&nbsp;</div>
+                        <label for="encounter-demo-street-address-${id}">Street Address</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-demo-street-address-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-demo-street-address-saved-${id}" contenteditable="true"></div>
                       </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-2">
                       <div class="form-group">
-                        <label for="encounter-middle-name-${id}">Middle Name</label>
-                        <input type="text" class="form-control form-control-unsaved" id="encounter-middle-name-${id}">
-                        <div class="form-control-saved edit-on-select" id="encounter-middle-name-saved-${id}" contenteditable="true">&nbsp;</div>
+                        <label for="encounter-demo-city-${id}">City</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-demo-city-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-demo-city-saved-${id}" contenteditable="true"></div>
                       </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-2">
                       <div class="form-group">
-                        <label for="encounter-last-name-${id}">Last Name</label>
-                        <input type="text" class="form-control form-control-unsaved" id="encounter-last-name-${id}">
-                        <div class="form-control-saved edit-on-select" id="encounter-last-name-saved-${id}" contenteditable="true">&nbsp;</div>
+                        <label for="encounter-demo-us-state-${id}">State</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-demo-city-${id}">
+                        <select id="encounter-demo-us-state" class="form-control form-control-unsaved"></select>
+                        <div class="form-control-saved edit-on-select" id="encounter-demo-us-state-saved-${id}" contenteditable="true"></div>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label for="encounter-demo-postal-code-${id}">ZIP</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-demo-postal-code-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-demo-postal-cade-saved-${id}" contenteditable="true"></div>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label for="encounter-demo-email-${id}">Email</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-demo-email-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-demo-email-saved-${id}" contenteditable="true"></div>
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-2">
-                      <label for="encounter-gender-${id}">Gender</label>
-                      <input type="text" class="form-control form-control-unsaved" id="encounter-gender-${id}" maxlength="1">
-                      <div class="form-control-saved edit-on-select" id="encounter-gender-saved-${id}" contenteditable="true">&nbsp;</div>
-                    </div>
-                    <!--
-                    <div class="col-md-2">
                       <div class="form-group">
-                        <label for="encounter-age-years-${id}">Age (in years)</label>
-                        <input type="text" class="form-control form-control-unsaved" id="encounter-age-years-${id}" maxLength="3">
-                        <div class="form-control-saved edit-on-select" id="encounter-age-years-saved-${id}" contenteditable="true">&nbsp;</div>
+                        <label for="encounter-demo-primary-phone-${id}">Primary Phone</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-demo-primary-phone-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-demo-primary-phone-saved-${id}" contenteditable="true"></div>
                       </div>
                     </div>
                     <div class="col-md-2">
                       <div class="form-group">
-                        <label for="encounter-age-months-${id}">Age (in months)</label>
-                        <input type="text" class="form-control form-control-unsaved" id="encounter-age-months-${id}" maxlength="2">
-                        <div class="form-control-saved edit-on-select" id="encounter-age-months-saved-${id}" contenteditable="true">&nbsp;</div>
+                        <label for="encounter-demo-secondary-phone-${id}">Secondary Phone</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-demo-secondary-phone-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-demo-secondary-phone-saved-${id}" contenteditable="true"></div>
                       </div>
                     </div>
-                    -->
+                  </div>
+                  <div class="row">
                     <div class="col-md-2">
                       <div class="form-group">
-                        <label for="encounter-phone-${id}">Telephone</label>
-                        <input type="text" class="form-control form-control-unsaved" id="encounter-phone-${id}">
-                        <div class="form-control-saved edit-on-select" id="encounter-phone-saved-${id}" contenteditable="true">&nbsp;</div>
+                        <label for="encounter-demo-occupation-${id}">Occupation</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-demo-occupation-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-demo-occupation-saved-${id}" contenteditable="true"></div>
                       </div>
                     </div>
-                    <!--
-                    <div class="col-md-4">
+                    <div class="col-md-2">
                       <div class="form-group">
-                        <label for="encounter-community-${id}">Community (if living elsewhere)</label>
-                        <input type="text" class="form-control form-control-unsaved" id="encounter-community-${id}">
-                        <div class="form-control-saved edit-on-select" id="encounter-community-saved-${id}" contenteditable="true">&nbsp;</div>
+                        <label for="encounter-demo-employment-status-${id}">Employment Status</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-demo-employment-status-${id}">
+                        <select class="form-control" id="encounter-demo-employment-status-${id}">
+                          <option value="">Choose</option>
+                          <option>Yes</option>
+                          <option>No</option>
+                          <option>Retired</option>
+                          <option>NA</option>
+                        </select>
+                        <div class="form-control-saved edit-on-select" id="encounter-demo-employment-status-saved-${id}" contenteditable="true"></div>
                       </div>
                     </div>
-                    -->
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label for="encounter-demo-employer-${id}">Employer</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-demo-employer-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-demo-employer-saved-${id}" contenteditable="true"></div>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label for="encounter-demo-school-status-${id}">Education Status</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-demo-school-status-${id}">
+                        <select class="form-control" id="encounter-demo-school-status-${id}">
+                        <option value="">Choose</option>
+                        <option>Full Time</option>
+                        <option>Part Time</option>
+                        <option>No</option>
+                        </select>
+                        <div class="form-control-saved edit-on-select" id="encounter-demo-school-status-saved-${id}" contenteditable="true"></div>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <div class="form-group">
+                        <label for="encounter-demo-school-name-${id}">School Name</label>
+                        <input type="text" class="form-control form-control-unsaved" id="encounter-demo-school-name-${id}">
+                        <div class="form-control-saved edit-on-select" id="encounter-demo-school-name-saved-${id}" contenteditable="true"></div>
+                      </div>
+                    </div> 
                   </div>
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label for="encounter-notes-${id}">Notes</label>
-                        <textarea id="encounter-notes-${id}" class="form-control form-control-unsaved" rows="5"></textarea>
-                        <div class="form-control-saved edit-on-select" id="encounter-notes-saved-${id}" contenteditable="true">&nbsp;</div>
+                        <label for="encounter-demo-notes-${id}">Notes</label>
+                        <textarea id="encounter-demo-notes-${id}" class="form-control form-control-unsaved" rows="5"></textarea>
+                        <div class="form-control-saved edit-on-select" id="encounter-demo-notes-saved-${id}" contenteditable="true"></div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="panel-footer">
-                  <button id="encounter-basic-info-clear-${id}" type="button" class="btn btn-default pull-right">Clear</button>
-                  <a id="encounter-basic-info-save-${id}" class="btn btn-success">Save</a>
-                  <a id="encounter-basic-info-saved-${id}" class="btn btn-success disabled">Saved</a>
-                  <a id="encounter-basic-info-print-${id}" class="btn btn-primary">Print</a>
+                  <button id="encounter-demo-clear-${id}" type="button" class="btn btn-default pull-right">Clear</button>
+                  <a id="encounter-demo-save-${id}" class="btn btn-success">Save</a>
+                  <a id="encounter-demo-saved-${id}" class="btn btn-success disabled">Saved</a>
+                  <a id="encounter-demo-print-${id}" class="btn btn-primary">Print</a>
                 </div>
               </div>
             </div>
