@@ -12,7 +12,7 @@ var uploader;
 
 
 function setEncounterFormModes(hasOwnership) {
-  setEncounterFormMode(app_currentEncounter, 'demo', app_currentEncounter.demographicsSaved, hasOwnership);
+  setEncounterFormMode(app_currentEncounter, 'demo', app_currentEncounter.demoSaved, hasOwnership);
   setEncounterFormMode(app_currentEncounter, 'vitals', app_currentEncounter.vitalsSaved, hasOwnership);
   setEncounterFormMode(app_currentEncounter, 'soap-note', app_currentEncounter.soapNoteSaved, hasOwnership);
   setEncounterFormMode(app_currentEncounter, 'cc', app_currentEncounter.ccSaved, hasOwnership);
@@ -72,7 +72,7 @@ function renderPatientEncounterForm(encounter, hasOwnership) {
   var id = encounter.id;
   var currentDate = dateFormat(new Date(), 'mm/dd/yyyy');
   
-  renderEncounterFormSection (encounter, 'demo', encounter.demographicsSaved, hasOwnership);
+  renderEncounterFormSection (encounter, 'demo', encounter.demoSaved, hasOwnership);
   renderEncounterFormSection (encounter, 'vitals', encounter.vitalsSaved, hasOwnership);
   renderEncounterFormSection (encounter, 'soap-note', encounter.soapNoteSaved, hasOwnership);
   renderEncounterFormSection (encounter, 'cc', encounter.ccSaved, hasOwnership);
@@ -85,7 +85,6 @@ function renderPatientEncounterForm(encounter, hasOwnership) {
   
   $(".edit-on-select").focus(function() { $(this).selectContentEditableText(); });
   
-  $('#encounter-demo-save-'+id).click(function() { saveDemographicsEncounterForm(encounter); });
   $('#encounter-vitals-save-'+id).click(function() { saveVitalsEncounterForm(encounter); });
   $('#encounter-soap-note-save-'+id).click(function() { saveSOAPNoteEncounterForm(encounter); });
   $('#encounter-cc-save-'+id).click(function() { saveCCEncounterForm(encounter); });
@@ -603,25 +602,7 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
   }
 }
 
-function saveDemographicsEncounterForm(encounter) {
-  var id = encounter.id;
-  encounter.patient.cred.govtId = $.trim($("#encounter-demo-govt-id-"+id).val());
-  encounter.patient.demo.dob = util_processDate("#encounter-demo-dob-"+id, encounter.patient.demo.dob); //"Mar 17, 2014 10:01:12 PM";
-  encounter.patient.cred.firstName = $.trim($("#encounter-demo-first-name-"+id).val());
-  encounter.patient.cred.middleName = $.trim($("#encounter-demo-middle-name-"+id).val());
-  encounter.patient.cred.lastName = $.trim($("#encounter-demo-last-name-"+id).val());
-  encounter.patient.demo.gender = createGender($.trim($("#encounter-demo-gender-"+id).val().toUpperCase()));
-  encounter.patient.demo.primaryPhone = $.trim($("#encounter-demo-phone-"+id).val());
-  encounter.notes = $.trim($("#encounter-demo-notes-"+id).val());
-  encounter.demographicsSaved = true;
-  var jsonData = JSON.stringify({ 
-    sessionId: clinician.sessionId, 
-    encounter: encounter
-  });
-  $.post("patient/createDemographics", {data:jsonData}, function(data) {
-    renderEncounterFormSection (encounter, 'demo', true, true);
-  });
-}
+
 
 function saveVitalsEncounterForm(encounter) {
   var id = encounter.id;  

@@ -44,7 +44,7 @@ function Gender() {
 }
 
 function Encounter() {
-  this.demographicsSaved = false;
+  this.demo = true;
   this.triage = undefined;
   this.patient = undefined;
   this.encounter = undefined;

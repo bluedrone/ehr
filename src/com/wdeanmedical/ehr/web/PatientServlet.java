@@ -83,9 +83,6 @@ public class PatientServlet extends AppServlet  {
         else if (pathInfo.equals("/addEncounterMedication")) {
           returnString = addEncounterMedication(request, response);  
         }
-        else if (pathInfo.equals("/createDemographics")) {
-          returnString = createDemographics(request, response);  
-        }
         else if (pathInfo.equals("/createCC")) {
           returnString = createCC(request, response);  
         }
@@ -278,14 +275,7 @@ public class PatientServlet extends AppServlet  {
     return json;
   }
   
-  public String createDemographics(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.createDemographics(dto);
-    String json = gson.toJson(dto);
-    return json;
-  }
+
   
   public String createVitals(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String data = request.getParameter("data");

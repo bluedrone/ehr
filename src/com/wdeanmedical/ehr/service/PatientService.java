@@ -219,21 +219,7 @@ public class PatientService {
     patientDAO.update(dto.getEncounter());
     activityLogService.logEditEncounter(dto.getClinicianId(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSetHist);
   }
-  
-  
-  public void createDemographics(PatientDTO dto) throws Exception {
-  Set<String> fieldSetDemo = activityLogService.getListOfChangedFields(dto.getEncounter().getPatient().getDemo());
-    encrypt(dto.getEncounter().getPatient()); 
-    patientDAO.update(dto.getEncounter().getPatient().getDemo());
-    Set<String> fieldSetCred = activityLogService.getListOfChangedFields(dto.getEncounter().getPatient().getCred());
-    patientDAO.update(dto.getEncounter().getPatient().getCred());
-    patientDAO.update(dto.getEncounter().getPatient());
-    patientDAO.update(dto.getEncounter());
-    Set<String> fieldSet = new HashSet<String>();
-    fieldSet.addAll(fieldSetDemo);
-    fieldSet.addAll(fieldSetCred);
-    activityLogService.logEditEncounter(dto.getClinicianId(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSet); 
-  }
+ 
   
   
   public  void updateEncounterMedication(PatientDTO dto) throws Exception {

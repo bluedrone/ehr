@@ -41,7 +41,7 @@ public class Encounter extends BaseEntity implements Serializable {
   private Integer lockStatus;
   private Boolean completed = false;
   private String notes;
-  private Boolean demographicsSaved = false;
+  private Boolean demoSaved = true;
   private Boolean vitalsSaved = false;
   private Boolean soapNoteSaved = false;
   private Boolean ccSaved = false;
@@ -122,9 +122,9 @@ public class Encounter extends BaseEntity implements Serializable {
   public SuppQuestions getSupp() { return supp; }
   public void setSupp(SuppQuestions supp) { this.supp = supp; }
 
-  @Column(name = "demographics_saved")
-  public Boolean getDemographicsSaved() { return demographicsSaved; }
-  public void setDemographicsSaved(Boolean demographicsSaved) { this.demographicsSaved = demographicsSaved; }
+  @Column(name = "demo_saved")
+  public Boolean getDemoSaved() { return demoSaved; }
+  public void setDemoSaved(Boolean demoSaved) { this.demoSaved = demoSaved; }
 
 @Column(name = "vitals_saved")
   public Boolean getVitalsSaved() { return vitalsSaved; }
@@ -171,7 +171,7 @@ public class Encounter extends BaseEntity implements Serializable {
     final int prime = 31;
     int result = super.hashCode();
     result = prime * result
-        + ((demographicsSaved == null) ? 0 : demographicsSaved.hashCode());
+        + ((demoSaved == null) ? 0 : demoSaved.hashCode());
     result = prime * result + ((cc == null) ? 0 : cc.hashCode());
     result = prime * result + ((ccSaved == null) ? 0 : ccSaved.hashCode());
     result = prime * result
@@ -220,10 +220,10 @@ public class Encounter extends BaseEntity implements Serializable {
     if (getClass() != obj.getClass())
       {return false;}
     Encounter other = (Encounter) obj;
-    if (demographicsSaved == null) {
-      if (other.demographicsSaved != null)
+    if (demoSaved == null) {
+      if (other.demoSaved != null)
         {return false;}
-    } else if (!demographicsSaved.equals(other.demographicsSaved))
+    } else if (!demoSaved.equals(other.demoSaved))
       {return false;}
     if (cc == null) {
       if (other.cc != null)
@@ -351,8 +351,8 @@ public class Encounter extends BaseEntity implements Serializable {
         + ", supp=" + supp + ", exam=" + exam + ", lab=" + lab
         + ", obgyn=" + obgyn + ", followUp=" + followUp
         + ", lockStatus=" + lockStatus + ", completed=" + completed
-        + ", notes=" + notes + ", demographicsSaved="
-        + demographicsSaved + ", vitalsSaved=" + vitalsSaved
+        + ", notes=" + notes + ", demoSaved="
+        + demoSaved + ", vitalsSaved=" + vitalsSaved
         + ", soapNoteSaved=" + soapNoteSaved + ", ccSaved=" + ccSaved
         + ", obgynSaved=" + obgynSaved + ", pfshSaved=" + pfshSaved
         + ", suppSaved=" + suppSaved + ", histSaved=" + histSaved
