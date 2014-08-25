@@ -550,9 +550,10 @@ public class PatientService {
     return returnString;
  }
  
-  /****************************************   DONE  ***************************************/
+ 
+ 
   public void updatePatient(PatientDTO dto) throws Exception {
-  Set<String> fieldSet = new HashSet<String>();
+    Set<String> fieldSet = new HashSet<String>();
     String updateClass = "";
     Patient patient = patientDAO.findPatientById(dto.getPatientId());
     Encounter encounter = getCurrentEncounter(patient, dto);
@@ -571,12 +572,22 @@ public class PatientService {
     
     String property = dto.getUpdateProperty();
     String value = dto.getUpdatePropertyValue();
-    if (property.equals("firstName")) {cred.setFirstName(value);updateClass = "Credentials";} 
-    else if (property.equals("middleName")) {cred.setMiddleName(value);updateClass = "Credentials";} 
-    else if (property.equals("lastName")) {cred.setLastName(value);updateClass = "Credentials";} 
+    if (property.equals("firstName")) {cred.setFirstName(DataEncryptor.encrypt(value));updateClass = "Credentials";} 
+    else if (property.equals("middleName")) {cred.setMiddleName(DataEncryptor.encrypt(value));updateClass = "Credentials";} 
+    else if (property.equals("lastName")) {cred.setLastName(DataEncryptor.encrypt(value));updateClass = "Credentials";} 
     else if (property.equals("gender")) {demo.setGender(patientDAO.findGenderByCode(value));updateClass = "Demographics";} 
     else if (property.equals("notes")) {encounter.setNotes(value);updateClass = "Encounter";} 
-    else if (property.equals("govtId")) {cred.setGovtId(value);updateClass = "Credentials";} 
+    else if (property.equals("govtId")) {cred.setGovtId(DataEncryptor.encrypt(value));updateClass = "Credentials";} 
+    else if (property.equals("mrn")) {cred.setMrn(DataEncryptor.encrypt(value));updateClass = "Credentials";} 
+    else if (property.equals("streetAddress1")) {demo.setStreetAddress1(DataEncryptor.encrypt(value));updateClass = "Demographics";} 
+    else if (property.equals("city")) {demo.setCity(DataEncryptor.encrypt(value));updateClass = "Demographics";} 
+    else if (property.equals("postalCode")) {demo.setPostalCode(DataEncryptor.encrypt(value));updateClass = "Demographics";} 
+    else if (property.equals("primaryPhone")) {demo.setPrimaryPhone(DataEncryptor.encrypt(value));updateClass = "Demographics";} 
+    else if (property.equals("secondaryPhone")) {demo.setSecondaryPhone(DataEncryptor.encrypt(value));updateClass = "Demographics";} 
+    else if (property.equals("email")) {cred.setEmail(DataEncryptor.encrypt(value));updateClass = "Credentials";} 
+    else if (property.equals("occupation")) {demo.setOccupation(value);updateClass = "Demographics";} 
+    else if (property.equals("employer")) {demo.setEmployer(DataEncryptor.encrypt(value));updateClass = "Demographics";} 
+    else if (property.equals("schoolName")) {demo.setSchoolName(DataEncryptor.encrypt(value));updateClass = "Demographics";} 
     
     else if (property.equals("subjective")) {soapNote.setSubjective(value);updateClass = "SOAPNote";} 
     else if (property.equals("objective")) {soapNote.setObjective(value);updateClass = "SOAPNote";} 
