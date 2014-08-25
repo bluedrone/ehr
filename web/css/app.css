@@ -856,3 +856,9 @@ td.highlighted { background:#FFFF66 }
   height: 120px;
   overflow: auto;
 }
+
+.notes-field {
+  padding-top: 4px;
+  padding-left: 6px;
+  min-height: 64px;
+}

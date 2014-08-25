@@ -225,16 +225,34 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
       var dob = dateFormat(encounter.patient.demo.dob, 'mm/dd/yyyy')
       $('#encounter-demo-dob-saved-'+id).html(dob);
       $('#encounter-demo-gender-saved-'+id).html(encounter.patient.demo.gender.code);
-      $('#encounter-demo-phone-saved-'+id).html(encounter.patient.demo.primaryPhone);
       $('#encounter-demo-notes-saved-'+id).html(encounter.notes);
+      $('#encounter-demo-street-address-saved-'+id).html(encounter.patient.demo.streetAddress1);
+      $('#encounter-demo-city-saved-'+id).html(encounter.patient.demo.city);
+      $('#encounter-demo-us-state-saved-'+id).html(encounter.patient.demo.usState.name);
+      $('#encounter-demo-postal-code-saved-'+id).html(encounter.patient.demo.postalCode);
+      $('#encounter-demo-email-saved-'+id).html(encounter.patient.cred.email);
+      $('#encounter-demo-primary-phone-saved-'+id).html(encounter.patient.demo.primaryPhone);
+      $('#encounter-demo-secondary-phone-saved-'+id).html(encounter.patient.demo.secondaryPhone);
+      $('#encounter-demo-occupation-saved-'+id).html(encounter.patient.demo.occupation);
+      $('#encounter-demo-employer-saved-'+id).html(encounter.patient.demo.employer);
+      $('#encounter-demo-school-name-saved-'+id).html(encounter.patient.demo.schoolName);
+      
       $('#encounter-demo-first-name-saved-'+id).blur(function() { updateSavedPatientEncounter("firstName", $(this).html(), id); });
       $('#encounter-demo-middle-name-saved-'+id).blur(function() { updateSavedPatientEncounter("middleName", $(this).html(), id); });
       $('#encounter-demo-last-name-saved-'+id).blur(function() { updateSavedPatientEncounter("lastName", $(this).html(), id); });
       $('#encounter-demo-govt-id-saved-'+id).blur(function() { updateSavedPatientEncounter("govtId", $(this).html(), id); });
       $('#encounter-demo-gender-saved-'+id).blur(function() { updateSavedPatientEncounter("gender", $(this).html(), id); });
-      $('#encounter-demo-phone-saved-'+id).blur(function() { updateSavedPatientEncounter("phone", $(this).html(), id); });
       $('#encounter-demo-notes-saved-'+id).blur(function() { updateSavedPatientEncounter("notes", $(this).html(), id); });
       $('#encounter-demo-dob-saved-'+id).blur(function() { updateSavedPatientEncounter("dob", $(this).html(), id); });
+      $('#encounter-demo-street-address-saved-'+id).blur(function() { updateSavedPatientEncounter("streetAddress1", $(this).html(), id); });
+      $('#encounter-demo-city-saved-'+id).blur(function() { updateSavedPatientEncounter("city", $(this).html(), id); });
+      $('#encounter-demo-postal-code-saved-'+id).blur(function() { updateSavedPatientEncounter("postalCode", $(this).html(), id); });
+      $('#encounter-demo-email-saved-'+id).blur(function() { updateSavedPatientEncounter("email", $(this).html(), id); });
+      $('#encounter-demo-primary-phone-saved-'+id).blur(function() { updateSavedPatientEncounter("primaryPhone", $(this).html(), id); });
+      $('#encounter-demo-secondary-phone-saved-'+id).blur(function() { updateSavedPatientEncounter("secondaryPhone", $(this).html(), id); });
+      $('#encounter-demo-occupation-saved-'+id).blur(function() { updateSavedPatientEncounter("occupation", $(this).html(), id); });
+      $('#encounter-demo-employer-saved-'+id).blur(function() { updateSavedPatientEncounter("employer", $(this).html(), id); });
+      $('#encounter-demo-school-name-saved-'+id).blur(function() { updateSavedPatientEncounter("schoolName", $(this).html(), id); });
     }
     else if (section == 'soap-note') {
       $('#encounter-soap-note-subjective-saved-'+id).html(encounter.soapNote.subjective);
