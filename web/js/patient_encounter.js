@@ -321,13 +321,14 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
       $('#encounter-weeks-since-saved-'+id).blur(function() { updateSavedPatientEncounter("weeksSince", $(this).html(), id); });
       $('#encounter-months-since-saved-'+id).blur(function() { updateSavedPatientEncounter("monthsSince", $(this).html(), id); });
       $('#encounter-years-since-saved-'+id).blur(function() { updateSavedPatientEncounter("yearsSince", $(this).html(), id); });
-      
+     /* 
       $('#encounter-pain-type-saved-'+id).click(function() { 
         $(this).css({display: "none"});
         $("#encounter-pain-type-"+id).css({display: "block"});
         $("#encounter-pain-type-"+id).val(encounter.cc.painType);
         $("#encounter-pain-type-"+id).change(function() { updateSavedPatientEncounter("painType", $(this).val(), id); });
       });
+      */
       
       $('#encounter-chief-complaint-saved-'+id).blur(function() { updateSavedPatientEncounter("ccDescription", $(this).html(), id); });
       $('#encounter-specific-location-saved-'+id).blur(function() { updateSavedPatientEncounter("specificLocation", $(this).html(), id); });
@@ -621,6 +622,18 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
       $('#encounter-follow-up-date-saved-'+id).blur(function() { updateSavedPatientEncounter("followUpDate", $(this).html(), id); });
       $('#encounter-follow-up-notes-saved-'+id).blur(function() { updateSavedPatientEncounter("followUpNotes", $(this).html(), id); });
     } 
+   
+    // note: need to add specific id to manipulate
+    $('.dual-mode-saved').click(function() { 
+      $(this).css({display: "none"});
+      var thisItem = this;
+      var savedId = this.id;
+      var unsavedId = savedId.replace('-saved','');
+      var unsavedItem = $('#'+unsavedId);
+      unsavedItem.css({display: "block"});
+      //$(unsavedId).val(encounter.cc.painType);
+      //$(unsavedId).change(function() { updateSavedPatientEncounter("painType", $(this).val(), id); });
+    });
   }
 }
 
