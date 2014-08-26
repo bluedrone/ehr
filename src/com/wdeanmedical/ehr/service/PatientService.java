@@ -586,6 +586,8 @@ public class PatientService {
     else if (property.equals("secondaryPhone")) {demo.setSecondaryPhone(DataEncryptor.encrypt(value));updateClass = "Demographics";} 
     else if (property.equals("email")) {cred.setEmail(DataEncryptor.encrypt(value));updateClass = "Credentials";} 
     else if (property.equals("occupation")) {demo.setOccupation(value);updateClass = "Demographics";} 
+    else if (property.equals("employmentStatus")) {demo.setEmploymentStatus(value);updateClass = "Demographics";} 
+    else if (property.equals("schoolStatus")) {demo.setSchoolStatus(value);updateClass = "Demographics";} 
     else if (property.equals("employer")) {demo.setEmployer(DataEncryptor.encrypt(value));updateClass = "Demographics";} 
     else if (property.equals("schoolName")) {demo.setSchoolName(DataEncryptor.encrypt(value));updateClass = "Demographics";} 
     

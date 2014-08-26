@@ -623,16 +623,16 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
       $('#encounter-follow-up-notes-saved-'+id).blur(function() { updateSavedPatientEncounter("followUpNotes", $(this).html(), id); });
     } 
    
-    // note: need to add specific id to manipulate
-    $('.dual-mode-saved').click(function() { 
+    $('.dual-mode-saved').off().on('click', function(event) { 
       $(this).css({display: "none"});
       var thisItem = this;
       var savedId = this.id;
       var unsavedId = savedId.replace('-saved','');
-      var unsavedItem = $('#'+unsavedId);
-      unsavedItem.css({display: "block"});
-      //$(unsavedId).val(encounter.cc.painType);
-      //$(unsavedId).change(function() { updateSavedPatientEncounter("painType", $(this).val(), id); });
+      var currentValue = this.innerHTML;
+      $('#'+unsavedId).val(currentValue);
+      $('#'+unsavedId).css({display: "block"});
+      var name = $('#'+unsavedId).attr('name');
+      $('#'+unsavedId).change(function() { updateSavedPatientEncounter(name, $(this).val(), id, true, savedId); });
     });
   }
 }
@@ -896,18 +896,6 @@ function updateSavedPatientEncounter(property, value, encounterId, isDualMode, e
       $('#'+elementId+'-saved-'+encounterId).html(value);
       $('#'+elementId+'-saved-'+encounterId).css({display: "block"});
     }
-    /*
-    if (property == "painType") {
-      $("#encounter-pain-type-"+encounterId).css({display: "none"});
-      $("#encounter-pain-type-saved-"+encounterId).html(value);
-      $("#encounter-pain-type-saved-"+encounterId).css({display: "block"});
-    }
-    else if (property == "waterSource") {
-      $("#encounter-water-source-"+encounterId).css({display: "none"});
-      $("#encounter-water-source-saved-"+encounterId).html(value);
-      $("#encounter-water-source-saved-"+encounterId).css({display: "block"});
-    }
-    */
   }); 
 }
 
