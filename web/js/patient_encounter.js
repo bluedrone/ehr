@@ -225,6 +225,11 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
       var dob = dateFormat(encounter.patient.demo.dob, 'mm/dd/yyyy')
       $('#encounter-demo-dob-saved-'+id).html(dob);
       $('#encounter-demo-gender-saved-'+id).html(encounter.patient.demo.gender.code);
+      $('#encounter-demo-marital-saved-'+id).html(encounter.patient.demo.maritalStatus.name);
+      $('#encounter-demo-race-saved-'+id).html(encounter.patient.demo.race.name);
+      $('#encounter-demo-ethnicity-saved-'+id).html(encounter.patient.demo.ethnicity.name);
+      $('#encounter-demo-school-status-saved-'+id).html(encounter.patient.demo.schoolStatus);
+      $('#encounter-demo-employment-status-saved-'+id).html(encounter.patient.demo.employmentStatus);
       $('#encounter-demo-notes-saved-'+id).html(encounter.notes);
       $('#encounter-demo-street-address-saved-'+id).html(encounter.patient.demo.streetAddress1);
       $('#encounter-demo-city-saved-'+id).html(encounter.patient.demo.city);
@@ -241,7 +246,12 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
       $('#encounter-demo-middle-name-saved-'+id).blur(function() { updateSavedPatientEncounter("middleName", $(this).html(), id); });
       $('#encounter-demo-last-name-saved-'+id).blur(function() { updateSavedPatientEncounter("lastName", $(this).html(), id); });
       $('#encounter-demo-govt-id-saved-'+id).blur(function() { updateSavedPatientEncounter("govtId", $(this).html(), id); });
-      $('#encounter-demo-gender-saved-'+id).blur(function() { updateSavedPatientEncounter("gender", $(this).html(), id); });
+      $('#encounter-demo-gender-saved-'+id).blur(function() { updateSavedPatientEncounter("gender", $(this).html(), id, true, 'encounter-demo-gender'); });
+      $('#encounter-demo-race-saved-'+id).blur(function() { updateSavedPatientEncounter("race", $(this).html(), id, true, 'encounter-demo-marital'); });
+      $('#encounter-demo-marital-saved-'+id).blur(function() { updateSavedPatientEncounter("maritalStatus", $(this).html(), id, true, 'encounter-demo-race'); });
+      $('#encounter-demo-ethnicity-saved-'+id).blur(function() { updateSavedPatientEncounter("ethnicity", $(this).html(), id, true, 'encounter-demo-ethnicity'); });
+      $('#encounter-demo-school-status-saved-'+id).blur(function() { updateSavedPatientEncounter("schoolStatus", $(this).html(), id, true, 'encounter-demo-school-status'); });
+      $('#encounter-demo-employment-status-saved-'+id).blur(function() { updateSavedPatientEncounter("employmentStatus", $(this).html(), id, true, 'encounter-demo-employment-status'); });
       $('#encounter-demo-notes-saved-'+id).blur(function() { updateSavedPatientEncounter("notes", $(this).html(), id); });
       $('#encounter-demo-dob-saved-'+id).blur(function() { updateSavedPatientEncounter("dob", $(this).html(), id); });
       $('#encounter-demo-street-address-saved-'+id).blur(function() { updateSavedPatientEncounter("streetAddress1", $(this).html(), id); });
@@ -311,12 +321,14 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
       $('#encounter-weeks-since-saved-'+id).blur(function() { updateSavedPatientEncounter("weeksSince", $(this).html(), id); });
       $('#encounter-months-since-saved-'+id).blur(function() { updateSavedPatientEncounter("monthsSince", $(this).html(), id); });
       $('#encounter-years-since-saved-'+id).blur(function() { updateSavedPatientEncounter("yearsSince", $(this).html(), id); });
+      
       $('#encounter-pain-type-saved-'+id).click(function() { 
         $(this).css({display: "none"});
         $("#encounter-pain-type-"+id).css({display: "block"});
         $("#encounter-pain-type-"+id).val(encounter.cc.painType);
         $("#encounter-pain-type-"+id).change(function() { updateSavedPatientEncounter("painType", $(this).val(), id); });
       });
+      
       $('#encounter-chief-complaint-saved-'+id).blur(function() { updateSavedPatientEncounter("ccDescription", $(this).html(), id); });
       $('#encounter-specific-location-saved-'+id).blur(function() { updateSavedPatientEncounter("specificLocation", $(this).html(), id); });
       $('input[name=encounter-occurs-when-'+id+']').click(function() { 
@@ -853,7 +865,7 @@ function updateLocalPatientEncounter(property, value, patientId) {
   app_currentEncounter[property] = value;  
 }
 
-function updateSavedPatientEncounter(property, value, encounterId) {
+function updateSavedPatientEncounter(property, value, encounterId, isDualMode, elementId) {
   var encounter = app_currentEncounter;
   if (encounter == undefined) {
     encounter = getPatientEncounter(encounterId);
@@ -866,6 +878,12 @@ function updateSavedPatientEncounter(property, value, encounterId) {
     updatePropertyValue:value
   });
   $.post("patient/updatePatient", {data:jsonData}, function(data) {
+    if (isDualMode) {
+      $('#'+elementId+'-'+encounterId).css({display: "none"});
+      $('#'+elementId+'-saved-'+encounterId).html(value);
+      $('#'+elementId+'-saved-'+encounterId).css({display: "block"});
+    }
+    /*
     if (property == "painType") {
       $("#encounter-pain-type-"+encounterId).css({display: "none"});
       $("#encounter-pain-type-saved-"+encounterId).html(value);
@@ -876,6 +894,7 @@ function updateSavedPatientEncounter(property, value, encounterId) {
       $("#encounter-water-source-saved-"+encounterId).html(value);
       $("#encounter-water-source-saved-"+encounterId).css({display: "block"});
     }
+    */
   }); 
 }
 
@@ -991,12 +1010,17 @@ function setEncounterFormMode(encounter, section, isSaved, hasOwnership) {
     $('#encounter-'+section+'-panel-'+id+' .form-control-saved').css({border:"none"});
     $('#encounter-'+section+'-panel-'+id+' .form-control-saved').removeClass('form-control-saved').addClass('form-control-closed');
     $('#encounter-demo-photo-upload-control-'+id).css({display:"none"});
-    
     $('#encounter-pain-scale-value-'+id).css({display: "inline"});
-    $("#encounter-pain-type-"+id).css({display: "none"});
     $(".slider-track").css({display: "none"});
-    $("#encounter-pain-type-saved-"+id).css({display: "inline"});
-    $("#encounter-pain-type-saved-"+id).off( "click");
+    
+    $('.dual-mode-unsaved').css({display: "none"});
+    $('.dual-mode-saved').css({display: "inline"});
+    $('.dual-mode-saved').off( "click");
+    
+    //$("#encounter-pain-type-"+id).css({display: "none"});
+    //$("#encounter-pain-type-saved-"+id).css({display: "inline"});
+    //$("#encounter-pain-type-saved-"+id).off( "click");
+    
     return;
   }
   
