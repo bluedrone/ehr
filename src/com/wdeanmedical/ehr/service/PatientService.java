@@ -570,6 +570,8 @@ public class PatientService {
     Demographics demo = patient.getDemo();
     SOAPNote soapNote = encounter.getSOAPNote();
     
+    //   TODO NEED TO ACCOUNT FOR RACE US STATE, ETC
+     
     String property = dto.getUpdateProperty();
     String value = dto.getUpdatePropertyValue();
     if (property.equals("firstName")) {cred.setFirstName(DataEncryptor.encrypt(value));updateClass = "Credentials";} 

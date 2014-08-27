@@ -636,9 +636,35 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
       $('#'+unsavedId).val(currentValue);
       $('#'+unsavedId).css({display: "block"});
       var name = $('#'+unsavedId).attr('name');
-      $('#'+unsavedId).change(function() { updateSavedPatientEncounter(name, $(this).val(), id, true, savedId); });
+      $('#'+unsavedId).change(function() { 
+        updateSavedPatientEncounter(name, $(this).val(), id, true, savedId, this.selectedOptions[0].label); 
+      });
     });
   }
+}
+
+
+
+function updateSavedPatientEncounter(property, value, encounterId, isDualMode, elementId, valueName) {
+  var encounter = app_currentEncounter;
+  if (encounter == undefined) {
+    encounter = getPatientEncounter(encounterId);
+  }
+  updateLocalPatientEncounter(property, value, encounter.patient.id);
+  var jsonData = JSON.stringify({ 
+    sessionId: clinician.sessionId, 
+    patientId: encounter.patient.id,
+    updateProperty:property,
+    updatePropertyValue:value
+  });
+  $.post("patient/updatePatient", {data:jsonData}, function(data) {
+    if (isDualMode) {
+      var unsavedId = elementId.replace('-saved','');
+      $('#'+unsavedId).css({display: "none"});
+      $('#'+elementId).html(valueName ? valueName : value);
+      $('#'+elementId).css({display: "block"});
+    }
+  }); 
 }
 
 
@@ -882,27 +908,7 @@ function updateLocalPatientEncounter(property, value, patientId) {
   app_currentEncounter[property] = value;  
 }
 
-function updateSavedPatientEncounter(property, value, encounterId, isDualMode, elementId) {
-  var encounter = app_currentEncounter;
-  if (encounter == undefined) {
-    encounter = getPatientEncounter(encounterId);
-  }
-  updateLocalPatientEncounter(property, value, encounter.patient.id);
-  var jsonData = JSON.stringify({ 
-    sessionId: clinician.sessionId, 
-    patientId: encounter.patient.id,
-    updateProperty:property,
-    updatePropertyValue:value
-  });
-  $.post("patient/updatePatient", {data:jsonData}, function(data) {
-    if (isDualMode) {
-      var unsavedId = elementId.replace('-saved','');
-      $('#'+unsavedId).css({display: "none"});
-      $('#'+elementId).html(value);
-      $('#'+elementId).css({display: "block"});
-    }
-  }); 
-}
+
 
 function updateEncounterQuestion(property, value, encounterQuestionId) {
   var jsonData = JSON.stringify({ 
