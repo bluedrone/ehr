@@ -43,6 +43,7 @@ import com.wdeanmedical.ehr.entity.ToDoNote;
 import com.wdeanmedical.ehr.persistence.SiteDAO;
 import com.wdeanmedical.ehr.util.OneWayPasswordEncoder;
 import com.wdeanmedical.ehr.entity.PatientStatus;
+import com.wdeanmedical.ehr.entity.USState;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
@@ -486,6 +487,16 @@ public class AppDAO extends SiteDAO {
     Criteria crit = session.createCriteria(Appointment.class);
     crit.add(Restrictions.eq("clinician", clinician));
     List<Appointment> list =  crit.list();
+    return list;
+  }
+  
+  
+  
+  public List<USState> getUSStates() throws Exception {
+    Session session = this.getSession();
+    Criteria crit = session.createCriteria(USState.class);
+    crit.addOrder(Order.asc("name"));
+    List<USState> list =  crit.list();
     return list;
   }
   

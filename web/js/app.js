@@ -90,10 +90,12 @@ var app_groupOrderArray = [];
 var app_newPatientEncounterGroup = undefined;
 var app_oldLockStatus;
 var app_currentCalendarView = 'month';
+var app_usStates;
 
 /***********      @JQUERY INIT    *******************/
 $(document).ready(function() {
   if (INITIALIZED == false) {
+    getStaticLists();
     INITIALIZED = true;
     $(function () { $("[data-toggle='popover']").popover({ trigger: "hover" }); });
     app_viewStack('signin-screen', DO_SCROLL);
@@ -123,6 +125,13 @@ $(document).ready(function() {
   }
 });
 /***********      @JQUERY INIT    *******************/
+
+function getStaticLists() {
+  $.post("app/getStaticLists", {}, function(data) {
+    parsedData = $.parseJSON(data);
+    app_usStates = parsedData.usStates;
+ });
+}
 
 
 $('#soap-notes-link').click(function() { 

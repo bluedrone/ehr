@@ -106,6 +106,10 @@ function renderPatientEncounterForm(encounter, hasOwnership) {
   $('#encounter-exam-print-'+id).click(function() { printEncounterForm('print_encounter_exam', 'EXAM')});
   $('#encounter-follow-up-print-'+id).click(function() { printEncounterForm('print_encounter_follow-up', 'FOLLOW UP')});
   initEncounterTypeAheads(id);
+  RenderUtil.render('component/basic_select_options', {options:app_usStates}, function(s) {
+    var id = app_currentEncounter.id;
+    $('#encounter-demo-us-state-'+id).html(s);
+  });
 } 
 
 

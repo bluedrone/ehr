@@ -91,7 +91,10 @@ public void init(ServletConfig config) throws ServletException {
     boolean isBinaryResponse = false;
      
     try { 
-      if (pathInfo.equals("/login")) {
+      if (pathInfo.equals("/getStaticLists")) {
+        returnString = getStaticLists(request, response);  
+      }
+      else if (pathInfo.equals("/login")) {
         returnString = login(request, response);  
       }
       else if (pathInfo.equals("/logout")) {
@@ -449,6 +452,12 @@ public void init(ServletConfig config) throws ServletException {
       value = dateformat.format(date);
     }
     return value;
+  }
+  
+  
+  public String getStaticLists(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String json = appService.getStaticLists(); 
+    return json;
   }
   
   

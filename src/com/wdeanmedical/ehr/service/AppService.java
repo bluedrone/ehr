@@ -15,7 +15,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -23,6 +25,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.wdeanmedical.ehr.persistence.AppDAO;
 import com.wdeanmedical.ehr.core.Core;
 import com.wdeanmedical.ehr.core.ExcludedFields;
@@ -474,5 +477,15 @@ public class AppService {
     }
     return appointments;
   }
+  
+  
+  
+  public String getStaticLists() throws Exception{
+    Map<String,List> map = new HashMap<String,List>();
+    Gson gson = new Gson();
+    map.put("usStates", appDAO.getUSStates());
+    return gson.toJson(map);
+  }
+  
 
 }
