@@ -892,9 +892,10 @@ function updateSavedPatientEncounter(property, value, encounterId, isDualMode, e
   });
   $.post("patient/updatePatient", {data:jsonData}, function(data) {
     if (isDualMode) {
-      $('#'+elementId+'-'+encounterId).css({display: "none"});
-      $('#'+elementId+'-saved-'+encounterId).html(value);
-      $('#'+elementId+'-saved-'+encounterId).css({display: "block"});
+      var unsavedId = elementId.replace('-saved','');
+      $('#'+unsavedId).css({display: "none"});
+      $('#'+elementId).html(value);
+      $('#'+elementId).css({display: "block"});
     }
   }); 
 }
