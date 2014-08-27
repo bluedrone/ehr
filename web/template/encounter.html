@@ -87,7 +87,7 @@
                     <div class="col-md-2">
                       <div class="form-group">
                         <label for="encounter-demo-gender-${id}">Gender</label>
-                        <select class="form-control form-control-unsaved dual-mode-unsaved" id="encounter-demo-gender-${id}">
+                        <select class="form-control form-control-unsaved dual-mode-unsaved" id="encounter-demo-gender-${id}" name="gender">
                           <option value="">Choose</option>
                           <option value="M">Male</option>
                           <option value="F">Female</option>
@@ -98,7 +98,7 @@
                     <div class="col-md-2">
                       <div class="form-group">
                         <label for="encounter-demo-marital-${id}">Marital</label>
-                        <select class="form-control form-control-unsaved dual-mode-unsaved" id="encounter-demo-marital-${id}">
+                        <select class="form-control form-control-unsaved dual-mode-unsaved" id="encounter-demo-marital-${id}" name="maritalStatus">
                           <option value="null">Choose</option>
                           <option value="1">Single</option>
                           <option value="2">Married</option>
@@ -112,8 +112,7 @@
                     <div class="col-md-2">
                       <div class="form-group">
                         <label for="encounter-demo-race-${id}">Race</label>
-                        <input type="text" class="form-control form-control-unsaved" id="encounter-demo-race-${id}">
-                        <select class="form-control form-control-unsaved dual-mode-unsaved" id="encounter-demo-race-${id}">
+                        <select class="form-control form-control-unsaved dual-mode-unsaved" id="encounter-demo-race-${id}" name="race">
                           <option value="7">Choose</option>
                           <option value="1">White</option>
                           <option value="2">Black or African American</option>
@@ -129,8 +128,7 @@
                     <div class="col-md-2">
                       <div class="form-group">
                         <label for="encounter-demo-ethnicity-${id}">Ethnicity</label>
-                        <input type="text" class="form-control form-control-unsaved" id="encounter-demo-ethnicity-${id}">
-                        <select class="form-control form-control-unsaved dual-mode-unsaved" id="encounter-demo-ethnicity-${id}">
+                        <select class="form-control form-control-unsaved dual-mode-unsaved" id="encounter-demo-ethnicity-${id}" name="ethnicity">
                           <option value="3">Choose</option>
                           <option value="1">Not Hispanic or Latino</option>
                           <option value="2">Hispanic or Latino</option>
@@ -158,7 +156,7 @@
                     <div class="col-md-2">
                       <div class="form-group">
                         <label for="encounter-demo-us-state-${id}">State</label>
-                        <select id="encounter-demo-us-state" class="form-control form-control-unsaved dual-mode-unsaved"></select>
+                        <select id="encounter-demo-us-state" class="form-control form-control-unsaved dual-mode-unsaved" name="usState"></select>
                         <div class="form-control-saved dual-mode-saved" id="encounter-demo-us-state-saved-${id}"></div>
                       </div>
                     </div>
@@ -224,7 +222,7 @@
                     <div class="col-md-2">
                       <div class="form-group">
                         <label for="encounter-demo-school-status-${id}">Education Status</label>
-                        <select class="form-control form-control-unsaved dual-mode-unsaved" id="encounter-demo-school-status-${id}">
+                        <select class="form-control form-control-unsaved dual-mode-unsaved" id="encounter-demo-school-status-${id}" name="schoolStatus">
                         <option value="">Choose</option>
                         <option>Full Time</option>
                         <option>Part Time</option>
