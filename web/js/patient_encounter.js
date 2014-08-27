@@ -328,14 +328,6 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
       $('#encounter-weeks-since-saved-'+id).blur(function() { updateSavedPatientEncounter("weeksSince", $(this).html(), id); });
       $('#encounter-months-since-saved-'+id).blur(function() { updateSavedPatientEncounter("monthsSince", $(this).html(), id); });
       $('#encounter-years-since-saved-'+id).blur(function() { updateSavedPatientEncounter("yearsSince", $(this).html(), id); });
-     /* 
-      $('#encounter-pain-type-saved-'+id).click(function() { 
-        $(this).css({display: "none"});
-        $("#encounter-pain-type-"+id).css({display: "block"});
-        $("#encounter-pain-type-"+id).val(encounter.cc.painType);
-        $("#encounter-pain-type-"+id).change(function() { updateSavedPatientEncounter("painType", $(this).val(), id); });
-      });
-      */
       
       $('#encounter-chief-complaint-saved-'+id).blur(function() { updateSavedPatientEncounter("ccDescription", $(this).html(), id); });
       $('#encounter-specific-location-saved-'+id).blur(function() { updateSavedPatientEncounter("specificLocation", $(this).html(), id); });
@@ -1039,10 +1031,6 @@ function setEncounterFormMode(encounter, section, isSaved, hasOwnership) {
     $('.dual-mode-unsaved').css({display: "none"});
     $('.dual-mode-saved').css({display: "inline"});
     $('.dual-mode-saved').off( "click");
-    
-    //$("#encounter-pain-type-"+id).css({display: "none"});
-    //$("#encounter-pain-type-saved-"+id).css({display: "inline"});
-    //$("#encounter-pain-type-saved-"+id).off( "click");
     
     return;
   }

@@ -20,6 +20,7 @@ import com.wdeanmedical.ehr.entity.Credentials;
 import com.wdeanmedical.ehr.entity.Demographics;
 import com.wdeanmedical.ehr.entity.Encounter;
 import com.wdeanmedical.ehr.entity.EncounterType;
+import com.wdeanmedical.ehr.entity.Ethnicity;
 import com.wdeanmedical.ehr.entity.Exam;
 import com.wdeanmedical.ehr.entity.Gender;
 import com.wdeanmedical.ehr.entity.EncounterMedication;
@@ -43,6 +44,7 @@ import com.wdeanmedical.ehr.entity.PatientMedication;
 import com.wdeanmedical.ehr.entity.PatientMessage;
 import com.wdeanmedical.ehr.entity.PFSH;
 import com.wdeanmedical.ehr.entity.PatientStatus;
+import com.wdeanmedical.ehr.entity.Race;
 import com.wdeanmedical.ehr.entity.SOAPNote;
 import com.wdeanmedical.ehr.entity.SuppQuestions;
 import com.wdeanmedical.ehr.entity.USState;
@@ -379,6 +381,24 @@ public class PatientDAO extends SiteDAO {
     crit.add(Restrictions.eq("code", code));
     return (Gender)crit.uniqueResult();
   }
+  
+  
+  public USState findUSStateById(int id ) throws Exception {
+    return (USState) this.findById(USState.class, id);
+  }
+  
+    
+  public Race findRaceById(int id ) throws Exception {
+    return (Race) this.findById(Race.class, id);
+  }
+  
+  
+  
+  public Ethnicity findEthnicityById(int id ) throws Exception {
+    return (Ethnicity) this.findById(Ethnicity.class, id);
+  }
+  
+  
   
   public MaritalStatus findMaritalStatusByCode(String code) throws Exception {
     Session session = getSession();

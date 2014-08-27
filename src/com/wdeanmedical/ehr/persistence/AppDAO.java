@@ -24,6 +24,7 @@ import com.wdeanmedical.ehr.entity.Clinician;
 import com.wdeanmedical.ehr.entity.ClinicianSchedule;
 import com.wdeanmedical.ehr.entity.ClinicianSession;
 import com.wdeanmedical.ehr.entity.Encounter;
+import com.wdeanmedical.ehr.entity.Ethnicity;
 import com.wdeanmedical.ehr.entity.ICD10;
 import com.wdeanmedical.ehr.entity.LabReview;
 import com.wdeanmedical.ehr.entity.Patient;
@@ -37,6 +38,7 @@ import com.wdeanmedical.ehr.entity.PatientMedicalProcedure;
 import com.wdeanmedical.ehr.entity.PatientMedicalTest;
 import com.wdeanmedical.ehr.entity.PatientMedication;
 import com.wdeanmedical.ehr.entity.PatientMessage;
+import com.wdeanmedical.ehr.entity.Race;
 import com.wdeanmedical.ehr.entity.VitalSigns;
 import com.wdeanmedical.ehr.entity.ProgressNote;
 import com.wdeanmedical.ehr.entity.ToDoNote;
@@ -293,6 +295,7 @@ public class AppDAO extends SiteDAO {
   public Patient findPatientById(int id ) throws Exception {
     return (Patient) this.findById(Patient.class, id);
   }
+
   
   public Clinician findClinicianById(int id ) throws Exception {
     return (Clinician) this.findById(Clinician.class, id);

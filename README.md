@@ -1,10 +1,8 @@
 # WDean Medical EHR
-# version 0.8.14  18-AUG-2014
+# version 0.8.15  27-AUG-2014
 
 Improvements:
-Implemented Data Encryption for Patient PHI
-Rewrote data output filtering
-Implemented Excel Export of reports.
+New Demographics Encounter form and form headers.
 
 Bug Fixes:
 

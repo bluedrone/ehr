@@ -407,6 +407,7 @@ public class PatientService {
       addEncounterMedication(patient.getId()); // patient.hist
     }
     activityLogService.logNewEncounter(clinician.getId(), dto.getPatientId(), clinician.getId(), encounter.getId());
+    decrypt(encounter.getPatient()); 
     return encounter;
   }
   
@@ -570,14 +571,24 @@ public class PatientService {
     Demographics demo = patient.getDemo();
     SOAPNote soapNote = encounter.getSOAPNote();
     
-    //   TODO NEED TO ACCOUNT FOR RACE US STATE, ETC
-     
     String property = dto.getUpdateProperty();
     String value = dto.getUpdatePropertyValue();
     if (property.equals("firstName")) {cred.setFirstName(DataEncryptor.encrypt(value));updateClass = "Credentials";} 
     else if (property.equals("middleName")) {cred.setMiddleName(DataEncryptor.encrypt(value));updateClass = "Credentials";} 
     else if (property.equals("lastName")) {cred.setLastName(DataEncryptor.encrypt(value));updateClass = "Credentials";} 
     else if (property.equals("gender")) {demo.setGender(patientDAO.findGenderByCode(value));updateClass = "Demographics";} 
+    else if (property.equals("race")) {
+      Integer raceId; try { raceId = new Integer(value); } catch (NumberFormatException nfe) {raceId = null;}
+      demo.setRace(patientDAO.findRaceById(raceId));updateClass = "Demographics";
+    } 
+    else if (property.equals("ethnicity")) {
+      Integer ethnicityId; try { ethnicityId = new Integer(value); } catch (NumberFormatException nfe) {ethnicityId = null;}
+      demo.setEthnicity(patientDAO.findEthnicityById(ethnicityId));updateClass = "Demographics";
+    } 
+    else if (property.equals("usState")) {
+      Integer usStateId; try { usStateId = new Integer(value); } catch (NumberFormatException nfe) {usStateId = null;}
+      demo.setUsState(patientDAO.findUSStateById(usStateId));updateClass = "Demographics";
+    } 
     else if (property.equals("notes")) {encounter.setNotes(value);updateClass = "Encounter";} 
     else if (property.equals("govtId")) {cred.setGovtId(DataEncryptor.encrypt(value));updateClass = "Credentials";} 
     else if (property.equals("mrn")) {cred.setMrn(DataEncryptor.encrypt(value));updateClass = "Credentials";} 
