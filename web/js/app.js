@@ -616,6 +616,7 @@ $('.app-dashboard-link').click(function(){ viewDashboard(); });
 $('.app-messages-link').click(function(){ viewMessages(); });
 $('#encounter-link').click(function(){ viewPatientEncounters(); });
 $('.app-letters-link').click(function(){ viewLetters(); });
+$('.app-reports-link').click(function(){ viewReports(); });
 $('.app-schedule-link').click(function(){ viewSchedule(); });
 $('#message-view-button').click(function(){ viewClinicianMessage(); });
 $('#message-close-button').click(function(){ viewMessages(); });
@@ -634,6 +635,10 @@ function viewMessages() {
 
 function viewLetters() {
   app_viewStack('letters-screen', DO_SCROLL);
+}
+
+function viewReports() {
+  app_viewStack('reports-screen', DO_SCROLL);
 }
 
 function viewSchedule() {
