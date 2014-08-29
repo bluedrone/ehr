@@ -33,6 +33,7 @@ import com.wdeanmedical.ehr.dto.LoginDTO;
 import com.wdeanmedical.ehr.dto.PatientDTO;
 import com.wdeanmedical.ehr.dto.TerminologyDTO;
 import com.wdeanmedical.ehr.entity.CPT;
+import com.wdeanmedical.ehr.entity.ClinicianSession;
 import com.wdeanmedical.ehr.entity.ICD10;
 import com.wdeanmedical.ehr.entity.Patient;
 import com.wdeanmedical.ehr.entity.PatientHealthIssue;
@@ -99,6 +100,9 @@ public void init(ServletConfig config) throws ServletException {
       }
       else if (pathInfo.equals("/logout")) {
         returnString = logout(request, response);  
+      }
+      else if (pathInfo.equals("/updateSession")) {
+        returnString = updateSession(request, response);  
       }
       else { 
         if (isValidSession(request, response) == false) {
@@ -207,6 +211,16 @@ public void init(ServletConfig config) throws ServletException {
     } 
     path = request.getServletPath() + path;
     return appService.isValidSession(dto, ipAddress, path);
+  }
+  
+  
+    public String updateSession(HttpServletRequest request, HttpServletResponse response) throws Exception {
+      String data = request.getParameter("data");
+      Gson gson = new Gson();
+      ClinicianSession dto = gson.fromJson(data, ClinicianSession.class);  
+      Clinician clinician = appService.updateSession(dto, request); 
+      String json = gson.toJson(clinician);
+      return json;
   }
   
   

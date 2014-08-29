@@ -5,7 +5,7 @@ public class Statics {
 	public static final String EMPTY_VALUE = "";
 	public static final String TAB = "\t";
 	
-	public static final String AUTHENTICATED_USER = "authenticatedUser";
+	public static final String AUTHENTICATED_CLINICIAN = "authenticatedClinician";
 	
 	public static final int SUPER_ADMIN = 1;
 	public static final int RESOURCE_MANAGER = 2;
