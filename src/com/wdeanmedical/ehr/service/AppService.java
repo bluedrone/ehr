@@ -31,6 +31,7 @@ import com.wdeanmedical.ehr.core.Core;
 import com.wdeanmedical.ehr.core.ExcludedFields;
 import com.wdeanmedical.ehr.core.ExcludedObjects;
 import com.wdeanmedical.ehr.core.Permissions;
+import com.wdeanmedical.ehr.core.Statics;
 import com.wdeanmedical.ehr.dto.AuthorizedDTO;
 import com.wdeanmedical.ehr.dto.ClinicianDTO;
 import com.wdeanmedical.ehr.dto.LoginDTO;
@@ -98,7 +99,6 @@ public class AppService {
   public String capitalize(String s) {
     return Character.toUpperCase(s.charAt(0)) + s.substring(1); 
   }
-  
   
   
   
@@ -388,6 +388,22 @@ public class AppService {
     }
     out.close();
     in.close();
+  }
+  
+  
+  public Clinician updateSession(ClinicianSession dto, HttpServletRequest request) throws Exception{
+    Clinician clinician = null;
+    if (dto != null) {
+      clinician = appDAO.findClinicianById(dto.getClinician().getId());
+      ClinicianSession clinicianSession = appDAO.findClinicianSessionBySessionId(dto.getSessionId());
+      if (clinicianSession != null) {
+        clinicianSession.setLastAccessTime(new Date());
+        ClinicianSessionData clinicianSessionData = new ClinicianSessionData();
+        clinicianSessionData.setClinicianSession(clinicianSession);
+       request.getSession().setAttribute(Statics.AUTHENTICATED_CLINICIAN, clinicianSession);
+      }
+    }
+    return clinician;
   }
   
   

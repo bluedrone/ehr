@@ -91,6 +91,10 @@ var app_newPatientEncounterGroup = undefined;
 var app_oldLockStatus;
 var app_currentCalendarView = 'month';
 var app_usStates;
+var app_idleInterval;
+var app_idleTime = 0;
+var ONE_SECOND =  1000;
+var ONE_MINUTE = 60000;
 
 /***********      @JQUERY INIT    *******************/
 $(document).ready(function() {
@@ -122,9 +126,46 @@ $(document).ready(function() {
       });
     });
     $('#app-check-in-add-group-link').click(function(){ showAddGroupForm(); });
+    window.onbeforeunload = confirmBeforeUnload;
   }
 });
 /***********      @JQUERY INIT    *******************/
+
+function app_runIdleTimer() {
+  //Increment the idle time counter every minute.
+  app_idleInterval = setInterval(app_timerIncrement, ONE_MINUTE);
+}
+
+function app_handleMouseMove() {
+  app_idleTime = 0;
+}
+
+function app_timerDismiss() {
+  $('#main_dialog_wrapper').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0});
+  var jsonData = JSON.stringify({user: user, sessionId: user.sessionId});
+  $.post("app/updateSession", {data:jsonData}, function(data) {});
+  idleTime = 0;
+}
+
+function app_timerIncrement() {
+  idleTime++;
+  if (idleTime == 25) {
+    $('#main_dialog_text').html('You will be automatically logged out soon unless you do something!');
+    $('#main_dialog_wrapper').css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0});
+  }
+  else if (idleTime == 30) {
+    DO_AUTO_LOGOUT = true;
+    setTimeout(util_logout, 5000);
+    setTimeout(app_displayAutologoutMessage, 5000);
+  }
+}
+
+
+function confirmBeforeUnload() {
+  if (clinician && clinician != null) {
+    return "Please log out first in order to save your data."; 
+  }
+}
 
 function getStaticLists() {
   $.post("app/getStaticLists", {}, function(data) {
@@ -160,7 +201,10 @@ $('#new-message').click(function() {
   });
 });
 
-$('.app-park-link').click(function(){ 
+$('.app-park-link').click(function(){ showParkDialog() });
+
+
+function showParkDialog() {
   RenderUtil.render('park', {}, function(s) { 
     $('#modals-placement').html(s);
     $('#app-parked-full-name').html(clinicianFullName);
@@ -169,7 +213,7 @@ $('.app-park-link').click(function(){
     $('.app-exit').click(function(){ logout(); });
     $('#app-unpark-submit').click(function(){ unpark(); });
   });
-});
+}
 
 $('#app-close-chart').click(function(){ 
   app_currentPatientId = null;
@@ -1084,8 +1128,6 @@ function login(demoMode, destination) {
         }
         else {
           app_viewStack('dashboard-screen', DO_SCROLL); 
-          //jsonData = JSON.stringify({sessionId: clinician.sessionId});
-          //$.post("patient/encryptPatients", {data:jsonData}, function(data) { });
         }
       }  
       else  {
