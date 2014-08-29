@@ -122,9 +122,17 @@ $(document).ready(function() {
       });
     });
     $('#app-check-in-add-group-link').click(function(){ showAddGroupForm(); });
+    window.onbeforeunload = confirmBeforeUnload;
   }
 });
 /***********      @JQUERY INIT    *******************/
+
+
+function confirmBeforeUnload() {
+  if (clinician && clinician != null) {
+    return "Please log out first in order to save your data."; 
+  }
+}
 
 function getStaticLists() {
   $.post("app/getStaticLists", {}, function(data) {
@@ -1079,8 +1087,6 @@ function login(demoMode, destination) {
         }
         else {
           app_viewStack('dashboard-screen', DO_SCROLL); 
-          //jsonData = JSON.stringify({sessionId: clinician.sessionId});
-          //$.post("patient/encryptPatients", {data:jsonData}, function(data) { });
         }
       }  
       else  {
