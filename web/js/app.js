@@ -126,18 +126,17 @@ $(document).ready(function() {
       });
     });
     $('#app-check-in-add-group-link').click(function(){ showAddGroupForm(); });
+    //$(document).mouseMove( function(){ app_timerReset(); });
     window.onbeforeunload = confirmBeforeUnload;
   }
 });
 /***********      @JQUERY INIT    *******************/
 
 function app_runIdleTimer() {
-  clearInterval(app_timerIncrement);
+  app_idleTime = 0;
+  if (typeof app_timerInterval !== 'undefined') {clearInterval(app_timerInterval)};
   app_idleInterval = setInterval(app_timerIncrement, ONE_MINUTE);
-}
-
-function app_handleMouseMove() {
-  app_timerReset();
+  $(document).off().on('mousemove', function(){ app_timerReset(); });
 }
 
 function app_timerReset() {
@@ -149,12 +148,11 @@ function app_timerReset() {
 
 function app_timerIncrement() {
   app_idleTime++;
-  if (app_idleTime == 25) {
-    displayNotification('Your session be automatically parked if still idle', true);
+  if (app_idleTime == 10) {
+    displayNotification('Your session will soon be automatically parked if still idle', true);
   }
-  else if (app_idleTime == 30) {
-    DO_AUTO_LOGOUT = true;
-    setTimeout(showParkDialog, 5000);
+  else if (app_idleTime == 15) {
+    showParkDialog();
     //setTimeout(app_displayAutologoutMessage, 5000);
   }
 }
@@ -213,7 +211,7 @@ function showParkDialog() {
     $('#app-parked-full-name').html(clinicianFullName);
     $('#modal-park').modal('show'); 
     park();
-    $('.app-exit').click(function(){ logout(); });
+    //$('.app-exit').click(function(){ logout(); });
     $('#app-unpark-submit').click(function(){ unpark(); });
   });
 }
@@ -1152,11 +1150,12 @@ function login(demoMode, destination) {
 }
 
 
+
 function park() {
   var jsonData = JSON.stringify({ sessionId: clinician.sessionId });
   $.post("app/park", {data:jsonData}, function(data) {
     var parsedData = $.parseJSON(data);
-    clearInterval(app_timerIncrement);
+    if (typeof app_timerInterval !== 'undefined') {clearInterval(app_timerInterval)};
   });
 }
 
@@ -1172,7 +1171,7 @@ function logout() {
     $('#section-notification').css("visibility", "hidden");
     $('#section-notification-text').html("");
     notificationText = clinicianFullName + ' logged out.';
-    clearInterval(app_timerIncrement);
+    if (typeof app_timerInterval !== 'undefined') {clearInterval(app_timerInterval)};
     displayNotification(notificationText);
     app_currentPatientId = null;
     clinician = null;
