@@ -132,32 +132,35 @@ $(document).ready(function() {
 /***********      @JQUERY INIT    *******************/
 
 function app_runIdleTimer() {
-  //Increment the idle time counter every minute.
+  clearInterval(app_timerIncrement);
   app_idleInterval = setInterval(app_timerIncrement, ONE_MINUTE);
 }
 
 function app_handleMouseMove() {
-  app_idleTime = 0;
+  app_timerReset();
 }
 
-function app_timerDismiss() {
-  $('#main_dialog_wrapper').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0});
-  var jsonData = JSON.stringify({clinician: clinician, sessionId: clinician.sessionId});
-  $.post("app/updateSession", {data:jsonData}, function(data) {});
-  idleTime = 0;
+function app_timerReset() {
+  $('#wdm-notification-text').html('');
+  app_idleTime = 0;
+  //var jsonData = JSON.stringify({clinician: clinician, sessionId: clinician.sessionId});
+  //$.post("app/updateSession", {data:jsonData}, function(data) {});
 }
 
 function app_timerIncrement() {
-  idleTime++;
-  if (idleTime == 25) {
-    $('#main_dialog_text').html('You will be automatically logged out soon unless you do something!');
-    $('#main_dialog_wrapper').css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0});
+  app_idleTime++;
+  if (app_idleTime == 25) {
+    displayNotification('Your session be automatically parked if still idle', true);
   }
-  else if (idleTime == 30) {
+  else if (app_idleTime == 30) {
     DO_AUTO_LOGOUT = true;
-    setTimeout(util_logout, 5000);
-    setTimeout(app_displayAutologoutMessage, 5000);
+    setTimeout(showParkDialog, 5000);
+    //setTimeout(app_displayAutologoutMessage, 5000);
   }
+}
+
+function app_displayAutologoutMessage() {
+  displayNofification('You have been automatically logged out due to inactivity');
 }
 
 
@@ -1063,6 +1066,7 @@ function unpark() {
         notificationText = clinicianFullName + ' unparked.';
         $('#modal-park').modal('hide'); 
         displayNotification(notificationText);
+        app_runIdleTimer(); 
       }  
       else  {
         if (clinician.authStatus == CLINICIAN_STATUS_NOT_FOUND) {
@@ -1129,6 +1133,7 @@ function login(demoMode, destination) {
         else {
           app_viewStack('dashboard-screen', DO_SCROLL); 
         }
+        app_runIdleTimer(); 
       }  
       else  {
         if (clinician.authStatus == CLINICIAN_STATUS_NOT_FOUND) {
@@ -1151,6 +1156,7 @@ function park() {
   var jsonData = JSON.stringify({ sessionId: clinician.sessionId });
   $.post("app/park", {data:jsonData}, function(data) {
     var parsedData = $.parseJSON(data);
+    clearInterval(app_timerIncrement);
   });
 }
 
@@ -1166,6 +1172,7 @@ function logout() {
     $('#section-notification').css("visibility", "hidden");
     $('#section-notification-text').html("");
     notificationText = clinicianFullName + ' logged out.';
+    clearInterval(app_timerIncrement);
     displayNotification(notificationText);
     app_currentPatientId = null;
     clinician = null;
@@ -1206,9 +1213,14 @@ $('a.nav').click(function() {
   }
 });
 
-function displayNotification(text) {
+function displayNotification(text, sticky) {
   $('#wdm-notification-text').html(text);
-  $('#wdm-notification').fadeIn(400).delay(3000).fadeOut(400); 
+  if (sticky) {
+    $('#wdm-notification').fadeIn(400);
+  }
+  else {
+    $('#wdm-notification').fadeIn(400).delay(3000).fadeOut(400); 
+  }
 }
 
 $('.app-check-in-link').click(function(){ 
