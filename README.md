@@ -1,8 +1,9 @@
 # WDean Medical EHR
-# version 0.8.15  27-AUG-2014
+# version 0.8.16  29-AUG-2014
 
 Improvements:
-New Demographics Encounter form and form headers.
+Browser refresh and back button behavior covered so data is not lost.
+Automatic parking after specified timeout enabled.
 
 Bug Fixes:
 

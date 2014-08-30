@@ -142,7 +142,7 @@ function app_handleMouseMove() {
 
 function app_timerDismiss() {
   $('#main_dialog_wrapper').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0});
-  var jsonData = JSON.stringify({user: user, sessionId: user.sessionId});
+  var jsonData = JSON.stringify({clinician: clinician, sessionId: clinician.sessionId});
   $.post("app/updateSession", {data:jsonData}, function(data) {});
   idleTime = 0;
 }
