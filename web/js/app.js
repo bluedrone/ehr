@@ -93,6 +93,7 @@ var app_currentCalendarView = 'month';
 var app_usStates;
 var app_idleInterval;
 var app_idleTime = 0;
+var app_parkWarningDisplayed;
 var ONE_SECOND =  1000;
 var ONE_MINUTE = 60000;
 
@@ -126,7 +127,6 @@ $(document).ready(function() {
       });
     });
     $('#app-check-in-add-group-link').click(function(){ showAddGroupForm(); });
-    //$(document).mouseMove( function(){ app_timerReset(); });
     window.onbeforeunload = confirmBeforeUnload;
   }
 });
@@ -134,22 +134,31 @@ $(document).ready(function() {
 
 function app_runIdleTimer() {
   app_idleTime = 0;
-  if (typeof app_timerInterval !== 'undefined') {clearInterval(app_timerInterval)};
-  app_idleInterval = setInterval(app_timerIncrement, ONE_MINUTE);
+  if (app_idleInterval) {clearInterval(app_idleInterval)};
+  app_idleInterval = setInterval(app_timerIncrement, ONE_SECOND);
   $(document).off().on('mousemove', function(){ app_timerReset(); });
 }
 
+
+
 function app_timerReset() {
-  $('#wdm-notification-text').html('');
+  if (app_parkWarningDisplayed) { 
+    $('#wdm-notification-text').html('');
+    app_parkWarningDisplayed = false;
+  }
   app_idleTime = 0;
   //var jsonData = JSON.stringify({clinician: clinician, sessionId: clinician.sessionId});
   //$.post("app/updateSession", {data:jsonData}, function(data) {});
 }
 
+
+
+
 function app_timerIncrement() {
   app_idleTime++;
   if (app_idleTime == 10) {
     displayNotification('Your session will soon be automatically parked if still idle', true);
+    app_parkWarningDisplayed = true;
   }
   else if (app_idleTime == 15) {
     showParkDialog();
@@ -211,7 +220,7 @@ function showParkDialog() {
     $('#app-parked-full-name').html(clinicianFullName);
     $('#modal-park').modal('show'); 
     park();
-    //$('.app-exit').click(function(){ logout(); });
+    $('.app-exit').click(function(){ logout(); });
     $('#app-unpark-submit').click(function(){ unpark(); });
   });
 }
@@ -1155,7 +1164,7 @@ function park() {
   var jsonData = JSON.stringify({ sessionId: clinician.sessionId });
   $.post("app/park", {data:jsonData}, function(data) {
     var parsedData = $.parseJSON(data);
-    if (typeof app_timerInterval !== 'undefined') {clearInterval(app_timerInterval)};
+    if (app_idleInterval) {clearInterval(app_idleInterval)};
   });
 }
 
@@ -1171,7 +1180,7 @@ function logout() {
     $('#section-notification').css("visibility", "hidden");
     $('#section-notification-text').html("");
     notificationText = clinicianFullName + ' logged out.';
-    if (typeof app_timerInterval !== 'undefined') {clearInterval(app_timerInterval)};
+    if (app_idleInterval) {clearInterval(app_idleInterval)};
     displayNotification(notificationText);
     app_currentPatientId = null;
     clinician = null;
