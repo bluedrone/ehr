@@ -9,7 +9,6 @@
 $('#admin').click(function() { 
   app_viewStack('user-admin-screen', DO_SCROLL);
   getCliniciansList();
-  getActivityLog();
 });
 
 
@@ -24,47 +23,6 @@ $('#user-admin-new-user-lg, #user-admin-new-user-sm').click(function() {
     $('#admin-user-form-save').click(function() { saveNewUser() });
   });
 });
-
-$('#export-csv-activity-log-lg, #export-csv-activity-log-sm').click(function() { 
-	//exportCsv();
-    exportTableToCSV.apply(this, [$('#user-admin-activityLogs-list>table'), 'ActivityLog.csv']);
-});
-
-function exportTableToCSV($table, filename) {
-	$rows = $table.find('tr');
-	var csvData = "";
-	var csv = "";
-	for(var i=0;i<$rows.length;i++){
-	   var $cells = $($rows[i]).children('th,td'); //header or content cells
-	       for(var y=0;y<$cells.length;y++){
-	          if(y>0){
-	              csv += ",";
-	          }
-              var txt = ($($cells[y]).text()).toString().trim();
-              if(txt.indexOf(',')>=0 || txt.indexOf('\"')>=0 || txt.indexOf('\n')>=0){
-                txt = "\"" + txt.replace(/\"/g, "\"\"") + "\"";
-              }
-              csv += txt;
-           }
-       csv += '\n';
-	}
-       csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);
-    $(this)
-        .attr({
-        'download': filename,
-        'href': csvData,
-        'target': '_blank'
-    });
-}
-function exportCsv() {
-	 var jsonData = JSON.stringify({ sessionId: clinician.sessionId });
-	 $.post("admin/exportCsv", {data:jsonData}, function(data) {
-	      var parsedData = $.parseJSON(data);
-	      var excelExport = 'admin/exportCsv?sessionId=' + parsedData.sessionId;
-	      $('.export-csv-activity-log-lg').attr('href', excelExport);
-	      $('.export-csv-activity-log-sm').attr('href', excelExport);
-	 });
-}
 
 function getCliniciansList() {
   var jsonData = JSON.stringify({ sessionId: clinician.sessionId });
@@ -86,22 +44,6 @@ function getCliniciansList() {
     });
   });
 }
-
-function getActivityLog() {
-	  var jsonData = JSON.stringify({ sessionId: clinician.sessionId });
-	  $.post("admin/getActivityLog", {data:jsonData}, function(data) {
-	    var activityLogs = $.parseJSON(data);
-	    RenderUtil.render('component/user_admin_activity_log_table', 
-	     {items:activityLogs, 
-	      title:'Activity Logs', 
-	      tableName:'user-admin-activityLogs-list', 
-	      clickable:false
-	      }, function(s) {
-	      $('#user-admin-activityLogs-list').html(s);
-	      $('#user-admin-activity-log-list-title').html("Activity Logs");	      
-	    });
-	  });
-	}
 
 function findClinicianFromList(id) {
   for (i=0;i<clinicians.length;i++) {
@@ -208,7 +150,6 @@ function handleDeleteUser(e) {
         $('#modal-confirm').modal('hide'); 
         displayNotification('Clinician '+clinicianFullName+' deleted.');
         getCliniciansList();
-        getActivityLog();
       }); 
     });
   });
@@ -231,7 +172,6 @@ function handleChangeUserStatus(e) {
         $('#modal-admin-change-user-status').modal('hide'); 
         displayNotification('Clinician '+clinicianFullName+' '+activationMode+'d.');
         getCliniciansList();
-        getActivityLog();
       }); 
     });
   });
@@ -319,7 +259,6 @@ function saveNewUser() {
     var clinicianFullName = util_buildFullName(parsedData.firstName, parsedData.middleName, parsedData.lastName);
     displayNotification('New user '+ clinicianFullName + ' created.');
     getCliniciansList();
-    getActivityLog();
   });
 }
 
@@ -365,7 +304,6 @@ function updateSavedUser(property, value, id) {
         updateClinicianInList(id, property, value);
       }
       getCliniciansList();
-      getActivityLog();
     }
   }); 
 }
