@@ -110,7 +110,7 @@ $(document).ready(function() {
     if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";
     fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
     
-    $('#section-notification').css("visibility", "hidden ");
+    $('#section-notification').css("visibility", "hidden");
     $('#section-notification-text').html("");
     
     $('#app-check-in-print').click(function(){
@@ -126,7 +126,7 @@ $(document).ready(function() {
         print_openPrintWindow('print.html', s, 'ENCOUNTER FORM');
       });
     });
-    $('#app-check-in-add-group-link').click(function(){ showAddGroupForm(); });
+    $(document).mousemove( function(){ app_timerReset(); });
     window.onbeforeunload = confirmBeforeUnload;
   }
 });
@@ -136,7 +136,6 @@ function app_runIdleTimer() {
   app_idleTime = 0;
   if (app_idleInterval) {clearInterval(app_idleInterval)};
   app_idleInterval = setInterval(app_timerIncrement, ONE_MINUTE);
-  $(document).off().on('mousemove', function(){ app_timerReset(); });
 }
 
 
