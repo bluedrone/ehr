@@ -119,7 +119,7 @@
     
   <servlet-mapping>
     <servlet-name>ReportsServlet</servlet-name>
-    <url-pattern>/rep/*</url-pattern>
+    <url-pattern>/reports/*</url-pattern>
   </servlet-mapping>
 
    

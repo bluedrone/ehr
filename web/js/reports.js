@@ -14,7 +14,7 @@ function viewReports() {
 
 function getActivityLog() {
 	  var jsonData = JSON.stringify({ sessionId: clinician.sessionId });
-	  $.post("rep/getActivityLog", {data:jsonData}, function(data) {
+	  $.post("reports/getActivityLog", {data:jsonData}, function(data) {
 	    var activityLogs = $.parseJSON(data);
 	    RenderUtil.render('component/user_admin_activity_log_table', 
 	     {items:activityLogs, 
