@@ -664,7 +664,6 @@ $('.app-dashboard-link').click(function(){ viewDashboard(); });
 $('.app-messages-link').click(function(){ viewMessages(); });
 $('#encounter-link').click(function(){ viewPatientEncounters(); });
 $('.app-letters-link').click(function(){ viewLetters(); });
-$('.app-reports-link').click(function(){ viewReports(); });
 $('.app-schedule-link').click(function(){ viewSchedule(); });
 $('#message-view-button').click(function(){ viewClinicianMessage(); });
 $('#message-close-button').click(function(){ viewMessages(); });
@@ -683,11 +682,6 @@ function viewMessages() {
 
 function viewLetters() {
   app_viewStack('letters-screen', DO_SCROLL);
-}
-
-function viewReports() {
-  app_viewStack('reports-screen', DO_SCROLL);
-  getActivityLog();
 }
 
 function viewSchedule() {
@@ -1242,51 +1236,4 @@ function getDataTableName(item) {
   return value;
 }
 
-function getActivityLog() {
-	  var jsonData = JSON.stringify({ sessionId: clinician.sessionId });
-	  $.post("admin/getActivityLog", {data:jsonData}, function(data) {
-	    var activityLogs = $.parseJSON(data);
-	    RenderUtil.render('component/user_admin_activity_log_table', 
-	     {items:activityLogs, 
-	      title:'Activity Logs', 
-	      tableName:'user-admin-activityLogs-list', 
-	      clickable:false
-	      }, function(s) {
-	      $('#user-admin-activityLogs-list').html(s);
-	      $('#user-admin-activity-log-list-title').html("Activity Logs");	      
-	    });
-	  });
-	}
-
-$('#export-csv-activity-log-lg, #export-csv-activity-log-sm').click(function() { 
-	//exportCsv();
-    exportTableToCSV.apply(this, [$('#user-admin-activityLogs-list>table'), 'ActivityLog.csv']);
-});
-
-function exportTableToCSV($table, filename) {
-	$rows = $table.find('tr');
-	var csvData = "";
-	var csv = "";
-	for(var i=0;i<$rows.length;i++){
-	   var $cells = $($rows[i]).children('th,td'); //header or content cells
-	       for(var y=0;y<$cells.length;y++){
-	          if(y>0){
-	              csv += ",";
-	          }
-              var txt = ($($cells[y]).text()).toString().trim();
-              if(txt.indexOf(',')>=0 || txt.indexOf('\"')>=0 || txt.indexOf('\n')>=0){
-                txt = "\"" + txt.replace(/\"/g, "\"\"") + "\"";
-              }
-              csv += txt;
-           }
-       csv += '\n';
-	}
-       csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);
-    $(this)
-        .attr({
-        'download': filename,
-        'href': csvData,
-        'target': '_blank'
-    });
-}
 

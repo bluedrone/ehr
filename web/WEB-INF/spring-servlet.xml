@@ -35,7 +35,6 @@
         <property name="password">
             <value>wdm</value>
         </property>
-
         <property name="initialPoolSize">
             <value>5</value>
         </property>
@@ -110,6 +109,12 @@
     </bean>
     
     <bean id="externalDAO" class="com.wdeanmedical.ehr.persistence.ExternalDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
+    
+    <bean id="reportsDAO" class="com.wdeanmedical.ehr.persistence.ReportsDAO">
         <property name="sessionFactory">
             <ref bean="sessionFactory" />
         </property>

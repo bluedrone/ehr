@@ -33,5 +33,6 @@ head.js (
    "js/dto.js",           
    "js/RenderUtil.js",           
    "js/print.js",           
-   "js/patient_vital_signs.js"           
+   "js/patient_vital_signs.js",
+   "js/reports.js"
  );

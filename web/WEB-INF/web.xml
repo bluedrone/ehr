@@ -110,6 +110,17 @@
     <servlet-name>ExternalServlet</servlet-name>
     <url-pattern>/ext/*</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>ReportsServlet</servlet-name>
+    <servlet-class>com.wdeanmedical.ehr.web.ReportsServlet</servlet-class>
+    <load-on-startup>3</load-on-startup>
+  </servlet>
+    
+  <servlet-mapping>
+    <servlet-name>ReportsServlet</servlet-name>
+    <url-pattern>/rep/*</url-pattern>
+  </servlet-mapping>
 
    
   <context-param>

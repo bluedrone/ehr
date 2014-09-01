@@ -80,17 +80,11 @@ public class AdminServlet extends AppServlet  {
         else if (pathInfo.equals("/purgeClinician")) {
           returnString = purgeClinician(request, response);  
         }
-        else if (pathInfo.equals("/getActivityLog")) {
-          returnString = getActivityLog(request, response);  
-        }
         else if (pathInfo.equals("/saveNewClinician")) {
           returnString = saveNewClinician(request, response);  
         }
         else if (pathInfo.equals("/updateClinician")) {
           returnString = updateClinician(request, response);  
-        }
-        else if (pathInfo.equals("/exportCsv")) {
-          returnString = exportCsv(request, response);  
         }
       }
      
@@ -169,28 +163,7 @@ public class AdminServlet extends AppServlet  {
     adminService.purgeClinician(dto);
     String json = gson.toJson(dto);
     return json;
-  }
-  
-  public String getActivityLog(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    AdminDTO dto = gson.fromJson(data, AdminDTO.class);
-    List<ActivityLog> activityLogs = adminService.getActivityLog(dto);
-    String json = gson.toJson(activityLogs);
-    return json;
-  }
-  
-  private String exportCsv(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	String data = request.getParameter("data");
-	Gson gson = new Gson();
-	AdminDTO dto = gson.fromJson(data, AdminDTO.class);
-	HSSFWorkbook workbook = adminService.getWorkbook(dto);
-	response.setContentType("application/vnd.ms-excel");
-	response.setHeader("Content-Disposition", "attachment; filename=ActivityLog.xls");
-    workbook.write(response.getOutputStream());
-    response.getOutputStream().close();	  
-	return null;
-  }
+  }  
  
 }
  
