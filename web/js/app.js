@@ -152,7 +152,6 @@ function app_timerReset() {
 
 
 
-
 function app_timerIncrement() {
   app_idleTime++;
   if (app_idleTime == 25) {
@@ -161,13 +160,9 @@ function app_timerIncrement() {
   }
   else if (app_idleTime == 30) {
     showParkDialog();
-    //setTimeout(app_displayAutologoutMessage, 5000);
   }
 }
 
-function app_displayAutologoutMessage() {
-  displayNofification('You have been automatically logged out due to inactivity');
-}
 
 
 function confirmBeforeUnload() {

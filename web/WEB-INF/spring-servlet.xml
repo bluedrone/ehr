@@ -266,6 +266,7 @@
             <value>com.wdeanmedical.ehr.entity.PatientMessage</value>
             <value>com.wdeanmedical.ehr.entity.PatientMessageType</value>
             <value>com.wdeanmedical.ehr.entity.PFSH</value>
+            <value>com.wdeanmedical.ehr.entity.Report</value>
             <value>com.wdeanmedical.ehr.entity.SuppQuestions</value>
             <value>com.wdeanmedical.ehr.entity.MedicalHistory</value>
             <value>com.wdeanmedical.ehr.entity.PatientFollowUp</value>
