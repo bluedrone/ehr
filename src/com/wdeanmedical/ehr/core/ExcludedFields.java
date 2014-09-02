@@ -10,7 +10,10 @@ package com.wdeanmedical.ehr.core;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.wdeanmedical.ehr.entity.BaseEntity;
+import com.wdeanmedical.ehr.entity.Clinician;
 import com.wdeanmedical.ehr.entity.Patient;
+import com.wdeanmedical.ehr.entity.User;
 
 
 public class ExcludedFields {
@@ -21,13 +24,24 @@ public class ExcludedFields {
   public static void excludeFields(Object obj) {
     String className = obj.getClass().getSimpleName();
     
+    ((BaseEntity)obj).setLastAccessed(null);
+    ((BaseEntity)obj).setLastUpdated(null);
+    ((BaseEntity)obj).setCreatedDate(null);
+    
     if ("Patient".equals(className)) {
       Patient patient = (Patient)obj;
-      patient.setLastAccessed(null);
-      patient.setLastUpdated(null);
-      patient.setCreatedDate(null);
       patient.getCred().setPassword(null);
       patient.getCred().setSalt(null);
+    }
+    else if ("Clinician".equals(className)) {
+      Clinician clinician = (Clinician)obj;
+      clinician.setPassword(null);
+      clinician.setSalt(null);
+    }
+    else if ("User".equals(className)) {
+      User user = (User)obj;
+      user.setPassword(null);
+      user.setSalt(null);
     }
     
   }

@@ -10,6 +10,7 @@ package com.wdeanmedical.ehr.core;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.wdeanmedical.ehr.entity.Clinician;
 import com.wdeanmedical.ehr.entity.Patient;
 
 
@@ -26,6 +27,10 @@ public class ExcludedObjects {
       Patient patient = (Patient)obj;
       patient.setPfsh(null);
       patient.setHist(null);
+    }
+    else if ("Clinician".equals(className)) {
+      Clinician clinician = (Clinician)obj;
+      clinician.setAdminUser(null);
     }
     
   }

@@ -363,6 +363,8 @@ public class AppService {
       clinicianSessionData.setClinicianSession(clinicianSession);
       logger.info("======= Added " + clinicianSession.toString()); 
       activityLogService.logLogin(clinician.getId());
+      ExcludedFields.excludeFields(clinician);
+      ExcludedObjects.excludeObjects(clinician);
     }
     return clinician;
   }
