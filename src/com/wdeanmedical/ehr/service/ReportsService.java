@@ -46,6 +46,7 @@ import com.wdeanmedical.ehr.entity.MedicalHistory;
 import com.wdeanmedical.ehr.entity.PFSH;
 import com.wdeanmedical.ehr.entity.Patient;
 import com.wdeanmedical.ehr.entity.PatientStatus;
+import com.wdeanmedical.ehr.entity.Report;
 import com.wdeanmedical.ehr.entity.Role;
 import com.wdeanmedical.ehr.entity.USState;
 import com.wdeanmedical.ehr.dto.BooleanResultDTO;
@@ -66,6 +67,8 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 public class ReportsService {
 
@@ -85,6 +88,11 @@ public class ReportsService {
   public List<ActivityLog> getActivityLog(AdminDTO dto) throws Exception{
      Clinician clinician = reportsDAO.findClinicianBySessionId(dto.getSessionId());
      return reportsDAO.getActivityLog(clinician.getId());
+  }
+  
+  public List<Report> getReportList(AdminDTO dto) throws Exception{
+	 Clinician clinician = reportsDAO.findClinicianBySessionId(dto.getSessionId());
+     return reportsDAO.getReportList(clinician.getId());
   }
   
   public HSSFWorkbook getWorkbook(AdminDTO dto) throws Exception{

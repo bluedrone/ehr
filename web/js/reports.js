@@ -9,24 +9,41 @@ $('.app-reports-link').click(function(){ viewReports(); });
 
 function viewReports() {
   app_viewStack('reports-screen', DO_SCROLL);
+  getReportsList();
   getActivityLog();
 }
 
-function getActivityLog() {
+function getReportsList() {
 	  var jsonData = JSON.stringify({ sessionId: clinician.sessionId });
-	  $.post("reports/getActivityLog", {data:jsonData}, function(data) {
-	    var activityLogs = $.parseJSON(data);
-	    RenderUtil.render('component/user_admin_activity_log_table', 
-	     {items:activityLogs, 
-	      title:'Activity Logs', 
-	      tableName:'user-admin-activityLogs-list', 
+	  $.post("reports/getReportsList", {data:jsonData}, function(data) {
+	    var reportList = $.parseJSON(data);
+	    RenderUtil.render('component/user_reports_list_table', 
+	     {items:reportList, 
+	      title:'Reports List', 
+	      tableName:'user-reports-list', 
 	      clickable:false
 	      }, function(s) {
-	      $('#user-admin-activityLogs-list').html(s);
-	      $('#user-admin-activity-log-list-title').html("Activity Logs");	      
+	      $('#user-reports-list').html(s);
+	      $('#user-reports-list-title').html("Reports List");	      
 	    });
 	  });
 	}
+
+function getActivityLog() {
+  var jsonData = JSON.stringify({ sessionId: clinician.sessionId });
+  $.post("reports/getActivityLog", {data:jsonData}, function(data) {
+    var activityLogs = $.parseJSON(data);
+    RenderUtil.render('component/user_admin_activity_log_table', 
+     {items:activityLogs, 
+      title:'Activity Logs', 
+      tableName:'user-admin-activityLogs-list', 
+      clickable:false
+      }, function(s) {
+      $('#user-admin-activityLogs-list').html(s);
+      $('#user-admin-activity-log-list-title').html("Activity Logs");	      
+    });
+  });
+}
 
 $('#export-csv-activity-log-lg, #export-csv-activity-log-sm').click(function() { 
 	//exportCsv();

@@ -49,6 +49,7 @@ import com.wdeanmedical.ehr.entity.PatientMedication;
 import com.wdeanmedical.ehr.entity.PatientMessage;
 import com.wdeanmedical.ehr.entity.PFSH;
 import com.wdeanmedical.ehr.entity.PatientStatus;
+import com.wdeanmedical.ehr.entity.Report;
 import com.wdeanmedical.ehr.entity.Role;
 import com.wdeanmedical.ehr.entity.SuppQuestions;
 import com.wdeanmedical.ehr.entity.VitalSigns;
@@ -102,6 +103,12 @@ public class ReportsDAO extends SiteDAO {
     Query activityLogQuery = session.createQuery("SELECT al FROM ActivityLog al WHERE al.clinicianId = '" + clinicianId + "' ORDER BY al.createdDate DESC");
     activityLogQuery.setMaxResults(200);
     return activityLogQuery.list();
+  }
+  
+  public List<Report> getReportList(Integer userId) {
+    Session session = this.getSession();
+    Query reportListQuery = session.createQuery("SELECT r FROM Report r  ORDER BY r.sortOrder ASC");
+    return reportListQuery.list();
   }
 
 }

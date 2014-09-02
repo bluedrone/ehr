@@ -1,0 +1,31 @@
+<!--
+  WDean Medical is distributed under the
+  GNU Lesser General Public License (GNU LGPL).
+  For details see: http://www.wdeanmedical.com
+  copyright 2013-2014 WDean Medical
+--> 
+
+<table class="table table-bordered table-hover table-condensed">
+  <thead class="text-center">
+  <tr>
+    <td>Available Reports</td>
+  </tr>
+  </thead>
+  <tbody>
+  {{each(i, item) items}}
+  <tr 
+    id="${tableId}-${item.id}" 
+    name="${item.id}"
+    data-row-key="${item.id}" 
+    data-table-name="${tableName}" 
+  >
+    <td><li><a id="${item.name}" href="#">${item.title}</a></li></td>
+  </tr>
+  {{/each}}
+  <tr class="simple-data-table-footer">
+    <td class="simple-data-table-footer" colspan='1'>
+      <p><span>${title} ${items.length == 0 ? '0' : '1'}-<wbr>${items.length}</span></p>
+    </td>
+  </tr>
+  </tbody>
+</table>

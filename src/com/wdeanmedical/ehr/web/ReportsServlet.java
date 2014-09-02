@@ -25,6 +25,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import com.google.gson.Gson;
 import com.wdeanmedical.ehr.dto.AdminDTO;
 import com.wdeanmedical.ehr.entity.ActivityLog;
+import com.wdeanmedical.ehr.entity.Report;
 import com.wdeanmedical.ehr.service.ReportsService;
 
 
@@ -63,6 +64,9 @@ public class ReportsServlet extends AppServlet  {
           else if (pathInfo.equals("/exportCsv")) {
               returnString = exportCsv(request, response);  
           }
+          else if (pathInfo.equals("/getReportsList")) {
+              returnString = getReportsList(request, response);  
+          }
         }
      
       ServletOutputStream  out = null;
@@ -92,7 +96,16 @@ public class ReportsServlet extends AppServlet  {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) {
     doPost(request, response);  
-  }  
+  } //getReportsList 
+  
+  public String getReportsList(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	    String data = request.getParameter("data");
+	    Gson gson = new Gson();
+	    AdminDTO dto = gson.fromJson(data, AdminDTO.class);
+	    List<Report> reportList = reportsService.getReportList(dto);
+	    String json = gson.toJson(reportList);
+	    return json;
+	  }
   
   public String getActivityLog(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String data = request.getParameter("data");
