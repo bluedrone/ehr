@@ -22,6 +22,9 @@ public class ExcludedFields {
   public static Map<String, String[]> list = new TreeMap<String, String[]>();
   
   public static void excludeFields(Object obj) {
+    if (obj == null) {
+      return;
+    }
     String className = obj.getClass().getSimpleName();
     
     ((BaseEntity)obj).setLastAccessed(null);
@@ -32,6 +35,8 @@ public class ExcludedFields {
       Patient patient = (Patient)obj;
       patient.getCred().setPassword(null);
       patient.getCred().setSalt(null);
+      excludeFields(patient.getCred());
+      excludeFields(patient.getDemo());
     }
     else if ("Clinician".equals(className)) {
       Clinician clinician = (Clinician)obj;
