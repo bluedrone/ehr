@@ -200,7 +200,13 @@ public class AppService {
     Clinician clinician = appDAO.findClinicianById(dto.getId());
     
     List<PatientMessage> messages = appDAO.getPatientMessagesByClinician(clinician); 
-    for (PatientMessage m : messages) { patientService.decrypt(m.getPatient()); }
+    for (PatientMessage m : messages) { 
+      patientService.decrypt(m.getPatient()); 
+      ExcludedObjects.excludeObjects(m);
+      ExcludedFields.excludeFields(m);
+      ExcludedFields.excludeFields(m.getPatient());
+      ExcludedObjects.excludeObjects(m.getPatient());
+    }
     dto.dashboard.put("messages", messages);
     
     List<ProgressNote> progressNotes = appDAO.getProgressNotes(clinician); 
@@ -363,6 +369,8 @@ public class AppService {
       clinicianSessionData.setClinicianSession(clinicianSession);
       logger.info("======= Added " + clinicianSession.toString()); 
       activityLogService.logLogin(clinician.getId());
+      ExcludedFields.excludeFields(clinician);
+      ExcludedObjects.excludeObjects(clinician);
     }
     return clinician;
   }

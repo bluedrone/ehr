@@ -264,7 +264,6 @@ public class PatientService {
   }
   
  
- 
   
   public void createPatientAndEncounter(PatientDTO dto) throws Exception {
     Clinician clinician = appDAO.findClinicianBySessionId(dto.getSessionId());
