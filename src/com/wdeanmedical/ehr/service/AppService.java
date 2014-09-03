@@ -213,20 +213,41 @@ public class AppService {
     dto.dashboard.put("messages", messages);
     
     List<ProgressNote> progressNotes = appDAO.getProgressNotes(clinician); 
-    for (ProgressNote note : progressNotes) { patientService.decrypt(note.getPatient()); }
+    for (ProgressNote note : progressNotes) { 
+      patientService.decrypt(note.getPatient()); 
+      ExcludedObjects.excludeObjects(note);
+      ExcludedFields.excludeFields(note);
+      ExcludedFields.excludeFields(note.getPatient());
+      ExcludedObjects.excludeObjects(note.getPatient());
+    }
     dto.dashboard.put("progressNotes", progressNotes);
     
     List<ToDoNote> toDoNotes = appDAO.getToDoNotes(clinician); 
-    for (ToDoNote note : toDoNotes) { patientService.decrypt(note.getPatient()); }
+    for (ToDoNote note : toDoNotes) { 
+      patientService.decrypt(note.getPatient()); 
+      ExcludedObjects.excludeObjects(note);
+      ExcludedFields.excludeFields(note);
+      ExcludedFields.excludeFields(note.getPatient());
+      ExcludedObjects.excludeObjects(note.getPatient());
+    }
     dto.dashboard.put("toDoNotes", toDoNotes);
     
     List<LabReview> labReviews = appDAO.getLabReview(clinician); 
     for (LabReview lr : labReviews) { patientService.decrypt(lr.getPatient()); }
+    for (LabReview lr : labReviews) { 
+      patientService.decrypt(lr.getPatient()); 
+      ExcludedObjects.excludeObjects(lr);
+      ExcludedFields.excludeFields(lr);
+      ExcludedFields.excludeFields(lr.getPatient());
+      ExcludedObjects.excludeObjects(lr.getPatient());
+    }
     dto.dashboard.put("labReview", labReviews);
     
     List<ClinicianSchedule> schedule = appDAO.getClinicianSchedule(clinician); 
     for (ClinicianSchedule item : schedule) { 
       patientService.decrypt(item.getPatient()); 
+      ExcludedFields.excludeFields(item);
+      ExcludedObjects.excludeObjects(item);
       ExcludedFields.excludeFields(item.getPatient());
       ExcludedObjects.excludeObjects(item.getPatient());
     }
