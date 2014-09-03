@@ -87,7 +87,6 @@ public class PatientService {
     for (Encounter item : items) {
       decrypt(item.getPatient()); 
       ExcludedFields.excludeFields(item.getPatient());
-      ExcludedObjects.excludeObjects(item.getPatient());
       ExcludedFields.excludeFields(item.getClinician());
       ExcludedObjects.excludeObjects(item.getClinician());
     }
@@ -472,7 +471,6 @@ public class PatientService {
     Encounter encounter = patientDAO.findEncounterById(dto.getEncounterId());
     decrypt(encounter.getPatient());
     ExcludedFields.excludeFields(encounter.getPatient());
-    ExcludedObjects.excludeObjects(encounter.getPatient());
     ExcludedFields.excludeFields(encounter.getClinician());
     ExcludedObjects.excludeObjects(encounter.getClinician());
     return encounter;
