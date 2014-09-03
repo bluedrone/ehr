@@ -38,6 +38,7 @@ import com.wdeanmedical.ehr.dto.LoginDTO;
 import com.wdeanmedical.ehr.dto.PatientDTO;
 import com.wdeanmedical.ehr.dto.TerminologyDTO;
 import com.wdeanmedical.ehr.entity.Appointment;
+import com.wdeanmedical.ehr.entity.BaseEntity;
 import com.wdeanmedical.ehr.entity.CPT;
 import com.wdeanmedical.ehr.entity.ClinicianSchedule;
 import com.wdeanmedical.ehr.entity.Credentials;
@@ -196,7 +197,9 @@ public class AppService {
     return appDAO.searchCPT(dto.getSearchText());
   }
   
-  public  boolean getClinicianDashboard(ClinicianDTO dto) throws Exception {
+
+  
+  public boolean getClinicianDashboard(ClinicianDTO dto) throws Exception {
     Clinician clinician = appDAO.findClinicianById(dto.getId());
     
     List<PatientMessage> messages = appDAO.getPatientMessagesByClinician(clinician); 
