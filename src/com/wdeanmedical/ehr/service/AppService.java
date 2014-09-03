@@ -86,6 +86,7 @@ public class AppService {
   private PatientService patientService;
 
 
+
   public AppService() throws MalformedURLException {
     context = Core.servletContext;
     wac = WebApplicationContextUtils.getRequiredWebApplicationContext(context);
@@ -93,7 +94,6 @@ public class AppService {
     activityLogService = new ActivityLogService();
     patientService = new PatientService();
   }
-  
   
   
   
@@ -135,6 +135,8 @@ public class AppService {
     return patients;
   }
   
+  
+  
   public  List<Patient> getPatients(PatientDTO dto) throws Exception {
     List<Patient> patients = appDAO.getPatients();
     for (Patient p : patients) { 
@@ -145,6 +147,8 @@ public class AppService {
     return patients;
   }
   
+  
+  
   public  List<Patient> getRecentPatients(PatientDTO dto) throws Exception {
     List<Patient> patients = appDAO.getRecentPatients(RECENT_PATIENT_SIZE);
     for (Patient p : patients) { 
@@ -154,6 +158,8 @@ public class AppService {
     }
     return patients;
   }
+  
+  
   
   public  List<Patient> getRecentPatientsByClinician(PatientDTO dto) throws Exception {
     Clinician clinician = appDAO.findClinicianById(dto.getClinicianId());
@@ -166,54 +172,136 @@ public class AppService {
     return patients;
   }
   
+  
+  
   public  List<PatientAllergen> getPatientAllergens(PatientDTO dto) throws Exception {
     Patient patient = appDAO.findPatientById(dto.getId());
-    return appDAO.getPatientAllergens(patient);
+    List<PatientAllergen> items = appDAO.getPatientAllergens(patient);
+    for (PatientAllergen item : items) {
+      patientService.decrypt(item.getPatient()); 
+      ExcludedFields.excludeFields(item.getPatient());
+      ExcludedObjects.excludeObjects(item.getPatient());
+    }
+    return items;
   }
+  
+  
   
   public  List<PatientMedication> getPatientMedications(PatientDTO dto) throws Exception {
     Patient patient = appDAO.findPatientById(dto.getId());
-    return appDAO.getPatientMedications(patient);
+    List<PatientMedication> items = appDAO.getPatientMedications(patient);
+    for (PatientMedication item : items) {
+      patientService.decrypt(item.getPatient()); 
+      ExcludedFields.excludeFields(item.getPatient());
+      ExcludedObjects.excludeObjects(item.getPatient());
+      ExcludedFields.excludeFields(item.getPrescriber());
+      ExcludedObjects.excludeObjects(item.getPrescriber());
+    }
+    return items;
   }
+  
+  
   
   public  List<PatientImmunization> getPatientImmunizations(PatientDTO dto) throws Exception {
     Patient patient = appDAO.findPatientById(dto.getId());
     return appDAO.getPatientImmunizations(patient);
   }
   
-  public  List<PatientHealthIssue> getPatientHealthIssues(PatientDTO dto) throws Exception {
+  
+  
+  public List<PatientHealthIssue> getPatientHealthIssues(PatientDTO dto) throws Exception {
     Patient patient = appDAO.findPatientById(dto.getId());
-    return appDAO.getPatientHealthIssues(patient);
+    List<PatientHealthIssue> items = appDAO.getPatientHealthIssues(patient);
+    for (PatientHealthIssue item : items) {
+      patientService.decrypt(item.getPatient()); 
+      ExcludedFields.excludeFields(item.getPatient());
+      ExcludedObjects.excludeObjects(item.getPatient());
+    }
+    return items;
   }
   
-  public  List<PatientMedicalTest> getPatientMedicalTests(PatientDTO dto) throws Exception {
+  
+  
+  public List<PatientMedicalTest> getiPatientMedicalTests(PatientDTO dto) throws Exception {
     Patient patient = appDAO.findPatientById(dto.getId());
     return appDAO.getPatientMedicalTests(patient);
   }
   
+  
+  
+  public List<PatientMedicalTest> getPatientMedicalTests(PatientDTO dto) throws Exception {
+    Patient patient = appDAO.findPatientById(dto.getId());
+    List<PatientMedicalTest> items = appDAO.getPatientMedicalTests(patient);
+    for (PatientMedicalTest item : items) {
+      ExcludedFields.excludeFields(item.getClinician());
+      ExcludedObjects.excludeObjects(item.getClinician());
+    }
+    return items;
+  }
+  
+  
+  
   public  List<PatientMedicalProcedure> getPatientMedicalProcedures(PatientDTO dto) throws Exception {
     Patient patient = appDAO.findPatientById(dto.getId());
-    return appDAO.getPatientMedicalProcedures(patient);
+    List<PatientMedicalProcedure> items = appDAO.getPatientMedicalProcedures(patient);
+    for (PatientMedicalProcedure item : items) {
+      patientService.decrypt(item.getPatient()); 
+      ExcludedFields.excludeFields(item.getPatient());
+      ExcludedObjects.excludeObjects(item.getPatient());
+    }
+    return items;
   }
   
-  public  List<PatientHealthTrendReport> getPatientHealthTrendReports(PatientDTO dto) throws Exception {
-    Patient patient = appDAO.findPatientById(dto.getId());
-    return appDAO.getPatientHealthTrendReports(patient);
-  }
+  
   
   public List<Clinician> getClinicians(ClinicianDTO dto) throws Exception {
-    return appDAO.getClinicians();
+    List<Clinician> items = appDAO.getClinicians();
+    for (Clinician item : items) {
+      ExcludedFields.excludeFields(item);
+      ExcludedObjects.excludeObjects(item);
+    }
+    return items;
   }
+  
+  
   
   public List<ICD10> searchICD10(TerminologyDTO dto) throws Exception {
     return appDAO.searchICD10(dto.getSearchText());
   }
   
+  
+  
   public List<CPT> searchCPT(TerminologyDTO dto) throws Exception {
     return appDAO.searchCPT(dto.getSearchText());
   }
   
+  
+  
+  public  boolean getPatientSearchTypeAheads(ClinicianDTO dto) throws Exception {
+    List<Patient> patients = appDAO.getPatients();
+    Set<String> firstNames = new TreeSet<String>();
+    Set<String> middleNames = new TreeSet<String>();
+    Set<String> lastNames = new TreeSet<String>();
+    Set<String> cities = new TreeSet<String>();
+    
+    for (Patient patient : patients) {
+      patientService.decrypt(patient);
+      firstNames.add(patient.getCred().getFirstName());
+      if (patient.getCred().getMiddleName() != null) {
+        middleNames.add(patient.getCred().getMiddleName());
+      }
+      lastNames.add(patient.getCred().getLastName());
+      cities.add(patient.getDemo().getCity());
+    }
+    
+    dto.patientSearchTypeAheads.put("firstNames", firstNames);
+    dto.patientSearchTypeAheads.put("middleNames", middleNames);
+    dto.patientSearchTypeAheads.put("lastNames", lastNames);
+    dto.patientSearchTypeAheads.put("cities", cities);
+    return true;
+  }
 
+  
   
   public boolean getClinicianDashboard(ClinicianDTO dto) throws Exception {
     Clinician clinician = appDAO.findClinicianById(dto.getId());
@@ -273,40 +361,25 @@ public class AppService {
   }
   
   
-  public  boolean getPatientSearchTypeAheads(ClinicianDTO dto) throws Exception {
-    List<Patient> patients = appDAO.getPatients();
-    Set<String> firstNames = new TreeSet<String>();
-    Set<String> middleNames = new TreeSet<String>();
-    Set<String> lastNames = new TreeSet<String>();
-    Set<String> cities = new TreeSet<String>();
-    
-    for (Patient patient : patients) {
-      patientService.decrypt(patient);
-      firstNames.add(patient.getCred().getFirstName());
-      if (patient.getCred().getMiddleName() != null) {
-        middleNames.add(patient.getCred().getMiddleName());
-      }
-      lastNames.add(patient.getCred().getLastName());
-      cities.add(patient.getDemo().getCity());
-    }
-    
-    dto.patientSearchTypeAheads.put("firstNames", firstNames);
-    dto.patientSearchTypeAheads.put("middleNames", middleNames);
-    dto.patientSearchTypeAheads.put("lastNames", lastNames);
-    dto.patientSearchTypeAheads.put("cities", cities);
-    return true;
-  }
-  
   
   public  boolean getPatientChartSummary(PatientDTO dto) throws Exception {
     Patient patient = appDAO.findPatientById(dto.getId());
     Clinician clinician = appDAO.findClinicianById(dto.getClinicianId());
-    dto.patientChartSummary.put("patientEncounters", appDAO.getEncountersByPatient(patient, clinician));
+    
+    List<Encounter> patientEncounters = appDAO.getEncountersByPatient(patient, clinician);
+    for (Encounter item : patientEncounters) {
+      patientService.decrypt(item.getPatient()); 
+      ExcludedFields.excludeFields(item.getPatient());
+      ExcludedObjects.excludeObjects(item.getPatient());
+      ExcludedFields.excludeFields(item.getClinician());
+      ExcludedObjects.excludeObjects(item.getClinician());
+    }
+    dto.patientChartSummary.put("patientEncounters", patientEncounters);
     dto.patientChartSummary.put("patientVitalSigns", appDAO.getPatientVitalSigns(patient.getId()));
-    dto.patientChartSummary.put("patientHealthIssues", appDAO.getPatientHealthIssues(patient));
-    dto.patientChartSummary.put("patientAllergens", appDAO.getPatientAllergens(patient));
-    dto.patientChartSummary.put("patientMedications", appDAO.getPatientMedications(patient));
-    dto.patientChartSummary.put("patientMedicalProcedures", appDAO.getPatientMedicalProcedures(patient));
+    dto.patientChartSummary.put("patientHealthIssues", getPatientHealthIssues(dto));
+    dto.patientChartSummary.put("patientAllergens", getPatientAllergens(dto));
+    dto.patientChartSummary.put("patientMedications", getPatientMedications(dto));
+    dto.patientChartSummary.put("patientMedicalProcedures", getPatientMedicalProcedures(dto));
     activityLogService.logViewPatient(dto.getId(), patient.getId(), dto.getClinicianId());
     return true;
   }
