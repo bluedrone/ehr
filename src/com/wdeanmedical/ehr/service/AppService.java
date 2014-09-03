@@ -388,18 +388,30 @@ public class AppService {
   
   public List<PatientLetter> getPatientLetters(PatientDTO dto) throws Exception {
     Patient patient = appDAO.findPatientById(dto.getId());
-    List<PatientLetter> letters =  appDAO.getPatientLetters(patient);
-    for (PatientLetter pl : letters) { patientService.decrypt(pl.getPatient()); }
-    return letters;
+    List<PatientLetter> items =  appDAO.getPatientLetters(patient);
+    for (PatientLetter item : items) {
+      patientService.decrypt(item.getPatient()); 
+      ExcludedFields.excludeFields(item);
+      ExcludedObjects.excludeObjects(item);
+      ExcludedFields.excludeFields(item.getPatient());
+      ExcludedObjects.excludeObjects(item.getPatient());
+    }
+    return items;
   }
   
   
   
   public List<PatientMessage> getClinicianMessages(ClinicianDTO dto, Boolean fromClinician) throws Exception {
     Clinician clinician = appDAO.findClinicianById(dto.getId());
-    List<PatientMessage> messages = appDAO.getClinicianMessages(clinician, fromClinician);
-    for (PatientMessage m : messages) { patientService.decrypt(m.getPatient()); }
-    return messages;
+    List<PatientMessage> items = appDAO.getClinicianMessages(clinician, fromClinician);
+    for (PatientMessage item : items) { 
+      patientService.decrypt(item.getPatient()); 
+      ExcludedObjects.excludeObjects(item);
+      ExcludedFields.excludeFields(item);
+      ExcludedFields.excludeFields(item.getPatient());
+      ExcludedObjects.excludeObjects(item.getPatient()); 
+    }
+    return items;
   }
   
   
@@ -409,14 +421,14 @@ public class AppService {
     dto.setContent(patientMessage.getContent());
     dto.setPatient(patientMessage.getPatient());
     patientService.decrypt(patientMessage.getPatient()); 
+    ExcludedObjects.excludeObjects(patientMessage);
+    ExcludedFields.excludeFields(patientMessage);
+    ExcludedFields.excludeFields(patientMessage.getPatient());
+    ExcludedObjects.excludeObjects(patientMessage.getPatient()); 
     return true;
   }
   
 
-  
-  public  boolean processMessage(PatientDTO dto) throws Exception {
-    return true;
-  }
   
   public  boolean getPatientChart(PatientDTO dto) throws Exception {
     SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
@@ -444,6 +456,8 @@ public class AppService {
     return true;
   }
   
+  
+  
   public  void logout(AuthorizedDTO dto) throws Exception {
     ClinicianSession clinicianSession = appDAO.findClinicianSessionBySessionId(dto.getSessionId());
     String clinicianName = clinicianSession.getClinician().getUsername(); 
@@ -454,18 +468,18 @@ public class AppService {
     activityLogService.logLogout(userId);
   }
   
+  
+  
   public  void park(AuthorizedDTO dto) throws Exception {
     appDAO.parkClinicianSession(dto.getSessionId());
   }
+  
+  
   
   public  void unpark(AuthorizedDTO dto) throws Exception {
     appDAO.unparkClinicianSession(dto.getSessionId());
   }
   
-  public  List<PatientClinician> getPatientClinicians(PatientDTO dto) throws Exception {
-    Patient patient = appDAO.findPatientById(dto.getId());
-    return appDAO.getPatientClinicians(patient);
-  }
   
   
   public Clinician login(LoginDTO loginDTO, String ipAddress) throws Exception {
@@ -576,28 +590,42 @@ public class AppService {
   
   public  List<Appointment> getAppointments(PatientDTO dto, boolean isPast) throws Exception {
     Patient patient = appDAO.findPatientById(dto.getId());
-    List<Appointment> appointments = appDAO.getAppointments(patient, isPast);
-    for (Appointment a : appointments) { patientService.decrypt(a.getPatient()); }
-    return appointments;
+    List<Appointment> items = appDAO.getAppointments(patient, isPast);
+    for (Appointment item : items) { 
+      patientService.decrypt(item.getPatient()); 
+      ExcludedObjects.excludeObjects(item);
+      ExcludedFields.excludeFields(item);
+      ExcludedFields.excludeFields(item.getPatient());
+      ExcludedObjects.excludeObjects(item.getPatient()); 
+    }
+    return items;
   }
   
   
   
   public boolean getAppointment(AppointmentDTO dto) throws Exception {
-    Appointment appointment = appDAO.findAppointmentById(dto.getId());
-    patientService.decrypt(appointment.getPatient());
-    dto.setAppointment(appointment);
+    Appointment item = appDAO.findAppointmentById(dto.getId());
+    patientService.decrypt(item.getPatient()); 
+    ExcludedObjects.excludeObjects(item);
+    ExcludedFields.excludeFields(item);
+    ExcludedFields.excludeFields(item.getPatient());
+    ExcludedObjects.excludeObjects(item.getPatient()); 
+    dto.setAppointment(item);
     return true;
   }
   
 
 
   public List<Appointment> getAllAppointments() throws Exception {
-    List<Appointment> appointments = appDAO.getAllAppointments();
-    for (Appointment a : appointments) {
-       patientService.decrypt(a.getPatient()); 
+    List<Appointment> items = appDAO.getAllAppointments();
+    for (Appointment item : items) { 
+      patientService.decrypt(item.getPatient()); 
+      ExcludedObjects.excludeObjects(item);
+      ExcludedFields.excludeFields(item);
+      ExcludedFields.excludeFields(item.getPatient());
+      ExcludedObjects.excludeObjects(item.getPatient()); 
     }
-    return appointments;
+    return items;
   }
   
   
@@ -608,11 +636,15 @@ public class AppService {
   
     
   public List<Appointment> getAllAppointmentsByClinician(Clinician clinician) throws Exception {
-    List<Appointment> appointments = appDAO.getAllAppointmentsByClinician(clinician);
-    for (Appointment a : appointments) {
-       patientService.decrypt(a.getPatient()); 
+    List<Appointment> items = appDAO.getAllAppointmentsByClinician(clinician);
+    for (Appointment item : items) { 
+      patientService.decrypt(item.getPatient()); 
+      ExcludedObjects.excludeObjects(item);
+      ExcludedFields.excludeFields(item);
+      ExcludedFields.excludeFields(item.getPatient());
+      ExcludedObjects.excludeObjects(item.getPatient()); 
     }
-    return appointments;
+    return items;
   }
   
   
