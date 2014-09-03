@@ -13,10 +13,8 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
@@ -26,9 +24,6 @@ import java.util.Set;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 
 import com.wdeanmedical.ehr.persistence.AppDAO;
 import com.wdeanmedical.ehr.persistence.PatientDAO;
@@ -38,15 +33,12 @@ import com.wdeanmedical.ehr.core.ExcludedFields;
 import com.wdeanmedical.ehr.core.ExcludedObjects;
 import com.wdeanmedical.ehr.dto.PatientDTO;
 import com.wdeanmedical.ehr.entity.ChiefComplaint;
-import com.wdeanmedical.ehr.entity.Country;
 import com.wdeanmedical.ehr.entity.Credentials;
 import com.wdeanmedical.ehr.entity.Demographics;
 import com.wdeanmedical.ehr.entity.Exam;
 import com.wdeanmedical.ehr.entity.EncounterMedication;
 import com.wdeanmedical.ehr.entity.EncounterQuestion;
-import com.wdeanmedical.ehr.entity.Gender;
 import com.wdeanmedical.ehr.entity.Lab;
-import com.wdeanmedical.ehr.entity.MaritalStatus;
 import com.wdeanmedical.ehr.entity.OBGYNEncounterData;
 import com.wdeanmedical.ehr.entity.Patient;
 import com.wdeanmedical.ehr.entity.Encounter;
@@ -60,14 +52,11 @@ import com.wdeanmedical.ehr.entity.PatientStatus;
 import com.wdeanmedical.ehr.entity.ProgressNote;
 import com.wdeanmedical.ehr.entity.SOAPNote;
 import com.wdeanmedical.ehr.entity.SuppQuestions;
-import com.wdeanmedical.ehr.entity.USState;
 import com.wdeanmedical.ehr.entity.VitalSigns;
-import com.wdeanmedical.external.fhir.PatientsFHIR;
 
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -80,6 +69,7 @@ public class PatientService {
   private PatientDAO patientDAO;
   private AppDAO appDAO;
   private ActivityLogService activityLogService;
+
 
 
   public PatientService() throws MalformedURLException {
@@ -262,7 +252,7 @@ public class PatientService {
   
   
   
-  public  void updateEncounterQuestion(PatientDTO dto) throws Exception {
+  public void updateEncounterQuestion(PatientDTO dto) throws Exception {
     EncounterQuestion encounterQuestion = patientDAO.findEncounterQuestionById(dto.getEncounterQuestionId());
     String property = dto.getUpdateProperty();
     String value = dto.getUpdatePropertyValue();
@@ -277,6 +267,8 @@ public class PatientService {
     patientDAO.update(encounterQuestion);
     activityLogService.logEditEncounter(dto.getClinicianId(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSet);
   }
+  
+  
   
   public void getCurrentPatientEncounter(PatientDTO dto) throws Exception {
     Encounter encounter = patientDAO.findCurrentEncounterByPatientId(dto.getPatientId());
@@ -349,6 +341,7 @@ public class PatientService {
   }
   
   
+  
   public  void addEncounterMedication(Integer patientId) throws Exception {
     EncounterMedication encounterMedication = new EncounterMedication();
     encounterMedication.setPatientId(patientId);
@@ -356,11 +349,14 @@ public class PatientService {
   }
   
   
+  
   public  void addEncounterQuestion(Integer encounterId) throws Exception {
     EncounterQuestion encounterQuestion = new EncounterQuestion();
     encounterQuestion.setEncounterId(encounterId);
     patientDAO.create(encounterQuestion);
   }
+  
+  
   
   public void acquirePatient(PatientDTO dto) throws Exception {
     Clinician clinician = appDAO.findClinicianBySessionId(dto.getSessionId());
@@ -377,6 +373,8 @@ public class PatientService {
     }
   }
   
+  
+  
   public void overridePatient(PatientDTO dto) throws Exception {
     Encounter encounter = patientDAO.findEncounterById(dto.getEncounterId());
     Clinician clinician = appDAO.findClinicianBySessionId(dto.getSessionId());
@@ -387,6 +385,8 @@ public class PatientService {
     activityLogService.logEditEncounter(clinician.getId(), dto.getId(), clinician.getId(), encounter.getId(), fieldSet); 
     dto.setClinicianId(clinician.getId());
   }
+  
+  
   
   public void releasePatient(PatientDTO dto) throws Exception {
     Clinician clinician = appDAO.findClinicianBySessionId(dto.getSessionId());
@@ -403,6 +403,7 @@ public class PatientService {
   }
   
   
+  
   public void closeEncounter(PatientDTO dto) throws Exception {
     Encounter encounter = patientDAO.findEncounterById(dto.getEncounterId());
     encounter.setCompleted(true);
@@ -410,6 +411,8 @@ public class PatientService {
     patientDAO.update(encounter);
     activityLogService.logEditEncounter(dto.getClinicianId(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSet); 
   }
+  
+  
   
   public void closeProgressNote(PatientDTO dto) throws Exception {
     ProgressNote note = patientDAO.findProgressNoteById(dto.getProgressNoteId());
@@ -419,6 +422,7 @@ public class PatientService {
     activityLogService.logEditEncounter(dto.getClinicianId(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSet); 
 
   }
+  
   
   
   public Encounter newEncounter(PatientDTO dto) throws Exception {
@@ -432,8 +436,11 @@ public class PatientService {
     }
     activityLogService.logNewEncounter(clinician.getId(), dto.getPatientId(), clinician.getId(), encounter.getId());
     decrypt(encounter.getPatient()); 
+    ExcludedFields.excludeFields(encounter.getPatient());
+    ExcludedObjects.excludeObjects(encounter.getPatient());
     return encounter;
   }
+  
   
   
   public ProgressNote newProgressNote(PatientDTO dto) throws Exception {
@@ -443,6 +450,8 @@ public class PatientService {
     return note;
   }
   
+  
+  
   public ProgressNote updateProgressNote(PatientDTO dto) throws Exception {
     ProgressNote note = patientDAO.findProgressNoteById(dto.getProgressNote().getId());
     note.setSubject(dto.getProgressNote().getSubject());
@@ -450,26 +459,47 @@ public class PatientService {
     Set<String> fieldSetNote = activityLogService.getListOfChangedFields(note);
     patientDAO.update(note);
     activityLogService.logEditEncounter(dto.getClinicianId(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSetNote);
+    ExcludedFields.excludeFields(note.getPatient());
+    ExcludedObjects.excludeObjects(note.getPatient());
+    ExcludedFields.excludeFields(note.getClinician());
+    ExcludedObjects.excludeObjects(note.getClinician());
     return note;
   }
+  
+  
   
   public Encounter getEncounter(PatientDTO dto) throws Exception {
     Encounter encounter = patientDAO.findEncounterById(dto.getEncounterId());
     decrypt(encounter.getPatient());
+    ExcludedFields.excludeFields(encounter.getPatient());
+    ExcludedObjects.excludeObjects(encounter.getPatient());
+    ExcludedFields.excludeFields(encounter.getClinician());
+    ExcludedObjects.excludeObjects(encounter.getClinician());
     return encounter;
   }
+  
+  
   
   public Encounter getEncounter(int id) throws Exception {
     Encounter encounter = patientDAO.findEncounterById(id);
     decrypt(encounter.getPatient());
+    ExcludedFields.excludeFields(encounter.getPatient());
+    ExcludedObjects.excludeObjects(encounter.getPatient());
+    ExcludedFields.excludeFields(encounter.getClinician());
+    ExcludedObjects.excludeObjects(encounter.getClinician());
     return encounter;
   }
+  
+  
   
   public Patient getPatient(int id) throws Exception {
     Patient patient = patientDAO.findPatientById(id);
     decrypt(patient);
+    ExcludedFields.excludeFields(patient);
+    ExcludedObjects.excludeObjects(patient); 
     return patient;
   }
+  
   
   
   public Encounter getCurrentEncounter(Patient patient, PatientDTO dto) throws Exception {
@@ -489,8 +519,14 @@ public class PatientService {
     }    
     activityLogService.logViewEncounter(clinician.getId(), patient.getId(), clinician.getId(), encounter.getId());
     decrypt(encounter.getPatient());
+    ExcludedFields.excludeFields(encounter.getPatient());
+    ExcludedObjects.excludeObjects(encounter.getPatient());
+    ExcludedFields.excludeFields(encounter.getClinician());
+    ExcludedObjects.excludeObjects(encounter.getClinician());
     return encounter;
   }
+  
+  
   
   public PFSH getPatientPFSH(Patient patient, PatientDTO dto) throws Exception {
     PFSH pfsh = null;
@@ -507,6 +543,7 @@ public class PatientService {
     }
     return pfsh;
   }
+  
   
       
   public String uploadProfileImage(HttpServletRequest request, HttpServletResponse response) throws Exception{
