@@ -34,6 +34,8 @@ import com.wdeanmedical.ehr.persistence.AppDAO;
 import com.wdeanmedical.ehr.persistence.PatientDAO;
 import com.wdeanmedical.ehr.util.DataEncryptor;
 import com.wdeanmedical.ehr.core.Core;
+import com.wdeanmedical.ehr.core.ExcludedFields;
+import com.wdeanmedical.ehr.core.ExcludedObjects;
 import com.wdeanmedical.ehr.dto.PatientDTO;
 import com.wdeanmedical.ehr.entity.ChiefComplaint;
 import com.wdeanmedical.ehr.entity.Country;
@@ -92,6 +94,10 @@ public class PatientService {
     List<Encounter> encounters = patientDAO.findEncountersByPatient(dto.getPatientId());
     for (Encounter encounter : encounters) {
       decrypt(encounter.getPatient()); 
+      ExcludedFields.excludeFields(encounter.getPatient());
+      ExcludedObjects.excludeObjects(encounter.getPatient());
+      ExcludedFields.excludeFields(encounter.getClinician());
+      ExcludedObjects.excludeObjects(encounter.getClinician());
     }
     return encounters;
   }
@@ -260,6 +266,10 @@ public class PatientService {
   public void getCurrentPatientEncounter(PatientDTO dto) throws Exception {
     Encounter encounter = patientDAO.findCurrentEncounterByPatientId(dto.getPatientId());
     decrypt(encounter.getPatient());
+    ExcludedFields.excludeFields(encounter.getPatient());
+    ExcludedObjects.excludeObjects(encounter.getPatient());
+    ExcludedFields.excludeFields(encounter.getClinician());
+    ExcludedObjects.excludeObjects(encounter.getClinician());
     dto.setEncounter(encounter);
   }
   

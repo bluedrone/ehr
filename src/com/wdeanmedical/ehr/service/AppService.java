@@ -127,26 +127,42 @@ public class AppService {
       dto.getGenderFilter(),
       dobFilter
     );
-    for (Patient p : patients) { patientService.decrypt(p); }
+    for (Patient p : patients) { 
+      patientService.decrypt(p); 
+      ExcludedFields.excludeFields(p);
+      ExcludedObjects.excludeObjects(p);
+    }
     return patients;
   }
   
   public  List<Patient> getPatients(PatientDTO dto) throws Exception {
     List<Patient> patients = appDAO.getPatients();
-    for (Patient p : patients) { patientService.decrypt(p); }
+    for (Patient p : patients) { 
+      patientService.decrypt(p); 
+      ExcludedFields.excludeFields(p);
+      ExcludedObjects.excludeObjects(p);
+    }
     return patients;
   }
   
   public  List<Patient> getRecentPatients(PatientDTO dto) throws Exception {
     List<Patient> patients = appDAO.getRecentPatients(RECENT_PATIENT_SIZE);
-    for (Patient p : patients) { patientService.decrypt(p); }
+    for (Patient p : patients) { 
+      patientService.decrypt(p); 
+      ExcludedFields.excludeFields(p);
+      ExcludedObjects.excludeObjects(p);
+    }
     return patients;
   }
   
   public  List<Patient> getRecentPatientsByClinician(PatientDTO dto) throws Exception {
     Clinician clinician = appDAO.findClinicianById(dto.getClinicianId());
     List<Patient> patients = appDAO.getRecentPatientsByClinician(clinician, RECENT_PATIENT_SIZE);
-    for (Patient p : patients) { patientService.decrypt(p); }
+    for (Patient p : patients) { 
+      patientService.decrypt(p); 
+      ExcludedFields.excludeFields(p);
+      ExcludedObjects.excludeObjects(p);
+    }
     return patients;
   }
   
