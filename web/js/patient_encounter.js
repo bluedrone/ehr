@@ -95,7 +95,7 @@ function renderPatientEncounterForm(encounter, hasOwnership) {
   $('#encounter-exam-save-'+id).click(function() { saveExamEncounterForm(encounter); });
   $('#encounter-follow-up-save-'+id).click(function() { saveFollowUpEncounterForm(encounter); });
   setupPictureUpload(encounter.id, encounter.patient.id);
-  $('#encounter-demo-print-'+id).click(function() { printEncounterForm('print_encounter_basic_info', 'PATIENT ENCOUNTER')});
+  $('#encounter-demo-print-'+id).click(function() { printEncounterForm('print_encounter_demographics', 'DEMOGRAPHICS')});
   $('#encounter-vitals-print-'+id).click(function() { printEncounterForm('print_encounter_vitals', 'VITALS')});
   $('#encounter-soap-note-print-'+id).click(function() { printEncounterForm('print_encounter_soap_note', 'SOAP NOTE')});
   $('#encounter-cc-print-'+id).click(function() { printEncounterForm('print_encounter_cc', 'CHIEF COMPLAINT')});

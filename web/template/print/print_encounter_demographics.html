@@ -1,0 +1,166 @@
+<div id="form-wrapper-basic-info">
+ <div class="page-title-background"><div class="page-title">DEMOGRAPHICS</div></div>
+ <table class="form-table">
+ <tr>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">TODAY'S DATE</span>
+       <div class="basic-info-input">${currentDate ? currentDate : '___ /___ /___'}</div>
+       <div class="item-date-input-legend" style="visibility:${currentDate ? 'hidden' : 'visible'}">
+         <span class="date-legend-month">month</span>
+         <span class="date-legend-day">day</span>
+         <span class="date-legend-year">year</span>
+       </div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">MRN</span>
+       <div class="basic-info-input">${encounter.patient.cred.mrn}</div>
+     </div>
+   </td>
+   <td colspan="2">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">FIRST NAME</span>
+       <span class="item-label" style="left:100px">MIDDLE NAME</span>
+       <span class="item-label" style="left:150px">LAST NAME</span>
+       <div class="item-nombre-group">
+         <span class="basic-info-input">${encounter.patient.cred.firstName}</span>
+         <span class="basic-info-input"  style="left:100px">${encounter.patient.cred.lastName}</span>
+         <span class="basic-info-input"  style="left:200px">${encounter.patient.cred.additionalName}</span>
+       </div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">SSN</span>
+       <div class="basic-info-input">${encounter.patient.cred.govtId}</div>
+     </div>
+   </td>
+  </tr>
+  <tr>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">DOB</span>
+       <div class="basic-info-input">${encounter.patient.demo.dob ? dateFormat(encounter.patient.demo.dob, 'mm/dd/yyyy') : '___ /___ /___'}</div>
+       <div class="item-date-input-legend" style="visibility:${encounter.patient.demo.dob ? 'hidden' : 'visible'}">
+         <span class="date-legend-month">month</span>
+         <span class="date-legend-day">day</span>
+         <span class="date-legend-year">year</span>
+       </div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">GENDER</span>
+       <div class="basic-info-input">${encounter.patient.demo.gender.code}</div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">MARITAL STATUS</span>
+       <div class="basic-info-input">${encounter.patient.demo.maritalStatus.name}</div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">RACE</span>
+       <div class="basic-info-input">${encounter.patient.demo.race.name}</div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">ETHNICITY</span>
+       <div class="basic-info-input">${encounter.patient.demo.ethnicity.name}</div>
+     </div>
+   </td>
+  </tr>
+  <tr>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">STREET ADDRESS</span>
+       <div class="basic-info-input">${encounter.patient.demo.streetAddress}</div>
+     </div>
+   </td>
+      <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">CITY</span>
+       <div class="basic-info-input">${encounter.patient.demo.city}</div>
+     </div>
+   </td>
+      <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">STATE</span>
+       <div class="basic-info-input">${encounter.patient.demo.usState.code}</div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">ZIP</span>
+       <div class="basic-info-input">${encounter.patient.demo.postalCode}</div>
+     </div>
+   </td>
+ </tr>
+ <tr>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">PRIMARY PHONE</span>
+       <div class="basic-info-input">${encounter.patient.demo.primaryPhone}</div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">SECONDARY PHONE</span>
+       <div class="basic-info-input">${encounter.patient.demo.secondaryPhone}</div>
+     </div>
+   </td>
+   <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">EMAIL</span>
+       <div class="basic-info-input">${encounter.patient.cred.email}</div>
+     </div>
+   </td>
+ </tr>
+ <tr>
+    <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">OCCUPATION</span>
+       <div class="basic-info-input">${encounter.patient.demo.occupation}</div>
+     </div>
+   </td>
+      <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">EMPLOYMENT STATUS</span>
+       <div class="basic-info-input">${encounter.patient.demo.employmentStatus}</div>
+     </div>
+   </td>
+      <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">EMPLOYER</span>
+       <div class="basic-info-input">${encounter.patient.demo.employer}</div>
+     </div>
+   </td>
+      <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">EDUCATION STATUS</span>
+       <div class="basic-info-input">${encounter.patient.demo.educationStatus}</div>
+     </div>
+   </td>
+      <td>
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">SCHOOL NAME</span>
+       <div class="basic-info-input">${encounter.patient.demo.schoolName}</div>
+     </div>
+   </td>
+ </tr>
+ <tr>
+   <td colspan="4">
+     <div class="item-wrapper-basic-info">
+       <span class="item-label">NOTES</span>
+       <div class="basic-info-input">${encounter.patient.demo.notes}</div>
+     </div>
+   </td>
+  </tr>
+
+ </table>
+</div>

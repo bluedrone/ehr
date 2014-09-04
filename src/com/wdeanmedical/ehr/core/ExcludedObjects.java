@@ -11,8 +11,12 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.wdeanmedical.ehr.entity.Clinician;
+import com.wdeanmedical.ehr.entity.ClinicianSchedule;
+import com.wdeanmedical.ehr.entity.LabReview;
 import com.wdeanmedical.ehr.entity.Patient;
 import com.wdeanmedical.ehr.entity.PatientMessage;
+import com.wdeanmedical.ehr.entity.ProgressNote;
+import com.wdeanmedical.ehr.entity.ToDoNote;
 
 
 public class ExcludedObjects {
@@ -39,6 +43,22 @@ public class ExcludedObjects {
     else if ("PatientMessage".equals(className)) {
       PatientMessage pm = (PatientMessage)obj;
       pm.setClinician(null);
+    }
+    else if ("ToDoNote".equals(className)) {
+      ToDoNote note = (ToDoNote)obj;
+      note.setClinician(null);
+    }
+    else if ("ProgressNote".equals(className)) {
+      ProgressNote note = (ProgressNote)obj;
+      note.setClinician(null);
+    }
+    else if ("LabReview".equals(className)) {
+      LabReview lr = (LabReview)obj;
+      lr.setClinician(null);
+    }
+    else if ("ClinicianSchedule".equals(className)) {
+      ClinicianSchedule cs = (ClinicianSchedule)obj;
+      cs.setClinician(null);
     }
     
   }
