@@ -5,26 +5,33 @@
  * copyright 2013-2014 WDean Medical
  */
 
+var app_currentReportId;
+
 $('.app-reports-link').click(function(){ viewReports(); });
 
 function viewReports() {
   app_viewStack('reports-screen', DO_SCROLL);
   getReportsList();
-  getActivityLog();
+  //getActivityLog();
 }
 
 function getReportsList() {
 	  var jsonData = JSON.stringify({ sessionId: clinician.sessionId });
 	  $.post("reports/getReportsList", {data:jsonData}, function(data) {
 	    var reportList = $.parseJSON(data);
-	    RenderUtil.render('component/user_reports_list_table', 
+	    RenderUtil.render('component/simple_data_table', 
 	     {items:reportList, 
 	      title:'Reports List', 
-	      tableName:'user-reports-list', 
-	      clickable:false
-	      }, function(s) {
-	      $('#user-reports-list').html(s);
-	      $('#user-reports-list-title').html("Reports List");	      
+	      tableName:'reports-list', 
+	      clickable:true,
+	      columns:[
+           {title:'Available Reports', field:'title', type:'simple'}
+         ]}, function(s) {
+	      $('#reports-list').html(s);
+	      $('.clickable-table-row').click( function(e){ 
+	          $(this).addClass('table-row-highlight').siblings().removeClass('table-row-highlight');
+	          handleClickableRow(e); 
+	      });
 	    });
 	  });
 	}
@@ -76,5 +83,39 @@ function exportTableToCSV($table, filename) {
         'target': '_blank'
     });
 }
+
+function handleClickableRow(e) {
+    var id = undefined;
+    var tableId = undefined;
+    var tableName = undefined;
+    var attributes = e.currentTarget.attributes;
+    for (i=0;i<attributes.length;i++) {
+      if (attributes[i].name == 'name') {
+        id = attributes[i].nodeValue; 
+      }
+      else if (attributes[i].name == 'id') {
+        tableId = attributes[i].nodeValue; 
+      }
+      else if (attributes[i].name == 'data-table-name') {
+        tableName = attributes[i].nodeValue; 
+      }
+    }
+    if (id !== undefined) {
+      if (tableName == 'reports-list') {
+    	app_currentReportId = id; 
+        viewReport();
+      }
+    }
+  }
+
+function viewReport() {
+	  $('#reports-view').css({display: "block"});
+	  $('#reports-list').css({display: "none"});
+	  $('#reports-view-header').html(app_currentReportId);
+	  $('#reports-content').html("<pre>"+"Hello world of reports!"+"</pre>");
+}
+
+$('#report-view-button').click(function(){ viewReport(); });
+$('#report-close-button').click(function(){ viewReports(); });
 
 
