@@ -1,4 +1,8 @@
 <option value=''>choose</option>
 {{each options}}
-  <option value='${id}'>${name}</option>
+  {{if collection == 'app_cptModifiers'}}
+    <option value='${id}'>${code}</option>
+  {{else}}
+    <option value='${id}'>${name}</option>
+  {{/if}}
 {{/each}}

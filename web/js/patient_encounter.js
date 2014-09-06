@@ -106,11 +106,20 @@ function renderPatientEncounterForm(encounter, hasOwnership) {
   $('#encounter-exam-print-'+id).click(function() { printEncounterForm('print_encounter_exam', 'EXAM')});
   $('#encounter-follow-up-print-'+id).click(function() { printEncounterForm('print_encounter_follow-up', 'FOLLOW UP')});
   initEncounterTypeAheads(id);
-  RenderUtil.render('component/basic_select_options', {options:app_usStates}, function(s) {
+  RenderUtil.render('component/basic_select_options', {options:app_usStates, collection:'app_usStates'}, function(s) {
     var id = app_currentEncounter.id;
     $('#encounter-demo-us-state-'+id).html(s);
   });
+  renderCPTModifiers(id);
 } 
+
+
+function renderCPTModifiers(id) {
+  RenderUtil.render('component/basic_select_options', {options:app_cptModifiers, collection:'app_cptModifiers'}, function(s) {
+    var id = app_currentEncounter.id;
+    $('#encounter-cpt-modifier-'+id).html(s);
+  });
+}
 
 
 function initEncounterTypeAheads(id) {
