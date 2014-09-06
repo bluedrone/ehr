@@ -30,7 +30,7 @@ function getReportsList() {
 	      $('#reports-list').html(s);
 	      $('.clickable-table-row').click( function(e){ 
 	          $(this).addClass('table-row-highlight').siblings().removeClass('table-row-highlight');
-	          handleClickableRow(e); 
+	          reports_handleClickableRow(e); 
 	      });
 	    });
 	  });
@@ -84,7 +84,7 @@ function exportTableToCSV($table, filename) {
     });
 }
 
-function handleClickableRow(e) {
+function reports_handleClickableRow(e) {
     var id = undefined;
     var tableId = undefined;
     var tableName = undefined;
