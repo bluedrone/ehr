@@ -40,6 +40,7 @@ import com.wdeanmedical.ehr.dto.TerminologyDTO;
 import com.wdeanmedical.ehr.entity.Appointment;
 import com.wdeanmedical.ehr.entity.BaseEntity;
 import com.wdeanmedical.ehr.entity.CPT;
+import com.wdeanmedical.ehr.entity.CPTModifier;
 import com.wdeanmedical.ehr.entity.ClinicianSchedule;
 import com.wdeanmedical.ehr.entity.Credentials;
 import com.wdeanmedical.ehr.entity.Demographics;
@@ -261,6 +262,13 @@ public class AppService {
       ExcludedFields.excludeFields(item);
       ExcludedObjects.excludeObjects(item);
     }
+    return items;
+  }
+  
+  
+  
+  public List<CPTModifier> getCPTModifiers(TerminologyDTO dto) throws Exception {
+    List<CPTModifier> items = appDAO.getCPTModifiers();
     return items;
   }
   
@@ -660,6 +668,7 @@ public class AppService {
     Map<String,List> map = new HashMap<String,List>();
     Gson gson = new Gson();
     map.put("usStates", appDAO.getUSStates());
+    map.put("cptModifiers", appDAO.getCPTModifiers());
     return gson.toJson(map);
   }
   

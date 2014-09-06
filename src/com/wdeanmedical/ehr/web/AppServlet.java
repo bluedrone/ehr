@@ -33,6 +33,7 @@ import com.wdeanmedical.ehr.dto.LoginDTO;
 import com.wdeanmedical.ehr.dto.PatientDTO;
 import com.wdeanmedical.ehr.dto.TerminologyDTO;
 import com.wdeanmedical.ehr.entity.CPT;
+import com.wdeanmedical.ehr.entity.CPTModifier;
 import com.wdeanmedical.ehr.entity.ClinicianSession;
 import com.wdeanmedical.ehr.entity.ICD10;
 import com.wdeanmedical.ehr.entity.ICD9;
@@ -130,6 +131,9 @@ public void init(ServletConfig config) throws ServletException {
           }
           else if (pathInfo.equals("/getClinicians")) {
             returnString = getClinicians(request, response);  
+          }
+          else if (pathInfo.equals("/getCPTModifiers")) {
+            returnString = getCPTModifiers(request, response);  
           }
           else if (pathInfo.equals("/getPatientChart")) {
             returnString = getPatientChart(request, response);  
@@ -248,6 +252,17 @@ public void init(ServletConfig config) throws ServletException {
     dto.setSearchText(searchText);
     List<ICD9> icd9List = appService.searchICD9(dto); 
     dto.setIcd9List(icd9List);
+    String json = gson.toJson(dto);
+    return json;
+  }
+  
+  
+  
+  public String getCPTModifiers(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    Gson gson = new Gson();
+    TerminologyDTO dto = new TerminologyDTO(); 
+    List<CPTModifier> cptModifiers = appService.getCPTModifiers(dto); 
+    dto.setCptModifierList(cptModifiers);
     String json = gson.toJson(dto);
     return json;
   }

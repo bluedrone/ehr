@@ -91,6 +91,7 @@ var app_newPatientEncounterGroup = undefined;
 var app_oldLockStatus;
 var app_currentCalendarView = 'month';
 var app_usStates;
+var app_cptModifiers;
 var app_idleInterval;
 var app_idleTime = 0;
 var app_parkWarningDisplayed;
@@ -175,6 +176,7 @@ function getStaticLists() {
   $.post("app/getStaticLists", {}, function(data) {
     parsedData = $.parseJSON(data);
     app_usStates = parsedData.usStates;
+    app_cptModifiers = parsedData.cptModifiers;
  });
 }
 

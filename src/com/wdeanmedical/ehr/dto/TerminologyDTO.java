@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.wdeanmedical.ehr.entity.Appointment;
 import com.wdeanmedical.ehr.entity.CPT;
+import com.wdeanmedical.ehr.entity.CPTModifier;
 import com.wdeanmedical.ehr.entity.Clinician;
 import com.wdeanmedical.ehr.entity.ICD10;
 import com.wdeanmedical.ehr.entity.ICD9;
@@ -17,6 +18,7 @@ public class TerminologyDTO extends AuthorizedDTO {
   private List<ICD10> icd10List;
   private List<ICD9> icd9List;
   private List<CPT> cptList;
+  private List<CPTModifier> cptModifierList;
 
   public TerminologyDTO() {
   }
@@ -32,5 +34,8 @@ public class TerminologyDTO extends AuthorizedDTO {
 
   public List<CPT> getCptList() { return cptList; }
   public void setCptList(List<CPT> cptList) { this.cptList = cptList; }
+  
+  public List<CPTModifier> getCptModifierList() { return cptModifierList; }
+  public void setCptModifierList(List<CPTModifier> cptModifierList) { this.cptModifierList = cptModifierList; }
   
 }
