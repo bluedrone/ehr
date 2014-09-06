@@ -26,6 +26,7 @@ import com.wdeanmedical.ehr.entity.ClinicianSession;
 import com.wdeanmedical.ehr.entity.Encounter;
 import com.wdeanmedical.ehr.entity.Ethnicity;
 import com.wdeanmedical.ehr.entity.ICD10;
+import com.wdeanmedical.ehr.entity.ICD9;
 import com.wdeanmedical.ehr.entity.LabReview;
 import com.wdeanmedical.ehr.entity.Patient;
 import com.wdeanmedical.ehr.entity.PatientAllergen;
@@ -100,7 +101,6 @@ public class AppDAO extends SiteDAO {
     crit.addOrder(Order.desc("date"));
     List<ClinicianSchedule> list =  crit.list();
     return list; 
-    //return DashboardUtility.getClinicianScheduleDTOList(list);
   }
   
   public  List<LabReview> getLabReview(Clinician clinician) throws Exception {
@@ -117,29 +117,40 @@ public class AppDAO extends SiteDAO {
     Criteria crit = session.createCriteria(ToDoNote.class);
     crit.add(Restrictions.eq("clinician", clinician));
     crit.addOrder(Order.desc("date"));
-    List<ToDoNote> list =  crit.list();
+    List<ToDoNote> list = crit.list();
     return list; 
-    //return DashboardUtility.getToDoNoteDTOList(list);
   }
   
-  public  List<Clinician> getClinicians() throws Exception {
+  public List<Clinician> getClinicians() throws Exception {
     Session session = this.getSession();
     Criteria crit = session.createCriteria(Clinician.class);
     crit.add(Restrictions.eq("purged", false));
-    List<Clinician> list =  crit.list();
+    List<Clinician> list = crit.list();
     return list;
   }
   
   
-  public  List<ICD10> searchICD10(String searchText) throws Exception {
+  public List<ICD10> searchICD10(String searchText) throws Exception {
     Session session = this.getSession();
     Criteria crit = session.createCriteria(ICD10.class);
     crit.add(Restrictions.ilike("description", searchText, MatchMode.ANYWHERE));
-    List<ICD10> list =  crit.list();
+    List<ICD10> list = crit.list();
     return list;
   }
   
-  public  List<CPT> searchCPT(String searchText) throws Exception {
+  
+  
+  public List<ICD9> searchICD9(String searchText) throws Exception {
+    Session session = this.getSession();
+    Criteria crit = session.createCriteria(ICD9.class);
+    crit.add(Restrictions.ilike("codeText", searchText, MatchMode.ANYWHERE));
+    List<ICD9> list = crit.list();
+    return list;
+  }
+  
+  
+  
+  public List<CPT> searchCPT(String searchText) throws Exception {
     Session session = this.getSession();
     Criteria crit = session.createCriteria(CPT.class);
     crit.add(Restrictions.ilike("description", searchText, MatchMode.ANYWHERE));
@@ -154,7 +165,6 @@ public class AppDAO extends SiteDAO {
     crit.addOrder(Order.desc("date"));
     List<ProgressNote> list =  crit.list();
     return list; 
-    //return DashboardUtility.getProgressNoteDTOList(list);
   }
   
   public List<PatientMessage> getPatientMessagesByClinician(Clinician clinician) throws Exception {
@@ -165,7 +175,6 @@ public class AppDAO extends SiteDAO {
     crit.addOrder(Order.desc("date"));
     List<PatientMessage> list =  crit.list();
     return list; 
-    //return DashboardUtility.getPatientMessageDTOList(list);
   }
   
   public List<PatientAllergen> getPatientAllergens(Patient patient) throws Exception {

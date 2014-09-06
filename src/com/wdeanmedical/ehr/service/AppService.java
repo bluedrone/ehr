@@ -46,6 +46,7 @@ import com.wdeanmedical.ehr.entity.Demographics;
 import com.wdeanmedical.ehr.entity.Encounter;
 import com.wdeanmedical.ehr.entity.EncounterQuestion;
 import com.wdeanmedical.ehr.entity.ICD10;
+import com.wdeanmedical.ehr.entity.ICD9;
 import com.wdeanmedical.ehr.entity.LabReview;
 import com.wdeanmedical.ehr.entity.MedicalHistory;
 import com.wdeanmedical.ehr.entity.PFSH;
@@ -267,6 +268,12 @@ public class AppService {
   
   public List<ICD10> searchICD10(TerminologyDTO dto) throws Exception {
     return appDAO.searchICD10(dto.getSearchText());
+  }
+  
+  
+  
+  public List<ICD9> searchICD9(TerminologyDTO dto) throws Exception {
+    return appDAO.searchICD9(dto.getSearchText());
   }
   
   

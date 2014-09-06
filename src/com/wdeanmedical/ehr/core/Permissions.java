@@ -31,6 +31,7 @@ public class Permissions {
     clinicianPermissionsMap.put("/app/patientSearch",                    new boolean[] {true,true});
     clinicianPermissionsMap.put("/app/searchCPT",                        new boolean[] {true,true});
     clinicianPermissionsMap.put("/app/searchICD10",                      new boolean[] {true,true});
+    clinicianPermissionsMap.put("/app/searchICD9",                       new boolean[] {true,true});
     clinicianPermissionsMap.put("/app/unpark",                           new boolean[] {true,true});
     
     clinicianPermissionsMap.put("/admin/activateClinician",              new boolean[] {true,true});

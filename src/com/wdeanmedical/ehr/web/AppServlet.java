@@ -35,6 +35,7 @@ import com.wdeanmedical.ehr.dto.TerminologyDTO;
 import com.wdeanmedical.ehr.entity.CPT;
 import com.wdeanmedical.ehr.entity.ClinicianSession;
 import com.wdeanmedical.ehr.entity.ICD10;
+import com.wdeanmedical.ehr.entity.ICD9;
 import com.wdeanmedical.ehr.entity.Patient;
 import com.wdeanmedical.ehr.entity.PatientHealthIssue;
 import com.wdeanmedical.ehr.entity.PatientMessage;
@@ -154,6 +155,9 @@ public void init(ServletConfig config) throws ServletException {
           else if (pathInfo.equals("/searchCPT")) {
             returnString = searchCPT(request, response);  
           }
+          else if (pathInfo.equals("/searchICD9")) {
+            returnString = searchICD9(request, response);  
+          }
           else if (pathInfo.equals("/searchICD10")) {
             returnString = searchICD10(request, response);  
           }
@@ -234,6 +238,21 @@ public void init(ServletConfig config) throws ServletException {
     String json = gson.toJson(dto);
     return json;
   }
+  
+  
+  
+  public String searchICD9(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String searchText = request.getParameter("searchText");
+    Gson gson = new Gson();
+    TerminologyDTO dto = new TerminologyDTO(); 
+    dto.setSearchText(searchText);
+    List<ICD9> icd9List = appService.searchICD9(dto); 
+    dto.setIcd9List(icd9List);
+    String json = gson.toJson(dto);
+    return json;
+  }
+  
+  
   
   public String searchCPT(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String searchText = request.getParameter("searchText");

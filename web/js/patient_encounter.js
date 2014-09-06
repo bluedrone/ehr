@@ -114,21 +114,21 @@ function renderPatientEncounterForm(encounter, hasOwnership) {
 
 
 function initEncounterTypeAheads(id) {
-  var icd10 = new Bloodhound({
+  var dxCode = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     remote: {
-      url: 'app/searchICD10?sessionId='+clinician.sessionId+'&searchText=%QUERY',
+      url: 'app/searchICD9?sessionId='+clinician.sessionId+'&searchText=%QUERY',
       filter: function (data) {
-        return $.map(data.icd10List, function (icd10) {
-          return { value: icd10.code + ' ' + icd10.description };
+        return $.map(data.icd9List, function (dxCode) {
+          return { value: dxCode.code + ' ' + dxCode.codeText };
         });
       }
     }
   });
-  icd10.initialize();
+  dxCode.initialize();
   $('#encounter-dx-code-'+id).typeahead( { hint: true, highlight: true, limit: 10, minLength: 3 },
-  { name: 'encounter-dx-code-'+id, displayKey: 'value', source: icd10.ttAdapter(), }); 
+  { name: 'encounter-dx-code-'+id, displayKey: 'value', source: dxCode.ttAdapter(), }); 
   
     var cpt = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
