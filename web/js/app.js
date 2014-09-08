@@ -301,6 +301,14 @@ function patientSearch() {
       });
     });
   });
+  renderPatientChartHeader();
+}
+
+function renderPatientChartHeader() {
+  RenderUtil.render('patient_chart_header', {}, function(s) {
+    $('#patient_chart_header_template').html(s);
+    loadPatientChartHeaderInfo();
+  });
 }
 
 function clearPatientSearchForm() {
@@ -834,6 +842,7 @@ function viewClinicianMessage() {
       $('.encounter-navbar-btn').css("display", "none");
       $('#section-notification-text').html("Patient: " + app_patientChartFullName);
       viewPatientChart();
+      renderPatientChartHeader();
     });
   }
   
