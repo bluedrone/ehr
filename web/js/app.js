@@ -100,6 +100,7 @@ var ONE_MINUTE = 60000;
 
 /***********      @JQUERY INIT    *******************/
 $(document).ready(function() {
+  $('#cloak').css({display: 'block'});
   if (INITIALIZED == false) {
     getStaticLists();
     INITIALIZED = true;
@@ -833,9 +834,16 @@ function viewClinicianMessage() {
       $('.encounter-navbar-btn').css("display", "none");
       $('#section-notification-text').html("Patient: " + app_patientChartFullName);
       viewPatientChart();
+      renderPatientChartHeader();
     });
   }
   
+  function renderPatientChartHeader() {
+    RenderUtil.render('patient_chart_header', {}, function(s) {
+      $('#patient_chart_header_template').html(s);
+      loadPatientChartHeaderInfo();
+    });
+  } 
   
   function getPatientChartSummary() {
     var jsonData = JSON.stringify({ id: app_currentPatientId, clinicianId: clinician.id, sessionId: clinician.sessionId });
@@ -1176,6 +1184,21 @@ function logout() {
     app_currentPatientId = null;
     clinician = null;
   });
+}
+
+function loadPatientChartHeaderInfo() {
+  $('.patient-chart-full-name').html(app_patientChartFullName);
+  $('.patient-chart-dob').html(app_patientChartDOB);
+  $('.patient-chart-gender').html(app_patientChartGender);
+  $('.patient-chart-mrn').html(app_patientChartMRN);
+  $('.patient-chart-primary-phone').html(app_patientChartPrimaryPhone);
+  $('.patient-chart-secondary-phone').html(app_patientChartSecondaryPhone);
+  $('.patient-chart-headshot').attr('src', app_patientChartHeadshot);
+  $('.patient-chart-us-state').html(app_patientChartUSState);
+  $('.patient-chart-postal-code').html(app_patientChartPostalCode);
+  $('.patient-chart-email').html(app_patientChartEmail);
+  $('.patient-chart-address').html(app_patientChartAddress);
+  $('.patient-chart-last-appt').html(app_patientChartLastApptDate);
 }
 
 function loadPatientInfo() {

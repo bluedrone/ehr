@@ -43,198 +43,99 @@ public class PFSH extends BaseEntity implements Serializable {
   private Integer numChildren;
   private Integer numSons;
   private Integer numDaughters;
+  private Boolean saved;
 
   public PFSH() {
   }
 
   @Column(name = "patient_id")
-  public Integer getPatientId() {
-    return patientId;
-  }
-
-  public void setPatientId(Integer patientId) {
-    this.patientId = patientId;
-  }
+  public Integer getPatientId() { return patientId; }
+  public void setPatientId(Integer patientId) { this.patientId = patientId; }
 
   @Column(name = "clinician_id")
-  public Integer getClinicianId() {
-    return clinicianId;
-  }
-
-  public void setClinicianId(Integer clinicianId) {
-    this.clinicianId = clinicianId;
-  }
+  public Integer getClinicianId() { return clinicianId; }
+  public void setClinicianId(Integer clinicianId) { this.clinicianId = clinicianId; }
 
   @Column(name = "date")
-  public Date getDate() {
-    return date;
-  }
-
-  public void setDate(Date date) {
-    this.date = date;
-  }
+  public Date getDate() { return date; }
+  public void setDate(Date date) { this.date = date; }
 
   @Column(name = "mother_name")
-  public String getMotherName() {
-    return motherName;
-  }
-
-  public void setMotherName(String motherName) {
-    this.motherName = motherName;
-  }
+  public String getMotherName() { return motherName; }
+  public void setMotherName(String motherName) { this.motherName = motherName; }
 
   @Column(name = "mother_dob")
-  public Date getMotherDOB() {
-    return motherDOB;
-  }
-
-  public void setMotherDOB(Date motherDOB) {
-    this.motherDOB = motherDOB;
-  }
+  public Date getMotherDOB() { return motherDOB; }
+  public void setMotherDOB(Date motherDOB) { this.motherDOB = motherDOB; }
 
   @Column(name = "caretaker_name")
-  public String getCaretakerName() {
-    return caretakerName;
-  }
-
-  public void setCaretakerName(String caretakerName) {
-    this.caretakerName = caretakerName;
-  }
+  public String getCaretakerName() { return caretakerName; }
+  public void setCaretakerName(String caretakerName) { this.caretakerName = caretakerName; }
 
   @Column(name = "caretaker_relationship")
-  public String getCaretakerRelationship() {
-    return caretakerRelationship;
-  }
-
-  public void setCaretakerRelationship(String caretakerRelationship) {
-    this.caretakerRelationship = caretakerRelationship;
-  }
+  public String getCaretakerRelationship() { return caretakerRelationship; }
+  public void setCaretakerRelationship(String caretakerRelationship) { this.caretakerRelationship = caretakerRelationship; }
 
   @Column(name = "num_residents")
-  public Integer getNumResidents() {
-    return numResidents;
-  }
-
-  public void setNumResidents(Integer numResidents) {
-    this.numResidents = numResidents;
-  }
+  public Integer getNumResidents() { return numResidents; }
+  public void setNumResidents(Integer numResidents) { this.numResidents = numResidents; }
 
   @Column(name = "job_type")
-  public String getJobType() {
-    return jobType;
-  }
-
-  public void setJobType(String jobType) {
-    this.jobType = jobType;
-  }
+  public String getJobType() { return jobType; }
+  public void setJobType(String jobType) { this.jobType = jobType; }
 
   @Column(name = "mother_alive")
-  public Boolean isMotherAlive() {
-    return motherAlive;
-  }
-
-  public void setMotherAlive(Boolean motherAlive) {
-    this.motherAlive = motherAlive;
-  }
+  public Boolean isMotherAlive() { return motherAlive; }
+  public void setMotherAlive(Boolean motherAlive) { this.motherAlive = motherAlive; }
 
   @Column(name = "mother_death_reason")
-  public String getMotherDeathReason() {
-    return motherDeathReason;
-  }
-
-  public void setMotherDeathReason(String motherDeathReason) {
-    this.motherDeathReason = motherDeathReason;
-  }
+  public String getMotherDeathReason() { return motherDeathReason; }
+  public void setMotherDeathReason(String motherDeathReason) { this.motherDeathReason = motherDeathReason; }
 
   @Column(name = "father_alive")
-  public Boolean isFatherAlive() {
-    return fatherAlive;
-  }
-
-  public void setFatherAlive(Boolean fatherAlive) {
-    this.fatherAlive = fatherAlive;
-  }
+  public Boolean isFatherAlive() { return fatherAlive; }
+  public void setFatherAlive(Boolean fatherAlive) { this.fatherAlive = fatherAlive; }
 
   @Column(name = "father_death_reason")
-  public String getFatherDeathReason() {
-    return fatherDeathReason;
-  }
-
-  public void setFatherDeathReason(String fatherDeathReason) {
-    this.fatherDeathReason = fatherDeathReason;
-  }
+  public String getFatherDeathReason() { return fatherDeathReason; }
+  public void setFatherDeathReason(String fatherDeathReason) { this.fatherDeathReason = fatherDeathReason; }
 
   @Column(name = "partner_alive")
-  public Boolean isPartnerAlive() {
-    return partnerAlive;
-  }
-
-  public void setPartnerAlive(Boolean partnerAlive) {
-    this.partnerAlive = partnerAlive;
-  }
+  public Boolean isPartnerAlive() { return partnerAlive; }
+  public void setPartnerAlive(Boolean partnerAlive) { this.partnerAlive = partnerAlive; }
 
   @Column(name = "partner_death_reason")
-  public String getPartnerDeathReason() {
-    return partnerDeathReason;
-  }
-
-  public void setPartnerDeathReason(String partnerDeathReason) {
-    this.partnerDeathReason = partnerDeathReason;
-  }
+  public String getPartnerDeathReason() { return partnerDeathReason; }
+  public void setPartnerDeathReason(String partnerDeathReason) { this.partnerDeathReason = partnerDeathReason; }
 
   @Column(name = "num_siblings")
-  public Integer getNumSiblings() {
-    return numSiblings;
-  }
-
-  public void setNumSiblings(Integer numSiblings) {
-    this.numSiblings = numSiblings;
-  }
+  public Integer getNumSiblings() { return numSiblings; }
+  public void setNumSiblings(Integer numSiblings) { this.numSiblings = numSiblings; }
 
   @Column(name = "num_brothers")
-  public Integer getNumBrothers() {
-    return numBrothers;
-  }
-
-  public void setNumBrothers(Integer numBrothers) {
-    this.numBrothers = numBrothers;
-  }
+  public Integer getNumBrothers() { return numBrothers; }
+  public void setNumBrothers(Integer numBrothers) { this.numBrothers = numBrothers; }
 
   @Column(name = "num_sisters")
-  public Integer getNumSisters() {
-    return numSisters;
-  }
-
-  public void setNumSisters(Integer numSisters) {
-    this.numSisters = numSisters;
-  }
+  public Integer getNumSisters() { return numSisters; }
+  public void setNumSisters(Integer numSisters) { this.numSisters = numSisters; }
 
   @Column(name = "num_children")
-  public Integer getNumChildren() {
-    return numChildren;
-  }
-
-  public void setNumChildren(Integer numChildren) {
-    this.numChildren = numChildren;
-  }
+  public Integer getNumChildren() { return numChildren; }
+  public void setNumChildren(Integer numChildren) { this.numChildren = numChildren; }
 
   @Column(name = "num_sons")
-  public Integer getNumSons() {
-    return numSons;
-  }
-
-  public void setNumSons(Integer numSons) {
-    this.numSons = numSons;
-  }
+  public Integer getNumSons() { return numSons; }
+  public void setNumSons(Integer numSons) { this.numSons = numSons; }
 
   @Column(name = "num_daughters")
-  public Integer getNumDaughters() {
-    return numDaughters;
-  }
-
-  public void setNumDaughters(Integer numDaughters) {
-    this.numDaughters = numDaughters;
-  }
+  public Integer getNumDaughters() { return numDaughters; }
+  public void setNumDaughters(Integer numDaughters) { this.numDaughters = numDaughters; }
+  
+  @Column(name = "saved")
+  public Boolean getSaved() { return saved; }
+  public void setSaved(Boolean saved) { this.saved = saved; }  
+  
 
   @Override
   public int hashCode() {

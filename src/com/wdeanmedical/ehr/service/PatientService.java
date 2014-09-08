@@ -80,7 +80,7 @@ public class PatientService {
     activityLogService = new ActivityLogService();
   }
   
- 
+  
   
   public List<Encounter> getPatientEncounters(PatientDTO dto) throws Exception {
     List<Encounter> items = patientDAO.findEncountersByPatient(dto.getPatientId());
