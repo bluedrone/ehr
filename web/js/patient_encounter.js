@@ -79,7 +79,7 @@ function renderPatientEncounterForm(encounter, hasOwnership) {
   renderEncounterFormSection (encounter, 'obgyn', encounter.obgynSaved, hasOwnership);
   renderEncounterFormSection (encounter, 'pfsh', encounter.pfshSaved, hasOwnership);
   renderEncounterFormSection (encounter, 'supp', encounter.suppSaved, hasOwnership);
-  renderEncounterFormSection (encounter, 'hist', encounter.histSaved, hasOwnership);
+  renderEncounterFormSection (encounter, 'hist', encounter.patient.hist.saved, hasOwnership);
   renderEncounterFormSection (encounter, 'exam', encounter.examSaved, hasOwnership);
   renderEncounterFormSection (encounter, 'follow-up', encounter.followUpSaved, hasOwnership);
   
@@ -262,12 +262,6 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
       $('#encounter-demo-middle-name-saved-'+id).blur(function() { updateSavedPatientEncounter("middleName", $(this).html(), id); });
       $('#encounter-demo-last-name-saved-'+id).blur(function() { updateSavedPatientEncounter("lastName", $(this).html(), id); });
       $('#encounter-demo-govt-id-'+id).blur(function() { updateSavedPatientEncounter("govtId", $(this).val(), id); });
-      //$('#encounter-demo-gender-saved-'+id).blur(function() { updateSavedPatientEncounter("gender", $(this).html(), id, true, 'encounter-demo-gender'); });
-      //$('#encounter-demo-race-saved-'+id).blur(function() { updateSavedPatientEncounter("race", $(this).html(), id, true, 'encounter-demo-marital'); });
-      //$('#encounter-demo-marital-saved-'+id).blur(function() { updateSavedPatientEncounter("maritalStatus", $(this).html(), id, true, 'encounter-demo-race'); });
-      //$('#encounter-demo-ethnicity-saved-'+id).blur(function() { updateSavedPatientEncounter("ethnicity", $(this).html(), id, true, 'encounter-demo-ethnicity'); });
-      //$('#encounter-demo-school-status-saved-'+id).blur(function() { updateSavedPatientEncounter("schoolStatus", $(this).html(), id, true, 'encounter-demo-school-status'); });
-      //$('#encounter-demo-employment-status-saved-'+id).blur(function() { updateSavedPatientEncounter("employmentStatus", $(this).html(), id, true, 'encounter-demo-employment-status'); });
       $('#encounter-demo-notes-saved-'+id).blur(function() { updateSavedPatientEncounter("notes", $(this).html(), id); });
       $('#encounter-demo-dob-saved-'+id).blur(function() { updateSavedPatientEncounter("dob", $(this).html(), id); });
       $('#encounter-demo-street-address-saved-'+id).blur(function() { updateSavedPatientEncounter("streetAddress1", $(this).html(), id); });
