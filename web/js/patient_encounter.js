@@ -77,7 +77,7 @@ function renderPatientEncounterForm(encounter, hasOwnership) {
   renderEncounterFormSection (encounter, 'soap-note', encounter.soapNoteSaved, hasOwnership);
   renderEncounterFormSection (encounter, 'cc', encounter.ccSaved, hasOwnership);
   renderEncounterFormSection (encounter, 'obgyn', encounter.obgynSaved, hasOwnership);
-  renderEncounterFormSection (encounter, 'pfsh', encounter.pfshSaved, hasOwnership);
+  renderEncounterFormSection (encounter, 'pfsh', encounter.patient.pfsh.saved, hasOwnership);
   renderEncounterFormSection (encounter, 'supp', encounter.suppSaved, hasOwnership);
   renderEncounterFormSection (encounter, 'hist', encounter.patient.hist.saved, hasOwnership);
   renderEncounterFormSection (encounter, 'exam', encounter.examSaved, hasOwnership);
