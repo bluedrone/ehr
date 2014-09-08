@@ -1178,6 +1178,21 @@ function logout() {
   });
 }
 
+function loadPatientChartHeaderInfo() {
+  $('.patient-chart-full-name').html(app_patientChartFullName);
+  $('.patient-chart-dob').html(app_patientChartDOB);
+  $('.patient-chart-gender').html(app_patientChartGender);
+  $('.patient-chart-mrn').html(app_patientChartMRN);
+  $('.patient-chart-primary-phone').html(app_patientChartPrimaryPhone);
+  $('.patient-chart-secondary-phone').html(app_patientChartSecondaryPhone);
+  $('.patient-chart-headshot').attr('src', app_patientChartHeadshot);
+  $('.patient-chart-us-state').html(app_patientChartUSState);
+  $('.patient-chart-postal-code').html(app_patientChartPostalCode);
+  $('.patient-chart-email').html(app_patientChartEmail);
+  $('.patient-chart-address').html(app_patientChartAddress);
+  $('.patient-chart-last-appt').html(app_patientChartLastApptDate);
+}
+
 function loadPatientInfo() {
   $('.patient-chart-full-name').html(app_patientChartFullName);
   $('.patient-chart-dob').html(app_patientChartDOB);
