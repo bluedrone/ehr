@@ -492,7 +492,7 @@ $('#obgyn-link').click(function(){
 
 
 $('#medical-history-link').click(function(){ 
-    RenderUtil.render('past_medical_history', {}, function(s) {
+    RenderUtil.render('medical_history', {}, function(s) {
     $('#modals-placement').html(s);
     $('#modal-medical-history').modal('show'); 
     loadPatientInfo();
