@@ -40,21 +40,26 @@ function getActivityLog() {
   var jsonData = JSON.stringify({ sessionId: clinician.sessionId });
   $.post("reports/getActivityLog", {data:jsonData}, function(data) {
     var activityLogs = $.parseJSON(data);
-    RenderUtil.render('component/user_admin_activity_log_table', 
+    RenderUtil.render('component/reports_activity_log_table', 
      {items:activityLogs, 
       title:'Activity Logs', 
-      tableName:'user-admin-activityLogs-list', 
+      tableName:'reports-content', 
       clickable:false
       }, function(s) {
-      $('#user-admin-activityLogs-list').html(s);
-      $('#user-admin-activity-log-list-title').html("Activity Logs");	      
+      $('#reports-content').html(s);
+      $('#reports-view-header').html("Activity Logs");	      
     });
+    RenderUtil.render('component/reports_activity_log_filters', {},
+	  function(f) {
+	  $('#reports-filters').html(f);	      
+	});
   });
 }
 
 $('#export-csv-activity-log-lg, #export-csv-activity-log-sm').click(function() { 
 	//exportCsv();
-    exportTableToCSV.apply(this, [$('#user-admin-activityLogs-list>table'), 'ActivityLog.csv']);
+	alert('Hi!');
+    exportTableToCSV.apply(this, [$('#reports-content>table'), 'ActivityLog.csv']);
 });
 
 function exportTableToCSV($table, filename) {
@@ -111,8 +116,12 @@ function reports_handleClickableRow(e) {
 function viewReport() {
 	  $('#reports-view').css({display: "block"});
 	  $('#reports-list').css({display: "none"});
-	  $('#reports-view-header').html(app_currentReportId);
-	  $('#reports-content').html("<pre>"+"Hello world of reports!"+"</pre>");
+	  if(app_currentReportId == 25){
+		  getActivityLog();
+	  }else{
+		  $('#reports-view-header').html(app_currentReportId);
+		  $('#reports-content').html("<pre>"+"Hello world of reports!"+"</pre>");
+	  }
 }
 
 $('#report-view-button').click(function(){ viewReport(); });
