@@ -301,14 +301,6 @@ function patientSearch() {
       });
     });
   });
-  renderPatientChartHeader();
-}
-
-function renderPatientChartHeader() {
-  RenderUtil.render('patient_chart_header', {}, function(s) {
-    $('#patient_chart_header_template').html(s);
-    loadPatientChartHeaderInfo();
-  });
 }
 
 function clearPatientSearchForm() {
@@ -846,6 +838,12 @@ function viewClinicianMessage() {
     });
   }
   
+  function renderPatientChartHeader() {
+    RenderUtil.render('patient_chart_header', {}, function(s) {
+      $('#patient_chart_header_template').html(s);
+      loadPatientChartHeaderInfo();
+    });
+  } 
   
   function getPatientChartSummary() {
     var jsonData = JSON.stringify({ id: app_currentPatientId, clinicianId: clinician.id, sessionId: clinician.sessionId });
