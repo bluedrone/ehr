@@ -59,7 +59,6 @@ public class Permissions {
     clinicianPermissionsMap.put("/patient/createExam",                   new boolean[] {true,true});
     clinicianPermissionsMap.put("/patient/createSOAPNote",               new boolean[] {true,true});
     clinicianPermissionsMap.put("/patient/createOBGYN",                  new boolean[] {true,true});
-    clinicianPermissionsMap.put("/patient/createPatientAndEncounter",    new boolean[] {true,true});
     clinicianPermissionsMap.put("/patient/createPFSH",                   new boolean[] {true,true});
     clinicianPermissionsMap.put("/patient/createSupp",                   new boolean[] {true,true});
     clinicianPermissionsMap.put("/patient/createVitals",                 new boolean[] {true,true});

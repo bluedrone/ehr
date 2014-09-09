@@ -279,68 +279,8 @@ public class PatientService {
     dto.setEncounter(encounter);
   }
   
+  
  
-  
-  public void createPatientAndEncounter(PatientDTO dto) throws Exception {
-    Clinician clinician = appDAO.findClinicianBySessionId(dto.getSessionId());
-    Patient patient = new Patient();
-    patientDAO.create(patient);
-    
-    Encounter encounter = patientDAO.createEncounter(patient, clinician);
-    patient.setCurrentEncounterId(encounter.getId());
-    
-    Demographics demo = new Demographics();
-    demo.setGender(dto.getEncounter().getPatient().getDemo().getGender());
-    demo.setProfileImagePath(Core.appDefaultHeadshot); 
-    demo.setPatientId(patient.getId());
-    patientDAO.create(demo);
-    patient.setDemo(demo);
-    
-    Credentials cred = new Credentials();
-    cred.setFirstName(dto.getEncounter().getPatient().getCred().getFirstName());
-    cred.setLastName(dto.getEncounter().getPatient().getCred().getLastName());
-    cred.setAdditionalName(dto.getEncounter().getPatient().getCred().getAdditionalName());
-    cred.setPassword("not a password"); 
-    cred.setStatus(appDAO.findPatientStatusById(PatientStatus.ACTIVE));
-    cred.setPatientId(patient.getId());
-    patientDAO.create(cred);
-    patient.setCred(cred);
-   
-    encrypt(patient); 
-    patientDAO.update(cred);
-    patientDAO.update(demo);
-    
-    PFSH pfsh = new PFSH();
-    pfsh.setPatientId(patient.getId());
-    patientDAO.create(pfsh);
-    patient.setPfsh(pfsh);
-    
-    MedicalHistory hist = new MedicalHistory();
-    hist.setPatientId(patient.getId());
-    patientDAO.create(hist);
-    patient.setHist(hist);
-    
-    patientDAO.update(patient);
-
-    encounter.setFollowUp(dto.getEncounter().getFollowUp());
-    encounter.setCompleted(dto.getEncounter().getCompleted());
-    encounter.setLockStatus(dto.getEncounter().getLockStatus());
-    patientDAO.update(encounter);
-    
-    for (int i=0; i<3; i++) {
-      addEncounterQuestion(encounter.getId()); // encounter.supp
-      addEncounterMedication(patient.getId()); // patient.hist
-    }
-
-    Runtime runtime = Runtime.getRuntime();
-    String patientDirPath =  Core.appBaseDir + Core.patientDirPath + "/" + patient.getId() + "/";
-    new File(patientDirPath).mkdir();
-    String[] cpArgs = {"cp", Core.appBaseDir + "images/" + Core.appDefaultHeadshot, patientDirPath};
-    runtime.exec(cpArgs);
-  }
-  
-  
-  
   public Integer addEncounterMedication(Integer patientId) throws Exception {
     EncounterMedication encounterMedication = new EncounterMedication();
     encounterMedication.setPatientId(patientId);
