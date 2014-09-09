@@ -376,7 +376,8 @@ public class PatientServlet extends AppServlet  {
     String data = request.getParameter("data");
     Gson gson = new Gson();
     PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.addEncounterMedication(dto.getPatientId());
+    Integer encounterMedicationId = patientService.addEncounterMedication(dto.getPatientId());
+    dto.setEncounterMedicationId(encounterMedicationId);
     String json = gson.toJson(dto);
     return json;
   }
@@ -385,7 +386,8 @@ public class PatientServlet extends AppServlet  {
     String data = request.getParameter("data");
     Gson gson = new Gson();
     PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.addEncounterQuestion(dto.getEncounterId());
+    Integer encounterQuestionId = patientService.addEncounterQuestion(dto.getEncounterId());
+    dto.setEncounterQuestionId(encounterQuestionId);
     String json = gson.toJson(dto);
     return json;
   }

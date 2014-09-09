@@ -341,18 +341,20 @@ public class PatientService {
   
   
   
-  public  void addEncounterMedication(Integer patientId) throws Exception {
+  public Integer addEncounterMedication(Integer patientId) throws Exception {
     EncounterMedication encounterMedication = new EncounterMedication();
     encounterMedication.setPatientId(patientId);
     patientDAO.create(encounterMedication);
+    return encounterMedication.getId();
   }
   
   
   
-  public  void addEncounterQuestion(Integer encounterId) throws Exception {
+  public Integer addEncounterQuestion(Integer encounterId) throws Exception {
     EncounterQuestion encounterQuestion = new EncounterQuestion();
     encounterQuestion.setEncounterId(encounterId);
     patientDAO.create(encounterQuestion);
+    return encounterQuestion.getId();
   }
   
   
