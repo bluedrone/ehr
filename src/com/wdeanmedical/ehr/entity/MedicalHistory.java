@@ -41,7 +41,7 @@ public class MedicalHistory extends BaseEntity implements Serializable {
   private Float smokeYearsQuit;
   private Float etohUnitsWeek;
   private String currentDrugs;
-  private Boolean saved;
+  private Boolean saved = false;
   private List<EncounterMedication> encounterMedicationList;
 
   public MedicalHistory() {

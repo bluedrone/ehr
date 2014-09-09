@@ -43,7 +43,7 @@ public class PFSH extends BaseEntity implements Serializable {
   private Integer numChildren;
   private Integer numSons;
   private Integer numDaughters;
-  private Boolean saved;
+  private Boolean saved = false;
 
   public PFSH() {
   }
