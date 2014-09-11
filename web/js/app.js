@@ -953,31 +953,54 @@ function viewClinicianMessage() {
 
   function getColumnValue(column, item) {
     var value = '';
-    
     if (item === undefined) {
       return value; 
     }
     var columnFields = column.field.split('.'); 
     
     if (column.type == 'simple' || column.type == 'numeric') {
-      value = item[column.field];
+      if (item[column.field] === undefined) {
+	      value = ''; 
+	  }else{
+		  value = item[column.field];
+	  }
     }
     else if (column.type == 'html') {
-      value = util_stripHtml(item[column.field]);
+      if (item[column.field] === undefined) {
+  	      value = ''; 
+  	  }else{
+  		  value = util_stripHtml(item[column.field]);
+  	  }
     }
     else if (column.type == 'soap-note') {
-      value = util_stripHtml(item[column.field]);
-      value =  util_truncate(value, 50);
+	  if (item[column.field] === undefined) {
+		  value = ''; 
+  	  }else{
+  		  value = util_stripHtml(item[column.field]);
+  		  value =  util_truncate(value, 50);
+  	  }
     }
     else if (column.type == 'strip-html') {
-      value = util_stripHtml(item[column.field]);
-      value =  util_truncate(value, 100);
+       if (item[column.field] === undefined) {
+  	      value = ''; 
+  	  }else{
+  		  value = util_stripHtml(item[column.field]);
+  		  value =  util_truncate(value, 100);
+  	  }
     }
     else if (column.type == 'date') {
-      value = dateFormat(item[column.field], 'mm/dd/yyyy')
+      if (item[column.field] === undefined) {
+  	      value = ''; 
+  	  }else{
+  		  value = dateFormat(item[column.field], 'mm/dd/yyyy')
+  	  }
     }
     else if (column.type == 'date-time') {
-      value = dateFormat(item[column.field], 'mm/dd/yyyy hh:mm')
+      if (item[column.field] === undefined) {
+  	      value = ''; 
+  	  }else{
+  		  value = dateFormat(item[column.field], 'mm/dd/yyyy hh:mm')
+  	  }
     }
     else if (column.type == 'double') {
       var field0 = columnFields[0];

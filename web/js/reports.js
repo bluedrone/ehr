@@ -40,26 +40,30 @@ function getActivityLog() {
   var jsonData = JSON.stringify({ sessionId: clinician.sessionId });
   $.post("reports/getActivityLog", {data:jsonData}, function(data) {
     var activityLogs = $.parseJSON(data);
-    RenderUtil.render('component/reports_activity_log_table', 
+    RenderUtil.render('component/simple_data_table', 
      {items:activityLogs, 
       title:'Activity Logs', 
       tableName:'reports-content', 
-      clickable:false
-      }, function(s) {
+      clickable:false,
+      columns:[
+       {title:'User Id', field:'userId', type:'simple'},
+       {title:'Patient Id', field:'patientId', type:'simple'},
+       {title:'Time Performed', field:'timePerformed', type:'simple'},
+       {title:'Clinician Id', field:'clinicianId', type:'simple'},
+       {title:'Encounter Id', field:'encounterId', type:'simple'},
+       {title:'Field Name', field:'fieldName', type:'simple'},
+       {title:'Activity', field:'activity.activityType', type:'double'},
+       {title:'Module', field:'module.moduleType', type:'double'}
+      ]}, function(s) {
       $('#reports-content').html(s);
       $('#reports-view-header').html("Activity Logs");	      
     });
-    RenderUtil.render('component/reports_activity_log_filters', {},
-	  function(f) {
-	  $('#reports-filters').html(f);	      
-	});
   });
 }
 
 $('#export-csv-activity-log-lg, #export-csv-activity-log-sm').click(function() { 
 	//exportCsv();
-	alert('Hi!');
-    exportTableToCSV.apply(this, [$('#reports-content>table'), 'ActivityLog.csv']);
+	exportTableToCSV.apply(this, [$('#reports-content>table'), 'ActivityLog.csv']);
 });
 
 function exportTableToCSV($table, filename) {
