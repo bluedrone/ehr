@@ -865,3 +865,7 @@ td.highlighted { background:#FFFF66 }
   padding-left: 6px;
   min-height: 64px;
 }
+
+.medication-delete-control {
+  margin-top:15px;  
+}
