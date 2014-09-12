@@ -129,7 +129,14 @@ public class PatientService {
   
   
   
-  public  void deactivatePatient(PatientDTO dto) throws Exception {
+  public void deletePatientMedication(PatientDTO dto) throws Exception {
+    EncounterMedication medication = patientDAO.findEncounterMedicationById(dto.getEncounterMedicationId());
+    patientDAO.delete(medication);
+  }
+  
+  
+  
+  public void deactivatePatient(PatientDTO dto) throws Exception {
     Patient patient = patientDAO.findPatientById(dto.getPatientId());
     PatientStatus status = patientDAO.findPatientStatusById(PatientStatus.INACTIVE);
     patient.getCred().setStatus(status);

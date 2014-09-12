@@ -119,6 +119,9 @@ public class PatientServlet extends AppServlet  {
         else if (pathInfo.equals("/deletePatient")) {
           returnString = deletePatient(request, response);  
         }
+        else if (pathInfo.equals("/deletePatientMedication")) {
+          returnString = deletePatientMedication(request, response);  
+        }
         else if (pathInfo.equals("/encryptPatients")) {
           returnString = encryptPatients(request, response);  
         }
@@ -232,6 +235,16 @@ public class PatientServlet extends AppServlet  {
     Gson gson = new Gson();
     PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
     patientService.deactivatePatient(dto);
+    String json = gson.toJson(dto);
+    return json;
+  }
+  
+  
+  public String deletePatientMedication(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String data = request.getParameter("data");
+    Gson gson = new Gson();
+    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
+    patientService.deletePatientMedication(dto);
     String json = gson.toJson(dto);
     return json;
   }

@@ -1084,9 +1084,10 @@ function  setupPictureUpload(encounterId, patientId) {
 
 function deleteMedication(element) {
   var id = element.attr('name');
-  var jsonData = JSON.stringify({ sessionId: clinician.sessionId, patientMedicationId:id});
-  $('#encounter-medication-'+id).remove();
-  //$.post("patient/deleteMedication", {data:jsonData}, function(data) { });  
+  var jsonData = JSON.stringify({ sessionId: clinician.sessionId, encounterMedicationId:id});
+  $.post("patient/deletePatientMedication", {data:jsonData}, function(data) { 
+    $('#encounter-medication-'+id).remove();
+  });  
 }
 
     
