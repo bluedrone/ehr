@@ -46,14 +46,13 @@ function getActivityLog() {
       tableName:'reports-content', 
       clickable:false,
       columns:[
-       {title:'User Id', field:'userId', type:'simple'},
-       {title:'Patient Id', field:'patientId', type:'simple'},
+       {title:'User Name', field:'userName', type:'simple'},
+       {title:'Patient Name', field:'patientName', type:'simple'},
        {title:'Time Performed', field:'timePerformed', type:'simple'},
-       {title:'Clinician Id', field:'clinicianId', type:'simple'},
-       {title:'Encounter Id', field:'encounterId', type:'simple'},
+       {title:'Clinician Name', field:'clinicianName', type:'simple'},
        {title:'Field Name', field:'fieldName', type:'simple'},
-       {title:'Activity', field:'activity.activityType', type:'double'},
-       {title:'Module', field:'module.moduleType', type:'double'}
+       {title:'Activity', field:'activity', type:'simple'},
+       {title:'Module', field:'module', type:'simple'}
       ]}, function(s) {
       $('#reports-content').html(s);
       $('#reports-view-header').html("Activity Logs");	      

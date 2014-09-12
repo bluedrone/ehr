@@ -4,60 +4,30 @@
  * For details see: http://www.wdeanmedical.com
  * copyright 2013-2014 WDean Medical
  */
- 
+
 package com.wdeanmedical.ehr.service;
 
-
 import java.net.MalformedURLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.servlet.ServletContext;
 
-import com.wdeanmedical.ehr.persistence.AdminDAO;
-import com.wdeanmedical.ehr.persistence.AppDAO;
-import com.wdeanmedical.ehr.persistence.ExternalDAO;
-import com.wdeanmedical.ehr.persistence.PatientDAO;
 import com.wdeanmedical.ehr.persistence.ReportsDAO;
+import com.wdeanmedical.ehr.util.DataEncryptor;
 import com.wdeanmedical.ehr.core.Core;
+import com.wdeanmedical.ehr.dto.ActivityLogDTO;
 import com.wdeanmedical.ehr.dto.AdminDTO;
-import com.wdeanmedical.ehr.dto.AuthorizedDTO;
-import com.wdeanmedical.ehr.dto.LoginDTO;
-import com.wdeanmedical.ehr.dto.PatientDTO;
 import com.wdeanmedical.ehr.entity.ActivityLog;
 import com.wdeanmedical.ehr.entity.Clinician;
-import com.wdeanmedical.ehr.entity.ClinicianSession;
-import com.wdeanmedical.ehr.entity.Country;
-import com.wdeanmedical.ehr.entity.Credential;
 import com.wdeanmedical.ehr.entity.Credentials;
 import com.wdeanmedical.ehr.entity.Demographics;
-import com.wdeanmedical.ehr.entity.Encounter;
-import com.wdeanmedical.ehr.entity.PatientHistoryMedication;
-import com.wdeanmedical.ehr.entity.EncounterQuestion;
-import com.wdeanmedical.ehr.entity.Gender;
-import com.wdeanmedical.ehr.entity.MaritalStatus;
-import com.wdeanmedical.ehr.entity.MedicalHistory;
-import com.wdeanmedical.ehr.entity.PFSH;
 import com.wdeanmedical.ehr.entity.Patient;
-import com.wdeanmedical.ehr.entity.PatientStatus;
 import com.wdeanmedical.ehr.entity.Report;
-import com.wdeanmedical.ehr.entity.Role;
-import com.wdeanmedical.ehr.entity.USState;
-import com.wdeanmedical.ehr.dto.BooleanResultDTO;
-import com.wdeanmedical.ehr.util.ClinicianSessionData;
-import com.wdeanmedical.ehr.util.OneWayPasswordEncoder;
-import com.wdeanmedical.external.fhir.PatientFullRecordFHIR;
-import com.wdeanmedical.external.fhir.PatientsFHIR;
+import com.wdeanmedical.ehr.entity.User;
 
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.poi.hssf.usermodel.HSSFFont;
@@ -67,44 +37,66 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
-import org.hibernate.Query;
-import org.hibernate.Session;
 
 public class ReportsService {
 
   private static Log log = LogFactory.getLog(ReportsService.class);
-  
+
   private ServletContext context;
   private WebApplicationContext wac;
   private ReportsDAO reportsDAO;
-
 
   public ReportsService() throws MalformedURLException {
     context = Core.servletContext;
     wac = WebApplicationContextUtils.getRequiredWebApplicationContext(context);
     reportsDAO = (ReportsDAO) wac.getBean("reportsDAO");
   }
-  
-  public List<ActivityLog> getActivityLog(AdminDTO dto) throws Exception{
-     Clinician clinician = reportsDAO.findClinicianBySessionId(dto.getSessionId());
-     return reportsDAO.getActivityLog(clinician.getId());
+
+  public List<ActivityLogDTO> getActivityLog(AdminDTO dto) throws Exception {
+    List<ActivityLogDTO> activityLogDTOList = new ArrayList<ActivityLogDTO>();
+    Clinician clinician = reportsDAO.findClinicianBySessionId(dto.getSessionId());
+    List<ActivityLog> activityLogList = reportsDAO.getActivityLog(clinician.getId());
+    ActivityLogDTO activityLogDTO = null;
+    for(ActivityLog activityLog : activityLogList){      
+      activityLogDTO = new ActivityLogDTO();
+      if(activityLog.getUserId() != null){
+        User user = reportsDAO.findUserById(activityLog.getUserId());
+        activityLogDTO.setUserName(getFullName(user.getFirstName(), user.getMiddleName(), user.getLastName()));
+      }
+      if(activityLog.getPatientId() != null){
+        Patient patient = reportsDAO.findPatientById(activityLog.getPatientId());
+        decrypt(patient);
+        activityLogDTO.setPatientName(getFullName(patient.getCred().getFirstName(), patient.getCred().getMiddleName(), patient.getCred().getLastName()));
+      }
+      activityLogDTO.setTimePerformed(activityLog.getTimePerformed());
+      if(activityLog.getClinicianId() != null){
+        Clinician loggedClinician = reportsDAO.findClinicianById(activityLog.getClinicianId());
+        activityLogDTO.setClinicianName(getFullName(loggedClinician.getFirstName(), loggedClinician.getMiddleName(), loggedClinician.getLastName()));
+      }
+      activityLogDTO.setEncounterId(activityLog.getEncounterId());
+      activityLogDTO.setFieldName(activityLog.getFieldName());
+      activityLogDTO.setActivity(activityLog.getActivity().getActivityType());
+      activityLogDTO.setModule(activityLog.getModule().getModuleType());
+      activityLogDTOList.add(activityLogDTO);
+    }
+    return activityLogDTOList;
   }
-  
-  public List<Report> getReportList(AdminDTO dto) throws Exception{
-	 Clinician clinician = reportsDAO.findClinicianBySessionId(dto.getSessionId());
-     return reportsDAO.getReportList(clinician.getId());
+
+  public List<Report> getReportList(AdminDTO dto) throws Exception {
+    Clinician clinician = reportsDAO.findClinicianBySessionId(dto.getSessionId());
+    return reportsDAO.getReportList(clinician.getId());
   }
-  
-  public HSSFWorkbook getWorkbook(AdminDTO dto) throws Exception{
-   
-    List<ActivityLog> activityLogs = getActivityLog(dto);
-  
+
+  public HSSFWorkbook getWorkbook(AdminDTO dto) throws Exception {
+
+    List<ActivityLogDTO> activityLogs = getActivityLog(dto);
+
     HSSFWorkbook workbook = new HSSFWorkbook();
     // create a new Excel sheet
     HSSFSheet sheet = workbook.createSheet("Activity Logs");
     sheet.setDefaultColumnWidth(30);
-  
-	// create style for header cells
+
+    // create style for header cells
     CellStyle style = workbook.createCellStyle();
     Font font = workbook.createFont();
     font.setFontName("Arial");
@@ -143,51 +135,73 @@ public class ReportsService {
 
     // create data rows
     int rowCount = 1;
-		
-    for (ActivityLog activityLog : activityLogs) {
-	HSSFRow aRow = sheet.createRow(rowCount++);
-	if(activityLog.getUserId() != null){
-		aRow.createCell(0).setCellValue(activityLog.getUserId());
-	}else{
-		aRow.createCell(0).setCellValue("");
-	}
-	if(activityLog.getPatientId() != null){
-		aRow.createCell(1).setCellValue(activityLog.getPatientId());
-	}else{
-		aRow.createCell(1).setCellValue("");
-	}
-	if(activityLog.getTimePerformed() != null){
-		aRow.createCell(2).setCellValue(activityLog.getTimePerformed());
-	}else{
-		aRow.createCell(2).setCellValue("");
-	}
-	if(activityLog.getClinicianId() != null){
-		aRow.createCell(3).setCellValue(activityLog.getClinicianId());
-	}else{
-		aRow.createCell(3).setCellValue("");
-	}
-	if(activityLog.getEncounterId() != null){
-		aRow.createCell(4).setCellValue(activityLog.getEncounterId());
-	}else{
-		aRow.createCell(4).setCellValue("");
-	}
-	if(activityLog.getFieldName() != null){
-		aRow.createCell(5).setCellValue(activityLog.getFieldName());
-	}else{
-		aRow.createCell(5).setCellValue("");
-	}
-	if(activityLog.getActivity() != null){
-		aRow.createCell(6).setCellValue(activityLog.getActivity().getActivityType());
-	}else{
-		aRow.createCell(6).setCellValue("");
-	}
-	if(activityLog.getModule() != null){
-		aRow.createCell(7).setCellValue(activityLog.getModule().getModuleType());
-	}else{
-		aRow.createCell(7).setCellValue("");
-	}
-	}
-	return workbook;	  
+
+    for (ActivityLogDTO activityLog : activityLogs) {
+      HSSFRow aRow = sheet.createRow(rowCount++);
+      if (activityLog.getUserName() != null) {
+        aRow.createCell(0).setCellValue(activityLog.getUserName());
+      } else {
+        aRow.createCell(0).setCellValue("");
+      }
+      if (activityLog.getPatientName() != null) {
+        aRow.createCell(1).setCellValue(activityLog.getPatientName());
+      } else {
+        aRow.createCell(1).setCellValue("");
+      }
+      if (activityLog.getTimePerformed() != null) {
+        aRow.createCell(2).setCellValue(activityLog.getTimePerformed());
+      } else {
+        aRow.createCell(2).setCellValue("");
+      }
+      if (activityLog.getClinicianName() != null) {
+        aRow.createCell(3).setCellValue(activityLog.getClinicianName());
+      } else {
+        aRow.createCell(3).setCellValue("");
+      }
+      if (activityLog.getEncounterId() != null) {
+        aRow.createCell(4).setCellValue(activityLog.getEncounterId());
+      } else {
+        aRow.createCell(4).setCellValue("");
+      }
+      if (activityLog.getFieldName() != null) {
+        aRow.createCell(5).setCellValue(activityLog.getFieldName());
+      } else {
+        aRow.createCell(5).setCellValue("");
+      }
+      if (activityLog.getActivity() != null) {
+        aRow.createCell(6).setCellValue(activityLog.getActivity());
+      } else {
+        aRow.createCell(6).setCellValue("");
+      }
+      if (activityLog.getModule() != null) {
+        aRow.createCell(7).setCellValue(activityLog.getModule());
+      } else {
+        aRow.createCell(7).setCellValue("");
+      }
+    }
+    return workbook;
   }
-	  
+  
+  private void decrypt(Patient patient) throws Exception { 
+    if (patient == null || patient.isEncrypted() == false) {
+      return;
+    }
+    Credentials cred = patient.getCred();
+    if (cred.getFirstName() != null) { cred.setFirstName(DataEncryptor.decrypt(cred.getFirstName()));}
+    if (cred.getMiddleName() != null) { cred.setMiddleName(DataEncryptor.decrypt(cred.getMiddleName()));}
+    if (cred.getLastName() != null) { cred.setLastName(DataEncryptor.decrypt(cred.getLastName()));}
+    patient.setCred(cred);
+    patient.setEncrypted(false);
+  }
+  
+  private String getFullName(String firstName, String middleName, String lastName){
+    
+    if(middleName == null){
+      return firstName + " " + lastName;
+    }else{
+      return firstName + " " + middleName + " " + lastName;
+    }
+    
+  }  
+
 }

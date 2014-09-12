@@ -4,7 +4,7 @@
  * For details see: http://www.wdeanmedical.com
  * copyright 2013-2014 WDean Medical
  */
- 
+
 package com.wdeanmedical.ehr.persistence;
 
 import java.text.DateFormat;
@@ -52,6 +52,7 @@ import com.wdeanmedical.ehr.entity.PatientStatus;
 import com.wdeanmedical.ehr.entity.Report;
 import com.wdeanmedical.ehr.entity.Role;
 import com.wdeanmedical.ehr.entity.SuppQuestions;
+import com.wdeanmedical.ehr.entity.User;
 import com.wdeanmedical.ehr.entity.VitalSigns;
 import com.wdeanmedical.ehr.entity.ProgressNote;
 import com.wdeanmedical.ehr.entity.ToDoNote;
@@ -89,8 +90,8 @@ public class ReportsDAO extends SiteDAO {
   protected Session getSession() {
     return this.sessionFactory.getCurrentSession();
   }
-  
-  public Clinician findClinicianBySessionId(String sessionId ) throws Exception {
+
+  public Clinician findClinicianBySessionId(String sessionId) throws Exception {
     Session session = this.getSession();
     Criteria crit = session.createCriteria(ClinicianSession.class);
     crit.add(Restrictions.eq("sessionId", sessionId));
@@ -100,15 +101,31 @@ public class ReportsDAO extends SiteDAO {
 
   public List<ActivityLog> getActivityLog(Integer clinicianId) {
     Session session = this.getSession();
-    Query activityLogQuery = session.createQuery("SELECT al FROM ActivityLog al WHERE al.clinicianId = '" + clinicianId + "' ORDER BY al.createdDate DESC");
+    Query activityLogQuery = session.createQuery("SELECT al FROM ActivityLog al WHERE al.clinicianId = '" + clinicianId
+        + "' ORDER BY al.createdDate DESC");
     activityLogQuery.setMaxResults(200);
     return activityLogQuery.list();
   }
-  
+
   public List<Report> getReportList(Integer userId) {
     Session session = this.getSession();
     Query reportListQuery = session.createQuery("SELECT r FROM Report r  ORDER BY r.sortOrder ASC");
     return reportListQuery.list();
+  }
+  
+  public User findUserById(Integer id) throws Exception {
+    User user = (User) this.findById(User.class, id);
+    return user;
+  }
+  
+  public Patient findPatientById(Integer id) throws Exception {
+    Patient patient = (Patient) this.findById(Patient.class, id);
+    return patient;
+  }
+  
+  public Clinician findClinicianById(Integer id) throws Exception {
+    Clinician clinician = (Clinician) this.findById(Clinician.class, id);
+    return clinician;
   }
 
 }
