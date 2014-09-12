@@ -210,6 +210,7 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
           RenderUtil.render('component/encounter_medication', {ordinal:numMedications, id: parsedData.encounterMedicationId}, function(s) { $("#encounter-medications-"+id).append(s); setEncounterFormMode(encounter, section, savedState, hasOwnership);});
         });
       });
+      $('.medication-delete-control').click(function() { deleteMedication($(this)); });
     }
     else if (section == 'exam') {
     /*
@@ -492,6 +493,7 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
           getCurrentMedicationId(e);
           updateEncounterMedication("frequency", $(this).html(), app_currentMedicationId); 
         });
+        $('.medication-delete-control').click(function() { deleteMedication($(this)); });
       });
       
       $('#encounter-past-s-m-saved-'+id).html(encounter.patient.hist.pastSM);
@@ -1077,6 +1079,13 @@ function  setupPictureUpload(encounterId, patientId) {
      $("#encounter-demo-photo-"+encounterId).attr("src", app_patientChartHeadshot);
    }
   }); 
+}
+
+
+function deleteMedication(element) {
+  var id = element.attr('name');
+  var jsonData = JSON.stringify({ sessionId: clinician.sessionId, patientMedicationId:id});
+  //$.post("patient/deleteMedication", {data:jsonData}, function(data) { });  
 }
 
     
