@@ -218,9 +218,7 @@ function loadHistScreenForm() {
 
 
 function loadPFSHScreenForm() {
-  app_currentEncounter = app_patientEncounters[0];
-  var id = app_patientEncounters[0].id; 
-  object = app_patientEncounters[0].patient.pfsh; 
+  object = app_currentPatient.pfsh; 
   $('#modal-pfsh .form-control-unsaved').css({display: "none"});
   $('#patient-num-residents-saved').html(object.numResidents);
   $('#patient-job-type-saved').html(object.jobType);

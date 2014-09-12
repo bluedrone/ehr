@@ -65,10 +65,10 @@ var clinicianMessages;
 var clinicianFullName;
 var patientVitalSigns;
 var app_currentPatientId = null;
+var app_currentPatient;
 var app_currentMessageId;
 var app_currentGroup;
 var app_currentGroupId;
-var app_currentPatientId;
 var app_currentQuestionId;
 var app_currentMedicationId;
 var app_currentGroupIndex;
@@ -797,11 +797,11 @@ function viewClinicianMessage() {
   }
   
   function getPatientChart() {
-  getPatientEncounters();
     var jsonData = JSON.stringify({ id: app_currentPatientId, sessionId: clinician.sessionId });
     $.post("app/getPatientChart", {data:jsonData}, function(data) {
       var parsedData = $.parseJSON(data);
       var fullName = util_buildFullName(parsedData.firstName, parsedData.middleName, parsedData.lastName);
+      app_currentPatient = parsedData.patient;
       app_patientChartFullName = fullName;
       app_patientChartDOB = dateFormat(parsedData.dob, 'mm/dd/yyyy');
       app_patientChartGender = parsedData.gender;

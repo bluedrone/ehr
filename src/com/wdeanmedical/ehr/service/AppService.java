@@ -449,6 +449,8 @@ public class AppService {
     SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
     Patient patient = appDAO.findPatientById(dto.getId());
     patientService.decrypt(patient); 
+    ExcludedFields.excludeFields(patient);
+    dto.setPatient(patient);
     dto.setFirstName(patient.getCred().getFirstName());
     dto.setMiddleName(patient.getCred().getMiddleName());
     dto.setLastName(patient.getCred().getLastName());
