@@ -38,7 +38,7 @@ import com.wdeanmedical.ehr.entity.Credential;
 import com.wdeanmedical.ehr.entity.Credentials;
 import com.wdeanmedical.ehr.entity.Demographics;
 import com.wdeanmedical.ehr.entity.Encounter;
-import com.wdeanmedical.ehr.entity.EncounterMedication;
+import com.wdeanmedical.ehr.entity.PatientHistoryMedication;
 import com.wdeanmedical.ehr.entity.EncounterQuestion;
 import com.wdeanmedical.ehr.entity.Gender;
 import com.wdeanmedical.ehr.entity.MaritalStatus;

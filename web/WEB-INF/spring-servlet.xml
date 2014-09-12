@@ -235,7 +235,7 @@
             <value>com.wdeanmedical.ehr.entity.Division</value>
             <value>com.wdeanmedical.ehr.entity.Encounter</value>
             <value>com.wdeanmedical.ehr.entity.EncounterType</value>
-            <value>com.wdeanmedical.ehr.entity.EncounterMedication</value>
+            <value>com.wdeanmedical.ehr.entity.PatientHistoryMedication</value>
             <value>com.wdeanmedical.ehr.entity.EncounterQuestion</value>
             <value>com.wdeanmedical.ehr.entity.Ethnicity</value>
             <value>com.wdeanmedical.ehr.entity.Exam</value>

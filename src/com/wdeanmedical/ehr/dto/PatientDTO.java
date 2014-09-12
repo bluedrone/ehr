@@ -16,7 +16,7 @@ import com.wdeanmedical.ehr.entity.Appointment;
 import com.wdeanmedical.ehr.entity.ChiefComplaint;
 import com.wdeanmedical.ehr.entity.Encounter;
 import com.wdeanmedical.ehr.entity.Gender;
-import com.wdeanmedical.ehr.entity.EncounterMedication;
+import com.wdeanmedical.ehr.entity.PatientHistoryMedication;
 import com.wdeanmedical.ehr.entity.EncounterQuestion;
 import com.wdeanmedical.ehr.entity.Patient;
 import com.wdeanmedical.ehr.entity.PatientAllergen;
@@ -161,7 +161,7 @@ public class PatientDTO extends AuthorizedDTO {
   private String numCupsTea; 
   private String waterSource; 
   private List<EncounterQuestion> encounterQuestionList;
-  private List<EncounterMedication> encounterMedicationList;
+  private List<PatientHistoryMedication> encounterMedicationList;
   private int encounterQuestionId;
   private int encounterMedicationId;
   private boolean histSaved; 
@@ -616,8 +616,8 @@ public class PatientDTO extends AuthorizedDTO {
   public List<EncounterQuestion> getEncounterQuestionList() { return encounterQuestionList; }
   public void setEncounterQuestionList(List<EncounterQuestion> encounterQuestionList) { this.encounterQuestionList = encounterQuestionList; }
 
-  public List<EncounterMedication> getEncounterMedicationList() { return encounterMedicationList; }
-  public void setEncounterMedicationList(List<EncounterMedication> encounterMedicationList) { this.encounterMedicationList = encounterMedicationList; }
+  public List<PatientHistoryMedication> getEncounterMedicationList() { return encounterMedicationList; }
+  public void setEncounterMedicationList(List<PatientHistoryMedication> encounterMedicationList) { this.encounterMedicationList = encounterMedicationList; }
   
   public int getEncounterQuestionId() { return encounterQuestionId; }
   public void setEncounterQuestionId(int encounterQuestionId) { this.encounterQuestionId = encounterQuestionId; }

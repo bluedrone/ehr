@@ -36,7 +36,7 @@ import com.wdeanmedical.ehr.entity.ChiefComplaint;
 import com.wdeanmedical.ehr.entity.Credentials;
 import com.wdeanmedical.ehr.entity.Demographics;
 import com.wdeanmedical.ehr.entity.Exam;
-import com.wdeanmedical.ehr.entity.EncounterMedication;
+import com.wdeanmedical.ehr.entity.PatientHistoryMedication;
 import com.wdeanmedical.ehr.entity.EncounterQuestion;
 import com.wdeanmedical.ehr.entity.Lab;
 import com.wdeanmedical.ehr.entity.OBGYNEncounterData;
@@ -130,7 +130,7 @@ public class PatientService {
   
   
   public void deletePatientMedication(PatientDTO dto) throws Exception {
-    EncounterMedication medication = patientDAO.findEncounterMedicationById(dto.getEncounterMedicationId());
+    PatientHistoryMedication medication = patientDAO.findEncounterMedicationById(dto.getEncounterMedicationId());
     patientDAO.delete(medication);
   }
   
@@ -225,8 +225,8 @@ public class PatientService {
   
   
   public void createHist(PatientDTO dto) throws Exception {
-    for (EncounterMedication encounterMedication : dto.getEncounter().getPatient().getHist().getEncounterMedicationList()) {
-      patientDAO.updateEncounterMedication(encounterMedication);
+    for (PatientHistoryMedication patientHistoryMedication : dto.getEncounter().getPatient().getHist().getEncounterMedicationList()) {
+      patientDAO.updateEncounterMedication(patientHistoryMedication);
     }
     Set<String> fieldSetHist = activityLogService.getListOfChangedFields(dto.getEncounter().getPatient().getHist());
     patientDAO.update(dto.getEncounter().getPatient().getHist());
@@ -238,21 +238,21 @@ public class PatientService {
   
   
   public  void updateEncounterMedication(PatientDTO dto) throws Exception {
-    EncounterMedication encounterMedication = patientDAO.findEncounterMedicationById(dto.getEncounterMedicationId());
+    PatientHistoryMedication patientHistoryMedication = patientDAO.findEncounterMedicationById(dto.getEncounterMedicationId());
     String property = dto.getUpdateProperty();
     String value = dto.getUpdatePropertyValue();
     if (property.equals("medication")) {
-      encounterMedication.setMedication(value);
+      patientHistoryMedication.setMedication(value);
     }
     else if (property.equals("dose")) {
-      encounterMedication.setDose(value);
+      patientHistoryMedication.setDose(value);
     }
     else if (property.equals("frequency")) {
-      encounterMedication.setFrequency(value);
+      patientHistoryMedication.setFrequency(value);
     }
     Set<String> fieldSet = new HashSet<String>();
     fieldSet.add(property);
-    patientDAO.update(encounterMedication);
+    patientDAO.update(patientHistoryMedication);
     activityLogService.logEditEncounter(dto.getClinicianId(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSet);
   }
   
@@ -289,10 +289,10 @@ public class PatientService {
   
  
   public Integer addEncounterMedication(Integer patientId) throws Exception {
-    EncounterMedication encounterMedication = new EncounterMedication();
-    encounterMedication.setPatientId(patientId);
-    patientDAO.create(encounterMedication);
-    return encounterMedication.getId();
+    PatientHistoryMedication patientHistoryMedication = new PatientHistoryMedication();
+    patientHistoryMedication.setPatientId(patientId);
+    patientDAO.create(patientHistoryMedication);
+    return patientHistoryMedication.getId();
   }
   
   

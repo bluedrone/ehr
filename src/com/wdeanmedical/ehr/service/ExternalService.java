@@ -36,7 +36,7 @@ import com.wdeanmedical.ehr.entity.Credential;
 import com.wdeanmedical.ehr.entity.Credentials;
 import com.wdeanmedical.ehr.entity.Demographics;
 import com.wdeanmedical.ehr.entity.Encounter;
-import com.wdeanmedical.ehr.entity.EncounterMedication;
+import com.wdeanmedical.ehr.entity.PatientHistoryMedication;
 import com.wdeanmedical.ehr.entity.EncounterQuestion;
 import com.wdeanmedical.ehr.entity.Gender;
 import com.wdeanmedical.ehr.entity.MaritalStatus;
@@ -379,24 +379,24 @@ public class ExternalService {
     
     List<org.hl7.fhir.MedicationAdministration> medicationAdministrations = new ArrayList<org.hl7.fhir.MedicationAdministration>();
     
-    List<EncounterMedication> encounterMedicationList = patientDAO.getEncounterMedicationsByPatient(patient.getId());
+    List<PatientHistoryMedication> encounterMedicationList = patientDAO.getEncounterMedicationsByPatient(patient.getId());
     
     if(encounterMedicationList != null){
     
-      for(EncounterMedication encounterMedication : encounterMedicationList){
+      for(PatientHistoryMedication patientHistoryMedication : encounterMedicationList){
         
         org.hl7.fhir.MedicationAdministration medicationAdministration = new org.hl7.fhir.MedicationAdministration();
         
         org.hl7.fhir.ResourceReference medicationResourceReference = new org.hl7.fhir.ResourceReference();
         org.hl7.fhir.String medicationString = new org.hl7.fhir.String();
-        medicationString.setValue(encounterMedication.getMedication());
+        medicationString.setValue(patientHistoryMedication.getMedication());
         medicationResourceReference.setDisplay(medicationString);
         medicationResourceReference.setReference(medicationString);      
         medicationAdministration.setMedication(medicationResourceReference);
         
         org.hl7.fhir.ResourceReference prescriptionResourceReference = new org.hl7.fhir.ResourceReference();
         org.hl7.fhir.String prescriptionString = new org.hl7.fhir.String();
-        prescriptionString.setValue(encounterMedication.getDose());
+        prescriptionString.setValue(patientHistoryMedication.getDose());
         prescriptionResourceReference.setDisplay(prescriptionString);
         prescriptionResourceReference.setReference(prescriptionString);  
         medicationAdministration.setPrescription(prescriptionResourceReference);
