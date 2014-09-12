@@ -137,7 +137,7 @@ function loadHistScreenForm() {
   var id = app_patientEncounters[0].id; 
   object = app_patientEncounters[0].patient.hist; 
   $('#modal-medical-history .form-control-unsaved').css({display: "none"});
-      RenderUtil.render('component/encounter_medications', {encounter: app_currentEncounter}, function(s) { 
+      RenderUtil.render('component/patient_medications', {encounter: app_currentEncounter}, function(s) { 
         $("#patient-medications-").html(s); 
         $('.patient-med-editable').blur(function(e) { 
           getCurrentMedicationId(e);
@@ -174,7 +174,7 @@ function loadHistScreenForm() {
           var parsedData = $.parseJSON(data);
           var encounterMedicationId = parsedData.encounterMedicationId;
           var numMedications = $("#patient-medications").children().length + 2;
-          RenderUtil.render('component/encounter_medication', {ordinal:numMedications, id: encounterMedicationId}, function(s) { 
+          RenderUtil.render('component/patient_medication', {ordinal:numMedications, id: encounterMedicationId}, function(s) { 
             $("#patient-medications").append(s); 
             setEncounterFormMode(id, section, savedState, hasOwnership);
             $('.patient-med-editable').blur(function(e) { 
