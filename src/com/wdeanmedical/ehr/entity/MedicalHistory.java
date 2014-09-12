@@ -42,7 +42,7 @@ public class MedicalHistory extends BaseEntity implements Serializable {
   private Float etohUnitsWeek;
   private String currentDrugs;
   private Boolean saved = false;
-  private List<PatientHistoryMedication> encounterMedicationList;
+  private List<PatientHistoryMedication> patientMedicationList;
 
   public MedicalHistory() {
   }
@@ -120,8 +120,8 @@ public class MedicalHistory extends BaseEntity implements Serializable {
   public void setSaved(Boolean saved) { this.saved = saved; }
 
 @Transient
-  public List<PatientHistoryMedication> getEncounterMedicationList() { return encounterMedicationList; }
-  public void setEncounterMedicationList( List<PatientHistoryMedication> encounterMedicationList) { this.encounterMedicationList = encounterMedicationList; }
+  public List<PatientHistoryMedication> getPatientMedicationList() { return patientMedicationList; }
+  public void setPatientMedicationList( List<PatientHistoryMedication> patientMedicationList) { this.patientMedicationList = patientMedicationList; }
   
 
   @Override
@@ -139,8 +139,8 @@ public class MedicalHistory extends BaseEntity implements Serializable {
     result = prime * result + ((date == null) ? 0 : date.hashCode());
     result = prime
         * result
-        + ((encounterMedicationList == null) ? 0
-            : encounterMedicationList.hashCode());
+        + ((patientMedicationList == null) ? 0
+            : patientMedicationList.hashCode());
     result = prime * result
         + ((etohUnitsWeek == null) ? 0 : etohUnitsWeek.hashCode());
     result = prime * result + ((famHist == null) ? 0 : famHist.hashCode());
@@ -198,11 +198,11 @@ public class MedicalHistory extends BaseEntity implements Serializable {
         {return false;}
     } else if (!date.equals(other.date))
       {return false;}
-    if (encounterMedicationList == null) {
-      if (other.encounterMedicationList != null)
+    if (patientMedicationList == null) {
+      if (other.patientMedicationList != null)
         {return false;}
-    } else if (!encounterMedicationList
-        .equals(other.encounterMedicationList))
+    } else if (!patientMedicationList
+        .equals(other.patientMedicationList))
       {return false;}
     if (etohUnitsWeek == null) {
       if (other.etohUnitsWeek != null)
@@ -278,8 +278,8 @@ public class MedicalHistory extends BaseEntity implements Serializable {
         + ", smokePksDay=" + smokePksDay + ", yearsSmoked="
         + yearsSmoked + ", smokeYearsQuit=" + smokeYearsQuit
         + ", etohUnitsWeek=" + etohUnitsWeek + ", currentDrugs="
-        + currentDrugs + ", encounterMedicationList="
-        + encounterMedicationList + "]";
+        + currentDrugs + ", patientMedicationList="
+        + patientMedicationList + "]";
   }
 
 }

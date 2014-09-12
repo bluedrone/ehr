@@ -225,7 +225,7 @@ public class PatientService {
   
   
   public void createHist(PatientDTO dto) throws Exception {
-    for (PatientHistoryMedication patientHistoryMedication : dto.getEncounter().getPatient().getHist().getEncounterMedicationList()) {
+    for (PatientHistoryMedication patientHistoryMedication : dto.getEncounter().getPatient().getHist().getPatientMedicationList()) {
       patientDAO.updateEncounterMedication(patientHistoryMedication);
     }
     Set<String> fieldSetHist = activityLogService.getListOfChangedFields(dto.getEncounter().getPatient().getHist());

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.wdeanmedical.ehr.core.Core;
+import com.wdeanmedical.ehr.core.ExcludedFields;
 import com.wdeanmedical.ehr.entity.Appointment;
 import com.wdeanmedical.ehr.entity.BaseEntity;
 import com.wdeanmedical.ehr.entity.ChiefComplaint;
@@ -111,12 +112,15 @@ public class PatientDAO extends SiteDAO {
     return list;
   }
   
-  public List<PatientHistoryMedication> getEncounterMedicationsByPatient(int patientId) throws Exception {
+  public List<PatientHistoryMedication> getPatientMedicationsByPatient(int patientId) throws Exception {
     Session session = this.getSession();
     Criteria crit = session.createCriteria(PatientHistoryMedication.class);
     crit.add(Restrictions.eq("patientId", patientId));
     crit.addOrder(Order.asc("id"));
     List<PatientHistoryMedication> list = crit.list();
+    for (PatientHistoryMedication item : list) {
+      ExcludedFields.excludeFields(item);
+    }
     return list;
   }
   
@@ -135,7 +139,7 @@ public class PatientDAO extends SiteDAO {
     crit.add(Restrictions.eq("id", id));
     Encounter encounter = (Encounter)crit.uniqueResult();
     encounter.getSupp().setEncounterQuestionList(getEncounterQuestionsByEncounter(encounter.getId()));
-    patient.getHist().setEncounterMedicationList(getEncounterMedicationsByPatient(patient.getId()));
+    patient.getHist().setPatientMedicationList(getPatientMedicationsByPatient(patient.getId()));
     
     return encounter;
   }
@@ -150,7 +154,7 @@ public class PatientDAO extends SiteDAO {
     List<Encounter> list = crit.list();
     for (Encounter encounter : list) {
       encounter.getSupp().setEncounterQuestionList(getEncounterQuestionsByEncounter(encounter.getId()));
-      patient.getHist().setEncounterMedicationList(getEncounterMedicationsByPatient(patient.getId()));
+      patient.getHist().setPatientMedicationList(getPatientMedicationsByPatient(patient.getId()));
     }
     return list;
   }
@@ -291,7 +295,7 @@ public class PatientDAO extends SiteDAO {
     crit.add(Restrictions.eq("completed", false));
     Encounter encounter = (Encounter)crit.uniqueResult();
     encounter.getSupp().setEncounterQuestionList(getEncounterQuestionsByEncounter(encounter.getId()));
-    patient.getHist().setEncounterMedicationList(getEncounterMedicationsByPatient(patient.getId()));
+    patient.getHist().setPatientMedicationList(getPatientMedicationsByPatient(patient.getId()));
     return encounter;
   }
   
@@ -304,7 +308,7 @@ public class PatientDAO extends SiteDAO {
     Encounter encounter = (Encounter) this.findById(Encounter.class, id);
     Patient patient = encounter.getPatient();
     encounter.getSupp().setEncounterQuestionList(getEncounterQuestionsByEncounter(encounter.getId()));
-    patient.getHist().setEncounterMedicationList(getEncounterMedicationsByPatient(patient.getId()));
+    patient.getHist().setPatientMedicationList(getPatientMedicationsByPatient(patient.getId()));
     return encounter;
   }
   

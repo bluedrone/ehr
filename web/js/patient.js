@@ -133,25 +133,24 @@ function printPatientTable(template, title, items, columns) {
 
 
 function loadHistScreenForm() {
-  app_currentEncounter = app_patientEncounters[0];
-  var id = app_patientEncounters[0].id; 
-  object = app_patientEncounters[0].patient.hist; 
+  object = app_currentPatient.hist; 
   $('#modal-medical-history .form-control-unsaved').css({display: "none"});
-      RenderUtil.render('component/patient_medications', {encounter: app_currentEncounter}, function(s) { 
-        $("#patient-medications-").html(s); 
-        $('.patient-med-editable').blur(function(e) { 
-          getCurrentMedicationId(e);
-          updateEncounterMedication("medication", $(this).html(), app_currentMedicationId); 
-        });
-        $('.patient-dose-editable').blur(function(e) { 
-          getCurrentMedicationId(e);
-          updateEncounterMedication("dose", $(this).html(), app_currentMedicationId); 
-        });
-        $('.patient-freq-editable').blur(function(e) { 
-          getCurrentMedicationId(e);
-          updateEncounterMedication("frequency", $(this).html(), app_currentMedicationId); 
-        });
-      });
+  
+  RenderUtil.render('component/patient_medications', {patient: app_currentPatient}, function(s) { 
+    $('#patient-medications-'+app_currentPatient.id).html(s); 
+    $('.patient-med-editable').blur(function(e) { 
+      getCurrentMedicationId(e);
+      updateEncounterMedication("medication", $(this).html(), app_currentMedicationId); 
+    });
+    $('.patient-dose-editable').blur(function(e) { 
+      getCurrentMedicationId(e);
+      updateEncounterMedication("dose", $(this).html(), app_currentMedicationId); 
+    });
+    $('.patient-freq-editable').blur(function(e) { 
+      getCurrentMedicationId(e);
+      updateEncounterMedication("frequency", $(this).html(), app_currentMedicationId); 
+    });
+  });
       
       $('#patient-past-s-m-saved').html(object.pastSM);
       util_selectCheckboxesFromList(object.famHist, 'patient-fam-hist-');
@@ -169,7 +168,7 @@ function loadHistScreenForm() {
       $('#patient-etoh-units-week-saved').html(object.etohUnitsWeek);
       $('#patient-current-drugs-saved').html(object.currentDrugs);
       $('#patient-hist-new-medication').click(function() { 
-        var jsonData = JSON.stringify({sessionId: clinician.sessionId, patientId:  app_currentEncounter.patient.id});
+        var jsonData = JSON.stringify({sessionId: clinician.sessionId, patientId:  app_currentPatient.id});
         $.post("patient/addEncounterMedication", {data:jsonData}, function(data) {
           var parsedData = $.parseJSON(data);
           var encounterMedicationId = parsedData.encounterMedicationId;

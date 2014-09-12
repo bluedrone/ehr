@@ -379,11 +379,11 @@ public class ExternalService {
     
     List<org.hl7.fhir.MedicationAdministration> medicationAdministrations = new ArrayList<org.hl7.fhir.MedicationAdministration>();
     
-    List<PatientHistoryMedication> encounterMedicationList = patientDAO.getEncounterMedicationsByPatient(patient.getId());
+    List<PatientHistoryMedication> patientMedicationList = patientDAO.getPatientMedicationsByPatient(patient.getId());
     
-    if(encounterMedicationList != null){
+    if(patientMedicationList != null){
     
-      for(PatientHistoryMedication patientHistoryMedication : encounterMedicationList){
+      for(PatientHistoryMedication patientHistoryMedication : patientMedicationList){
         
         org.hl7.fhir.MedicationAdministration medicationAdministration = new org.hl7.fhir.MedicationAdministration();
         

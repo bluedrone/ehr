@@ -478,7 +478,7 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
       });
     }
     else if (section == 'hist') {
-      RenderUtil.render('component/patient_medications', {encounter:encounter}, function(s) { 
+      RenderUtil.render('component/patient_medications', {patient:encounter.patient}, function(s) { 
         $("#encounter-medications-"+id).html(s); 
         setEncounterFormMode(encounter, section, savedState, hasOwnership);
         $('.encounter-med-editable').blur(function(e) { 
@@ -827,11 +827,11 @@ function saveSuppEncounterForm(encounter) {
 
 function saveHistEncounterForm(encounter) {
   var id = encounter.id;  
-  for (i=0;i<encounter.patient.hist.encounterMedicationList.length;i++) { 
-    var medicationId = encounter.patient.hist.encounterMedicationList[i].id;
-    encounter.patient.hist.encounterMedicationList[i].medication = $("#encounter-med-"+medicationId).val();
-    encounter.patient.hist.encounterMedicationList[i].dose = $("#encounter-dose-"+medicationId).val();
-    encounter.patient.hist.encounterMedicationList[i].frequency = $("#encounter-freq-"+medicationId).val();
+  for (i=0;i<encounter.patient.hist.patientMedicationList.length;i++) { 
+    var medicationId = encounter.patient.hist.patientMedicationList[i].id;
+    encounter.patient.hist.patientMedicationList[i].medication = $("#encounter-med-"+medicationId).val();
+    encounter.patient.hist.patientMedicationList[i].dose = $("#encounter-dose-"+medicationId).val();
+    encounter.patient.hist.patientMedicationList[i].frequency = $("#encounter-freq-"+medicationId).val();
   }
   encounter.patient.hist.pastSM = $.trim($("#encounter-past-s-m-"+id).val());
   encounter.patient.hist.famHist = $('input[name="encounter-fam-hist-'+id+'"]:checked').map(function() {return this.value;}).get().join(',');

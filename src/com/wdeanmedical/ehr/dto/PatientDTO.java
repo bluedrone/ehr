@@ -161,7 +161,7 @@ public class PatientDTO extends AuthorizedDTO {
   private String numCupsTea; 
   private String waterSource; 
   private List<EncounterQuestion> encounterQuestionList;
-  private List<PatientHistoryMedication> encounterMedicationList;
+  private List<PatientHistoryMedication> patientMedicationList;
   private int encounterQuestionId;
   private int encounterMedicationId;
   private boolean histSaved; 
@@ -616,8 +616,8 @@ public class PatientDTO extends AuthorizedDTO {
   public List<EncounterQuestion> getEncounterQuestionList() { return encounterQuestionList; }
   public void setEncounterQuestionList(List<EncounterQuestion> encounterQuestionList) { this.encounterQuestionList = encounterQuestionList; }
 
-  public List<PatientHistoryMedication> getEncounterMedicationList() { return encounterMedicationList; }
-  public void setEncounterMedicationList(List<PatientHistoryMedication> encounterMedicationList) { this.encounterMedicationList = encounterMedicationList; }
+  public List<PatientHistoryMedication> getPatientMedicationList() { return patientMedicationList; }
+  public void setPatientMedicationList(List<PatientHistoryMedication> patientMedicationList) { this.patientMedicationList = patientMedicationList; }
   
   public int getEncounterQuestionId() { return encounterQuestionId; }
   public void setEncounterQuestionId(int encounterQuestionId) { this.encounterQuestionId = encounterQuestionId; }
