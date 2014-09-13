@@ -260,7 +260,7 @@ function updateSavedPatient(property, value, isDualMode, elementId, valueName) {
   updateLocalPatient(property, value);
   var jsonData = JSON.stringify({ 
     sessionId: clinician.sessionId, 
-    patientId: app_currrentPatient.id,
+    patientId: app_currentPatient.id,
     updateProperty:property,
     updatePropertyValue:value
   });

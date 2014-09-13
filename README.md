@@ -1,9 +1,9 @@
 # WDean Medical EHR
-# version 0.8.16  30-AUG-2014
+# version 0.8.17  13-SEP-2014
 
 Improvements:
-Browser refresh and back button behavior covered so data is not lost.
-Automatic parking after specified timeout enabled.
+Revamped Patient Medical History sections.
+Work on new Report section.
 
 Bug Fixes:
 

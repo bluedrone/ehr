@@ -667,91 +667,91 @@ public class PatientService {
       pfsh.setMotherDOB(motherDob);
       updateClass = "PFSH";
     }
-    else if (property.equals("description")) {cc.setDescription(dto.getCcDescription());updateClass = "ChiefComplaint";} 
-    else if (property.equals("specificLocation")) {cc.setSpecificLocation(dto.getSpecificLocation());updateClass = "ChiefComplaint";} 
-    else if (property.equals("occursWhen")) {cc.setOccursWhen(dto.getOccursWhen());updateClass = "ChiefComplaint";} 
+    else if (property.equals("description")) {cc.setDescription(value);updateClass = "ChiefComplaint";} 
+    else if (property.equals("specificLocation")) {cc.setSpecificLocation(value);updateClass = "ChiefComplaint";} 
+    else if (property.equals("occursWhen")) {cc.setOccursWhen(value);updateClass = "ChiefComplaint";} 
     else if (property.equals("hoursSince")) {
-      Integer hoursSince; try { hoursSince = new Integer(dto.getHoursSince()); } catch (NumberFormatException nfe) {hoursSince = null;}
+      Integer hoursSince; try { hoursSince = new Integer(value); } catch (NumberFormatException nfe) {hoursSince = null;}
       cc.setHoursSince(hoursSince);
       updateClass = "ChiefComplaint";
     } 
     else if (property.equals("daysSince")) {
-      Integer daysSince; try { daysSince = new Integer(dto.getDaysSince()); } catch (NumberFormatException nfe) {daysSince = null;}
+      Integer daysSince; try { daysSince = new Integer(value); } catch (NumberFormatException nfe) {daysSince = null;}
       cc.setDaysSince(daysSince);
       updateClass = "ChiefComplaint";
     } 
     else if (property.equals("weeksSince")) {
-      Integer weeksSince; try { weeksSince = new Integer(dto.getWeeksSince()); } catch (NumberFormatException nfe) {weeksSince = null;}
+      Integer weeksSince; try { weeksSince = new Integer(value); } catch (NumberFormatException nfe) {weeksSince = null;}
       cc.setWeeksSince(weeksSince);
       updateClass = "ChiefComplaint";
     } 
     else if (property.equals("monthsSince")) {
-      Integer monthsSince; try { monthsSince = new Integer(dto.getMonthsSince()); } catch (NumberFormatException nfe) {monthsSince = null;}
+      Integer monthsSince; try { monthsSince = new Integer(value); } catch (NumberFormatException nfe) {monthsSince = null;}
       cc.setMonthsSince(monthsSince);
       updateClass = "ChiefComplaint";
     } 
     else if (property.equals("yearsSince")) {
-      Integer yearsSince; try { yearsSince = new Integer(dto.getYearsSince()); } catch (NumberFormatException nfe) {yearsSince = null;}
+      Integer yearsSince; try { yearsSince = new Integer(value); } catch (NumberFormatException nfe) {yearsSince = null;}
       cc.setYearsSince(yearsSince);
       updateClass = "ChiefComplaint";
     } 
-    else if (property.equals("howLongOther")) {cc.setHowLongOther(dto.getHowLongOther());} 
+    else if (property.equals("howLongOther")) {cc.setHowLongOther(value);} 
     else if (property.equals("painXHour")) {
-      Integer painXHour; try { painXHour = new Integer(dto.getPainXHour()); } catch (NumberFormatException nfe) {painXHour = null;}
+      Integer painXHour; try { painXHour = new Integer(value); } catch (NumberFormatException nfe) {painXHour = null;}
       cc.setPainXHour(painXHour);
       updateClass = "ChiefComplaint";
     } 
     else if (property.equals("painXDay")) {
-      Integer painXDay; try { painXDay = new Integer(dto.getPainXDay()); } catch (NumberFormatException nfe) {painXDay = null;}
+      Integer painXDay; try { painXDay = new Integer(value); } catch (NumberFormatException nfe) {painXDay = null;}
       cc.setPainXDay(painXDay);
       updateClass = "ChiefComplaint";
     } 
     else if (property.equals("painXWeek")) {
-      Integer painXWeek; try { painXWeek = new Integer(dto.getPainXWeek()); } catch (NumberFormatException nfe) {painXWeek = null;}
+      Integer painXWeek; try { painXWeek = new Integer(value); } catch (NumberFormatException nfe) {painXWeek = null;}
       cc.setPainXWeek(painXWeek);
       updateClass = "ChiefComplaint";
     } 
     else if (property.equals("painXMonth")) {
-      Integer painXMonth; try { painXMonth = new Integer(dto.getPainXMonth()); } catch (NumberFormatException nfe) {painXMonth = null;}
+      Integer painXMonth; try { painXMonth = new Integer(value); } catch (NumberFormatException nfe) {painXMonth = null;}
       cc.setPainXMonth(painXMonth);
       updateClass = "ChiefComplaint";
     } 
-    else if (property.equals("painDuration")) {cc.setPainDuration(dto.getPainDuration());} 
+    else if (property.equals("painDuration")) {cc.setPainDuration(value);} 
     else if (property.equals("painScale")) {
       Integer painScale; try { painScale = new Integer(value); } catch (NumberFormatException nfe) {painScale = null;}
       cc.setPainScale(painScale);
       updateClass = "ChiefComplaint";
     }
-    else if (property.equals("painType")) {cc.setPainType(dto.getPainType());updateClass = "ChiefComplaint";} 
-    else if (property.equals("denies")) {cc.setDenies(dto.getDenies());cc.setDeniesOther(dto.getDeniesOther());updateClass = "ChiefComplaint";} 
+    else if (property.equals("painType")) {cc.setPainType(value);updateClass = "ChiefComplaint";} 
+    else if (property.equals("denies")) {cc.setDenies(value);cc.setDeniesOther(value);updateClass = "ChiefComplaint";} 
     else if (property.equals("deniesOther")) {cc.setDeniesOther(value);updateClass = "ChiefComplaint";} 
-    else if (property.equals("obgynG")) {obgyn.setG(dto.getObgynG());updateClass = "OBGYNEncounterData";} 
-    else if (property.equals("obgynP")) {obgyn.setP(dto.getObgynP());updateClass = "OBGYNEncounterData";} 
-    else if (property.equals("obgynT")) {obgyn.setT(dto.getObgynT());updateClass = "OBGYNEncounterData";} 
-    else if (property.equals("obgynA")) {obgyn.setA(dto.getObgynA());updateClass = "OBGYNEncounterData";} 
-    else if (property.equals("obgynL")) {obgyn.setL(dto.getObgynL());updateClass = "OBGYNEncounterData";} 
-    else if (property.equals("pregStatus")) {obgyn.setPregStatus(dto.getPregStatus());updateClass = "OBGYNEncounterData";} 
-    else if (property.equals("breastfeeding")) {obgyn.setBreastfeeding(dto.getBreastfeeding());updateClass = "OBGYNEncounterData";} 
-    else if (property.equals("breastfeedingMonths")) {obgyn.setBreastfeedingMonths(dto.getBreastfeedingMonths());updateClass = "OBGYNEncounterData";} 
-    else if (property.equals("lastPeriod")) {obgyn.setLastPeriod(dto.getLastPeriod());updateClass = "OBGYNEncounterData";} 
-    else if (property.equals("ageFirstPeriod")) {obgyn.setAgeFirstPeriod(dto.getAgeFirstPeriod());updateClass = "OBGYNEncounterData";} 
-    else if (property.equals("papSmearStatus")) {obgyn.setPapSmearStatus(dto.getPapSmearStatus());updateClass = "OBGYNEncounterData";} 
-    else if (property.equals("birthControlStatus")) {obgyn.setBirthControlStatus(dto.getBirthControlStatus());updateClass = "OBGYNEncounterData";} 
-    else if (property.equals("birthControlType")) {obgyn.setBirthControlType(dto.getBirthControlType());updateClass = "OBGYNEncounterData";} 
-    else if (property.equals("obgynHistory")) {obgyn.setHistory(dto.getObgynHistory());updateClass = "OBGYNEncounterData";} 
-    else if (property.equals("obgynHistoryOther")) {obgyn.setHistoryOther(dto.getObgynHistoryOther());updateClass = "OBGYNEncounterData";} 
+    else if (property.equals("obgynG")) {obgyn.setG(value);updateClass = "OBGYNEncounterData";} 
+    else if (property.equals("obgynP")) {obgyn.setP(value);updateClass = "OBGYNEncounterData";} 
+    else if (property.equals("obgynT")) {obgyn.setT(value);updateClass = "OBGYNEncounterData";} 
+    else if (property.equals("obgynA")) {obgyn.setA(value);updateClass = "OBGYNEncounterData";} 
+    else if (property.equals("obgynL")) {obgyn.setL(value);updateClass = "OBGYNEncounterData";} 
+    else if (property.equals("pregStatus")) {obgyn.setPregStatus(value);updateClass = "OBGYNEncounterData";} 
+    else if (property.equals("breastfeeding")) {obgyn.setBreastfeeding(value);updateClass = "OBGYNEncounterData";} 
+    else if (property.equals("breastfeedingMonths")) {obgyn.setBreastfeedingMonths(value);updateClass = "OBGYNEncounterData";} 
+    else if (property.equals("lastPeriod")) {obgyn.setLastPeriod(value);updateClass = "OBGYNEncounterData";} 
+    else if (property.equals("ageFirstPeriod")) {obgyn.setAgeFirstPeriod(value);updateClass = "OBGYNEncounterData";} 
+    else if (property.equals("papSmearStatus")) {obgyn.setPapSmearStatus(value);updateClass = "OBGYNEncounterData";} 
+    else if (property.equals("birthControlStatus")) {obgyn.setBirthControlStatus(value);updateClass = "OBGYNEncounterData";} 
+    else if (property.equals("birthControlType")) {obgyn.setBirthControlType(value);updateClass = "OBGYNEncounterData";} 
+    else if (property.equals("obgynHistory")) {obgyn.setHistory(value);updateClass = "OBGYNEncounterData";} 
+    else if (property.equals("obgynHistoryOther")) {obgyn.setHistoryOther(value);updateClass = "OBGYNEncounterData";} 
     else if (property.equals("numResidents")) {
       Integer numResidents; try { numResidents = new Integer(value); } catch (NumberFormatException nfe) {numResidents = null;}
       pfsh.setNumResidents(numResidents);
       updateClass = "PFSH";
     }
-    else if (property.equals("jobType")) {pfsh.setJobType(dto.getJobType());updateClass = "PFSH";} 
-    else if (property.equals("motherAlive")) {pfsh.setMotherAlive(dto.isMotherAlive());updateClass = "PFSH";} 
-    else if (property.equals("motherDeathReason")) {pfsh.setMotherDeathReason(dto.getMotherDeathReason());updateClass = "PFSH";} 
-    else if (property.equals("fatherAlive")) {pfsh.setFatherAlive(dto.isFatherAlive());updateClass = "PFSH";} 
-    else if (property.equals("fatherDeathReason")) {pfsh.setFatherDeathReason(dto.getFatherDeathReason());updateClass = "PFSH";} 
-    else if (property.equals("partnerAlive")) {pfsh.setPartnerAlive(dto.isPartnerAlive());updateClass = "PFSH";} 
-    else if (property.equals("partnerDeathReason")) {pfsh.setPartnerDeathReason(dto.getPartnerDeathReason());updateClass = "PFSH";} 
+    else if (property.equals("jobType")) {pfsh.setJobType(value);updateClass = "PFSH";} 
+    else if (property.equals("motherAlive")) {pfsh.setMotherAlive(new Boolean(value));updateClass = "PFSH";} 
+    else if (property.equals("motherDeathReason")) {pfsh.setMotherDeathReason(value);updateClass = "PFSH";} 
+    else if (property.equals("fatherAlive")) {pfsh.setFatherAlive(new Boolean(value));updateClass = "PFSH";} 
+    else if (property.equals("fatherDeathReason")) {pfsh.setFatherDeathReason(value);updateClass = "PFSH";} 
+    else if (property.equals("partnerAlive")) {pfsh.setPartnerAlive(new Boolean(value));updateClass = "PFSH";} 
+    else if (property.equals("partnerDeathReason")) {pfsh.setPartnerDeathReason(value);updateClass = "PFSH";} 
     else if (property.equals("numSiblings")) {
       Integer numSiblings; try { numSiblings = new Integer(value); } catch (NumberFormatException nfe) {numSiblings = null;}
       pfsh.setNumSiblings(numSiblings);
@@ -797,69 +797,69 @@ public class PatientService {
       supp.setNumCupsWater(numCupsWater); 
       updateClass = "SuppQuestions";
     }
-    else if (property.equals("waterSource")) {supp.setWaterSource(dto.getWaterSource());updateClass = "SuppQuestions";} 
-    else if (property.equals("pastSM")) {hist.setPastSM(dto.getPastSM());updateClass = "MedicalHistory";} 
-    else if (property.equals("famHist")) {hist.setFamHist(dto.getFamHist());updateClass = "SuppQuestions";} 
-    else if (property.equals("famHistOther")) {hist.setFamHistOther(dto.getFamHistOther());updateClass = "SuppQuestions";} 
-    else if (property.equals("famHistNotes")) {hist.setFamHistNotes(dto.getFamHistNotes());updateClass = "SuppQuestions";} 
-    else if (property.equals("allergFood")) {hist.setAllergFood(dto.getAllergFood());updateClass = "SuppQuestions";} 
-    else if (property.equals("allergDrug")) {hist.setAllergDrug(dto.getAllergDrug());updateClass = "SuppQuestions";} 
-    else if (property.equals("allergEnv")) {hist.setAllergEnv(dto.getAllergEnv());updateClass = "SuppQuestions";} 
-    else if (property.equals("vacc")) {hist.setVacc(dto.getVacc());updateClass = "SuppQuestions";} 
-    else if (property.equals("vaccNotes")) {hist.setVaccNotes(dto.getVaccNotes());updateClass = "SuppQuestions";} 
-    else if (property.equals("subst")) {hist.setSubst(dto.getSubst());updateClass = "SuppQuestions";} 
+    else if (property.equals("waterSource")) {supp.setWaterSource(value);updateClass = "SuppQuestions";} 
+    else if (property.equals("pastSM")) {hist.setPastSM(value);updateClass = "MedicalHistory";} 
+    else if (property.equals("famHist")) {hist.setFamHist(value);updateClass = "SuppQuestions";} 
+    else if (property.equals("famHistOther")) {hist.setFamHistOther(value);updateClass = "SuppQuestions";} 
+    else if (property.equals("famHistNotes")) {hist.setFamHistNotes(value);updateClass = "SuppQuestions";} 
+    else if (property.equals("allergFood")) {hist.setAllergFood(value);updateClass = "SuppQuestions";} 
+    else if (property.equals("allergDrug")) {hist.setAllergDrug(value);updateClass = "SuppQuestions";} 
+    else if (property.equals("allergEnv")) {hist.setAllergEnv(value);updateClass = "SuppQuestions";} 
+    else if (property.equals("vacc")) {hist.setVacc(value);updateClass = "SuppQuestions";} 
+    else if (property.equals("vaccNotes")) {hist.setVaccNotes(value);updateClass = "SuppQuestions";} 
+    else if (property.equals("subst")) {hist.setSubst(value);updateClass = "SuppQuestions";} 
     else if (property.equals("smokePksDay")) {
-      Float smokePksDay; try { smokePksDay = new Float(dto.getSmokePksDay()); } catch (NumberFormatException nfe) {smokePksDay = null;}
+      Float smokePksDay; try { smokePksDay = new Float(value); } catch (NumberFormatException nfe) {smokePksDay = null;}
       hist.setSmokePksDay(smokePksDay);
       updateClass = "SuppQuestions";
     } 
     else if (property.equals("yearsSmoked")) {
-      Float yearsSmoked; try { yearsSmoked = new Float(dto.getYearsSmoked()); } catch (NumberFormatException nfe) {yearsSmoked = null;}
+      Float yearsSmoked; try { yearsSmoked = new Float(value); } catch (NumberFormatException nfe) {yearsSmoked = null;}
       hist.setYearsSmoked(yearsSmoked);
       updateClass = "SuppQuestions";
     } 
     else if (property.equals("smokeYearsQuit")) {
-      Float smokeYearsQuit; try { smokeYearsQuit = new Float(dto.getSmokeYearsQuit()); } catch (NumberFormatException nfe) {smokeYearsQuit = null;}
+      Float smokeYearsQuit; try { smokeYearsQuit = new Float(value); } catch (NumberFormatException nfe) {smokeYearsQuit = null;}
       hist.setSmokeYearsQuit(smokeYearsQuit);
       updateClass = "SuppQuestions";
     } 
     else if (property.equals("etohUnitsWeek")) {
-      Float etohUnitsWeek; try { etohUnitsWeek = new Float(dto.getEtohUnitsWeek()); } catch (NumberFormatException nfe) {etohUnitsWeek = null;}
+      Float etohUnitsWeek; try { etohUnitsWeek = new Float(value); } catch (NumberFormatException nfe) {etohUnitsWeek = null;}
       hist.setEtohUnitsWeek(etohUnitsWeek);
       updateClass = "SuppQuestions";
     } 
-    else if (property.equals("currentDrugs")) {hist.setCurrentDrugs(dto.getCurrentDrugs());updateClass = "SuppQuestions";} 
-    else if (property.equals("hb")) {lab.setHb(dto.getHb());updateClass = "Lab";} 
-    else if (property.equals("glucose")) {lab.setGlucose(dto.getGlucose());updateClass = "Lab";} 
-    else if (property.equals("urineDIP")) {lab.setUrineDIP(dto.getUrineDIP());updateClass = "Lab";} 
-    else if (property.equals("hs")) {exam.setHs(dto.getHs());updateClass = "Exam";} 
-    else if (property.equals("heartRhythm")) {exam.setHeartRhythm(dto.getHeartRhythm());updateClass = "Exam";} 
-    else if (property.equals("diagnosis")) {exam.setDiagnosis(dto.getDiagnosis());updateClass = "Exam";} 
-    else if (property.equals("dxCode")) {exam.setDxCode(dto.getDxCode());updateClass = "Exam";} 
-    else if (property.equals("treatmentPlan")) {exam.setTreatmentPlan(dto.getTreatmentPlan());updateClass = "Exam";} 
-    else if (property.equals("txCode")) {exam.setTxCode(dto.getTxCode());updateClass = "Exam";} 
-    else if (property.equals("followUpLevel")) {followUp.setLevel(dto.getFollowUpLevel());} 
-    else if (property.equals("followUpWhen")) {followUp.setWhen(dto.getFollowUpWhen());updateClass = "FollowUp";} 
-    else if (property.equals("followUpCondition")) {followUp.setCondition(dto.getFollowUpCondition());updateClass = "FollowUp";} 
-    else if (property.equals("followUpDispenseRx")) {followUp.setDispenseRx(dto.getFollowUpDispenseRx());updateClass = "FollowUp";} 
-    else if (property.equals("followUpUSS")) {followUp.setUSS(dto.getFollowUpUSS());updateClass = "FollowUp";} 
-    else if (property.equals("followUpPregnant")) {followUp.setPregnant(dto.getFollowUpPregnant());updateClass = "FollowUp";} 
-    else if (property.equals("followUpWoundCare")) {followUp.setWoundCare(dto.getFollowUpWoundCare());updateClass = "FollowUp";} 
-    else if (property.equals("followUpRefToSpecialist")) {followUp.setRefToSpecialist(dto.getFollowUpRefToSpecialist());updateClass = "FollowUp";} 
-    else if (property.equals("followUpDentalList")) {followUp.setDentalList(dto.getFollowUpDentalList());updateClass = "FollowUp";} 
-    else if (property.equals("followUpPhysiotherapy")) {followUp.setPhysiotherapy(dto.getFollowUpPhysiotherapy());updateClass = "FollowUp";} 
-    else if (property.equals("followUpBloodLabs")) {followUp.setBloodLabs(dto.getFollowUpBloodLabs());updateClass = "FollowUp";} 
-    else if (property.equals("followUpOther")) {followUp.setOther(dto.getFollowUpOther());updateClass = "FollowUp";} 
-    else if (property.equals("followUpPulmonaryFXTest")) {followUp.setPulmonaryFXTest(dto.getFollowUpPulmonaryFXTest());updateClass = "FollowUp";} 
-    else if (property.equals("followUpVision")) {followUp.setVision(dto.getFollowUpVision());updateClass = "FollowUp";} 
-    else if (property.equals("followUpCompleted")) {followUp.setCompleted(dto.getFollowUpCompleted());updateClass = "FollowUp";} 
+    else if (property.equals("currentDrugs")) {hist.setCurrentDrugs(value);updateClass = "SuppQuestions";} 
+    else if (property.equals("hb")) {lab.setHb(value);updateClass = "Lab";} 
+    else if (property.equals("glucose")) {lab.setGlucose(value);updateClass = "Lab";} 
+    else if (property.equals("urineDIP")) {lab.setUrineDIP(value);updateClass = "Lab";} 
+    else if (property.equals("hs")) {exam.setHs(value);updateClass = "Exam";} 
+    else if (property.equals("heartRhythm")) {exam.setHeartRhythm(value);updateClass = "Exam";} 
+    else if (property.equals("diagnosis")) {exam.setDiagnosis(value);updateClass = "Exam";} 
+    else if (property.equals("dxCode")) {exam.setDxCode(value);updateClass = "Exam";} 
+    else if (property.equals("treatmentPlan")) {exam.setTreatmentPlan(value);updateClass = "Exam";} 
+    else if (property.equals("txCode")) {exam.setTxCode(value);updateClass = "Exam";} 
+    else if (property.equals("followUpLevel")) {followUp.setLevel(value);} 
+    else if (property.equals("followUpWhen")) {followUp.setWhen(value);updateClass = "FollowUp";} 
+    else if (property.equals("followUpCondition")) {followUp.setCondition(value);updateClass = "FollowUp";} 
+    else if (property.equals("followUpDispenseRx")) {followUp.setDispenseRx(value);updateClass = "FollowUp";} 
+    else if (property.equals("followUpUSS")) {followUp.setUSS(value);updateClass = "FollowUp";} 
+    else if (property.equals("followUpPregnant")) {followUp.setPregnant(value);updateClass = "FollowUp";} 
+    else if (property.equals("followUpWoundCare")) {followUp.setWoundCare(value);updateClass = "FollowUp";} 
+    else if (property.equals("followUpRefToSpecialist")) {followUp.setRefToSpecialist(value);updateClass = "FollowUp";} 
+    else if (property.equals("followUpDentalList")) {followUp.setDentalList(value);updateClass = "FollowUp";} 
+    else if (property.equals("followUpPhysiotherapy")) {followUp.setPhysiotherapy(value);updateClass = "FollowUp";} 
+    else if (property.equals("followUpBloodLabs")) {followUp.setBloodLabs(value);updateClass = "FollowUp";} 
+    else if (property.equals("followUpOther")) {followUp.setOther(value);updateClass = "FollowUp";} 
+    else if (property.equals("followUpPulmonaryFXTest")) {followUp.setPulmonaryFXTest(value);updateClass = "FollowUp";} 
+    else if (property.equals("followUpVision")) {followUp.setVision(value);updateClass = "FollowUp";} 
+    else if (property.equals("followUpCompleted")) {followUp.setCompleted(new Boolean(value));updateClass = "FollowUp";} 
     else if (property.equals("followUpDate")) {
       SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
       Date followUpDate; try { followUpDate = sdf.parse(value); } catch (ParseException pe) {followUpDate = null;}
       followUp.setFollowUpDate(followUpDate);
       updateClass = "FollowUp";
     }
-    else if (property.equals("followUpNotes")) {followUp.setNotes(dto.getFollowUpNotes());updateClass = "FollowUp";} 
+    else if (property.equals("followUpNotes")) {followUp.setNotes(value);updateClass = "FollowUp";} 
     
     fieldSet.add(property);
     if(updateClass.equals("FollowUp")) {}
