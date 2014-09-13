@@ -137,7 +137,7 @@ function loadHistScreenForm() {
   $('#modal-medical-history .form-control-unsaved').css({display: "none"});
   
   RenderUtil.render('component/patient_medications', {patient: app_currentPatient}, function(s) { 
-    $('#patient-medications-'+app_currentPatient.id).html(s); 
+    $('#patient-medications').html(s); 
     $('.patient-med-editable').blur(function(e) { 
       getCurrentMedicationId(e);
       updateEncounterMedication("medication", $(this).html(), app_currentMedicationId); 
