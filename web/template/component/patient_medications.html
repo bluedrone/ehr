@@ -5,26 +5,26 @@
 </div>
 <div id="patient-medications-${id}">
 {{each(i, item) patient.hist.patientMedicationList}}
-<div class="row" id="encounter-medication-${id}">
+<div class="row" id="patient-medication-${id}">
   <div class="col-md-4">
     <div class="form-group">
-      <label for="encounter-med-${id}">Medication</label>
-      <input data-id="${id}" type="text" class="form-control form-control-unsaved" id="encounter-med-${id}">
-      <div data-id="${id}" class="form-control-saved edit-on-select encounter-med-editable" id="encounter-med-${id}" contenteditable="true">${medication}</div>
+      <label for="patient-med-${id}">Medication</label>
+      <input data-id="${id}" type="text" class="form-control form-control-unsaved" id="patient-med-${id}">
+      <div data-id="${id}" class="form-control-saved edit-on-select patient-med-editable" id="patient-med-${id}" contenteditable="true">${medication}</div>
     </div>
   </div>
   <div class="col-md-4">
     <div class="form-group">
-      <label for="encounter-dose-${id}">Dose</label>
-      <input data-id="${id}" type="text" class="form-control form-control-unsaved" id="encounter-dose-${id}">
-      <div data-id="${id}" class="form-control-saved edit-on-select encounter-dose-editable" id="encounter-dose-saved-${id}" contenteditable="true">${dose}</div>
+      <label for="patient-dose-${id}">Dose</label>
+      <input data-id="${id}" type="text" class="form-control form-control-unsaved" id="patient-dose-${id}">
+      <div data-id="${id}" class="form-control-saved edit-on-select patient-dose-editable" id="patient-dose-saved-${id}" contenteditable="true">${dose}</div>
     </div>
   </div>
   <div class="col-md-3">
     <div class="form-group">
-      <label for="encounter-freq-${id}">Frequency</label>
-      <input data-id="${id}" type="text" class="form-control form-control-unsaved" id="encounter-freq-${id}">
-      <div data-id="${id}" class="form-control-saved edit-on-select encounter-freq-editable" id="encounter-freq-saved-${id}" contenteditable="true">${frequency}</div>
+      <label for="patient-freq-${id}">Frequency</label>
+      <input data-id="${id}" type="text" class="form-control form-control-unsaved" id="patient-freq-${id}">
+      <div data-id="${id}" class="form-control-saved edit-on-select patient-freq-editable" id="patient-freq-saved-${id}" contenteditable="true">${frequency}</div>
     </div>
   </div>
   <div class="col-md-1">
