@@ -134,10 +134,10 @@ function printPatientTable(template, title, items, columns) {
 
 function loadHistScreenForm() {
   object = app_currentPatient.hist; 
-  $('#modal-medical-history .form-control-unsaved').css({display: "none"});
   
   RenderUtil.render('component/patient_medications', {patient: app_currentPatient}, function(s) { 
     $('#patient-medications').html(s); 
+    $('#modal-medical-history .form-control-unsaved').css({display: "none"});
     $('.patient-med-editable').blur(function(e) { 
       getCurrentMedicationId(e);
       updateEncounterMedication("medication", $(this).html(), app_currentMedicationId); 
@@ -175,7 +175,7 @@ function loadHistScreenForm() {
           var numMedications = $("#patient-medications").children().length + 2;
           RenderUtil.render('component/patient_medication', {ordinal:numMedications, id: encounterMedicationId}, function(s) { 
             $("#patient-medications").append(s); 
-            setEncounterFormMode(id, section, savedState, hasOwnership);
+            $('#modal-medical-history .form-control-unsaved').css({display: "none"});
             $('.patient-med-editable').blur(function(e) { 
               getCurrentMedicationId(e);
               updateEncounterMedication("medication", $(this).html(), encounterMedicationId); 
