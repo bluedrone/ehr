@@ -201,13 +201,13 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
       });
     }
     else if (section == 'hist') {
-      RenderUtil.render('component/patient_medications', {encounter:encounter}, function(s) { $("#encounter-medications-"+id).html(s); setEncounterFormMode(encounter, section, savedState, hasOwnership);});
+      RenderUtil.render('component/patient_medications', {encounter:encounter}, function(s) { $("#patient-medications-"+id).html(s); setEncounterFormMode(encounter, section, savedState, hasOwnership);});
       $('#encounter-hist-new-medication-'+id).click(function() { 
        var jsonData = JSON.stringify({sessionId: clinician.sessionId, patientId: encounter.patient.id});
         $.post("patient/addEncounterMedication", {data:jsonData}, function(data) {
         var parsedData = $.parseJSON(data);
-          var numMedications = $("#encounter-medications-"+id).children().length + 2;
-          RenderUtil.render('component/patient_medication', {ordinal:numMedications, id: parsedData.encounterMedicationId}, function(s) { $("#encounter-medications-"+id).append(s); setEncounterFormMode(encounter, section, savedState, hasOwnership);});
+          var numMedications = $("#patient-medications-"+id).children().length + 2;
+          RenderUtil.render('component/patient_medication', {ordinal:numMedications, id: parsedData.encounterMedicationId}, function(s) { $("#patient-medications-"+id).append(s); setEncounterFormMode(encounter, section, savedState, hasOwnership);});
         });
       });
       $('.medication-delete-control').click(function() { deleteMedication($(this)); });
@@ -479,7 +479,7 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
     }
     else if (section == 'hist') {
       RenderUtil.render('component/patient_medications', {patient:encounter.patient}, function(s) { 
-        $("#encounter-medications-"+id).html(s); 
+        $("#patient-medications-"+id).html(s); 
         setEncounterFormMode(encounter, section, savedState, hasOwnership);
         $('.encounter-med-editable').blur(function(e) { 
           getCurrentMedicationId(e);
@@ -516,9 +516,9 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
         $.post("patient/addEncounterMedication", {data:jsonData}, function(data) {
           var parsedData = $.parseJSON(data);
           var encounterMedicationId = parsedData.encounterMedicationId;
-          var numMedications = $("#encounter-medications-"+id).children().length + 2;
+          var numMedications = $("#patient-medications-"+id).children().length + 2;
           RenderUtil.render('component/patient_medication', {ordinal:numMedications, id: encounterMedicationId}, function(s) { 
-            $("#encounter-medications-"+id).append(s); 
+            $("#patient-medications-"+id).append(s); 
             setEncounterFormMode(encounter, section, savedState, hasOwnership);
             $('.encounter-med-editable').blur(function(e) { 
               getCurrentMedicationId(e);
