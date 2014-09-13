@@ -152,67 +152,69 @@ function loadHistScreenForm() {
     });
   });
       
-      $('#patient-past-s-m-saved').html(object.pastSM);
-      util_selectCheckboxesFromList(object.famHist, 'patient-fam-hist-');
-      $('#patient-fam-hist-notes-saved').html(object.famHistNotes);
-      $('#patient-fam-hist-other-saved').html(object.famHistOther);
-      $('#patient-allerg-food-saved').html(object.allergFood);
-      $('#patient-allerg-drug-saved').html(object.allergDrug);
-      $('#patient-allerg-env-saved').html(object.allergEnv);
-      $('input[name=patient-vacc][value='+object.vacc+']').attr("checked", true);
-      $('#patient-vacc-notes-saved').html(object.vaccNotes);
-      util_selectCheckboxesFromList(object.subst, 'patient-subst-');
-      $('#patient-smoke-pks-day-saved').html(object.smokePksDay);
-      $('#patient-years-smoked-saved').html(object.yearsSmoke);
-      $('#patient-smoke-years-quit-saved').html(object.smokeYearsQuit);
-      $('#patient-etoh-units-week-saved').html(object.etohUnitsWeek);
-      $('#patient-current-drugs-saved').html(object.currentDrugs);
-      $('#patient-hist-new-medication').click(function() { 
-        var jsonData = JSON.stringify({sessionId: clinician.sessionId, patientId:  app_currentPatient.id});
-        $.post("patient/addEncounterMedication", {data:jsonData}, function(data) {
-          var parsedData = $.parseJSON(data);
-          var encounterMedicationId = parsedData.encounterMedicationId;
-          var numMedications = $("#patient-medications").children().length + 2;
-          RenderUtil.render('component/patient_medication', {ordinal:numMedications, id: encounterMedicationId}, function(s) { 
-            $("#patient-medications").append(s); 
-            $('#modal-medical-history .form-control-unsaved').css({display: "none"});
-            $('.patient-med-editable').blur(function(e) { 
-              getCurrentMedicationId(e);
-              updateEncounterMedication("medication", $(this).html(), encounterMedicationId); 
-            });
-            $('.patient-dose-editable').blur(function(e) { 
-              getCurrentQuestionId(e);
-              updateEncounterMedication("dose", $(this).html(), encounterMedicationId); 
-             });
-             $('.patient-freq-editable').blur(function(e) { 
-              getCurrentQuestionId(e);
-              updateEncounterMedication("frequency", $(this).html(), encounterMedicationId); 
-             });
-           });
-       });
+  $('#patient-past-s-m-saved').html(object.pastSM);
+  util_selectCheckboxesFromList(object.famHist, 'patient-fam-hist-');
+  $('#patient-fam-hist-notes-saved').html(object.famHistNotes);
+  $('#patient-fam-hist-other-saved').html(object.famHistOther);
+  $('#patient-allerg-food-saved').html(object.allergFood);
+  $('#patient-allerg-drug-saved').html(object.allergDrug);
+  $('#patient-allerg-env-saved').html(object.allergEnv);
+  $('input[name=patient-vacc][value='+object.vacc+']').attr("checked", true);
+  $('#patient-vacc-notes-saved').html(object.vaccNotes);
+  util_selectCheckboxesFromList(object.subst, 'patient-subst-');
+  $('#patient-smoke-pks-day-saved').html(object.smokePksDay);
+  $('#patient-years-smoked-saved').html(object.yearsSmoke);
+  $('#patient-smoke-years-quit-saved').html(object.smokeYearsQuit);
+  $('#patient-etoh-units-week-saved').html(object.etohUnitsWeek);
+  $('#patient-current-drugs-saved').html(object.currentDrugs);
+  
+  $('#patient-hist-new-medication').click(function() { 
+    var jsonData = JSON.stringify({sessionId: clinician.sessionId, patientId:  app_currentPatient.id});
+    $.post("patient/addEncounterMedication", {data:jsonData}, function(data) {
+      var parsedData = $.parseJSON(data);
+      var encounterMedicationId = parsedData.encounterMedicationId;
+      var numMedications = $("#patient-medications").children().length + 2;
+      RenderUtil.render('component/patient_medication', {ordinal:numMedications, id: encounterMedicationId}, function(s) { 
+        $("#patient-medications").append(s); 
+        $('#modal-medical-history .form-control-unsaved').css({display: "none"});
+        $('.patient-med-editable').blur(function(e) { 
+          getCurrentMedicationId(e);
+          updateEncounterMedication("medication", $(this).html(), encounterMedicationId); 
+        });
+        $('.patient-dose-editable').blur(function(e) { 
+          getCurrentQuestionId(e);
+          updateEncounterMedication("dose", $(this).html(), encounterMedicationId); 
+        });
+        $('.patient-freq-editable').blur(function(e) { 
+          getCurrentQuestionId(e);
+          updateEncounterMedication("frequency", $(this).html(), encounterMedicationId); 
+        });
       });
-      $('#patient-past-s-m-saved').blur(function() { updateSavedPatientEncounter("pastSM", $(this).html(), id); });
-      $('input[name=patient-fam-hist-'+']').click(function() { 
-        var famHist = $('input[name=patient-fam-hist-'+']:checked').map(function() {return this.value;}).get().join(',');
-        updateSavedPatientEncounter("famHist", famHist, id); 
-      });
-      $('#patient-fam-hist-notes-saved').blur(function() { updateSavedPatientEncounter("famHistNotes", $(this).html(), id); });
-      $('#patient-fam-hist-other-saved').blur(function() { updateSavedPatientEncounter("famHistOther", $(this).html(), id); });
-      $('#patient-allerg-food-saved').blur(function() { updateSavedPatientEncounter("allergFood", $(this).html(), id); });
-      $('#patient-allerg-drug-saved').blur(function() { updateSavedPatientEncounter("allergDrug", $(this).html(), id); });
-      $('#patient-allerg-env-saved').blur(function() { updateSavedPatientEncounter("allergEnv", $(this).html(), id); });
-      $('input[name=patient-vacc]').click(function() { updateSavedPatientEncounter("vacc", $(this).val() == 'true', id); });
-      $('#patient-vacc-notes-saved').blur(function() { updateSavedPatientEncounter("vaccNotes", $(this).html(), id); });
-      $('input[name=patient-subst]').click(function() { 
-        var subst = $('input[name=patient-subst]:checked').map(function() {return this.value;}).get().join(',');
-        updateSavedPatientEncounter("subst", subst, id); 
-      });
-      $('#patient-smoke-pks-day-saved').blur(function() { updateSavedPatientEncounter("smokePksDay", $(this).html(), id); });
-      $('#patient-years-smoked-saved').blur(function() { updateSavedPatientEncounter("yearsSmoked", $(this).html(), id); });
-      $('#patient-smoke-years-quit-saved').blur(function() { updateSavedPatientEncounter("smokeYearsQuit", $(this).html(), id); });
-      $('#patient-etoh-units-week-saved').blur(function() { updateSavedPatientEncounter("etohUnitsWeek", $(this).html(), id); });
-      $('#patient-current-drugs-saved').blur(function() { updateSavedPatientEncounter("currentDrugs", $(this).html(), id); });
-  $('#patient-hist-print').click(function() { printPatientForm('print_patient_hist', 'SOCIAL & FAMILY HISTORY', object)});
+    });
+  });
+  
+  $('#patient-past-s-m-saved').blur(function() { updateSavedPatient("pastSM", $(this).html()); });
+    $('input[name=patient-fam-hist-'+']').click(function() { 
+      var famHist = $('input[name=patient-fam-hist-'+']:checked').map(function() {return this.value;}).get().join(',');
+      updateSavedPatient("famHist", famHist); 
+    });
+    $('#patient-fam-hist-notes-saved').blur(function() { updateSavedPatient("famHistNotes", $(this).html()); });
+    $('#patient-fam-hist-other-saved').blur(function() { updateSavedPatient("famHistOther", $(this).html()); });
+    $('#patient-allerg-food-saved').blur(function() { updateSavedPatient("allergFood", $(this).html()); });
+    $('#patient-allerg-drug-saved').blur(function() { updateSavedPatient("allergDrug", $(this).html()); });
+    $('#patient-allerg-env-saved').blur(function() { updateSavedPatient("allergEnv", $(this).html()); });
+    $('input[name=patient-vacc]').click(function() { updateSavedPatient("vacc", $(this).val() == 'true'); });
+    $('#patient-vacc-notes-saved').blur(function() { updateSavedPatient("vaccNotes", $(this).html()); });
+    $('input[name=patient-subst]').click(function() { 
+      var subst = $('input[name=patient-subst]:checked').map(function() {return this.value;}).get().join(',');
+      updateSavedPatient("subst", subst); 
+    });
+    $('#patient-smoke-pks-day-saved').blur(function() { updateSavedPatient("smokePksDay", $(this).html()); });
+    $('#patient-years-smoked-saved').blur(function() { updateSavedPatient("yearsSmoked", $(this).html()); });
+    $('#patient-smoke-years-quit-saved').blur(function() { updateSavedPatient("smokeYearsQuit", $(this).html()); });
+    $('#patient-etoh-units-week-saved').blur(function() { updateSavedPatient("etohUnitsWeek", $(this).html()); });
+    $('#patient-current-drugs-saved').blur(function() { updateSavedPatient("currentDrugs", $(this).html()); });
+    $('#patient-hist-print').click(function() { printPatientForm('print_patient_hist', 'MEDICAL HISTORY', object)});
 }
 
 
@@ -233,25 +235,47 @@ function loadPFSHScreenForm() {
   $('#patient-num-children-saved').html(object.numChildren);
   $('#patient-num-sons-saved').html(object.numSons);
   $('#patient-num-daughters-saved').html(object.numDaughters);
-  $('#patient-num-residents-saved').blur(function() { updateSavedPatientEncounter("numResidents", $(this).html(), id); });
-  $('#patient-job-type-saved').blur(function() { updateSavedPatientEncounter("jobType", $(this).html(), id); });
-  $('input[name=patient-mother-alive]').click(function() { updateSavedPatientEncounter("motherAlive", $(this).val() == 'true', id); });
-  $('#patient-mother-death-reason-saved').blur(function() { updateSavedPatientEncounter("motherDeathReason", $(this).html(), id); });
-  $('input[name=patient-father-alive]').click(function() { updateSavedPatientEncounter("fatherAlive", $(this).val() == 'true', id); });
-  $('#patient-father-death-reason-saved').blur(function() { updateSavedPatientEncounter("fatherDeathReason", $(this).html(), id); });
-  $('input[name=patient-partner-alive]').click(function() { updateSavedPatientEncounter("partnerAlive", $(this).val() == 'true', id); });
-  $('#patient-partner-death-reason-saved').blur(function() { updateSavedPatientEncounter("partnerDeathReason", $(this).html(), id); });
-  $('#patient-num-siblings-saved').blur(function() { updateSavedPatientEncounter("numSiblings", $(this).html(), id); });
-  $('#patient-num-brothers-saved').blur(function() { updateSavedPatientEncounter("numBrothers", $(this).html(), id); });
-  $('#patient-num-sisters-saved').blur(function() { updateSavedPatientEncounter("numSisters", $(this).html(), id); });
-  $('#patient-num-children-saved').blur(function() { updateSavedPatientEncounter("numChildren", $(this).html(), id); });
-  $('#patient-num-sons-saved').blur(function() { updateSavedPatientEncounter("numSons", $(this).html(), id); });
-  $('#patient-num-daughters-saved').blur(function() { updateSavedPatientEncounter("numDaughters", $(this).html(), id); });
+  $('#patient-num-residents-saved').blur(function() { updateSavedPatient("numResidents", $(this).html()); });
+  $('#patient-job-type-saved').blur(function() { updateSavedPatient("jobType", $(this).html()); });
+  $('input[name=patient-mother-alive]').click(function() { updateSavedPatient("motherAlive", $(this).val() == 'true'); });
+  $('#patient-mother-death-reason-saved').blur(function() { updateSavedPatient("motherDeathReason", $(this).html()); });
+  $('input[name=patient-father-alive]').click(function() { updateSavedPatient("fatherAlive", $(this).val() == 'true'); });
+  $('#patient-father-death-reason-saved').blur(function() { updateSavedPatient("fatherDeathReason", $(this).html()); });
+  $('input[name=patient-partner-alive]').click(function() { updateSavedPatient("partnerAlive", $(this).val() == 'true'); });
+  $('#patient-partner-death-reason-saved').blur(function() { updateSavedPatient("partnerDeathReason", $(this).html()); });
+  $('#patient-num-siblings-saved').blur(function() { updateSavedPatient("numSiblings", $(this).html()); });
+  $('#patient-num-brothers-saved').blur(function() { updateSavedPatient("numBrothers", $(this).html()); });
+  $('#patient-num-sisters-saved').blur(function() { updateSavedPatient("numSisters", $(this).html()); });
+  $('#patient-num-children-saved').blur(function() { updateSavedPatient("numChildren", $(this).html()); });
+  $('#patient-num-sons-saved').blur(function() { updateSavedPatient("numSons", $(this).html()); });
+  $('#patient-num-daughters-saved').blur(function() { updateSavedPatient("numDaughters", $(this).html()); });
   $('#patient-pfsh-print').click(function() { printPatientForm('print_patient_pfsh', 'SOCIAL & FAMILY HISTORY', object)});
 }
 
 
 
+function updateSavedPatient(property, value, isDualMode, elementId, valueName) {
+  updateLocalPatient(property, value);
+  var jsonData = JSON.stringify({ 
+    sessionId: clinician.sessionId, 
+    patientId: app_currrentPatient.id,
+    updateProperty:property,
+    updatePropertyValue:value
+  });
+  $.post("patient/updatePatient", {data:jsonData}, function(data) {
+    if (isDualMode) {
+      var unsavedId = elementId.replace('-saved','');
+      $('#'+unsavedId).css({display: "none"});
+      $('#'+elementId).html(valueName ? valueName : value);
+      $('#'+elementId).css({display: "block"});
+    }
+  }); 
+}
+
+
+function updateLocalPatient(property, value) {
+  app_currentPatient[property] = value;  
+}
 
 function loadCurrentSuppScreen() {
   app_patientSupp = []; 	
