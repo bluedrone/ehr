@@ -150,6 +150,7 @@ function loadHistScreenForm() {
       getCurrentMedicationId(e);
       updateEncounterMedication("frequency", $(this).html(), app_currentMedicationId); 
     });
+    $('.medication-delete-control').click(function() { deleteMedication($(this)); });
   });
       
   $('#patient-past-s-m-saved').html(object.pastSM);
@@ -189,6 +190,7 @@ function loadHistScreenForm() {
           getCurrentQuestionId(e);
           updateEncounterMedication("frequency", $(this).html(), encounterMedicationId); 
         });
+        $('.medication-delete-control').click(function() { deleteMedication($(this)); });
       });
     });
   });
