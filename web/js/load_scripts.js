@@ -28,6 +28,7 @@ head.js (
    "js/app.js",           
    "js/admin.js",           
    "js/patient_encounter.js",           
+   "js/render_encounter_form.js",           
    "js/patient.js",           
    "js/view_stacks.js",           
    "js/dto.js",           
