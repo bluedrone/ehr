@@ -80,8 +80,8 @@ public class PatientServlet extends AppServlet  {
         else if (pathInfo.equals("/addEncounterQuestion")) {
           returnString = addEncounterQuestion(request, response);  
         }
-        else if (pathInfo.equals("/addEncounterMedication")) {
-          returnString = addEncounterMedication(request, response);  
+        else if (pathInfo.equals("/addPatientMedication")) {
+          returnString = addPatientMedication(request, response);  
         }
         else if (pathInfo.equals("/createCC")) {
           returnString = createCC(request, response);  
@@ -162,8 +162,8 @@ public class PatientServlet extends AppServlet  {
         else if (pathInfo.equals("/releasePatient")) {
           returnString = releasePatient(request, response);  
         }
-        else if (pathInfo.equals("/updateEncounterMedication")) {
-          returnString = updateEncounterMedication(request, response);  
+        else if (pathInfo.equals("/updatePatientMedication")) {
+          returnString = updatePatientMedication(request, response);  
         }
         else if (pathInfo.equals("/updateEncounterQuestion")) {
           returnString = updateEncounterQuestion(request, response);  
@@ -259,11 +259,11 @@ public class PatientServlet extends AppServlet  {
   }
   
   
-  public String updateEncounterMedication(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String updatePatientMedication(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String data = request.getParameter("data");
     Gson gson = new Gson();
     PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.updateEncounterMedication(dto);
+    patientService.updatePatientMedication(dto);
     String json = gson.toJson(dto);
     return json;
   }
@@ -374,12 +374,12 @@ public class PatientServlet extends AppServlet  {
     return json;
   }
   
-  public String addEncounterMedication(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String addPatientMedication(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String data = request.getParameter("data");
     Gson gson = new Gson();
     PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    Integer encounterMedicationId = patientService.addEncounterMedication(dto.getPatientId());
-    dto.setEncounterMedicationId(encounterMedicationId);
+    Integer patientMedicationId = patientService.addPatientMedication(dto.getPatientId());
+    dto.setPatientMedicationId(patientMedicationId);
     String json = gson.toJson(dto);
     return json;
   }

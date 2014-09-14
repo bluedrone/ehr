@@ -130,7 +130,7 @@ public class PatientService {
   
   
   public void deletePatientMedication(PatientDTO dto) throws Exception {
-    PatientHistoryMedication medication = patientDAO.findEncounterMedicationById(dto.getEncounterMedicationId());
+    PatientHistoryMedication medication = patientDAO.findPatientMedicationById(dto.getPatientMedicationId());
     patientDAO.delete(medication);
   }
   
@@ -226,7 +226,7 @@ public class PatientService {
   
   public void createHist(PatientDTO dto) throws Exception {
     for (PatientHistoryMedication patientHistoryMedication : dto.getEncounter().getPatient().getHist().getPatientMedicationList()) {
-      patientDAO.updateEncounterMedication(patientHistoryMedication);
+      patientDAO.updatePatientMedication(patientHistoryMedication);
     }
     Set<String> fieldSetHist = activityLogService.getListOfChangedFields(dto.getEncounter().getPatient().getHist());
     patientDAO.update(dto.getEncounter().getPatient().getHist());
@@ -237,8 +237,8 @@ public class PatientService {
  
   
   
-  public  void updateEncounterMedication(PatientDTO dto) throws Exception {
-    PatientHistoryMedication patientHistoryMedication = patientDAO.findEncounterMedicationById(dto.getEncounterMedicationId());
+  public  void updatePatientMedication(PatientDTO dto) throws Exception {
+    PatientHistoryMedication patientHistoryMedication = patientDAO.findPatientMedicationById(dto.getPatientMedicationId());
     String property = dto.getUpdateProperty();
     String value = dto.getUpdatePropertyValue();
     if (property.equals("medication")) {
@@ -288,7 +288,7 @@ public class PatientService {
   
   
  
-  public Integer addEncounterMedication(Integer patientId) throws Exception {
+  public Integer addPatientMedication(Integer patientId) throws Exception {
     PatientHistoryMedication patientHistoryMedication = new PatientHistoryMedication();
     patientHistoryMedication.setPatientId(patientId);
     patientDAO.create(patientHistoryMedication);
@@ -380,7 +380,7 @@ public class PatientService {
     Encounter encounter = patientDAO.createEncounter(patient, clinician);
     for (int i=0; i<3; i++) {
       addEncounterQuestion(encounter.getId()); // encounter.supp
-      addEncounterMedication(patient.getId()); // patient.hist
+      addPatientMedication(patient.getId()); // patient.hist
     }
     activityLogService.logNewEncounter(clinician.getId(), dto.getPatientId(), clinician.getId(), encounter.getId());
     decrypt(encounter.getPatient()); 

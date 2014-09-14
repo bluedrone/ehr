@@ -140,15 +140,15 @@ function loadHistScreenForm() {
     $('#modal-medical-history .form-control-unsaved').css({display: "none"});
     $('.patient-med-editable').blur(function(e) { 
       getCurrentMedicationId(e);
-      updateEncounterMedication("medication", $(this).html(), app_currentMedicationId); 
+      updatePatientMedication("medication", $(this).html(), app_currentMedicationId); 
     });
     $('.patient-dose-editable').blur(function(e) { 
       getCurrentMedicationId(e);
-      updateEncounterMedication("dose", $(this).html(), app_currentMedicationId); 
+      updatePatientMedication("dose", $(this).html(), app_currentMedicationId); 
     });
     $('.patient-freq-editable').blur(function(e) { 
       getCurrentMedicationId(e);
-      updateEncounterMedication("frequency", $(this).html(), app_currentMedicationId); 
+      updatePatientMedication("frequency", $(this).html(), app_currentMedicationId); 
     });
     $('.medication-delete-control').click(function() { deleteMedication($(this)); });
   });
@@ -171,24 +171,24 @@ function loadHistScreenForm() {
   
   $('#patient-hist-new-medication').click(function() { 
     var jsonData = JSON.stringify({sessionId: clinician.sessionId, patientId:  app_currentPatient.id});
-    $.post("patient/addEncounterMedication", {data:jsonData}, function(data) {
+    $.post("patient/addPatientMedication", {data:jsonData}, function(data) {
       var parsedData = $.parseJSON(data);
-      var encounterMedicationId = parsedData.encounterMedicationId;
+      var patientMedicationId = parsedData.patientMedicationId;
       var numMedications = $("#patient-medications").children().length + 2;
-      RenderUtil.render('component/patient_medication', {ordinal:numMedications, id: encounterMedicationId}, function(s) { 
+      RenderUtil.render('component/patient_medication', {ordinal:numMedications, id: patientMedicationId}, function(s) { 
         $("#patient-medications").append(s); 
         $('#modal-medical-history .form-control-unsaved').css({display: "none"});
         $('.patient-med-editable').blur(function(e) { 
           getCurrentMedicationId(e);
-          updateEncounterMedication("medication", $(this).html(), encounterMedicationId); 
+          updatePatientMedication("medication", $(this).html(), patientMedicationId); 
         });
         $('.patient-dose-editable').blur(function(e) { 
           getCurrentQuestionId(e);
-          updateEncounterMedication("dose", $(this).html(), encounterMedicationId); 
+          updatePatientMedication("dose", $(this).html(), patientMedicationId); 
         });
         $('.patient-freq-editable').blur(function(e) { 
           getCurrentQuestionId(e);
-          updateEncounterMedication("frequency", $(this).html(), encounterMedicationId); 
+          updatePatientMedication("frequency", $(this).html(), patientMedicationId); 
         });
         $('.medication-delete-control').click(function() { deleteMedication($(this)); });
       });

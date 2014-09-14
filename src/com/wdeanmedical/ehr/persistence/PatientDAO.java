@@ -193,7 +193,7 @@ public class PatientDAO extends SiteDAO {
   
 
   
-  public void updateEncounterMedication(PatientHistoryMedication patientHistoryMedication) throws Exception {
+  public void updatePatientMedication(PatientHistoryMedication patientHistoryMedication) throws Exception {
     Session session = this.getSession();
     session.update(patientHistoryMedication);
   }
@@ -367,7 +367,7 @@ public class PatientDAO extends SiteDAO {
     session.update(d);
   }
   
-  public PatientHistoryMedication findEncounterMedicationById(int id) throws Exception {
+  public PatientHistoryMedication findPatientMedicationById(int id) throws Exception {
     PatientHistoryMedication patientHistoryMedication = (PatientHistoryMedication) this.findById(PatientHistoryMedication.class, id);
     return patientHistoryMedication;
   }

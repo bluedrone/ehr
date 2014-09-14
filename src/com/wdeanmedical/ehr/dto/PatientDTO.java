@@ -163,7 +163,7 @@ public class PatientDTO extends AuthorizedDTO {
   private List<EncounterQuestion> encounterQuestionList;
   private List<PatientHistoryMedication> patientMedicationList;
   private int encounterQuestionId;
-  private int encounterMedicationId;
+  private int patientMedicationId;
   private boolean histSaved; 
   private String pastSM; 
   private String famHist; 
@@ -622,8 +622,8 @@ public class PatientDTO extends AuthorizedDTO {
   public int getEncounterQuestionId() { return encounterQuestionId; }
   public void setEncounterQuestionId(int encounterQuestionId) { this.encounterQuestionId = encounterQuestionId; }
   
-  public int getEncounterMedicationId() { return encounterMedicationId; }
-  public void setEncounterMedicationId(int encounterMedicationId) { this.encounterMedicationId = encounterMedicationId; }
+  public int getPatientMedicationId() { return patientMedicationId; }
+  public void setPatientMedicationId(int patientMedicationId) { this.patientMedicationId = patientMedicationId; }
   
   public boolean isHistSaved() { return histSaved; }
   public void setHistSaved(boolean histSaved) { this.histSaved = histSaved; }

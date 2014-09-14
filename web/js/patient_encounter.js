@@ -396,14 +396,14 @@ function updateEncounterQuestion(property, value, encounterQuestionId) {
   }); 
 }
 
-function updateEncounterMedication(property, value, encounterMedicationId) {
+function updatePatientMedication(property, value, patientMedicationId) {
   var jsonData = JSON.stringify({ 
     sessionId: clinician.sessionId, 
-    encounterMedicationId: encounterMedicationId,
+    patientMedicationId: patientMedicationId,
     updateProperty:property,
     updatePropertyValue:value
   });
-  $.post("patient/updateEncounterMedication", {data:jsonData}, function(data) {
+  $.post("patient/updatePatientMedication", {data:jsonData}, function(data) {
   }); 
 }
 
@@ -551,7 +551,7 @@ function  setupPictureUpload(encounterId, patientId) {
 
 function deleteMedication(element) {
   var id = element.attr('name');
-  var jsonData = JSON.stringify({ sessionId: clinician.sessionId, encounterMedicationId:id});
+  var jsonData = JSON.stringify({ sessionId: clinician.sessionId, patientMedicationId:id});
   $.post("patient/deletePatientMedication", {data:jsonData}, function(data) { 
     $('#patient-medication-'+id).remove();
   });  
