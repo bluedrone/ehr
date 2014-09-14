@@ -287,11 +287,27 @@ public class PatientService {
   public void updateDxCode(PatientDTO dto) throws Exception {
     DxCode dxCode = patientDAO.findDxCodeById(dto.getDxCodeId());
     String property = dto.getUpdateProperty();
-    String value = dto.getUpdatePropertyValue();
     dxCode.setIcd9(patientDAO.findICD9ById(dto.getIcd9Id()));
     Set<String> fieldSet = new HashSet<String>();
     fieldSet.add(property);
     patientDAO.update(dxCode);
+    activityLogService.logEditEncounter(dto.getClinicianId(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSet);
+  }
+  
+  
+  
+  public void updateTxCode(PatientDTO dto) throws Exception {
+    TxCode txCode = patientDAO.findTxCodeById(dto.getTxCodeId());
+    String property = dto.getUpdateProperty();
+    if (property.equals("cpt")) {
+      txCode.setCpt(patientDAO.findCPTById(dto.getCptId()));
+    }
+    else if (property.equals("cptModifier")) {
+      txCode.setCptModifier(patientDAO.findCPTModifierById(dto.getCptModifierId()));
+    }
+    Set<String> fieldSet = new HashSet<String>();
+    fieldSet.add(property);
+    patientDAO.update(txCode);
     activityLogService.logEditEncounter(dto.getClinicianId(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSet);
   }
   
@@ -323,6 +339,24 @@ public class PatientService {
     encounterQuestion.setEncounterId(encounterId);
     patientDAO.create(encounterQuestion);
     return encounterQuestion.getId();
+  }
+  
+  
+  
+  public Integer addDxCode(Integer encounterId) throws Exception {
+    DxCode dxCode = new DxCode();
+    dxCode.setEncounterId(encounterId);
+    patientDAO.create(dxCode);
+    return dxCode.getId();
+  }
+  
+  
+  
+  public Integer addTxCode(Integer encounterId) throws Exception {
+    TxCode txCode = new TxCode();
+    txCode.setEncounterId(encounterId);
+    patientDAO.create(txCode);
+    return txCode.getId();
   }
   
   
@@ -400,6 +434,8 @@ public class PatientService {
     Clinician clinician = appDAO.findClinicianBySessionId(dto.getSessionId());
     Encounter encounter = patientDAO.createEncounter(patient, clinician);
     for (int i=0; i<3; i++) {
+      addDxCode(encounter.getId()); 
+      addTxCode(encounter.getId()); 
       addEncounterQuestion(encounter.getId()); // encounter.supp
       addPatientMedication(patient.getId()); // patient.hist
     }
