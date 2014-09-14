@@ -84,6 +84,8 @@ public class PatientDTO extends AuthorizedDTO {
   private boolean missing;
   private boolean completed;
   private int patientEncounterGroupId;
+  private int dxCodeId;
+  private int txCodeId;
   private int swapGroupId;
   private String updateProperty;
   private String updatePropertyValue;
@@ -211,6 +213,9 @@ public class PatientDTO extends AuthorizedDTO {
   private String followUpNotes; 
   private int lockStatus; 
   private int patientEncounterId; 
+  private int icd9Id; 
+  private int cptId; 
+  private int cptModifierId; 
   private String firstNameFilter; 
   private String middleNameFilter; 
   private String lastNameFilter; 
@@ -801,5 +806,20 @@ public class PatientDTO extends AuthorizedDTO {
 
   public List<ChiefComplaint> getChiefComplaints() { return chiefComplaints; }
   public void setChiefComplaints(List<ChiefComplaint> chiefComplaints) { this.chiefComplaints = chiefComplaints; }
+
+  public int getDxCodeId() { return dxCodeId; }
+  public void setDxCodeId(int dxCodeId) { this.dxCodeId = dxCodeId; }
+
+  public int getTxCodeId() { return txCodeId; }
+  public void setTxCodeId(int txCodeId) { this.txCodeId = txCodeId; }
+
+  public int getIcd9Id() { return icd9Id; }
+  public void setIcd9Id(int icd9Id) { this.icd9Id = icd9Id; }
+
+  public int getCptId() { return cptId; }
+  public void setCptId(int cptId) { this.cptId = cptId; }
+
+  public int getCptModifierId() { return cptModifierId; }
+  public void setCptModifierId(int cptModifierId) { this.cptModifierId = cptModifierId; }
   
 }

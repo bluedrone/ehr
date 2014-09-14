@@ -12,6 +12,8 @@ import com.wdeanmedical.ehr.core.Core;
 import com.wdeanmedical.ehr.core.ExcludedFields;
 import com.wdeanmedical.ehr.entity.Appointment;
 import com.wdeanmedical.ehr.entity.BaseEntity;
+import com.wdeanmedical.ehr.entity.CPT;
+import com.wdeanmedical.ehr.entity.CPTModifier;
 import com.wdeanmedical.ehr.entity.ChiefComplaint;
 import com.wdeanmedical.ehr.entity.Clinician;
 import com.wdeanmedical.ehr.entity.ClinicianSchedule;
@@ -19,11 +21,13 @@ import com.wdeanmedical.ehr.entity.ClinicianSession;
 import com.wdeanmedical.ehr.entity.Country;
 import com.wdeanmedical.ehr.entity.Credentials;
 import com.wdeanmedical.ehr.entity.Demographics;
+import com.wdeanmedical.ehr.entity.DxCode;
 import com.wdeanmedical.ehr.entity.Encounter;
 import com.wdeanmedical.ehr.entity.EncounterType;
 import com.wdeanmedical.ehr.entity.Ethnicity;
 import com.wdeanmedical.ehr.entity.Exam;
 import com.wdeanmedical.ehr.entity.Gender;
+import com.wdeanmedical.ehr.entity.ICD9;
 import com.wdeanmedical.ehr.entity.PatientHistoryMedication;
 import com.wdeanmedical.ehr.entity.EncounterQuestion;
 import com.wdeanmedical.ehr.entity.Lab;
@@ -48,6 +52,7 @@ import com.wdeanmedical.ehr.entity.PatientStatus;
 import com.wdeanmedical.ehr.entity.Race;
 import com.wdeanmedical.ehr.entity.SOAPNote;
 import com.wdeanmedical.ehr.entity.SuppQuestions;
+import com.wdeanmedical.ehr.entity.TxCode;
 import com.wdeanmedical.ehr.entity.USState;
 import com.wdeanmedical.ehr.entity.VitalSigns;
 import com.wdeanmedical.ehr.entity.ProgressNote;
@@ -112,6 +117,8 @@ public class PatientDAO extends SiteDAO {
     return list;
   }
   
+  
+  
   public List<PatientHistoryMedication> getPatientMedicationsByPatient(int patientId) throws Exception {
     Session session = this.getSession();
     Criteria crit = session.createCriteria(PatientHistoryMedication.class);
@@ -121,6 +128,26 @@ public class PatientDAO extends SiteDAO {
     for (PatientHistoryMedication item : list) {
       ExcludedFields.excludeFields(item);
     }
+    return list;
+  }
+  
+  
+  
+   public List<DxCode> getDxCodes(Integer encounterId) throws Exception {
+    Session session = this.getSession();
+    Criteria crit = session.createCriteria(DxCode.class);
+    crit.add(Restrictions.eq("encounterId", encounterId));
+    List<DxCode> list =  crit.list();
+    return list;
+  }
+  
+  
+  
+  public List<TxCode> getTxCodes(Integer encounterId) throws Exception {
+    Session session = this.getSession();
+    Criteria crit = session.createCriteria(TxCode.class);
+    crit.add(Restrictions.eq("encounterId", encounterId));
+    List<TxCode> list =  crit.list();
     return list;
   }
   
@@ -140,6 +167,8 @@ public class PatientDAO extends SiteDAO {
     Encounter encounter = (Encounter)crit.uniqueResult();
     encounter.getSupp().setEncounterQuestionList(getEncounterQuestionsByEncounter(encounter.getId()));
     patient.getHist().setPatientMedicationList(getPatientMedicationsByPatient(patient.getId()));
+    encounter.setDxCodes(getDxCodes(encounter.getId()));
+    encounter.setTxCodes(getTxCodes(encounter.getId()));
     
     return encounter;
   }
@@ -154,6 +183,8 @@ public class PatientDAO extends SiteDAO {
     List<Encounter> list = crit.list();
     for (Encounter encounter : list) {
       encounter.getSupp().setEncounterQuestionList(getEncounterQuestionsByEncounter(encounter.getId()));
+      encounter.setDxCodes(getDxCodes(encounter.getId()));
+      encounter.setTxCodes(getTxCodes(encounter.getId()));
       patient.getHist().setPatientMedicationList(getPatientMedicationsByPatient(patient.getId()));
     }
     return list;
@@ -198,10 +229,28 @@ public class PatientDAO extends SiteDAO {
     session.update(patientHistoryMedication);
   }
   
+  
+  
   public void updateEncounterQuestion(EncounterQuestion encounterQuestion) throws Exception {
     Session session = this.getSession();
     session.update(encounterQuestion);
   }
+  
+  
+ 
+  public void updateDxCode(DxCode dxCode) throws Exception {
+    Session session = this.getSession();
+    session.update(dxCode);
+  } 
+  
+  
+  
+  public void updateTxCode(TxCode txCode) throws Exception {
+    Session session = this.getSession();
+    session.update(txCode);
+  } 
+  
+  
   
   public void createPatient(Patient patient) throws Exception {
     Session session = this.getSession();
@@ -295,6 +344,8 @@ public class PatientDAO extends SiteDAO {
     crit.add(Restrictions.eq("completed", false));
     Encounter encounter = (Encounter)crit.uniqueResult();
     encounter.getSupp().setEncounterQuestionList(getEncounterQuestionsByEncounter(encounter.getId()));
+    encounter.setDxCodes(getDxCodes(encounter.getId()));
+    encounter.setTxCodes(getTxCodes(encounter.getId())); 
     patient.getHist().setPatientMedicationList(getPatientMedicationsByPatient(patient.getId()));
     return encounter;
   }
@@ -308,6 +359,8 @@ public class PatientDAO extends SiteDAO {
     Encounter encounter = (Encounter) this.findById(Encounter.class, id);
     Patient patient = encounter.getPatient();
     encounter.getSupp().setEncounterQuestionList(getEncounterQuestionsByEncounter(encounter.getId()));
+    encounter.setDxCodes(getDxCodes(encounter.getId()));
+    encounter.setTxCodes(getTxCodes(encounter.getId()));
     patient.getHist().setPatientMedicationList(getPatientMedicationsByPatient(patient.getId()));
     return encounter;
   }
@@ -376,6 +429,44 @@ public class PatientDAO extends SiteDAO {
     EncounterQuestion encounterQuestion = (EncounterQuestion) this.findById(EncounterQuestion.class, id);
     return encounterQuestion;
   }
+  
+  
+  
+  public ICD9 findICD9ById(int id) throws Exception {
+    ICD9 icd9 = (ICD9) this.findById(ICD9.class, id);
+    return icd9;
+  }
+  
+  
+  
+  public CPT findCPTById(int id) throws Exception {
+    CPT cpt = (CPT) this.findById(CPT.class, id);
+    return cpt;
+  }
+  
+  
+  
+  public CPTModifier findCPTModifierById(int id) throws Exception {
+    CPTModifier cptModifier = (CPTModifier) this.findById(CPTModifier.class, id);
+    return cptModifier;
+  }
+  
+  
+  
+  
+  public DxCode findDxCodeById(int id) throws Exception {
+    DxCode dxCode = (DxCode) this.findById(DxCode.class, id);
+    return dxCode;
+  }
+  
+  
+  
+  public TxCode findTxCodeById(int id) throws Exception {
+    TxCode txCode = (TxCode) this.findById(TxCode.class, id);
+    return txCode;
+  }
+  
+  
   
   public Gender findGenderByCode(String code) throws Exception {
     Session session = getSession();

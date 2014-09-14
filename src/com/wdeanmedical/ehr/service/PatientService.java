@@ -35,6 +35,7 @@ import com.wdeanmedical.ehr.dto.PatientDTO;
 import com.wdeanmedical.ehr.entity.ChiefComplaint;
 import com.wdeanmedical.ehr.entity.Credentials;
 import com.wdeanmedical.ehr.entity.Demographics;
+import com.wdeanmedical.ehr.entity.DxCode;
 import com.wdeanmedical.ehr.entity.Exam;
 import com.wdeanmedical.ehr.entity.PatientHistoryMedication;
 import com.wdeanmedical.ehr.entity.EncounterQuestion;
@@ -52,6 +53,7 @@ import com.wdeanmedical.ehr.entity.PatientStatus;
 import com.wdeanmedical.ehr.entity.ProgressNote;
 import com.wdeanmedical.ehr.entity.SOAPNote;
 import com.wdeanmedical.ehr.entity.SuppQuestions;
+import com.wdeanmedical.ehr.entity.TxCode;
 import com.wdeanmedical.ehr.entity.VitalSigns;
 
 import org.springframework.web.context.WebApplicationContext;
@@ -207,6 +209,12 @@ public class PatientService {
   
   
   public void createExam(PatientDTO dto) throws Exception {
+    for (DxCode dxCode : dto.getEncounter().getDxCodes()) {
+      patientDAO.updateDxCode(dxCode);
+    }
+    for (TxCode txCode : dto.getEncounter().getTxCodes()) {
+      patientDAO.updateTxCode(txCode);
+    }
     Set<String> fieldSetExam = activityLogService.getListOfChangedFields(dto.getEncounter().getExam());
     patientDAO.update(dto.getEncounter().getExam());
     patientDAO.update(dto.getEncounter());
@@ -271,6 +279,19 @@ public class PatientService {
     Set<String> fieldSet = new HashSet<String>();
     fieldSet.add(property);
     patientDAO.update(encounterQuestion);
+    activityLogService.logEditEncounter(dto.getClinicianId(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSet);
+  }
+  
+  
+  
+  public void updateDxCode(PatientDTO dto) throws Exception {
+    DxCode dxCode = patientDAO.findDxCodeById(dto.getDxCodeId());
+    String property = dto.getUpdateProperty();
+    String value = dto.getUpdatePropertyValue();
+    dxCode.setIcd9(patientDAO.findICD9ById(dto.getIcd9Id()));
+    Set<String> fieldSet = new HashSet<String>();
+    fieldSet.add(property);
+    patientDAO.update(dxCode);
     activityLogService.logEditEncounter(dto.getClinicianId(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSet);
   }
   

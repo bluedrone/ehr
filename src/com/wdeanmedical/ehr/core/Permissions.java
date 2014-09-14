@@ -49,8 +49,10 @@ public class Permissions {
     clinicianPermissionsMap.put("/ext/updatePatient",                    new boolean[] {true,true});
     
     clinicianPermissionsMap.put("/patient/acquirePatient",               new boolean[] {true,true});
-    clinicianPermissionsMap.put("/patient/addPatientMedication",       new boolean[] {true,true});
+    clinicianPermissionsMap.put("/patient/addDxCode",                    new boolean[] {true,true});
     clinicianPermissionsMap.put("/patient/addEncounterQuestion",         new boolean[] {true,true});
+    clinicianPermissionsMap.put("/patient/addPatientMedication",         new boolean[] {true,true});
+    clinicianPermissionsMap.put("/patient/addTxCode",                    new boolean[] {true,true});
     clinicianPermissionsMap.put("/patient/closeEncounter",               new boolean[] {true,true});
     clinicianPermissionsMap.put("/patient/closePatientNote",             new boolean[] {true,true});
     clinicianPermissionsMap.put("/patient/createCC",                     new boolean[] {true,true});
@@ -62,8 +64,10 @@ public class Permissions {
     clinicianPermissionsMap.put("/patient/createPFSH",                   new boolean[] {true,true});
     clinicianPermissionsMap.put("/patient/createSupp",                   new boolean[] {true,true});
     clinicianPermissionsMap.put("/patient/createVitals",                 new boolean[] {true,true});
+    clinicianPermissionsMap.put("/patient/deleteDxCode",                 new boolean[] {true,true});
     clinicianPermissionsMap.put("/patient/deletePatient",                new boolean[] {true,true});
     clinicianPermissionsMap.put("/patient/deletePatientMedication",      new boolean[] {true,true});
+    clinicianPermissionsMap.put("/patient/deleteTxCode",                 new boolean[] {true,true});
     clinicianPermissionsMap.put("/patient/encryptPatients",              new boolean[] {true,true});
     clinicianPermissionsMap.put("/patient/getChiefComplaints",           new boolean[] {true,true});
     clinicianPermissionsMap.put("/patient/getCurrentPatientEncounter",   new boolean[] {true,true});
@@ -77,8 +81,10 @@ public class Permissions {
     clinicianPermissionsMap.put("/patient/overridePatient",              new boolean[] {true,true});
     clinicianPermissionsMap.put("/patient/patientSearch",                new boolean[] {true,true});
     clinicianPermissionsMap.put("/patient/releasePatient",               new boolean[] {true,true});
-    clinicianPermissionsMap.put("/patient/updatePatientMedication",    new boolean[] {true,true});
+    clinicianPermissionsMap.put("/patient/updateDxCode",                 new boolean[] {true,true});
     clinicianPermissionsMap.put("/patient/updateEncounterQuestion",      new boolean[] {true,true});
+    clinicianPermissionsMap.put("/patient/updatePatientMedication",      new boolean[] {true,true});
+    clinicianPermissionsMap.put("/patient/updateTxCode",                 new boolean[] {true,true});
     clinicianPermissionsMap.put("/patient/uploadProfileImage",           new boolean[] {true ,true});
     clinicianPermissionsMap.put("/patient/updateProgressNote",           new boolean[] {true,true});
  }

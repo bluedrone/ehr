@@ -24,6 +24,7 @@ import com.wdeanmedical.ehr.entity.CPTModifier;
 import com.wdeanmedical.ehr.entity.Clinician;
 import com.wdeanmedical.ehr.entity.ClinicianSchedule;
 import com.wdeanmedical.ehr.entity.ClinicianSession;
+import com.wdeanmedical.ehr.entity.DxCode;
 import com.wdeanmedical.ehr.entity.Encounter;
 import com.wdeanmedical.ehr.entity.Ethnicity;
 import com.wdeanmedical.ehr.entity.ICD10;
@@ -41,6 +42,7 @@ import com.wdeanmedical.ehr.entity.PatientMedicalTest;
 import com.wdeanmedical.ehr.entity.PatientMedication;
 import com.wdeanmedical.ehr.entity.PatientMessage;
 import com.wdeanmedical.ehr.entity.Race;
+import com.wdeanmedical.ehr.entity.TxCode;
 import com.wdeanmedical.ehr.entity.VitalSigns;
 import com.wdeanmedical.ehr.entity.ProgressNote;
 import com.wdeanmedical.ehr.entity.ToDoNote;
@@ -196,6 +198,7 @@ public class AppDAO extends SiteDAO {
     List<PatientAllergen> list =  crit.list();
     return list;
   }
+  
   
   public List<PatientMedication> getPatientMedications(Patient patient) throws Exception {
     Session session = this.getSession();
