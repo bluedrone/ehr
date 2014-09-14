@@ -835,9 +835,7 @@ public class PatientService {
     else if (property.equals("hs")) {exam.setHs(value);updateClass = "Exam";} 
     else if (property.equals("heartRhythm")) {exam.setHeartRhythm(value);updateClass = "Exam";} 
     else if (property.equals("diagnosis")) {exam.setDiagnosis(value);updateClass = "Exam";} 
-    else if (property.equals("dxCode")) {exam.setDxCode(value);updateClass = "Exam";} 
     else if (property.equals("treatmentPlan")) {exam.setTreatmentPlan(value);updateClass = "Exam";} 
-    else if (property.equals("txCode")) {exam.setTxCode(value);updateClass = "Exam";} 
     else if (property.equals("followUpLevel")) {followUp.setLevel(value);} 
     else if (property.equals("followUpWhen")) {followUp.setWhen(value);updateClass = "FollowUp";} 
     else if (property.equals("followUpCondition")) {followUp.setCondition(value);updateClass = "FollowUp";} 

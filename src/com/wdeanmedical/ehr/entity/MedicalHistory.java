@@ -119,7 +119,7 @@ public class MedicalHistory extends BaseEntity implements Serializable {
   public Boolean getSaved() { return saved; }
   public void setSaved(Boolean saved) { this.saved = saved; }
 
-@Transient
+  @Transient
   public List<PatientHistoryMedication> getPatientMedicationList() { return patientMedicationList; }
   public void setPatientMedicationList( List<PatientHistoryMedication> patientMedicationList) { this.patientMedicationList = patientMedicationList; }
   

@@ -27,22 +27,15 @@ public class CPT extends BaseEntity implements Serializable {
   }
 
   @Column(name = "description")
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
+  public String getDescription() { return description; }
+  public void setDescription(String description) { this.description = description; }
 
   @Column(name = "code")
-  public String getCode() {
-    return code;
-  }
+  public String getCode() { return code; }
+  public void setCode(String code) { this.code = code; }
 
-  public void setCode(String code) {
-    this.code = code;
-  }
+
+
 
   @Override
   public int hashCode() {

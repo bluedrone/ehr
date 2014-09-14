@@ -9,12 +9,14 @@ package com.wdeanmedical.ehr.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "encounter")
@@ -51,6 +53,8 @@ public class Encounter extends BaseEntity implements Serializable {
   private Boolean histSaved = false;
   private Boolean examSaved = false;
   private Boolean followUpSaved = false;
+  private List<DxCode> dxCodes;
+  private List<TxCode> txCodes;
 
   public Encounter() {
   }
@@ -165,6 +169,15 @@ public class Encounter extends BaseEntity implements Serializable {
   @Column(name = "notes")
   public String getNotes() { return notes; }
   public void setNotes(String notes) { this.notes = notes; }
+  
+  @Transient
+  public List<DxCode> getDxCodes() { return dxCodes; }
+  public void setDxCodes(List<DxCode> dxCodes) { this.dxCodes = dxCodes; }
+
+  @Transient
+  public List<TxCode> getTxCodes() { return txCodes; }
+  public void setTxCodes(List<TxCode> txCodes) { this.txCodes = txCodes; }
+
 
   @Override
   public int hashCode() {

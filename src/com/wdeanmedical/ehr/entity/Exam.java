@@ -29,112 +29,49 @@ public class Exam extends BaseEntity implements Serializable {
   private String hs;
   private String heartRhythm;
   private String diagnosis;
-  private String dxCode;
   private String treatmentPlan;
-  private String txCode;
   private String diagramPath;
 
   public Exam() {
   }
 
   @Column(name = "encounter_id")
-  public Integer getEncounterId() {
-    return encounterId;
-  }
-
-  public void setEncounterId(Integer encounterId) {
-    this.encounterId = encounterId;
-  }
+  public Integer getEncounterId() { return encounterId; }
+  public void setEncounterId(Integer encounterId) { this.encounterId = encounterId; }
 
   @Column(name = "date")
-  public Date getDate() {
-    return date;
-  }
-
-  public void setDate(Date date) {
-    this.date = date;
-  }
+  public Date getDate() { return date; }
+  public void setDate(Date date) { this.date = date; }
 
   @Column(name = "patient_id")
-  public Integer getPatientId() {
-    return patientId;
-  }
-
-  public void setPatientId(Integer patientId) {
-    this.patientId = patientId;
-  }
+  public Integer getPatientId() { return patientId; }
+  public void setPatientId(Integer patientId) { this.patientId = patientId; }
 
   @Column(name = "clinician_id")
-  public Integer getClinicianId() {
-    return clinicianId;
-  }
-
-  public void setClinicianId(Integer clinicianId) {
-    this.clinicianId = clinicianId;
-  }
+  public Integer getClinicianId() { return clinicianId; }
+  public void setClinicianId(Integer clinicianId) { this.clinicianId = clinicianId; }
 
   @Column(name = "hs")
-  public String getHs() {
-    return hs;
-  }
-
-  public void setHs(String hs) {
-    this.hs = hs;
-  }
+  public String getHs() { return hs; }
+  public void setHs(String hs) { this.hs = hs; }
 
   @Column(name = "heart_rhythm")
-  public String getHeartRhythm() {
-    return heartRhythm;
-  }
-
-  public void setHeartRhythm(String heartRhythm) {
-    this.heartRhythm = heartRhythm;
-  }
+  public String getHeartRhythm() { return heartRhythm; }
+  public void setHeartRhythm(String heartRhythm) { this.heartRhythm = heartRhythm; }
 
   @Column(name = "diagnosis")
-  public String getDiagnosis() {
-    return diagnosis;
-  }
-
-  public void setDiagnosis(String diagnosis) {
-    this.diagnosis = diagnosis;
-  }
-
-  @Column(name = "dx_code")
-  public String getDxCode() {
-    return dxCode;
-  }
-
-  public void setDxCode(String dxCode) {
-    this.dxCode = dxCode;
-  }
+  public String getDiagnosis() { return diagnosis; }
+  public void setDiagnosis(String diagnosis) { this.diagnosis = diagnosis; }
 
   @Column(name = "treatment_plan")
-  public String getTreatmentPlan() {
-    return treatmentPlan;
-  }
-
-  public void setTreatmentPlan(String treatmentPlan) {
-    this.treatmentPlan = treatmentPlan;
-  }
-
-  @Column(name = "tx_code")
-  public String getTxCode() {
-    return txCode;
-  }
-
-  public void setTxCode(String txCode) {
-    this.txCode = txCode;
-  }
+  public String getTreatmentPlan() { return treatmentPlan; }
+  public void setTreatmentPlan(String treatmentPlan) { this.treatmentPlan = treatmentPlan; }
 
   @Column(name = "diagram_path")
-  public String getDiagramPath() {
-    return diagramPath;
-  }
+  public String getDiagramPath() { return diagramPath; }
+  public void setDiagramPath(String diagramPath) { this.diagramPath = diagramPath; }
 
-  public void setDiagramPath(String diagramPath) {
-    this.diagramPath = diagramPath;
-  }
+
 
   @Override
   public int hashCode() {
@@ -147,7 +84,6 @@ public class Exam extends BaseEntity implements Serializable {
         + ((diagnosis == null) ? 0 : diagnosis.hashCode());
     result = prime * result
         + ((diagramPath == null) ? 0 : diagramPath.hashCode());
-    result = prime * result + ((dxCode == null) ? 0 : dxCode.hashCode());
     result = prime * result
         + ((encounterId == null) ? 0 : encounterId.hashCode());
     result = prime * result
@@ -157,7 +93,6 @@ public class Exam extends BaseEntity implements Serializable {
         + ((patientId == null) ? 0 : patientId.hashCode());
     result = prime * result
         + ((treatmentPlan == null) ? 0 : treatmentPlan.hashCode());
-    result = prime * result + ((txCode == null) ? 0 : txCode.hashCode());
     return result;
   }
 
@@ -190,11 +125,6 @@ public class Exam extends BaseEntity implements Serializable {
         {return false;}
     } else if (!diagramPath.equals(other.diagramPath))
       {return false;}
-    if (dxCode == null) {
-      if (other.dxCode != null)
-        {return false;}
-    } else if (!dxCode.equals(other.dxCode))
-      {return false;}
     if (encounterId == null) {
       if (other.encounterId != null)
         {return false;}
@@ -220,11 +150,6 @@ public class Exam extends BaseEntity implements Serializable {
         {return false;}
     } else if (!treatmentPlan.equals(other.treatmentPlan))
       {return false;}
-    if (txCode == null) {
-      if (other.txCode != null)
-        {return false;}
-    } else if (!txCode.equals(other.txCode))
-      {return false;}
     return true;
   }
 
@@ -233,8 +158,7 @@ public class Exam extends BaseEntity implements Serializable {
     return "Exam [date=" + date + ", encounterId=" + encounterId
         + ", patientId=" + patientId + ", clinicianId=" + clinicianId
         + ", hs=" + hs + ", heartRhythm=" + heartRhythm
-        + ", diagnosis=" + diagnosis + ", dxCode=" + dxCode
-        + ", treatmentPlan=" + treatmentPlan + ", txCode=" + txCode
+        + ", treatmentPlan=" + treatmentPlan 
         + ", diagramPath=" + diagramPath + "]";
   }
 
