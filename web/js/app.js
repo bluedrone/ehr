@@ -71,6 +71,8 @@ var app_currentGroup;
 var app_currentGroupId;
 var app_currentQuestionId;
 var app_currentMedicationId;
+var app_currentDxCodeId;
+var app_currentTxCodeId;
 var app_currentGroupIndex;
 var app_patientChartFullName;
 var app_patientChartDOB;

@@ -328,15 +328,22 @@ function saveHistEncounterForm(encounter) {
 
 function saveExamEncounterForm(encounter) {
   var id = encounter.id;  
+  for (i=0;i<encounter.dxCodes.length;i++) { 
+    var dxCodeId = encounter.dxCodes[i].id;
+    encounter.dxCodes[i].icd9 = $("#encounter-icd9-"+dxCodeId).val();
+  }
+  for (i=0;i<encounter.txCodes.length;i++) { 
+    var txCodeId = encounter.txCodes[i].id;
+    encounter.txCodes[i].cpt = $("#encounter-cpt-"+txCodeId).val();
+    encounter.txCodes[i].cptModifier = $("#encounter-cpt-modifier-"+txCodeId).val();
+  }
   encounter.exam.hs = $.trim($("#encounter-hs-"+id).val());
   encounter.exam.heartRhythm = $('input[name=encounter-heart-rhythm-'+id+']:checked').val();
   encounter.exam.hb = $.trim($("#encounter-lab-hb-"+id).val());
   encounter.exam.glucose = $.trim($("#encounter-lab-glucose-"+id).val());
   encounter.exam.urineDIP = $.trim($("#encounter-lab-urine-dip-"+id).val());
   encounter.exam.diagnosis = $.trim($("#encounter-diagnosis-"+id).val());
-  encounter.exam.dxCode = $.trim($("#encounter-dx-code-"+id).val());
   encounter.exam.treatmentPlan = $.trim($("#encounter-treatment-plan-"+id).val());
-  encounter.exam.txCode = $.trim($("#encounter-tx-code-"+id).val());
   encounter.exam.providerName = $.trim($("#encounter-provider-name-"+id).val());
   encounter.examSaved = true;
   jsonData = JSON.stringify({ 
@@ -384,6 +391,28 @@ function updateLocalPatientEncounter(property, value, patientId) {
 }
 
 
+function updateDxCode(icd9, dxCodeId) {
+  var jsonData = JSON.stringify({ 
+    sessionId: clinician.sessionId, 
+    dxCodeId: dxCodeId,
+    icd9:icd9
+  });
+  $.post("patient/updateDxCode", {data:jsonData}, function(data) {
+  }); 
+}
+
+
+function updateTxCode(cpt, cptModifier, txCodeId) {
+  var jsonData = JSON.stringify({ 
+    sessionId: clinician.sessionId, 
+    txCodeId: txCodeId,
+    cpt:cpt,
+    cptModifier:cptModifier
+  });
+  $.post("patient/updateTxCode", {data:jsonData}, function(data) {
+  }); 
+}
+
 
 function updateEncounterQuestion(property, value, encounterQuestionId) {
   var jsonData = JSON.stringify({ 
@@ -413,6 +442,25 @@ function getCurrentQuestionId(e) {
   for (i=0;i<attributes.length;i++) {
     if (attributes[i].name == 'data-id') {
       app_currentQuestionId = parseInt(attributes[i].nodeValue); 
+    }
+  }
+} 
+
+
+function getCurrentDxCodeId(e) {
+  var attributes = e.currentTarget.attributes;
+  for (i=0;i<attributes.length;i++) {
+    if (attributes[i].name == 'data-id') {
+      app_currentDxCodeId = parseInt(attributes[i].nodeValue); 
+    }
+  }
+} 
+
+function getCurrentTxCodeId(e) {
+  var attributes = e.currentTarget.attributes;
+  for (i=0;i<attributes.length;i++) {
+    if (attributes[i].name == 'data-id') {
+      app_currentTxCodeId = parseInt(attributes[i].nodeValue); 
     }
   }
 } 

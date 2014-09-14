@@ -461,8 +461,84 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
     initEncounterExamCanvas(id);
     
     if (savedState == false) {
+     RenderUtil.render('component/dx_codes', {encounter:encounter}, function(s) { $("#encounter-dx-codes-"+id).html(s); setEncounterFormMode(encounter, section, savedState, hasOwnership);});
+      $('#encounter-exam-new-dx-code-'+id).click(function() { 
+       var jsonData = JSON.stringify({sessionId: clinician.sessionId, encounterId: id});
+        $.post("patient/addDxCode", {data:jsonData}, function(data) {
+        var parsedData = $.parseJSON(data);
+          var numQuestions = $("#encounter-dx-codes-"+id).children().length + 2;
+          RenderUtil.render('component/dx_code', {id: parsedData.dxCodeId}, function(s) { $("#encounter-dx_codes-"+id).append(s); setEncounterFormMode(encounter, section, savedState, hasOwnership);});
+        });
+      });
+      RenderUtil.render('component/tx_codes', {encounter:encounter}, function(s) { $("#encounter-tx-codes-"+id).html(s); setEncounterFormMode(encounter, section, savedState, hasOwnership);});
+      $('#encounter-exam-new-tx-code-'+id).click(function() { 
+       var jsonData = JSON.stringify({sessionId: clinician.sessionId, encounterId: id});
+        $.post("patient/addTxCode", {data:jsonData}, function(data) {
+        var parsedData = $.parseJSON(data);
+          var numQuestions = $("#encounter-tx-codes-"+id).children().length + 2;
+          RenderUtil.render('component/tx_code', {id: parsedData.txCodeId}, function(s) { $("#encounter-tx_codes-"+id).append(s); setEncounterFormMode(encounter, section, savedState, hasOwnership);});
+        });
+      });
     }
-    else if (savedState == true) {
+    else if (savedState == true) {      
+      RenderUtil.render('component/dx_codes', {encounter:encounter}, function(s) { 
+        $("#encounter-dx_codes-"+id).html(s); 
+        setEncounterFormMode(encounter, section, savedState, hasOwnership);
+        $('.encounter-dx-code-icd9-editable').blur(function(e) { 
+          getCurrentDxCodeId(e);
+          updateDxCode("icd9", $(this).html(), app_currentDxCodeId); 
+        });
+      });
+      
+      $('#encounter-supp-new-dx-code-'+id).click(function() { 
+        var jsonData = JSON.stringify({sessionId: clinician.sessionId, encounterId: id});
+        $.post("patient/addDxCode", {data:jsonData}, function(data) {
+          var parsedData = $.parseJSON(data);
+          var dxCodeId = parsedData.dxCodeId;
+          RenderUtil.render('component/dx_code', {id: dxCodeId}, function(s) { 
+            $("#encounter-dx-codes-"+id).append(s); 
+            setEncounterFormMode(encounter, section, savedState, hasOwnership);
+            $('.encounter-dx-code-icd9-editable').blur(function(e) { 
+              getCurrentDxCodeId(e);
+              updateDxCode("icd9", $(this).html(), dxCodeId); 
+            });
+           });
+       });
+      });
+      
+      RenderUtil.render('component/tx_codes', {encounter:encounter}, function(s) { 
+        $("#encounter-tx_codes-"+id).html(s); 
+        setEncounterFormMode(encounter, section, savedState, hasOwnership);
+        $('.encounter-tx-code-cpt-editable').blur(function(e) { 
+          getCurrentTxCodeId(e);
+          updateTxCode("cpt", $(this).html(), app_currentTxCodeId); 
+        });
+        $('.encounter-tx-code-cpt-modifier-editable').blur(function(e) { 
+          getCurrentTxCodeId(e);
+          updateTxCode("cptModifier", $(this).html(), app_currentTxCodeId); 
+        });
+      });
+      
+      $('#encounter-supp-new-tx-code-'+id).click(function() { 
+        var jsonData = JSON.stringify({sessionId: clinician.sessionId, encounterId: id});
+        $.post("patient/addTxCode", {data:jsonData}, function(data) {
+          var parsedData = $.parseJSON(data);
+          var txCodeId = parsedData.txCodeId;
+          RenderUtil.render('component/tx_code', {id: txCodeId}, function(s) { 
+            $("#encounter-tx-codes-"+id).append(s); 
+            setEncounterFormMode(encounter, section, savedState, hasOwnership);
+            $('.encounter-tx-code-cpt-editable').blur(function(e) { 
+              getCurrentTxCodeId(e);
+              updateTxCode("cpt", $(this).html(), app_currentTxCodeId); 
+            });
+            $('.encounter-tx-code-cpt-modifier-editable').blur(function(e) { 
+              getCurrentTxCodeId(e);
+              updateTxCode("cptModifier", $(this).html(), app_currentTxCodeId); 
+            });
+           });
+       });
+      }); 
+      
       $('#encounter-hs-saved-'+id).html(encounter.exam.hs);
       $('input[name=encounter-heart-rhythm-'+id+'][value='+encounter.exam.heartRhythm+']').attr("checked", true);
       $('#encounter-lab-hb-saved-'+id).html(encounter.exam.hb);
