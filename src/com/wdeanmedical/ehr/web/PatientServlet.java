@@ -77,12 +77,18 @@ public class PatientServlet extends AppServlet  {
         if (pathInfo.equals("/acquirePatient")) {
           returnString = acquirePatient(request, response);  
         }
+        else if (pathInfo.equals("/addDxCode")) {
+          returnString = addDxCode(request, response);  
+        }
         else if (pathInfo.equals("/addEncounterQuestion")) {
           returnString = addEncounterQuestion(request, response);  
         }
         else if (pathInfo.equals("/addPatientMedication")) {
           returnString = addPatientMedication(request, response);  
         }
+        else if (pathInfo.equals("/addTxCode")) {
+          returnString = addTxCode(request, response);  
+        } 
         else if (pathInfo.equals("/createCC")) {
           returnString = createCC(request, response);  
         }
@@ -162,8 +168,8 @@ public class PatientServlet extends AppServlet  {
         else if (pathInfo.equals("/releasePatient")) {
           returnString = releasePatient(request, response);  
         }
-        else if (pathInfo.equals("/updatePatientMedication")) {
-          returnString = updatePatientMedication(request, response);  
+        else if (pathInfo.equals("/updateDxCode")) {
+          returnString = updateDxCode(request, response);  
         }
         else if (pathInfo.equals("/updateEncounterQuestion")) {
           returnString = updateEncounterQuestion(request, response);  
@@ -171,8 +177,14 @@ public class PatientServlet extends AppServlet  {
         else if (pathInfo.equals("/updatePatient")) {
           returnString = updatePatient(request, response);  
         }
+        else if (pathInfo.equals("/updatePatientMedication")) {
+          returnString = updatePatientMedication(request, response);  
+        }
         else if (pathInfo.equals("/uploadProfileImage")) {
           returnString = uploadProfileImage(request, response);  
+        }
+        else if (pathInfo.equals("/updateTxCode")) {
+          returnString = updateTxCode(request, response);  
         }
       }
      
@@ -273,6 +285,24 @@ public class PatientServlet extends AppServlet  {
     Gson gson = new Gson();
     PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
     patientService.updateEncounterQuestion(dto);
+    String json = gson.toJson(dto);
+    return json;
+  }
+  
+  public String updateDxCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String data = request.getParameter("data");
+    Gson gson = new Gson();
+    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
+    patientService.updateDxCode(dto);
+    String json = gson.toJson(dto);
+    return json;
+  }
+  
+  public String updateTxCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String data = request.getParameter("data");
+    Gson gson = new Gson();
+    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
+    patientService.updateTxCode(dto);
     String json = gson.toJson(dto);
     return json;
   }
@@ -393,6 +423,30 @@ public class PatientServlet extends AppServlet  {
     String json = gson.toJson(dto);
     return json;
   }
+  
+  
+  public String addDxCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String data = request.getParameter("data");
+    Gson gson = new Gson();
+    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
+    Integer dxCodeId = patientService.addDxCode(dto.getEncounterId());
+    dto.setDxCodeId(dxCodeId);
+    String json = gson.toJson(dto);
+    return json;
+  }
+  
+  
+  public String addTxCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String data = request.getParameter("data");
+    Gson gson = new Gson();
+    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
+    Integer txCodeId = patientService.addTxCode(dto.getEncounterId());
+    dto.setTxCodeId(txCodeId);
+    String json = gson.toJson(dto);
+    return json;
+  }
+  
+  
   
   public String newEncounter(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String data = request.getParameter("data");
