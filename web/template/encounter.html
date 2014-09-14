@@ -1120,7 +1120,7 @@
                         <div class="form-group">
                           <label for="encounter-lab-urine-dip-${id}">Urine DIP (+)</label>
                           <input type="text" class="form-control form-control-unsaved" id="encounter-lab-urine-dip-${id}">
-                        <div class="form-control-saved edit-on-select" id="encounter-lab-urine-dip-saved-${id}" contenteditable="true">&nbsp;</div>
+                        <div class="form-control-saved edit-on-select" id="encounter-lab-urine-dip-saved-${id}" contenteditable="true"></div>
                         </div>
                       </div>
                     </div>
@@ -1131,40 +1131,20 @@
                     <div class="form-group">
                       <label for="encounter-diagnosis-${id}">Diagnosis</label>
                       <textarea id="encounter-diagnosis-${id}" class="form-control form-control-unsaved" rows="5"></textarea>
-                        <div class="form-control-saved edit-on-select" id="encounter-diagnosis-saved-${id}" contenteditable="true">&nbsp;</div>
+                        <div class="form-control-saved edit-on-select" id="encounter-diagnosis-saved-${id}" contenteditable="true"></div>
                     </div>
                   </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="encounter-dx-code-${id}">DX Code</label>
-                      <input type="text" class="form-control form-control-unsaved input-sm" id="encounter-dx-code-${id}" placeholder="ICD-9 Code">
-                      <div class="form-control-saved edit-on-select" id="encounter-dx-code-saved-${id}" contenteditable="true">&nbsp;</div>
-                    </div>
-                  </div>
+                  <div id="encounter-dx-codes-${id}"></div>
                 </div>
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="encounter-treatment-plan-${id}">Treatment Plan</label>
                       <textarea id="encounter-treatment-plan-${id}" class="form-control form-control-unsaved" rows="10"></textarea>
-                        <div class="form-control-saved edit-on-select" id="encounter-treatment-plan-saved-${id}" contenteditable="true">&nbsp;</div>
+                        <div class="form-control-saved edit-on-select" id="encounter-treatment-plan-saved-${id}" contenteditable="true"></div>
                     </div>
                   </div>
-                  <div class="col-md-5">
-                    <div class="form-group">
-                      <label for="encounter-tx-code-${id}">TX Code</label>
-                      <input type="text" class="form-control form-control-unsaved input-sm" id="encounter-tx-code-${id}" placeholder="CPT Code">
-                      <div class="form-control-saved edit-on-select" id="encounter-tx-code-saved-${id}" contenteditable="true">&nbsp;</div>
-                    </div>
-                  </div>
-                  <div class="col-md-1">
-                    <div class="form-group">
-                      <label for="encounter-cpt-modifier-${id}">Modifier</label>
-                      <select id="encounter-cpt-modifier-${id}" class="form-control form-control-unsaved dual-mode-unsaved" name="cptModifier"></select>
-                      <div class="form-control-saved dual-mode-saved" id="encounter-cpt-modifier-saved-${id}"></div>
-                    </div>
-                  </div>
-                </div>
+                  <div id="encounter-tx-codes-${id}"></div>
                 <div class="row">
                   <div class="col-md-12">
                     <div class="form-group">

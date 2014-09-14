@@ -37,7 +37,7 @@
      </div>
      </td>
    </tr>
-     <tr>
+       <tr>
     <td colspan="4">
      <div class="item-wrapper-basic-info">
        <span class="item-label">DIAGNOSIS</span>
@@ -46,20 +46,21 @@
      </td>
    </tr>
    <tr>
-    <td colspan="2">
-    <div class="item-wrapper-basic-info">
-       <span class="item-label">DX CODE</span>
-       <div class="basic-info-input">${encounter.exam.dxCode}</div>
-     </div>
-     </td>
-     <td colspan="2">
-    <div class="item-wrapper-basic-info">
-       <span class="item-label">TX CODE</span>
-       <div class="basic-info-input">${encounter.exam.txCode}</div>
-     </div>
-     </td>
+   <td colspan="2">
+   {{each(i, item) encounter.dxCodes}}
+  <div class="item-wrapper-basic-info">
+    <table class="form-table">
+    <tr>
+    <td>
+      <span class="item-label">DX CODE</span>
+      <div class="basic-info-input">${icd9}</div>
+    </td>
+    </tr>
+    </table>
+  </div>
+{{/each}}
+  </td>
   </tr>
-  
   <tr>
    <td colspan="4">
      <div class="item-wrapper-text-area">
@@ -67,6 +68,24 @@
        <p class="item-actions-taken-input paragraph-input">${encounter.exam.treatmentPlan}</p>
      </div>
    </td>
+      <td colspan="2">
+   {{each(i, item) encounter.txCodes}}
+  <div class="item-wrapper-basic-info">
+    <table class="form-table">
+    <tr>
+    <td>
+      <span class="item-label">TX CODE</span>
+      <div class="basic-info-input">${cpt}</div>
+    </td>
+    <td>
+      <span class="item-label">MODIFIER</span>
+      <div class="basic-info-input">${cptModifier}</div>
+    </td>
+    </tr>
+    </table>
+  </div>
+{{/each}}
+  </td>
   </tr>
   
      <tr>

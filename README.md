@@ -1,9 +1,8 @@
 # WDean Medical EHR
-# version 0.8.17  13-SEP-2014
+# version 0.8.18  14-SEP-2014
 
 Improvements:
-Revamped Patient Medical History sections.
-Work on new Report section.
+Multiple dx and tx codes in an encounter.
 
 Bug Fixes:
 
