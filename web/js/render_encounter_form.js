@@ -462,20 +462,18 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
     
     if (savedState == false) {
      RenderUtil.render('component/dx_codes', {encounter:encounter}, function(s) { $("#encounter-dx-codes-"+id).html(s); setEncounterFormMode(encounter, section, savedState, hasOwnership);});
-      $('#encounter-exam-new-dx-code-'+id).click(function() { 
+      $('#encounter-new-dx-code-'+id).click(function() { 
        var jsonData = JSON.stringify({sessionId: clinician.sessionId, encounterId: id});
         $.post("patient/addDxCode", {data:jsonData}, function(data) {
         var parsedData = $.parseJSON(data);
-          var numQuestions = $("#encounter-dx-codes-"+id).children().length + 2;
           RenderUtil.render('component/dx_code', {id: parsedData.dxCodeId}, function(s) { $("#encounter-dx_codes-"+id).append(s); setEncounterFormMode(encounter, section, savedState, hasOwnership);});
         });
       });
       RenderUtil.render('component/tx_codes', {encounter:encounter}, function(s) { $("#encounter-tx-codes-"+id).html(s); setEncounterFormMode(encounter, section, savedState, hasOwnership);});
-      $('#encounter-exam-new-tx-code-'+id).click(function() { 
+      $('#encounter-new-tx-code-'+id).click(function() { 
        var jsonData = JSON.stringify({sessionId: clinician.sessionId, encounterId: id});
         $.post("patient/addTxCode", {data:jsonData}, function(data) {
         var parsedData = $.parseJSON(data);
-          var numQuestions = $("#encounter-tx-codes-"+id).children().length + 2;
           RenderUtil.render('component/tx_code', {id: parsedData.txCodeId}, function(s) { $("#encounter-tx_codes-"+id).append(s); setEncounterFormMode(encounter, section, savedState, hasOwnership);});
         });
       });
@@ -490,7 +488,7 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
         });
       });
       
-      $('#encounter-supp-new-dx-code-'+id).click(function() { 
+      $('#encounter-new-dx-code-'+id).click(function() { 
         var jsonData = JSON.stringify({sessionId: clinician.sessionId, encounterId: id});
         $.post("patient/addDxCode", {data:jsonData}, function(data) {
           var parsedData = $.parseJSON(data);
@@ -519,7 +517,7 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
         });
       });
       
-      $('#encounter-supp-new-tx-code-'+id).click(function() { 
+      $('#encounter-new-tx-code-'+id).click(function() { 
         var jsonData = JSON.stringify({sessionId: clinician.sessionId, encounterId: id});
         $.post("patient/addTxCode", {data:jsonData}, function(data) {
           var parsedData = $.parseJSON(data);
