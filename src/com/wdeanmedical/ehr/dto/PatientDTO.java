@@ -192,7 +192,7 @@ public class PatientDTO extends AuthorizedDTO {
   private String dxCode; 
   private String treatmentPlan; 
   private String txCode; 
-  private String providerName; 
+  private String Name; 
   private boolean followUpSaved; 
   private String followUpLevel; 
   private String followUpWhen; 
@@ -707,9 +707,6 @@ public class PatientDTO extends AuthorizedDTO {
   
   public String getTxCode() { return txCode; }
   public void setTxCode(String txCode) { this.txCode = txCode; }
-  
-  public String getProviderName() { return providerName; }
-  public void setProviderName(String providerName) { this.providerName = providerName; }
   
   public boolean isFollowUpSaved() { return followUpSaved; }
   public void setFollowUpSaved(boolean followUpSaved) { this.followUpSaved = followUpSaved; }

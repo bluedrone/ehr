@@ -1135,6 +1135,11 @@
                     </div>
                   </div>
                   <div id="encounter-dx-codes-${id}"></div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <a id="encounter-new-dx-code-${id}" class="btn btn-primary pull-right">New Dx</a>
+                    </div>
+                  </div>
                 </div>
                 <div class="row">
                   <div class="col-md-6">
@@ -1145,15 +1150,11 @@
                     </div>
                   </div>
                   <div id="encounter-tx-codes-${id}"></div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <label for="encounter-provider-name-${id}">Treating provider name</label>
-                      <input type="text" class="form-control form-control-unsaved" id="encounter-provider-name-${id}">
-                        <div class="form-control-saved edit-on-select" id="encounter-provider-name-saved-${id}" contenteditable="true">&nbsp;</div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <a id="encounter-new-tx-code-${id}" class="btn btn-primary pull-right">New Tx</a>
                     </div>
                   </div>
-                </div>
               </div>
               <div class="panel-footer">
                 <button id="encounter-exam-clear-${id}" type="button" class="btn btn-default pull-right">Clear</button>

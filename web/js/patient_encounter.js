@@ -344,7 +344,6 @@ function saveExamEncounterForm(encounter) {
   encounter.exam.urineDIP = $.trim($("#encounter-lab-urine-dip-"+id).val());
   encounter.exam.diagnosis = $.trim($("#encounter-diagnosis-"+id).val());
   encounter.exam.treatmentPlan = $.trim($("#encounter-treatment-plan-"+id).val());
-  encounter.exam.providerName = $.trim($("#encounter-provider-name-"+id).val());
   encounter.examSaved = true;
   jsonData = JSON.stringify({ 
     sessionId: clinician.sessionId, 

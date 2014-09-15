@@ -487,7 +487,6 @@ function loadExamScreenForm() {
   $('#dx-code').html(app_patientExam[app_patientExamIndex].dxCode);
   $('#treatment-plan').html(app_patientExam[app_patientExamIndex].treatmentPlan);
   $('#tx-code').html(app_patientExam[app_patientExamIndex].txCode);
-  $('#provider-name').html(app_patientExam[app_patientExamIndex].providerName);
 }
 
     

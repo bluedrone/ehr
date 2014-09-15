@@ -51,7 +51,6 @@ function Encounter() {
   this.notes = undefined;
   this.checkIn = undefined;
   this.encounter = undefined;
-  this.provider = undefined;
   this.missing = undefined;
   this.completed = undefined;
   this.consultLocation = undefined;

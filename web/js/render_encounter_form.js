@@ -548,7 +548,6 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
       $('#encounter-dx-code-saved-'+id).html(encounter.exam.dxCode);
       $('#encounter-treatment-plan-saved-'+id).html(encounter.exam.treatmentPlan);
       $('#encounter-tx-code-saved-'+id).html(encounter.exam.txCode);
-      $('#encounter-provider-name-saved-'+id).html(encounter.exam.providerName);
       $('#encounter-hs-saved-'+id).blur(function() { updateSavedPatientEncounter("hs", $(this).html(), id); });
       $('input[name=encounter-heart-rhythm-'+id+']').click(function() { updateSavedPatientEncounter("heartRhythm", $(this).val(), id); });
       $('#encounter-lab-hb-saved-'+id).blur(function() { updateSavedPatientEncounter("hb", $(this).html(), id); });
@@ -558,7 +557,6 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
       $('#encounter-dx-code-saved-'+id).blur(function() { updateSavedPatientEncounter("dxCode", $(this).html(), id); });
       $('#encounter-treatment-plan-saved-'+id).blur(function() { updateSavedPatientEncounter("treatmentPlan", $(this).html(), id); });
       $('#encounter-tx-code-saved-'+id).blur(function() { updateSavedPatientEncounter("txCode", $(this).html(), id); });
-      $('#encounter-provider-name-saved-'+id).blur(function() { updateSavedPatientEncounter("providerName", $(this).html(), id); });
     }
   }
   else if (section == 'follow-up') {
