@@ -466,7 +466,7 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
        var jsonData = JSON.stringify({sessionId: clinician.sessionId, encounterId: id});
         $.post("patient/addDxCode", {data:jsonData}, function(data) {
         var parsedData = $.parseJSON(data);
-          RenderUtil.render('component/dx_code', {id: parsedData.dxCodeId}, function(s) { $("#encounter-dx_codes-"+id).append(s); setEncounterFormMode(encounter, section, savedState, hasOwnership);});
+          RenderUtil.render('component/dx_code', {id: parsedData.dxCodeId}, function(s) { $("#encounter-dx-codes-"+id).append(s); setEncounterFormMode(encounter, section, savedState, hasOwnership);});
         });
       });
       RenderUtil.render('component/tx_codes', {encounter:encounter}, function(s) { $("#encounter-tx-codes-"+id).html(s); setEncounterFormMode(encounter, section, savedState, hasOwnership);});

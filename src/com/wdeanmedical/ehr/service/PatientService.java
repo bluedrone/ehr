@@ -413,6 +413,15 @@ public class PatientService {
     Set<String> fieldSet = activityLogService.getListOfChangedFields(encounter);
     patientDAO.update(encounter);
     activityLogService.logEditEncounter(dto.getClinicianId(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSet); 
+    postEncounterToBilling(encounter);
+  }
+  
+  
+  
+  public void postEncounterToBilling(Encounter encounter) throws Exception {
+    if (encounter.getDxCodes().size() > 0 && encounter.getTxCodes().size() > 0) {
+      // connect to PM's external interface and call postEncounter()
+    }
   }
   
   
