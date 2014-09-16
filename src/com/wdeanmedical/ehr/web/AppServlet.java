@@ -81,6 +81,7 @@ public void init(ServletConfig config) throws ServletException {
     Core.appSessionTimeout = Integer.parseInt(context.getInitParameter("appSessionTimeout"));
     Core.imageMagickHome = context.getInitParameter("IMAGE_MAGICK_HOME");
     Core.imagesDir = context.getInitParameter("imagesDir");
+    Core.pmHome = context.getInitParameter("pmHome");
     Permissions.buildClinicianPermissionsMap();
     try{ appService = new AppService(); } catch(MalformedURLException e){ e.printStackTrace(); }
   }

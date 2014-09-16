@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
@@ -61,6 +62,15 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.http.HttpEntity;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 
 public class PatientService {
 
@@ -421,6 +431,26 @@ public class PatientService {
   public void postEncounterToBilling(Encounter encounter) throws Exception {
     if (encounter.getDxCodes().size() > 0 && encounter.getTxCodes().size() > 0) {
       // connect to PM's external interface and call postEncounter()
+      CloseableHttpClient httpclient = HttpClients.createDefault();
+      try {
+        HttpPost httpPost = new HttpPost(Core.pmHome + "/postEncounter");
+        List <NameValuePair> nvps = new ArrayList <NameValuePair>();
+        nvps.add(new BasicNameValuePair("sessionId", "sessionId"));
+        nvps.add(new BasicNameValuePair("password", "secret"));
+        httpPost.setEntity(new UrlEncodedFormEntity(nvps));
+        CloseableHttpResponse response = httpclient.execute(httpPost);
+
+        try {
+          System.out.println(response.getStatusLine());
+          HttpEntity entity2 = response.getEntity();
+          // do something useful with the response body and ensure it is fully consumed
+          EntityUtils.consume(entity2);
+        } finally {
+          response.close();
+        }
+      } finally {
+        httpclient.close();
+      }
     }
   }
   

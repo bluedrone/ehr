@@ -42,6 +42,7 @@ public class Core {
   public static String imageMagickHome;
   public static String imagesDir;
   public static Integer appSessionTimeout;
+  public static String pmHome;
   public static Map<String, ClinicianSessionData> clinicianSessionMap = Collections.synchronizedMap(new TreeMap<String, ClinicianSessionData>());
   
 }
