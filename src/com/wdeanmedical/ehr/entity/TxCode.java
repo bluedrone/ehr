@@ -37,12 +37,12 @@ public class TxCode extends BaseEntity implements Serializable {
   public void setEncounterId(Integer encounterId) { this.encounterId = encounterId; }
 
   @JoinColumn(name = "cpt", referencedColumnName = "id")
-  @ManyToOne(optional = false)
+  @ManyToOne(optional = true)
   public CPT getCpt() { return cpt; }
   public void setCpt(CPT cpt) { this.cpt = cpt; }
 
   @JoinColumn(name = "cpt_modifier", referencedColumnName = "id")
-  @ManyToOne(optional = false)
+  @ManyToOne(optional = true)
   public CPTModifier getCptModifier() { return cptModifier; }
   public void setCptModifier(CPTModifier cptModifier) { this.cptModifier = cptModifier; }
 

@@ -36,7 +36,7 @@ public class DxCode extends BaseEntity implements Serializable {
   public void setEncounterId(Integer encounterId) { this.encounterId = encounterId; }
 
   @JoinColumn(name = "icd_9", referencedColumnName = "id")
-  @ManyToOne(optional = false)
+  @ManyToOne(optional = true)
   public ICD9 getIcd9() { return icd9; }
   public void setIcd9(ICD9 icd9) { this.icd9 = icd9; }
 
