@@ -61,6 +61,10 @@ public class ReportsServlet extends AppServlet {
           returnString = exportCsv(request, response);
         } else if (pathInfo.equals("/getReportsList")) {
           returnString = getReportsList(request, response);
+        } else if (pathInfo.equals("/getActivityLogSearchTypeAheads")) {
+          returnString = getActivityLogSearchTypeAheads(request, response);  
+        }else if (pathInfo.equals("/filterActivityLog")) {
+          returnString = filterActivityLog(request, response);  
         }
       }
 
@@ -106,7 +110,7 @@ public class ReportsServlet extends AppServlet {
     return json;
   }
 
-  private String exportCsv(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String exportCsv(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String data = request.getParameter("data");
     Gson gson = new Gson();
     AdminDTO dto = gson.fromJson(data, AdminDTO.class);
@@ -116,6 +120,24 @@ public class ReportsServlet extends AppServlet {
     workbook.write(response.getOutputStream());
     response.getOutputStream().close();
     return null;
+  }
+  
+  public String getActivityLogSearchTypeAheads(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String data = request.getParameter("data");
+    Gson gson = new Gson();
+    ActivityLogDTO dto = gson.fromJson(data, ActivityLogDTO.class); 
+    reportsService.getActivityLogSearchTypeAheads(dto); 
+    String json = gson.toJson(dto);
+    return json;
+  }
+  
+  public String filterActivityLog(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String data = request.getParameter("data");
+    Gson gson = new Gson();
+    ActivityLogDTO dto = gson.fromJson(data, ActivityLogDTO.class); 
+    List<ActivityLogDTO> activityLogs = reportsService.filterActivityLog(dto); 
+    String json = gson.toJson(activityLogs);
+    return json;   
   }
 
 }

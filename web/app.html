@@ -657,6 +657,47 @@
         		   	  	<div id="reports-view-header" class="panel-top"></div>
                     		<div class="panel panel-default">
                       			<div class="panel-body">
+                      			
+                      			      <div class="modal-body">
+								        <h5 class="modal-sub-title">Filter By</h5>
+								        <div class="panel panel-default">
+								          <div class="panel-body search-panel">
+								            <form class="form-horizontal container-fluid">
+								              <div class="row">
+								                <div class="col-sm-6">
+								                  <div class="form-group">
+								                    <label for="reports-clinician-search-full-name" class="col-sm-4 control-label">Clinician Full Name</label>
+								                    <div class="col-sm-7">
+								                      <input type="text" class="form-control input-sm" id="reports-clinician-search-full-name">
+								                    </div>
+								                   </div>
+								                   <div class="form-group">
+								                   <label for="reports-patient-search-full-name" class="col-sm-4 control-label">Patient Full Name</label>
+								                    <div class="col-sm-7">
+								                      <input type="text" class="form-control input-sm" id="reports-patient-search-full-name">
+								                    </div>								                   
+											       </div>									
+								                </div>
+								                <div class="col-sm-6">
+								                  <div class="form-group">
+								                    <label for="reports-activity-log-activity" class="col-sm-4 control-label">Clinician Activity</label>
+								                   <div class="col-sm-7">
+								                       <select id="reports-activity-log-activity" class="form-control input-sm"></select>
+											       </div>
+								                  </div>							                  
+								                   <div class="form-group">								                    
+								                      <div class="pull-right search-btn">
+								                        <a id="btn-reports-activity-log-filter" class="btn btn-primary">Filter</a>
+								                        <a id="btn-reports-activity-log-clear" class="btn btn-default">Clear</a>
+								                      </div>
+								                    </div>
+								                  </div>								                  
+								               </div>
+								            </form>             
+								          </div>
+								        </div>
+								      </div>
+								      
                       				<a href="#" id="export-csv-activity-log-lg" type="button" class="btn btn-primary pull-right btn-pad hidden-xs">
 			                  			<i class="fa fa-user fa-lg"></i><i class="fa fa-plus"></i> Excel Export
 			                		</a>
@@ -676,23 +717,7 @@
               		<a href="#" class="btn btn-default">Change Op</a>
               		<a href="#" class="btn btn-default">Print</a>
               		<a href="#" class="btn btn-default">Select</a>
-           		 </div>
-        		<!-- <div class="col-sm-10">
-        			<div class="tab-content">        			
-			            <div class="panel panel-default">
-			              <div class="panel-body">
-			              <h4>Activity Log</h4>
-			              	<a href="#" id="export-csv-activity-log-lg" type="button" class="btn btn-primary pull-right btn-pad hidden-xs">
-			                  <i class="fa fa-user fa-lg"></i><i class="fa fa-plus"></i> Excel Export
-			                </a>
-			              	<a href="#" id="export-csv-activity-log-sm" type="button" class="btn btn-primary pull-right btn-pad btn-block visible-xs">
-			                  <i class="fa fa-user fa-lg"></i><i class="fa fa-plus"></i> Excel Export
-			                </a>
-			                <div id="reports-activityLogs-list" class="table-responsive container-scroll"></div>
-			              </div>
-			            </div>  
-        			</div>
-        		</div> --><!-- col-10-end -->
+           		 </div>        		
         	</div> 
         </div>     
       </div>

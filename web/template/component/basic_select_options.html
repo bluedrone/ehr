@@ -1,7 +1,9 @@
-<option value=''>choose</option>
+<option value="0">choose</option>
 {{each options}}
   {{if collection == 'app_cptModifiers'}}
     <option value='${id}'>${code}</option>
+  {{else collection == 'app_clinicianActivity'}}
+    <option value='${id}'>${activityType}</option>
   {{else}}
     <option value='${id}'>${name}</option>
   {{/if}}

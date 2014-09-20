@@ -8,8 +8,14 @@
 package com.wdeanmedical.ehr.dto;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-public class ActivityLogDTO {
+import com.wdeanmedical.ehr.entity.Activity;
+
+public class ActivityLogDTO extends AdminDTO{
 
   private String userName;
   private String patientName;
@@ -18,7 +24,11 @@ public class ActivityLogDTO {
   private Integer encounterId;
   private String fieldName;
   private String activity;
+  private Integer activityId;
   private String module;
+  public Map<String, Set<String>> activityLogClinicianSearchTypeAheads = new HashMap<String, Set<String>>();
+  public Map<String, Set<String>> activityLogPatientSearchTypeAheads = new HashMap<String, Set<String>>();
+  public Map<String, List<Activity>> clinicianActivityList = new HashMap<String, List<Activity>>();
 
   public ActivityLogDTO() {
   }
@@ -77,6 +87,14 @@ public class ActivityLogDTO {
 
   public void setActivity(String activity) {
     this.activity = activity;
+  }  
+
+  public Integer getActivityId() {
+    return activityId;
+  }
+
+  public void setActivityId(Integer activityId) {
+    this.activityId = activityId;
   }
 
   public String getModule() {
@@ -86,5 +104,5 @@ public class ActivityLogDTO {
   public void setModule(String module) {
     this.module = module;
   }
-
+  
 }

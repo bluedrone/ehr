@@ -10,14 +10,18 @@ package com.wdeanmedical.ehr.service;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.servlet.ServletContext;
 
 import com.wdeanmedical.ehr.persistence.ReportsDAO;
+import com.wdeanmedical.ehr.util.WDMConstants;
 import com.wdeanmedical.ehr.util.DataEncryptor;
 import com.wdeanmedical.ehr.core.Core;
 import com.wdeanmedical.ehr.dto.ActivityLogDTO;
 import com.wdeanmedical.ehr.dto.AdminDTO;
+import com.wdeanmedical.ehr.entity.Activity;
 import com.wdeanmedical.ehr.entity.ActivityLog;
 import com.wdeanmedical.ehr.entity.Clinician;
 import com.wdeanmedical.ehr.entity.Credentials;
@@ -61,17 +65,23 @@ public class ReportsService {
       activityLogDTO = new ActivityLogDTO();
       if(activityLog.getUserId() != null){
         User user = reportsDAO.findUserById(activityLog.getUserId());
-        activityLogDTO.setUserName(getFullName(user.getFirstName(), user.getMiddleName(), user.getLastName()));
+        if(user != null){
+          activityLogDTO.setUserName(getFullName(user.getFirstName(), user.getMiddleName(), user.getLastName()));
+        }
       }
       if(activityLog.getPatientId() != null){
-        Patient patient = reportsDAO.findPatientById(activityLog.getPatientId());
-        decrypt(patient);
-        activityLogDTO.setPatientName(getFullName(patient.getCred().getFirstName(), patient.getCred().getMiddleName(), patient.getCred().getLastName()));
+        Patient loggedPatient = reportsDAO.findPatientById(activityLog.getPatientId());
+        if(loggedPatient != null){
+          decrypt(loggedPatient);
+          activityLogDTO.setPatientName(getFullName(loggedPatient.getCred().getFirstName(), loggedPatient.getCred().getMiddleName(), loggedPatient.getCred().getLastName()));
+        }
       }
       activityLogDTO.setTimePerformed(activityLog.getTimePerformed());
       if(activityLog.getClinicianId() != null){
         Clinician loggedClinician = reportsDAO.findClinicianById(activityLog.getClinicianId());
-        activityLogDTO.setClinicianName(getFullName(loggedClinician.getFirstName(), loggedClinician.getMiddleName(), loggedClinician.getLastName()));
+        if(loggedClinician != null){
+          activityLogDTO.setClinicianName(getFullName(loggedClinician.getFirstName(), loggedClinician.getMiddleName(), loggedClinician.getLastName()));
+        }
       }
       activityLogDTO.setEncounterId(activityLog.getEncounterId());
       activityLogDTO.setFieldName(activityLog.getFieldName());
@@ -187,21 +197,110 @@ public class ReportsService {
       return;
     }
     Credentials cred = patient.getCred();
+    Demographics demo = patient.getDemo();
     if (cred.getFirstName() != null) { cred.setFirstName(DataEncryptor.decrypt(cred.getFirstName()));}
     if (cred.getMiddleName() != null) { cred.setMiddleName(DataEncryptor.decrypt(cred.getMiddleName()));}
     if (cred.getLastName() != null) { cred.setLastName(DataEncryptor.decrypt(cred.getLastName()));}
+    if (demo.getCity() != null) { demo.setCity(DataEncryptor.decrypt(demo.getCity()));}
     patient.setCred(cred);
+    patient.setDemo(demo);
     patient.setEncrypted(false);
   }
   
   private String getFullName(String firstName, String middleName, String lastName){
     
+    StringBuilder fullNameBuilder = new StringBuilder();
+    
     if(middleName == null){
-      return firstName + " " + lastName;
+      fullNameBuilder.append(firstName);
+      fullNameBuilder.append(WDMConstants.SINGLE_SPACE);
+      fullNameBuilder.append(lastName);
     }else{
-      return firstName + " " + middleName + " " + lastName;
+      fullNameBuilder.append(firstName);
+      fullNameBuilder.append(WDMConstants.SINGLE_SPACE);
+      fullNameBuilder.append(middleName);
+      fullNameBuilder.append(WDMConstants.SINGLE_SPACE);
+      fullNameBuilder.append(lastName);
     }
     
+    return fullNameBuilder.toString();
+    
   }  
+  
+  public boolean getActivityLogSearchTypeAheads(ActivityLogDTO dto) throws Exception {
+    
+    List<Clinician> clinicians = reportsDAO.getClinicians();
+    List<Patient> patients = reportsDAO.getPatients();
+    List<Activity> clinicianActivityList = reportsDAO.activityLogGetActivity();
+    Set<String> clinicianFullNames = new TreeSet<String>();
+    Set<String> patientFullNames = new TreeSet<String>();
+    
+    for(Clinician clinician : clinicians){
+      clinicianFullNames.add(getFullName(clinician.getFirstName(), clinician.getMiddleName(), clinician.getLastName()));
+    }
+    
+    for (Patient patient : patients) {
+      decrypt(patient);
+      patientFullNames.add(getFullName(patient.getCred().getFirstName(), patient.getCred().getMiddleName(), patient.getCred().getLastName()));
+    }
+    
+    dto.activityLogClinicianSearchTypeAheads.put("clinicianFullNames", clinicianFullNames);    
+    dto.activityLogPatientSearchTypeAheads.put("patientFullNames", patientFullNames);
+    dto.clinicianActivityList.put("clinicianActivity", clinicianActivityList);
+    
+    return true;
+  }
+  
+  public List<ActivityLogDTO> filterActivityLog(ActivityLogDTO dto) throws Exception {
+    
+    Integer clinicianId = null;
+    Activity activity = null;
+    Integer patientId = null;
+    
+    if(dto.getClinicianName().length() > 0){
+      Clinician clinician = reportsDAO.getClinicianByFullName(dto.getClinicianName()); 
+      clinicianId = clinician.getId();
+    }
+    if(dto.getActivityId() != 0){
+      activity = reportsDAO.findActivityById(dto.getActivityId());
+    }
+    if(dto.getPatientName().length() > 0){
+      Patient patient = reportsDAO.getPatientByFullName(dto.getPatientName());
+      patientId = patient.getId();
+    }
+    
+    List<ActivityLogDTO> activityLogDTOList = new ArrayList<ActivityLogDTO>();
+    List<ActivityLog> activityLogList  = reportsDAO.getFilteredActivityLog(clinicianId, activity, patientId);
+    ActivityLogDTO activityLogDTO = null;
+    for(ActivityLog activityLog : activityLogList){      
+      activityLogDTO = new ActivityLogDTO();
+      if(activityLog.getUserId() != null){
+        User user = reportsDAO.findUserById(activityLog.getUserId());
+        if(user != null){
+          activityLogDTO.setUserName(getFullName(user.getFirstName(), user.getMiddleName(), user.getLastName()));
+        }
+      }
+      if(activityLog.getPatientId() != null){
+        Patient loggedPatient = reportsDAO.findPatientById(activityLog.getPatientId());
+        if(loggedPatient != null){
+          decrypt(loggedPatient);
+          activityLogDTO.setPatientName(getFullName(loggedPatient.getCred().getFirstName(), loggedPatient.getCred().getMiddleName(), loggedPatient.getCred().getLastName()));
+        }
+      }
+      activityLogDTO.setTimePerformed(activityLog.getTimePerformed());
+      if(activityLog.getClinicianId() != null){
+        Clinician loggedClinician = reportsDAO.findClinicianById(activityLog.getClinicianId());
+        if(loggedClinician != null){
+          activityLogDTO.setClinicianName(getFullName(loggedClinician.getFirstName(), loggedClinician.getMiddleName(), loggedClinician.getLastName()));
+        }
+      }
+      activityLogDTO.setEncounterId(activityLog.getEncounterId());
+      activityLogDTO.setFieldName(activityLog.getFieldName());
+      activityLogDTO.setActivity(activityLog.getActivity().getActivityType());
+      activityLogDTO.setModule(activityLog.getModule().getModuleType());
+      activityLogDTOList.add(activityLogDTO);
+    }
+    return activityLogDTOList;
+  }
 
 }
