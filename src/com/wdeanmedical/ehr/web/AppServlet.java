@@ -43,7 +43,6 @@ import com.wdeanmedical.ehr.entity.PatientMessage;
 import com.wdeanmedical.ehr.entity.Clinician;
 import com.wdeanmedical.ehr.service.AppService;
 import com.wdeanmedical.ehr.util.DataEncryptor;
-import com.wdeanmedical.ehr.util.JSONUtils;
 import com.wdeanmedical.ehr.dto.MessageDTO;
 import com.wdeanmedical.ehr.dto.AppointmentDTO;
 import com.wdeanmedical.ehr.entity.Appointment;

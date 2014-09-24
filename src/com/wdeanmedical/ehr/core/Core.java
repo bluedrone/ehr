@@ -17,6 +17,7 @@ import org.apache.commons.logging.Log;
 
 import com.wdeanmedical.ehr.util.ClinicianSessionData;
 import com.wdeanmedical.ehr.core.Core;
+import com.wdeanmedical.ehr.entity.Patient;
 
 public class Core {
 
@@ -44,5 +45,6 @@ public class Core {
   public static Integer appSessionTimeout;
   public static String pmHome;
   public static Map<String, ClinicianSessionData> clinicianSessionMap = Collections.synchronizedMap(new TreeMap<String, ClinicianSessionData>());
+  public static Map<Integer, Patient> decryptedPatients = Collections.synchronizedMap(new TreeMap<Integer, Patient>());
   
 }

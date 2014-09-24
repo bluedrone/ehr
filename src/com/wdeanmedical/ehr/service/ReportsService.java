@@ -49,11 +49,13 @@ public class ReportsService {
   private ServletContext context;
   private WebApplicationContext wac;
   private ReportsDAO reportsDAO;
+  private PatientService patientService;
 
   public ReportsService() throws MalformedURLException {
     context = Core.servletContext;
     wac = WebApplicationContextUtils.getRequiredWebApplicationContext(context);
     reportsDAO = (ReportsDAO) wac.getBean("reportsDAO");
+    patientService = new PatientService();
   }
 
   public List<ActivityLogDTO> getActivityLog(AdminDTO dto) throws Exception {
@@ -72,7 +74,7 @@ public class ReportsService {
       if(activityLog.getPatientId() != null){
         Patient loggedPatient = reportsDAO.findPatientById(activityLog.getPatientId());
         if(loggedPatient != null){
-          decrypt(loggedPatient);
+          patientService.decrypt(loggedPatient);
           activityLogDTO.setPatientName(getFullName(loggedPatient.getCred().getFirstName(), loggedPatient.getCred().getMiddleName(), loggedPatient.getCred().getLastName()));
         }
       }
@@ -192,20 +194,33 @@ public class ReportsService {
     return workbook;
   }
   
-  private void decrypt(Patient patient) throws Exception { 
+  /*private void decrypt(Patient patient) throws Exception { 
+    //log.info("decrypt()");
     if (patient == null || patient.isEncrypted() == false) {
       return;
     }
     Credentials cred = patient.getCred();
     Demographics demo = patient.getDemo();
+    if (cred.getUsername() != null) { cred.setUsername(DataEncryptor.decrypt(cred.getUsername()));}
+    if (cred.getMrn() != null) { cred.setMrn(DataEncryptor.decrypt(cred.getMrn()));}
     if (cred.getFirstName() != null) { cred.setFirstName(DataEncryptor.decrypt(cred.getFirstName()));}
     if (cred.getMiddleName() != null) { cred.setMiddleName(DataEncryptor.decrypt(cred.getMiddleName()));}
     if (cred.getLastName() != null) { cred.setLastName(DataEncryptor.decrypt(cred.getLastName()));}
+    if (cred.getAdditionalName() != null) { cred.setAdditionalName(DataEncryptor.decrypt(cred.getAdditionalName()));}
+    if (cred.getEmail() != null) { cred.setEmail(DataEncryptor.decrypt(cred.getEmail()));}
+    if (cred.getGovtId() != null) { cred.setGovtId(DataEncryptor.decrypt(cred.getGovtId()));}
+    if (demo.getPrimaryPhone() != null) { demo.setPrimaryPhone(DataEncryptor.decrypt(demo.getPrimaryPhone()));}
+    if (demo.getSecondaryPhone() != null) { demo.setSecondaryPhone(DataEncryptor.decrypt(demo.getSecondaryPhone()));}
+    if (demo.getStreetAddress1() != null) { demo.setStreetAddress1(DataEncryptor.decrypt(demo.getStreetAddress1()));}
+    if (demo.getStreetAddress2() != null) { demo.setStreetAddress2(DataEncryptor.decrypt(demo.getStreetAddress2()));}
     if (demo.getCity() != null) { demo.setCity(DataEncryptor.decrypt(demo.getCity()));}
+    if (demo.getPostalCode() != null) { demo.setPostalCode(DataEncryptor.decrypt(demo.getPostalCode()));}
+    if (demo.getEmployer() != null) { demo.setEmployer(DataEncryptor.decrypt(demo.getEmployer()));}
+    if (demo.getSchoolName() != null) { demo.setSchoolName(DataEncryptor.decrypt(demo.getSchoolName()));}
     patient.setCred(cred);
     patient.setDemo(demo);
     patient.setEncrypted(false);
-  }
+  }*/
   
   private String getFullName(String firstName, String middleName, String lastName){
     
@@ -240,7 +255,7 @@ public class ReportsService {
     }
     
     for (Patient patient : patients) {
-      decrypt(patient);
+      patientService.decrypt(patient);
       patientFullNames.add(getFullName(patient.getCred().getFirstName(), patient.getCred().getMiddleName(), patient.getCred().getLastName()));
     }
     
@@ -283,7 +298,7 @@ public class ReportsService {
       if(activityLog.getPatientId() != null){
         Patient loggedPatient = reportsDAO.findPatientById(activityLog.getPatientId());
         if(loggedPatient != null){
-          decrypt(loggedPatient);
+          patientService.decrypt(loggedPatient);
           activityLogDTO.setPatientName(getFullName(loggedPatient.getCred().getFirstName(), loggedPatient.getCred().getMiddleName(), loggedPatient.getCred().getLastName()));
         }
       }
