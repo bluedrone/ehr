@@ -5,12 +5,14 @@
  * copyright 2013-2014 WDean Medical
  */
  
-function showScreen(page, screen) {
-  $('#app-page-name').html(page);
-  $(['#signin-screen','#dashboard-screen','#patient-chart-screen','#schedule-screen',
+ var hide_element_list_cache = $(['#signin-screen','#dashboard-screen','#patient-chart-screen','#schedule-screen',
   '#messages-screen','#letters-screen','#reports-screen','#reports-list','#reports-view','#patient-encounters-screen',
   '#user-admin-screen','#app-dropdown-logout','#app-dropdown-settings','#app-dropdown-signin',
-  '#main-navigation','#messages-view','#messages-inbox'].join(',')).css({display: "none"});
+  '#main-navigation','#messages-view','#messages-inbox'].join(','));
+ 
+function showScreen(page, screen) {
+  $('#app-page-name').html(page);
+  hide_element_list_cache.css({display: "none"});
   $(screen.join(',')).css({display: "block"});
 }
 
