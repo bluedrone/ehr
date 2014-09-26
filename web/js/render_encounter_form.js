@@ -43,7 +43,6 @@ function renderPatientEncounterForm(encounter, hasOwnership) {
   $('#encounter-hist-print-'+id).click(function() { printEncounterForm('print_encounter_hist', 'MEDICAL HISTORY')});
   $('#encounter-exam-print-'+id).click(function() { printEncounterForm('print_encounter_exam', 'EXAM')});
   $('#encounter-follow-up-print-'+id).click(function() { printEncounterForm('print_encounter_follow-up', 'FOLLOW UP')});
-  initEncounterTypeAheads(id);
   RenderUtil.render('component/basic_select_options', {options:app_usStates, collection:'app_usStates'}, function(s) {
     var id = app_currentEncounter.id;
     $('#encounter-demo-us-state-'+id).html(s);
@@ -461,7 +460,11 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
     initEncounterExamCanvas(id);
     
     if (savedState == false) {
-     RenderUtil.render('component/dx_codes', {encounter:encounter}, function(s) { $("#encounter-dx-codes-"+id).html(s); setEncounterFormMode(encounter, section, savedState, hasOwnership);});
+     RenderUtil.render('component/dx_codes', {encounter:encounter}, function(s) { 
+       $("#encounter-dx-codes-"+id).html(s); 
+       setEncounterFormMode(encounter, section, savedState, hasOwnership);
+       initEncounterTypeAheads(id);
+     });
       $('#encounter-new-dx-code-'+id).click(function() { 
        var jsonData = JSON.stringify({sessionId: clinician.sessionId, encounterId: id});
         $.post("patient/addDxCode", {data:jsonData}, function(data) {
@@ -486,6 +489,7 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
           getCurrentDxCodeId(e);
           updateDxCode("icd9", $(this).html(), app_currentDxCodeId); 
         });
+      initEncounterTypeAheads(id);
       });
       
       $('#encounter-new-dx-code-'+id).click(function() { 

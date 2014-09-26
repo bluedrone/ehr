@@ -98,7 +98,8 @@ function initEncounterTypeAheads(id) {
     }
   });
   dxCode.initialize();
-  $('#encounter-dx-code-'+id).typeahead( { hint: true, highlight: true, limit: 10, minLength: 3 },
+  //$('#encounter-dx-code-'+id).typeahead( { hint: true, highlight: true, limit: 10, minLength: 3 },
+  $('.icd9-typeahead').typeahead( { hint: true, highlight: true, limit: 10, minLength: 3 },
   { name: 'encounter-dx-code-'+id, displayKey: 'value', source: dxCode.ttAdapter(), }); 
   
     var cpt = new Bloodhound({
