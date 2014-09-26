@@ -20,8 +20,8 @@ var reports_cache = $(['#reports-screen','#reports-list','#app-dropdown-settings
 var patient_encounters_cache = $(['#patient-encounters-screen','#app-dropdown-settings','#app-dropdown-logout','#main-navigation'].join(','));
 var user_admin_cache = $(['#user-admin-screen','#app-dropdown-settings','#app-dropdown-logout','#main-navigation'].join(','));
 
-function showScreen(page, screen) {
-  $('#app-page-name').html(page);
+function showScreen(screenName, screen) {
+  $('#app-screen-name').html(screenName);
   hide_element_list_cache.css({display: "none"});
   screen.css({display: "block"});
 }
