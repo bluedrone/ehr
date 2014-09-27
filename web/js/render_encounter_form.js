@@ -481,7 +481,11 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
        var jsonData = JSON.stringify({sessionId: clinician.sessionId, encounterId: id});
         $.post("patient/addTxCode", {data:jsonData}, function(data) {
         var parsedData = $.parseJSON(data);
-          RenderUtil.render('component/tx_code', {id: parsedData.txCodeId}, function(s) { $("#encounter-tx-codes-"+id).append(s); setEncounterFormMode(encounter, section, savedState, hasOwnership);});
+          RenderUtil.render('component/tx_code', {id: parsedData.txCodeId}, function(s) { 
+            $("#encounter-tx-codes-"+id).append(s); 
+            setEncounterFormMode(encounter, section, savedState, hasOwnership);
+            renderCPTModifiers(id);
+          });
         });
       });
     }
@@ -543,6 +547,7 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
               updateTxCode("cptModifier", $(this).html(), app_currentTxCodeId); 
             });
            });
+          renderCPTModifiers(id);
        });
       }); 
       
