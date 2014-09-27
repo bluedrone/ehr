@@ -84,7 +84,7 @@ function renderCPTModifiers(id) {
 }
 
 
-function initEncounterTypeAheads(id) {
+function initDxTypeAheads(id) {
   var dxCode = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
     queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -98,11 +98,13 @@ function initEncounterTypeAheads(id) {
     }
   });
   dxCode.initialize();
-  //$('#encounter-dx-code-'+id).typeahead( { hint: true, highlight: true, limit: 10, minLength: 3 },
   $('.icd9-typeahead').typeahead( { hint: true, highlight: true, limit: 10, minLength: 3 },
   { name: 'encounter-dx-code-'+id, displayKey: 'value', source: dxCode.ttAdapter(), }); 
-  
-    var cpt = new Bloodhound({
+} 
+
+
+function initTxTypeAheads(id) {
+  var cpt = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     remote: {
@@ -115,11 +117,9 @@ function initEncounterTypeAheads(id) {
     }
   });
   cpt.initialize();
-  $('#encounter-tx-code-'+id).typeahead( { hint: true, highlight: true, limit: 10, minLength: 3 },
+  $('.cpt-typeahead').typeahead( { hint: true, highlight: true, limit: 10, minLength: 3 },
   { name: 'encounter-tx-code-'+id, displayKey: 'value', source: cpt.ttAdapter(), }); 
 } 
-
-
 
 function updateSavedPatientEncounter(property, value, encounterId, isDualMode, elementId, valueName) {
   var encounter = app_currentEncounter;

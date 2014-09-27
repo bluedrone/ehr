@@ -463,7 +463,7 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
      RenderUtil.render('component/dx_codes', {encounter:encounter}, function(s) { 
        $("#encounter-dx-codes-"+id).html(s); 
        setEncounterFormMode(encounter, section, savedState, hasOwnership);
-       initEncounterTypeAheads(id);
+       initDxTypeAheads(id);
      });
       $('#encounter-new-dx-code-'+id).click(function() { 
        var jsonData = JSON.stringify({sessionId: clinician.sessionId, encounterId: id});
@@ -472,7 +472,11 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
           RenderUtil.render('component/dx_code', {id: parsedData.dxCodeId}, function(s) { $("#encounter-dx-codes-"+id).append(s); setEncounterFormMode(encounter, section, savedState, hasOwnership);});
         });
       });
-      RenderUtil.render('component/tx_codes', {encounter:encounter}, function(s) { $("#encounter-tx-codes-"+id).html(s); setEncounterFormMode(encounter, section, savedState, hasOwnership);});
+      RenderUtil.render('component/tx_codes', {encounter:encounter}, function(s) { 
+        $("#encounter-tx-codes-"+id).html(s); 
+        setEncounterFormMode(encounter, section, savedState, hasOwnership);
+        initTxTypeAheads(id);
+      });
       $('#encounter-new-tx-code-'+id).click(function() { 
        var jsonData = JSON.stringify({sessionId: clinician.sessionId, encounterId: id});
         $.post("patient/addTxCode", {data:jsonData}, function(data) {
@@ -489,7 +493,7 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
           getCurrentDxCodeId(e);
           updateDxCode("icd9", $(this).html(), app_currentDxCodeId); 
         });
-      initEncounterTypeAheads(id);
+        initDxTypeAheads(id);
       });
       
       $('#encounter-new-dx-code-'+id).click(function() { 
@@ -504,7 +508,7 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
               getCurrentDxCodeId(e);
               updateDxCode("icd9", $(this).html(), dxCodeId); 
             });
-           });
+         });
        });
       });
       
@@ -519,6 +523,7 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
           getCurrentTxCodeId(e);
           updateTxCode("cptModifier", $(this).html(), app_currentTxCodeId); 
         });
+        initTxTypeAheads(id);
       });
       
       $('#encounter-new-tx-code-'+id).click(function() { 
