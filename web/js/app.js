@@ -102,6 +102,7 @@ var ONE_MINUTE = 60000;
 
 /***********      @JQUERY INIT    *******************/
 $(document).ready(function() {
+  $('#cloak').css({visibility: 'visible'});
   if (INITIALIZED == false) {
     getStaticLists();
     INITIALIZED = true;

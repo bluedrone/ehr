@@ -59,7 +59,7 @@ a {
 }
 
 #cloak {
-  display: none;
+  visibility: hidden;
 }
 
 /* CUSTOMIZE THE NAVBAR
