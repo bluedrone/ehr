@@ -62,7 +62,6 @@ public class AppServlet extends HttpServlet  {
   private static final Logger logger = Logger.getLogger(AppServlet.class);
   
   private AppService appService;
-  private String pathAction;
 
   @Override
 public void init(ServletConfig config) throws ServletException {
@@ -123,26 +122,22 @@ public void init(ServletConfig config) throws ServletException {
             returnString = getAppointmentsByClinician(request, response);  
           }
           else if (pathInfo.equals("/getClinicianDashboard")) {
-            pathAction = "getClinicianDashboard";
-            returnString = getClinicianData(request, pathAction);
+            returnString = getClinicianData(request, "/getClinicianDashboard");
           }
           else if (pathInfo.equals("/getClinicianMessage")) {
             returnString = getClinicianMessage(request, response);  
           }
           else if (pathInfo.equals("/getClinicianMessages")) {
-        	pathAction = "/getClinicianMessages";
-        	returnString = getClinicianData(request, pathAction);
+        	returnString = getClinicianData(request, "/getClinicianMessages");
           }
           else if (pathInfo.equals("/getClinicians")) {
-        	pathAction = "/getClinicians";
-        	returnString = getClinicianData(request, pathAction);
+        	returnString = getClinicianData(request, "/getClinicians");
           }
           else if (pathInfo.equals("/getCPTModifiers")) {
             returnString = getCPTModifiers(request, response);  
           }
           else if (pathInfo.equals("/getPatientChart")) {
-        	pathAction = "/getPatientChart";
-        	returnString = getPatientData(request, pathAction);
+        	returnString = getPatientData(request, "/getPatientChart");
           }
           else if (pathInfo.equals("/getPatientChartSummary")) {
             returnString = getPatientChartSummary(request, response);  
@@ -151,19 +146,16 @@ public void init(ServletConfig config) throws ServletException {
             returnString = getPatientHealthIssues(request, response);  
           }
           else if (pathInfo.equals("/getPatientSearchTypeAheads")) {
-            pathAction = "getPatientSearchTypeAheads";
-            returnString = getClinicianData(request, pathAction);
+            returnString = getClinicianData(request, "getPatientSearchTypeAheads");
           }
           else if (pathInfo.equals("/getRecentPatients")) {
-        	pathAction = "/getRecentPatients";
-        	returnString = getPatientData(request, pathAction);  
+        	returnString = getPatientData(request, "/getRecentPatients");  
           }
           else if (pathInfo.equals("/park")) {
             returnString = park(request, response);  
           }
           else if (pathInfo.equals("/patientSearch")) {
-        	pathAction = "/patientSearch";
-        	returnString = getPatientData(request, pathAction);
+        	returnString = getPatientData(request, "/patientSearch");
           }
           else if (pathInfo.equals("/searchCPT")) {
             returnString = searchCPT(request, response);  
@@ -295,10 +287,10 @@ public void init(ServletConfig config) throws ServletException {
     String data = request.getParameter("data");
     Gson gson = new Gson();
     ClinicianDTO dto = gson.fromJson(data, ClinicianDTO.class); 
-    if(pathAction.equals("getClinicianDashboard")) {
+    if(pathAction.equals("/getClinicianDashboard")) {
       appService.getClinicianDashboard(dto);
     } 
-    else if(pathAction.equals("getPatientSearchTypeAheads")) {
+    else if(pathAction.equals("/getPatientSearchTypeAheads")) {
       appService.getPatientSearchTypeAheads(dto);
     }
     else if(pathAction.equals("/getClinicianMessages")) {
