@@ -869,3 +869,11 @@ td.highlighted { background:#FFFF66 }
 .medication-delete-control {
   margin-top:30px;  
 }
+
+.dx-code-delete-control {
+  margin-top:30px;  
+}
+
+.tx-code-delete-control {
+  margin-top:30px;  
+}

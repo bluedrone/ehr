@@ -1,10 +1,12 @@
 <div class="row">
-  <div class="col-md-11">
+  <div class="col-md-10">
     <div class="form-group">
       <label for="encounter-exam-icd9-${id}">DX Code</label>
       <input type="text" class="form-control form-control-unsaved input-sm icd9-typeahead" id="encounter-exam-icd9-${id}" placeholder="ICD-9 Code">
       <div class="form-control-saved edit-on-select" id="encounter-exam-icd9-saved-${id}" contenteditable="true"></div>
     </div>
-   </div>                  
   </div>                  
-</div>
+  <div class="col-md-1">
+    <div class="badge badge-danger dx-code-delete-control"><i class="icon-remove"></i></div>
+  </div>
+</div>                  

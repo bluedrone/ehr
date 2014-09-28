@@ -1,6 +1,6 @@
 {{each(i, item) encounter.txCodes}}
   <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-8">
       <div class="form-group">
         <label for="encounter-cpt-${id}">TX Code</label>
         <input type="text" class="form-control form-control-unsaved input-sm cpt-typeahead" id="encounter-cpt-${id}" placeholder="CPT Code">
@@ -13,6 +13,9 @@
         <select id="encounter-cpt-modifier-${id}" class="form-control form-control-unsaved dual-mode-unsaved cpt-modifier" name="cptModifier"></select>
         <div class="form-control-saved dual-mode-saved" id="encounter-cpt-modifier-saved-${id}"></div>
       </div>
+    </div>
+    <div class="col-md-1">
+      <div class="badge badge-danger tx-code-delete-control"><i class="icon-remove"></i></div>
     </div>
   </div>
 {{/each}}
