@@ -464,18 +464,24 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
        $("#encounter-dx-codes-"+id).html(s); 
        setEncounterFormMode(encounter, section, savedState, hasOwnership);
        initDxTypeAheads(id);
+       $('.dx-code-delete-control').click(function() { deleteDxCode($(this)); });
      });
       $('#encounter-new-dx-code-'+id).click(function() { 
        var jsonData = JSON.stringify({sessionId: clinician.sessionId, encounterId: id});
         $.post("patient/addDxCode", {data:jsonData}, function(data) {
         var parsedData = $.parseJSON(data);
-          RenderUtil.render('component/dx_code', {id: parsedData.dxCodeId}, function(s) { $("#encounter-dx-codes-"+id).append(s); setEncounterFormMode(encounter, section, savedState, hasOwnership);});
+          RenderUtil.render('component/dx_code', {id: parsedData.dxCodeId}, function(s) { 
+            $("#encounter-dx-codes-"+id).append(s); 
+            setEncounterFormMode(encounter, section, savedState, hasOwnership);
+            $('.dx-code-delete-control').click(function() { deleteDxCode($(this)); });
+          });
         });
       });
       RenderUtil.render('component/tx_codes', {encounter:encounter}, function(s) { 
         $("#encounter-tx-codes-"+id).html(s); 
         setEncounterFormMode(encounter, section, savedState, hasOwnership);
         initTxTypeAheads(id);
+        $('.tx-code-delete-control').click(function() { deleteTxCode($(this)); });
       });
       $('#encounter-new-tx-code-'+id).click(function() { 
        var jsonData = JSON.stringify({sessionId: clinician.sessionId, encounterId: id});
@@ -485,6 +491,7 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
             $("#encounter-tx-codes-"+id).append(s); 
             setEncounterFormMode(encounter, section, savedState, hasOwnership);
             renderCPTModifiers(id, '.cpt-modifier-new');
+            $('.tx-code-delete-control').click(function() { deleteTxCode($(this)); });
           });
         });
       });
@@ -498,6 +505,7 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
           updateDxCode("icd9", $(this).html(), app_currentDxCodeId); 
         });
         initDxTypeAheads(id);
+         $('.dx-code-delete-control').click(function() { deleteDxCode($(this)); });
       });
       
       $('#encounter-new-dx-code-'+id).click(function() { 
@@ -508,6 +516,7 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
           RenderUtil.render('component/dx_code', {id: dxCodeId}, function(s) { 
             $("#encounter-dx-codes-"+id).append(s); 
             setEncounterFormMode(encounter, section, savedState, hasOwnership);
+            $('.dx-code-delete-control').click(function() { deleteDxCode($(this)); });
             $('.encounter-dx-code-icd9-editable').blur(function(e) { 
               getCurrentDxCodeId(e);
               updateDxCode("icd9", $(this).html(), dxCodeId); 
@@ -528,6 +537,7 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
           updateTxCode("cptModifier", $(this).html(), app_currentTxCodeId); 
         });
         initTxTypeAheads(id);
+        $('.tx-code-delete-control').click(function() { deleteTxCode($(this)); });
       });
       
       $('#encounter-new-tx-code-'+id).click(function() { 
@@ -538,6 +548,7 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
           RenderUtil.render('component/tx_code', {id: txCodeId}, function(s) { 
             $("#encounter-tx-codes-"+id).append(s); 
             setEncounterFormMode(encounter, section, savedState, hasOwnership);
+            $('.tx-code-delete-control').click(function() { deleteTxCode($(this)); });
             $('.encounter-tx-code-cpt-editable').blur(function(e) { 
               getCurrentTxCodeId(e);
               updateTxCode("cpt", $(this).html(), app_currentTxCodeId); 

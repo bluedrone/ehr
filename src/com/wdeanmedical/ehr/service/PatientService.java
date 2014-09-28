@@ -148,6 +148,20 @@ public class PatientService {
   
   
   
+  public void deleteDxCode(PatientDTO dto) throws Exception {
+    DxCode dxCode = patientDAO.findDxCodeById(dto.getDxCodeId());
+    patientDAO.delete(dxCode);
+  }
+  
+  
+  
+  public void deleteTxCode(PatientDTO dto) throws Exception {
+    TxCode txCode = patientDAO.findTxCodeById(dto.getTxCodeId());
+    patientDAO.delete(txCode);
+  }
+  
+  
+  
   public void deactivatePatient(PatientDTO dto) throws Exception {
     Patient patient = patientDAO.findPatientById(dto.getPatientId());
     PatientStatus status = patientDAO.findPatientStatusById(PatientStatus.INACTIVE);

@@ -605,4 +605,22 @@ function deleteMedication(element) {
   });  
 }
 
+
+function deleteDxCode(element) {
+  var id = element.attr('name');
+  var jsonData = JSON.stringify({ sessionId: clinician.sessionId, dxCodeId:id});
+  $.post("patient/deleteDxCode", {data:jsonData}, function(data) { 
+    $('#dx-code-'+id).remove();
+  });  
+}
+
+
+function deleteTxCode(element) {
+  var id = element.attr('name');
+  var jsonData = JSON.stringify({ sessionId: clinician.sessionId, txCodeId:id});
+  $.post("patient/deleteTxCode", {data:jsonData}, function(data) { 
+    $('#tx-code-'+id).remove();
+  });  
+}
+
     

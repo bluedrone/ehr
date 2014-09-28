@@ -128,6 +128,12 @@ public class PatientServlet extends AppServlet  {
         else if (pathInfo.equals("/deletePatientMedication")) {
           returnString = deletePatientMedication(request, response);  
         }
+        else if (pathInfo.equals("/deleteDxCode")) {
+          returnString = deleteDxCode(request, response);  
+        }
+        else if (pathInfo.equals("/deleteTxCode")) {
+          returnString = deleteTxCode(request, response);  
+        }
         else if (pathInfo.equals("/encryptPatients")) {
           returnString = encryptPatients(request, response);  
         }
@@ -260,6 +266,29 @@ public class PatientServlet extends AppServlet  {
     String json = gson.toJson(dto);
     return json;
   }
+  
+  
+  
+  public String deleteDxCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String data = request.getParameter("data");
+    Gson gson = new Gson();
+    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
+    patientService.deleteDxCode(dto);
+    String json = gson.toJson(dto);
+    return json;
+  }
+  
+  
+  public String deleteTxCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String data = request.getParameter("data");
+    Gson gson = new Gson();
+    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
+    patientService.deleteTxCode(dto);
+    String json = gson.toJson(dto);
+    return json;
+  }
+  
+  
   
   public String updatePatient(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String data = request.getParameter("data");
