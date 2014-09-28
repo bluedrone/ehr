@@ -29,6 +29,7 @@ import com.wdeanmedical.ehr.core.Core;
 import com.wdeanmedical.ehr.core.Permissions;
 import com.wdeanmedical.ehr.dto.AuthorizedDTO;
 import com.wdeanmedical.ehr.dto.ClinicianDTO;
+import com.wdeanmedical.ehr.dto.DTO;
 import com.wdeanmedical.ehr.dto.LoginDTO;
 import com.wdeanmedical.ehr.dto.PatientDTO;
 import com.wdeanmedical.ehr.dto.TerminologyDTO;
@@ -61,6 +62,7 @@ public class AppServlet extends HttpServlet  {
   private static final Logger logger = Logger.getLogger(AppServlet.class);
   
   private AppService appService;
+  private String pathAction;
 
   @Override
 public void init(ServletConfig config) throws ServletException {
@@ -121,7 +123,9 @@ public void init(ServletConfig config) throws ServletException {
             returnString = getAppointmentsByClinician(request, response);  
           }
           else if (pathInfo.equals("/getClinicianDashboard")) {
-            returnString = getClinicianDashboard(request, response);  
+//            returnString = getClinicianDashboard(request, response);
+        	  pathAction = "getClinicianDashboard";
+        	  returnString = getClinicianData(request, pathAction);
           }
           else if (pathInfo.equals("/getClinicianMessage")) {
             returnString = getClinicianMessage(request, response);  
@@ -145,7 +149,9 @@ public void init(ServletConfig config) throws ServletException {
             returnString = getPatientHealthIssues(request, response);  
           }
           else if (pathInfo.equals("/getPatientSearchTypeAheads")) {
-            returnString = getPatientSearchTypeAheads(request, response);  
+//            returnString = getPatientSearchTypeAheads(request, response); 
+        	  pathAction = "getPatientSearchTypeAheads";
+        	  returnString = getClinicianData(request, pathAction);
           }
           else if (pathInfo.equals("/getRecentPatients")) {
             returnString = getRecentPatients(request, response);  
@@ -279,26 +285,39 @@ public void init(ServletConfig config) throws ServletException {
     String json = gson.toJson(dto);
     return json;
   }
-  
+ 
+
+public String getClinicianData(HttpServletRequest request, String pathAction) throws Exception {
+	String data = request.getParameter("data");
+    Gson gson = new Gson();
+    ClinicianDTO dto = gson.fromJson(data, ClinicianDTO.class); 
+    if(pathAction.equals("getClinicianDashboard")) {
+    	appService.getClinicianDashboard(dto);
+    } else if(pathAction.equals("getPatientSearchTypeAheads")) {
+    	appService.getPatientSearchTypeAheads(dto);
+    }
+    String json = gson.toJson(dto);
+    return json;
+  }
     
-  public String getClinicianDashboard(HttpServletRequest request, HttpServletResponse response) throws Exception {
+/*  public String getClinicianDashboard(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String data = request.getParameter("data");
     Gson gson = new Gson();
     ClinicianDTO dto = gson.fromJson(data, ClinicianDTO.class); 
     appService.getClinicianDashboard(dto); 
     String json = gson.toJson(dto);
     return json;
-  }
+  }*/
   
   
-  public String getPatientSearchTypeAheads(HttpServletRequest request, HttpServletResponse response) throws Exception {
+/*  public String getPatientSearchTypeAheads(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String data = request.getParameter("data");
     Gson gson = new Gson();
     ClinicianDTO dto = gson.fromJson(data, ClinicianDTO.class); 
     appService.getPatientSearchTypeAheads(dto); 
     String json = gson.toJson(dto);
     return json;
-  }
+  }*/
  
  
   public String getClinicianMessages(HttpServletRequest request, HttpServletResponse response) throws Exception {
