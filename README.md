@@ -1,5 +1,5 @@
 # WDean Medical EHR
-# version 0.8.18  26-SEP-2014
+# version 0.8.18  28-SEP-2014
 
 Improvements:
 Multiple dx and tx codes in an encounter.
