@@ -99,8 +99,13 @@ function initDxTypeAheads(id) {
   });
   dxCode.initialize();
   $('.icd9-typeahead').typeahead( { hint: true, highlight: true, limit: 10, minLength: 3 },
-  { name: 'encounter-dx-code-'+id, displayKey: 'value', source: dxCode.ttAdapter(), }); 
+  { name: 'encounter-dx-code-'+id, displayKey: 'value', source: dxCode.ttAdapter(), }).on('typeahead:selected', onTypeaheadSelect); 
 } 
+
+function onTypeaheadSelect($e, datum) {
+  //console.log('selected');
+  //console.log(datum);
+}
 
 
 function initTxTypeAheads(id) {
