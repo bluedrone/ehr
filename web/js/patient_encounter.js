@@ -76,10 +76,10 @@ function printEncounterForm(template, title) {
 }
 
 
-function renderCPTModifiers(id) {
+function renderCPTModifiers(id, element) {
   RenderUtil.render('component/basic_select_options', {options:app_cptModifiers, collection:'app_cptModifiers'}, function(s) {
     var id = app_currentEncounter.id;
-    $('.cpt-modifier').html(s);
+    $(element).html(s);
   });
 }
 

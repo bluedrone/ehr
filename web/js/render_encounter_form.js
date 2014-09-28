@@ -47,7 +47,7 @@ function renderPatientEncounterForm(encounter, hasOwnership) {
     var id = app_currentEncounter.id;
     $('#encounter-demo-us-state-'+id).html(s);
   });
-  renderCPTModifiers(id);
+  renderCPTModifiers(id, '.cpt-modifier');
 } 
 
 
@@ -484,7 +484,7 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
           RenderUtil.render('component/tx_code', {id: parsedData.txCodeId}, function(s) { 
             $("#encounter-tx-codes-"+id).append(s); 
             setEncounterFormMode(encounter, section, savedState, hasOwnership);
-            renderCPTModifiers(id);
+            renderCPTModifiers(id, '.cpt-modifier-new');
           });
         });
       });
@@ -547,7 +547,7 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
               updateTxCode("cptModifier", $(this).html(), app_currentTxCodeId); 
             });
            });
-          renderCPTModifiers(id);
+          renderCPTModifiers(id, '.cpt-modifier-new');
        });
       }); 
       
