@@ -62,6 +62,7 @@ public class AppServlet extends HttpServlet  {
   private static final Logger logger = Logger.getLogger(AppServlet.class);
   
   private AppService appService;
+  private String pathAction;
 
   @Override
 public void init(ServletConfig config) throws ServletException {
@@ -122,22 +123,23 @@ public void init(ServletConfig config) throws ServletException {
             returnString = getAppointmentsByClinician(request, response);  
           }
           else if (pathInfo.equals("/getClinicianDashboard")) {
-            returnString = getClinicianData(request, "/getClinicianDashboard");
+            pathAction = "getClinicianDashboard";
+            returnString = getClinicianData(request, pathAction);
           }
           else if (pathInfo.equals("/getClinicianMessage")) {
             returnString = getClinicianMessage(request, response);  
           }
           else if (pathInfo.equals("/getClinicianMessages")) {
-        	returnString = getClinicianData(request, "/getClinicianMessages");
+            returnString = getClinicianMessages(request, response);  
           }
           else if (pathInfo.equals("/getClinicians")) {
-        	returnString = getClinicianData(request, "/getClinicians");
+            returnString = getClinicians(request, response);  
           }
           else if (pathInfo.equals("/getCPTModifiers")) {
             returnString = getCPTModifiers(request, response);  
           }
           else if (pathInfo.equals("/getPatientChart")) {
-        	returnString = getPatientData(request, "/getPatientChart");
+            returnString = getPatientChart(request, response);  
           }
           else if (pathInfo.equals("/getPatientChartSummary")) {
             returnString = getPatientChartSummary(request, response);  
@@ -146,16 +148,17 @@ public void init(ServletConfig config) throws ServletException {
             returnString = getPatientHealthIssues(request, response);  
           }
           else if (pathInfo.equals("/getPatientSearchTypeAheads")) {
-            returnString = getClinicianData(request, "getPatientSearchTypeAheads");
+            pathAction = "getPatientSearchTypeAheads";
+            returnString = getClinicianData(request, pathAction);
           }
           else if (pathInfo.equals("/getRecentPatients")) {
-        	returnString = getPatientData(request, "/getRecentPatients");  
+            returnString = getRecentPatients(request, response);  
           }
           else if (pathInfo.equals("/park")) {
             returnString = park(request, response);  
           }
           else if (pathInfo.equals("/patientSearch")) {
-        	returnString = getPatientData(request, "/patientSearch");
+            returnString = patientSearch(request, response);  
           }
           else if (pathInfo.equals("/searchCPT")) {
             returnString = searchCPT(request, response);  
@@ -287,20 +290,34 @@ public void init(ServletConfig config) throws ServletException {
     String data = request.getParameter("data");
     Gson gson = new Gson();
     ClinicianDTO dto = gson.fromJson(data, ClinicianDTO.class); 
-    if(pathAction.equals("/getClinicianDashboard")) {
+    if(pathAction.equals("getClinicianDashboard")) {
       appService.getClinicianDashboard(dto);
     } 
-    else if(pathAction.equals("/getPatientSearchTypeAheads")) {
+    else if(pathAction.equals("getPatientSearchTypeAheads")) {
       appService.getPatientSearchTypeAheads(dto);
     }
-    else if(pathAction.equals("/getClinicianMessages")) {
-      List<PatientMessage> clinicianMessages = appService.getClinicianMessages(dto, false); 
-      dto.setPatientMessages(clinicianMessages);
-    } 
-    else if(pathAction.equals("/getClinicians")) {
-      List<Clinician> clinicians = appService.getClinicians(dto); 
-      dto.setClinicians(clinicians);
-    } 
+    String json = gson.toJson(dto);
+    return json;
+  }
+      
+ 
+ 
+  public String getClinicianMessages(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String data = request.getParameter("data");
+    Gson gson = new Gson();
+    ClinicianDTO dto = gson.fromJson(data, ClinicianDTO.class); 
+    List<PatientMessage> clinicianMessages = appService.getClinicianMessages(dto, false); 
+    dto.setPatientMessages(clinicianMessages);
+    String json = gson.toJson(dto);
+    return json;
+  }
+  
+  public String getClinicians(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String data = request.getParameter("data");
+    Gson gson = new Gson();
+    ClinicianDTO dto = gson.fromJson(data, ClinicianDTO.class); 
+    List<Clinician> clinicians = appService.getClinicians(dto); 
+    dto.setClinicians(clinicians);
     String json = gson.toJson(dto);
     return json;
   }
@@ -314,23 +331,35 @@ public void init(ServletConfig config) throws ServletException {
     return (json);
   }
   
-  public String getPatientData(HttpServletRequest request, String pathAction) throws Exception {
-	String data = request.getParameter("data");
-	Gson gson = new Gson();
-	PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-	if(pathAction.equals("/patientSearch")) {
-	  List<Patient> patients = appService.getFilteredPatients(dto); 
-	  dto.setPatients(patients);
-	} 
-	else if(pathAction.equals("/getRecentPatients")) {
-	  List<Patient> patients = appService.getRecentPatients(dto); 
-	  dto.setPatients(patients);
-	} 
-	else if(pathAction.equals("/getPatientChart")) {
-	  appService.getPatientChart(dto);
-	}
-	String json = gson.toJson(dto);
-	return json;
+  public String patientSearch(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String data = request.getParameter("data");
+    Gson gson = new Gson();
+    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
+    List<Patient> patients = appService.getFilteredPatients(dto); 
+    dto.setPatients(patients);
+    String json = gson.toJson(dto);
+    return json;
+  }
+  
+ 
+  
+  public String getRecentPatients(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String data = request.getParameter("data");
+    Gson gson = new Gson();
+    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
+    List<Patient> patients = appService.getRecentPatients(dto); 
+    dto.setPatients(patients);
+    String json = gson.toJson(dto);
+    return json;
+  }
+  
+  public String getPatientChart(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String data = request.getParameter("data");
+    Gson gson = new Gson();
+    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
+    appService.getPatientChart(dto); 
+    String json = gson.toJson(dto);
+    return json;
   }
   
   public String getPatientChartSummary(HttpServletRequest request, HttpServletResponse response) throws Exception {
