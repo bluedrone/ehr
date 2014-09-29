@@ -140,10 +140,10 @@ public class AppServlet extends HttpServlet  {
             returnString = getPatientData(request, "/getPatientChart");
           }
           else if (pathInfo.equals("/getPatientChartSummary")) {
-            returnString = getPatientChartSummary(request, response);  
+            returnString = getPatientData(request, "/getPatientChartSummary");  
           }
           else if (pathInfo.equals("/getPatientHealthIssues")) {
-            returnString = getPatientHealthIssues(request, response);  
+            returnString = getPatientData(request, "/getPatientHealthIssues");  
           }
           else if (pathInfo.equals("/getPatientSearchTypeAheads")) {
             returnString = getClinicianData(request, "getPatientSearchTypeAheads");
@@ -329,25 +329,13 @@ public class AppServlet extends HttpServlet  {
     else if(pathAction.equals("/getPatientChart")) {
       appService.getPatientChart(dto);
     }
-    String json = gson.toJson(dto);
-    return json;
-  }
-
-  public String getPatientChartSummary(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    appService.getPatientChartSummary(dto); 
-    String json = gson.toJson(dto);
-    return json;
-  }
-
-  public String getPatientHealthIssues(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    List<PatientHealthIssue> patientHealthIssues = appService.getPatientHealthIssues(dto); 
-    dto.setPatientHealthIssues(patientHealthIssues);
+    else if(pathAction.equals("/getPatientChartSummary")) {
+      appService.getPatientChartSummary(dto); 
+    }
+    else if(pathAction.equals("/getPatientHealthIssues")) {
+      List<PatientHealthIssue> patientHealthIssues = appService.getPatientHealthIssues(dto); 
+      dto.setPatientHealthIssues(patientHealthIssues);
+    }
     String json = gson.toJson(dto);
     return json;
   }
@@ -482,5 +470,3 @@ public class AppServlet extends HttpServlet  {
 
 
 }
-
-
