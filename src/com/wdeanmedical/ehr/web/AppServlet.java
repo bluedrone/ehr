@@ -146,13 +146,13 @@ public class AppServlet extends HttpServlet  {
             returnString = getPatientData(request, "/getPatientHealthIssues");  
           }
           else if (pathInfo.equals("/getPatientSearchTypeAheads")) {
-            returnString = getClinicianData(request, "getPatientSearchTypeAheads");
+            returnString = getClinicianData(request, "/getPatientSearchTypeAheads");
           }
           else if (pathInfo.equals("/getRecentPatients")) {
             returnString = getPatientData(request, "/getRecentPatients");  
           }
           else if (pathInfo.equals("/park")) {
-            returnString = park(request, response);  
+            returnString = getAuthorizedData(request, "/park");  
           }
           else if (pathInfo.equals("/patientSearch")) {
             returnString = getPatientData(request, "/patientSearch");
@@ -167,7 +167,7 @@ public class AppServlet extends HttpServlet  {
             returnString = searchICD10(request, response);  
           }
           else if (pathInfo.equals("/unpark")) {
-            returnString = unpark(request, response);  
+            returnString = getAuthorizedData(request, "/unpark");  
           }
         }
       }
@@ -350,6 +350,19 @@ public class AppServlet extends HttpServlet  {
     return json;
   }
 
+  public String getAuthorizedData(HttpServletRequest request, String pathAction) throws Exception {
+    String data = request.getParameter("data");
+    Gson gson = new Gson();
+    AuthorizedDTO dto = gson.fromJson(data, AuthorizedDTO.class);  
+    if(pathAction.equals("/park")) {
+      appService.park(dto);
+    }
+    else if(pathAction.equals("/unpark")) {
+      appService.unpark(dto);
+    }
+    String json = gson.toJson(dto);
+    return json;  
+  }
 
   public String logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String data = request.getParameter("data");
@@ -360,25 +373,6 @@ public class AppServlet extends HttpServlet  {
     String json = gson.toJson(dto);
     return json;
   }
-
-  public String park(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    AuthorizedDTO dto = gson.fromJson(data, AuthorizedDTO.class);  
-    appService.park(dto);
-    String json = gson.toJson(dto);
-    return json;
-  }
-
-  public String unpark(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    AuthorizedDTO dto = gson.fromJson(data, AuthorizedDTO.class);  
-    appService.unpark(dto);
-    String json = gson.toJson(dto);
-    return json;
-  }
-
 
   public String checkSession(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String data = request.getParameter("data");
