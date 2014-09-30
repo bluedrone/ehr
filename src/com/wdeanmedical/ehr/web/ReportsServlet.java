@@ -25,6 +25,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import com.google.gson.Gson;
 import com.wdeanmedical.ehr.dto.ActivityLogDTO;
 import com.wdeanmedical.ehr.dto.AdminDTO;
+import com.wdeanmedical.ehr.dto.GroupedByPatientDTO;
 import com.wdeanmedical.ehr.entity.Report;
 import com.wdeanmedical.ehr.service.ReportsService;
 
@@ -65,6 +66,8 @@ public class ReportsServlet extends AppServlet {
           returnString = getActivityLogSearchTypeAheads(request, response);  
         }else if (pathInfo.equals("/filterActivityLog")) {
           returnString = filterActivityLog(request, response);  
+        }else if (pathInfo.equals("/getGroupByPatientsLog")) {
+          returnString = getGroupByPatientsLog(request, response);  
         }
       }
 
@@ -137,6 +140,15 @@ public class ReportsServlet extends AppServlet {
     ActivityLogDTO dto = gson.fromJson(data, ActivityLogDTO.class); 
     List<ActivityLogDTO> activityLogs = reportsService.filterActivityLog(dto); 
     String json = gson.toJson(activityLogs);
+    return json;   
+  }
+  
+  public String getGroupByPatientsLog(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String data = request.getParameter("data");
+    Gson gson = new Gson();
+    ActivityLogDTO dto = gson.fromJson(data, ActivityLogDTO.class); 
+    List<GroupedByPatientDTO> groupByPatientsLog = reportsService.getGroupByPatientsLog(dto); 
+    String json = gson.toJson(groupByPatientsLog);
     return json;   
   }
 

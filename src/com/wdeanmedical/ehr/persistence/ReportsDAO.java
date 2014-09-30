@@ -8,8 +8,11 @@
 package com.wdeanmedical.ehr.persistence;
 
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import com.wdeanmedical.ehr.entity.Activity;
 import com.wdeanmedical.ehr.entity.ActivityLog;
@@ -27,6 +30,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -64,6 +68,21 @@ public class ReportsDAO extends SiteDAO {
         + "' ORDER BY al.createdDate DESC");
     activityLogQuery.setMaxResults(200);
     return activityLogQuery.list();
+  }
+  
+  public Map<Integer, List<ActivityLog>> getActivityLogGroupByPatientId(Integer clinicianId) {
+    Session session = this.getSession();
+    Criteria criteria = session.createCriteria(ActivityLog.class);
+    Query patientIdQuery = session.createQuery("SELECT DISTINCT(al.patientId) FROM ActivityLog al"
+        + " WHERE al.clinicianId = '" + clinicianId + "' AND al.patientId IS NOT NULL");
+    List<Integer> patientIdList = patientIdQuery.list();
+    Map<Integer, List<ActivityLog>> groupedPatients = new TreeMap<Integer, List<ActivityLog>>();
+    for(Integer patientId : patientIdList){
+      Query activityLogQuery = session.createQuery("SELECT al FROM ActivityLog al WHERE al.clinicianId = '" 
+      + clinicianId + "' AND al.patientId = '" + patientId + "'");
+      groupedPatients.put(patientId, activityLogQuery.list());
+    }
+    return groupedPatients;
   }
 
   public List<Report> getReportList(Integer userId) {

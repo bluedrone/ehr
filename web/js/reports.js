@@ -8,12 +8,14 @@
 var app_currentReportId;
 var app_clinicianActivity;
 
-$('.app-reports-link').click(function(){ viewReports(); });
+$('.app-reports-link').click(function(){ 
+	viewReports(); 
+});
 
 function viewReports() {
   app_viewStack('reports-screen', DO_SCROLL);
+  initActivityLogSearchTypeAheads();
   getReportsList();
-  //getActivityLog();
 }
 
 function getReportsList() {
@@ -58,7 +60,43 @@ function getActivityLog() {
       $('#reports-content').html(s);
       $('#reports-view-header').html("Activity Logs");	      
     });
-    initActivityLogSearchTypeAheads();
+  });
+}
+
+function getGroupByPatientsLog() {
+  var jsonData = JSON.stringify({ sessionId: clinician.sessionId });
+  $.post("reports/getGroupByPatientsLog", {data:jsonData}, function(data) {
+    var parsedData = $.parseJSON(data);
+    RenderUtil.render('component/reports_nested_table', 
+     {items:parsedData, 
+      title:'Grouped by Patients Activity Logs', 
+      tableName:'reports-content', 
+      clickable:false/*,
+      columns:[
+       {title:'First Name', field:'patient.cred.firstName', type:'triple'},
+       {title:'Middle Name', field:'patient.cred.middleName', type:'triple'},
+       {title:'Last Name', field:'patient.cred.lastName', type:'triple'}
+      ]*/}, function(s) {
+      $('#reports-content').html(s);
+      $('#reports-view-header').html("Grouped by Patients Activity Logs");	      
+    });
+    /*RenderUtil.render('component/simple_data_table', 
+     {items:parsedData.groupedByPatientList.activityLog, 
+      title:'Activity Logs', 
+      tableName:'reports-content', 
+      clickable:false,
+      columns:[
+       {title:'User Name', field:'userName', type:'simple'},
+       {title:'Patient Name', field:'patientName', type:'simple'},
+       {title:'Time Performed', field:'timePerformed', type:'simple'},
+       {title:'Clinician Name', field:'clinicianName', type:'simple'},
+       {title:'Field Name', field:'fieldName', type:'simple'},
+       {title:'Activity', field:'activity', type:'simple'},
+       {title:'Module', field:'module', type:'simple'}
+      ]}, function(s) {
+      $('#reports-content').html(s);
+      $('#reports-view-header').html("Activity Logs");
+    });      */
   });
 }
 
@@ -121,11 +159,15 @@ function reports_handleClickableRow(e) {
 function viewReport() {
   $('#reports-view').css({display: "block"});
   $('#reports-list').css({display: "none"});
+  $('#report-filter').css({display: "none"});
   if(app_currentReportId == 25){
+	  $('#report-filter').css({display: "block"});
 	  getActivityLog();
+  }else if(app_currentReportId == 26){
+	  $('#report-filter').css({display: "block"});
+	  getGroupByPatientsLog();
   }else{
 	  $('#reports-view-header').html(app_currentReportId);
-	  $('#reports-content').html("<pre>"+"Hello world of reports!"+"</pre>");
   }
 }
 
@@ -189,7 +231,11 @@ function clearActivityLogFilter() {
 
 $('#report-view-button').click(function(){ viewReport(); });
 $('#report-close-button').click(function(){ viewReports(); });
-$('#btn-reports-activity-log-filter').click(function(){ filterActivityLog(); });
+$('#btn-reports-activity-log-filter').click(function(){ 
+	if(app_currentReportId == 25){
+		filterActivityLog(); 
+	}
+});
 $('#btn-reports-activity-log-clear').click(function(){ clearActivityLogFilter(); });
 
 

@@ -104,5 +104,4 @@ public class ActivityLogDTO extends AdminDTO{
   public void setModule(String module) {
     this.module = module;
   }
-  
 }

@@ -9,7 +9,9 @@ package com.wdeanmedical.ehr.service;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -21,6 +23,7 @@ import com.wdeanmedical.ehr.util.DataEncryptor;
 import com.wdeanmedical.ehr.core.Core;
 import com.wdeanmedical.ehr.dto.ActivityLogDTO;
 import com.wdeanmedical.ehr.dto.AdminDTO;
+import com.wdeanmedical.ehr.dto.GroupedByPatientDTO;
 import com.wdeanmedical.ehr.entity.Activity;
 import com.wdeanmedical.ehr.entity.ActivityLog;
 import com.wdeanmedical.ehr.entity.Clinician;
@@ -41,6 +44,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
+import org.hibernate.criterion.Projections;
 
 public class ReportsService {
 
@@ -90,8 +94,56 @@ public class ReportsService {
       activityLogDTO.setActivity(activityLog.getActivity().getActivityType());
       activityLogDTO.setModule(activityLog.getModule().getModuleType());
       activityLogDTOList.add(activityLogDTO);
-    }
+    }  
     return activityLogDTOList;
+  }
+  
+  public List<GroupedByPatientDTO> getGroupByPatientsLog(AdminDTO dto) throws Exception{    
+    List<ActivityLogDTO> activityLogDTOList = new ArrayList<ActivityLogDTO>();
+    List<GroupedByPatientDTO> groupedByPatientList = new ArrayList<GroupedByPatientDTO>();
+    ActivityLogDTO activityLogDTO = null;
+    GroupedByPatientDTO groupedByPatientDTO = null;
+    Clinician clinician = reportsDAO.findClinicianBySessionId(dto.getSessionId());
+    Map<Integer, List<ActivityLog>> groupByPatientsLogMap = reportsDAO.getActivityLogGroupByPatientId(clinician.getId());  
+    for (Map.Entry<Integer, List<ActivityLog>> entry : groupByPatientsLogMap.entrySet()) {
+      groupedByPatientDTO = new GroupedByPatientDTO();
+      Integer patientIdKey = entry.getKey();
+      Patient loggedPatient = reportsDAO.findPatientById(patientIdKey);
+      patientService.decrypt(loggedPatient);
+      groupedByPatientDTO.setPatient(loggedPatient);
+      List<ActivityLog> activityLogListValue = entry.getValue();
+      for(ActivityLog activityLog : activityLogListValue){      
+        activityLogDTO = new ActivityLogDTO();
+        if(activityLog.getUserId() != null){
+          User user = reportsDAO.findUserById(activityLog.getUserId());
+          if(user != null){
+            activityLogDTO.setUserName(getFullName(user.getFirstName(), user.getMiddleName(), user.getLastName()));
+          }
+        }
+        if(activityLog.getPatientId() != null){
+          Patient activityLoggedPatient = reportsDAO.findPatientById(activityLog.getPatientId());
+          if(activityLoggedPatient != null){
+            patientService.decrypt(activityLoggedPatient);
+            activityLogDTO.setPatientName(getFullName(activityLoggedPatient.getCred().getFirstName(), activityLoggedPatient.getCred().getMiddleName(), activityLoggedPatient.getCred().getLastName()));
+          }
+        }
+        activityLogDTO.setTimePerformed(activityLog.getTimePerformed());
+        if(activityLog.getClinicianId() != null){
+          Clinician loggedClinician = reportsDAO.findClinicianById(activityLog.getClinicianId());
+          if(loggedClinician != null){
+            activityLogDTO.setClinicianName(getFullName(loggedClinician.getFirstName(), loggedClinician.getMiddleName(), loggedClinician.getLastName()));
+          }
+        }
+        activityLogDTO.setEncounterId(activityLog.getEncounterId());
+        activityLogDTO.setFieldName(activityLog.getFieldName());
+        activityLogDTO.setActivity(activityLog.getActivity().getActivityType());
+        activityLogDTO.setModule(activityLog.getModule().getModuleType());
+        activityLogDTOList.add(activityLogDTO);
+      }
+      groupedByPatientDTO.setActivityLog(activityLogDTOList);
+      groupedByPatientList.add(groupedByPatientDTO);
+    }
+    return groupedByPatientList;    
   }
 
   public List<Report> getReportList(AdminDTO dto) throws Exception {
