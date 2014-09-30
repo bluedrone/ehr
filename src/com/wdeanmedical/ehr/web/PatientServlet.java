@@ -138,29 +138,29 @@ public class PatientServlet extends AppServlet  {
           returnString = encryptPatients(request, response);  
         }
         else if (pathInfo.equals("/getChiefComplaints")) {
-          returnString = getChiefComplaints(request, response);  
+          returnString = getPatientServiceData(request, "/getChiefComplaints");  
         }
         else if (pathInfo.equals("/getCurrentPatientEncounter")) {
           returnString = getCurrentPatientEncounter(request, response);  
         }
         else if (pathInfo.equals("/getEncounter")) {
-          returnString = getEncounter(request, response);  
+          returnString = getPatientServiceData(request, "/getEncounter");  
         }
         else if (pathInfo.equals("/getPatientEncounters")) {
-          returnString = getPatientEncounters(request, response);  
+          returnString = getPatientServiceData(request, "/getPatientEncounters");  
         }
         else if (pathInfo.equals("/getPatientProfileImage")) {
           isBinaryResponse = true;
           returnString = getPatientProfileImage(request, response);  
         }
         else if (pathInfo.equals("/getPatientVitalSigns")) {
-          returnString = getPatientVitalSigns(request, response);  
+          returnString = getPatientServiceData(request, "/getPatientVitalSigns");  
         }
         else if (pathInfo.equals("/getProgressNotes")) {
-          returnString = getProgressNotes(request, response);  
+          returnString = getPatientServiceData(request, "/getProgressNotes");  
         }
         else if (pathInfo.equals("/getSOAPNotes")) {
-          returnString = getSOAPNotes(request, response);  
+          returnString = getPatientServiceData(request, "/getSOAPNotes");  
         }
         else if (pathInfo.equals("/newEncounter")) {
           returnString = newEncounter(request, response);  
@@ -345,21 +345,7 @@ public class PatientServlet extends AppServlet  {
     patientService.createVitals(dto);
     String json = gson.toJson(dto);
     return json;
-  }
-  
-  
-    
-  public String getPatientVitalSigns(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    List<VitalSigns> patientVitalSigns = patientService.getPatientVitalSigns(dto); 
-    dto.setVitalSigns(patientVitalSigns);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
-  
+  } 
   
   public String createSOAPNote(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String data = request.getParameter("data");
@@ -507,62 +493,34 @@ public class PatientServlet extends AppServlet  {
     return json;
   }
   
-  public String getEncounter(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String getPatientServiceData(HttpServletRequest request, String pathAction) throws Exception {
     String data = request.getParameter("data");
     Gson gson = new Gson();
     PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    Encounter encounter =  patientService.getEncounter(dto);
-    dto.setEncounter(encounter);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
-  
-  public String getPatientEncounters(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    List<Encounter> encounters =  patientService.getPatientEncounters(dto);
-    dto.setPatientEncounters(encounters);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
-  
-  
-  
-  public String getChiefComplaints(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    List<ChiefComplaint> chiefComplaints =  patientService.getChiefComplaints(dto);
-    dto.setChiefComplaints(chiefComplaints);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
-  
-  
-  
-  public String getSOAPNotes(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    List<SOAPNote> notes =  patientService.getSOAPNotes(dto);
-    dto.setSOAPNotes(notes);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
-  
-  
-  
-  public String getProgressNotes(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    List<ProgressNote> notes =  patientService.getProgressNotes(dto);
-    dto.setProgressNotes(notes);
+    if(pathAction.equals("/getChiefComplaints")) {
+      List<ChiefComplaint> chiefComplaints =  patientService.getChiefComplaints(dto);
+      dto.setChiefComplaints(chiefComplaints);
+    }
+    else if(pathAction.equals("/getSOAPNotes")) {
+      List<SOAPNote> notes =  patientService.getSOAPNotes(dto);
+      dto.setSOAPNotes(notes);
+    }
+    else if(pathAction.equals("/getProgressNotes")) {
+      List<ProgressNote> notes =  patientService.getProgressNotes(dto);
+      dto.setProgressNotes(notes);
+    }
+    else if(pathAction.equals("/getEncounter")) {
+      Encounter encounter =  patientService.getEncounter(dto);
+      dto.setEncounter(encounter);
+    }
+    else if(pathAction.equals("/getPatientEncounters")) {
+      List<Encounter> encounters =  patientService.getPatientEncounters(dto);
+      dto.setPatientEncounters(encounters);
+    }
+    else if(pathAction.equals("/getPatientVitalSigns")) {
+      List<VitalSigns> patientVitalSigns = patientService.getPatientVitalSigns(dto); 
+      dto.setVitalSigns(patientVitalSigns);
+    }
     String json = gson.toJson(dto);
     return json;
   }
@@ -629,5 +587,4 @@ public class PatientServlet extends AppServlet  {
 
  
 }
- 
  
