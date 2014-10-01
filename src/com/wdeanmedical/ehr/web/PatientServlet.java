@@ -75,73 +75,73 @@ public class PatientServlet extends AppServlet  {
       }
       else { 
         if (pathInfo.equals("/acquirePatient")) {
-          returnString = acquirePatient(request, response);  
+          returnString = getPatientServiceData(request, "/acquirePatient");  
         }
         else if (pathInfo.equals("/addDxCode")) {
-          returnString = addDxCode(request, response);  
+          returnString = getPatientServiceData(request, "/addDxCode");  
         }
         else if (pathInfo.equals("/addEncounterQuestion")) {
-          returnString = addEncounterQuestion(request, response);  
+          returnString = getPatientServiceData(request, "/addEncounterQuestion");  
         }
         else if (pathInfo.equals("/addPatientMedication")) {
-          returnString = addPatientMedication(request, response);  
+          returnString = getPatientServiceData(request, "/addPatientMedication");  
         }
         else if (pathInfo.equals("/addTxCode")) {
-          returnString = addTxCode(request, response);  
+          returnString = getPatientServiceData(request, "/addTxCode");  
         } 
         else if (pathInfo.equals("/createCC")) {
-          returnString = createCC(request, response);  
+          returnString = getPatientServiceData(request, "/createCC");  
         }
         else if (pathInfo.equals("/createExam")) {
-          returnString = createExam(request, response);  
+          returnString = getPatientServiceData(request, "/createExam");  
         }
         else if (pathInfo.equals("/createFollowUp")) {
-          returnString = createFollowUp(request, response);  
+          returnString = getPatientServiceData(request, "/createFollowUp");  
         }
         else if (pathInfo.equals("/createHist")) {
-          returnString = createHist(request, response);  
+          returnString = getPatientServiceData(request, "/createHist");  
         }
         else if (pathInfo.equals("/closeEncounter")) {
-          returnString = closeEncounter(request, response);  
+          returnString = getPatientServiceData(request, "/closeEncounter");  
         }
         else if (pathInfo.equals("/closeProgressNote")) {
-          returnString = closeProgressNote(request, response);  
+          returnString = getPatientServiceData(request, "/closeProgressNote");  
         }
         else if (pathInfo.equals("/createOBGYN")) {
-          returnString = createOBGYN(request, response);  
+          returnString = getPatientServiceData(request, "/createOBGYN");  
         }
         else if (pathInfo.equals("/createPFSH")) {
-          returnString = createPFSH(request, response);  
+          returnString = getPatientServiceData(request, "/createPFSH");  
         }
         else if (pathInfo.equals("/createSOAPNote")) {
-          returnString = createSOAPNote(request, response);  
+          returnString = getPatientServiceData(request, "/createSOAPNote");  
         }
         else if (pathInfo.equals("/createSupp")) {
-          returnString = createSupp(request, response);  
+          returnString = getPatientServiceData(request, "/createSupp");  
         }
         else if (pathInfo.equals("/createVitals")) {
-          returnString = createVitals(request, response);  
+          returnString = getPatientServiceData(request, "/createVitals");  
         }
         else if (pathInfo.equals("/deletePatient")) {
-          returnString = deletePatient(request, response);  
+          returnString = getPatientServiceData(request, "/deletePatient");  
         }
         else if (pathInfo.equals("/deletePatientMedication")) {
-          returnString = deletePatientMedication(request, response);  
+          returnString = getPatientServiceData(request, "/deletePatientMedication");  
         }
         else if (pathInfo.equals("/deleteDxCode")) {
-          returnString = deleteDxCode(request, response);  
+          returnString = getPatientServiceData(request, "/deleteDxCode");  
         }
         else if (pathInfo.equals("/deleteTxCode")) {
-          returnString = deleteTxCode(request, response);  
+          returnString = getPatientServiceData(request, "/deleteTxCode");  
         }
         else if (pathInfo.equals("/encryptPatients")) {
-          returnString = encryptPatients(request, response);  
+          returnString = getPatientServiceData(request, "/encryptPatients");  
         }
         else if (pathInfo.equals("/getChiefComplaints")) {
           returnString = getPatientServiceData(request, "/getChiefComplaints");  
         }
         else if (pathInfo.equals("/getCurrentPatientEncounter")) {
-          returnString = getCurrentPatientEncounter(request, response);  
+          returnString = getPatientServiceData(request, "/getCurrentPatientEncounter");  
         }
         else if (pathInfo.equals("/getEncounter")) {
           returnString = getPatientServiceData(request, "/getEncounter");  
@@ -163,34 +163,34 @@ public class PatientServlet extends AppServlet  {
           returnString = getPatientServiceData(request, "/getSOAPNotes");  
         }
         else if (pathInfo.equals("/newEncounter")) {
-          returnString = newEncounter(request, response);  
+          returnString = getPatientServiceData(request, "/newEncounter");  
         }
         else if (pathInfo.equals("/newProgressNote")) {
-          returnString = newProgressNote(request, response);  
+          returnString = getPatientServiceData(request, "/newProgressNote");  
         }
         else if (pathInfo.equals("/overridePatient")) {
-          returnString = overridePatient(request, response);  
+          returnString = getPatientServiceData(request, "/overridePatient");  
         } 
         else if (pathInfo.equals("/releasePatient")) {
-          returnString = releasePatient(request, response);  
+          returnString = getPatientServiceData(request, "/releasePatient");  
         }
         else if (pathInfo.equals("/updateDxCode")) {
-          returnString = updateDxCode(request, response);  
+          returnString = getPatientServiceData(request, "/updateDxCode");  
         }
         else if (pathInfo.equals("/updateEncounterQuestion")) {
-          returnString = updateEncounterQuestion(request, response);  
+          returnString = getPatientServiceData(request, "/updateEncounterQuestion");  
         }
         else if (pathInfo.equals("/updatePatient")) {
-          returnString = updatePatient(request, response);  
+          returnString = getPatientServiceData(request, "/updatePatient");  
         }
         else if (pathInfo.equals("/updatePatientMedication")) {
-          returnString = updatePatientMedication(request, response);  
+          returnString = getPatientServiceData(request, "/updatePatientMedication");  
         }
         else if (pathInfo.equals("/uploadProfileImage")) {
           returnString = uploadProfileImage(request, response);  
         }
         else if (pathInfo.equals("/updateTxCode")) {
-          returnString = updateTxCode(request, response);  
+          returnString = getPatientServiceData(request, "/updateTxCode");  
         }
       }
      
@@ -223,276 +223,6 @@ public class PatientServlet extends AppServlet  {
     doPost(request, response);  
   }
 
-  
-  
-  public String getPatientProfileImage(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    String profileImagePath = request.getParameter("profileImagePath"); 
-    Gson gson = new Gson();
-    String patientId = request.getParameter("patientId");
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    String filesHomePatientDirPath =  Core.filesHome  + Core.patientDirPath + "/" + patientId + "/";
-	appService.getFile(request, response, getServletContext(), filesHomePatientDirPath, profileImagePath);  
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
-  
-  public String getCurrentPatientEncounter(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.getCurrentPatientEncounter(dto);
-    String json = gson.toJson(dto);
-    return json;
-  }
-
-  
-  public String deletePatient(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.deactivatePatient(dto);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
-  
-  public String deletePatientMedication(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.deletePatientMedication(dto);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
-  
-  
-  public String deleteDxCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.deleteDxCode(dto);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
-  
-  public String deleteTxCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.deleteTxCode(dto);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
-  
-  
-  public String updatePatient(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.updatePatient(dto);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
-  
-  public String updatePatientMedication(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.updatePatientMedication(dto);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
-  public String updateEncounterQuestion(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.updateEncounterQuestion(dto);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
-  public String updateDxCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.updateDxCode(dto);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
-  public String updateTxCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.updateTxCode(dto);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
-
-  
-  public String createVitals(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.createVitals(dto);
-    String json = gson.toJson(dto);
-    return json;
-  } 
-  
-  public String createSOAPNote(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.createSOAPNote(dto);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
-  public String createCC(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.createCC(dto);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
-  public String createOBGYN(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.createOBGYN(dto);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
-  public String createPFSH(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.createPFSH(dto);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
-  public String createExam(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.createExam(dto);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
-  public String createFollowUp(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.createFollowUp(dto);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
-  public String createHist(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.createHist(dto);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
-  public String createSupp(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.createSupp(dto);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
-  public String addPatientMedication(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    Integer patientMedicationId = patientService.addPatientMedication(dto.getPatientId());
-    dto.setPatientMedicationId(patientMedicationId);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
-  public String addEncounterQuestion(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    Integer encounterQuestionId = patientService.addEncounterQuestion(dto.getEncounterId());
-    dto.setEncounterQuestionId(encounterQuestionId);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
-  
-  public String addDxCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    Integer dxCodeId = patientService.addDxCode(dto.getEncounterId());
-    dto.setDxCodeId(dxCodeId);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
-  
-  public String addTxCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    Integer txCodeId = patientService.addTxCode(dto.getEncounterId());
-    dto.setTxCodeId(txCodeId);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
-  
-  
-  public String newEncounter(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    Encounter encounter =  patientService.newEncounter(dto);
-    dto.setEncounter(encounter);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
-  public String newProgressNote(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    ProgressNote note =  patientService.newProgressNote(dto);
-    dto.setProgressNote(note);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
-  public String updateProgressNote(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    ProgressNote note =  patientService.updateProgressNote(dto);
-    dto.setProgressNote(note);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
   public String getPatientServiceData(HttpServletRequest request, String pathAction) throws Exception {
     String data = request.getParameter("data");
     Gson gson = new Gson();
@@ -521,51 +251,127 @@ public class PatientServlet extends AppServlet  {
       List<VitalSigns> patientVitalSigns = patientService.getPatientVitalSigns(dto); 
       dto.setVitalSigns(patientVitalSigns);
     }
+    else if(pathAction.equals("/overridePatient")) {
+      patientService.overridePatient(dto);
+    }
+    else if(pathAction.equals("/acquirePatient")) {
+      patientService.acquirePatient(dto);
+    }
+    else if(pathAction.equals("/getCurrentPatientEncounter")) {
+      patientService.getCurrentPatientEncounter(dto);
+    }
+    else if(pathAction.equals("/deletePatient")) {
+      patientService.deactivatePatient(dto);
+    }
+    else if(pathAction.equals("/deletePatientMedication")) {
+      patientService.deletePatientMedication(dto);
+    }
+    else if(pathAction.equals("/deleteDxCode")) {
+      patientService.deleteDxCode(dto);
+    }
+    else if(pathAction.equals("/deleteTxCode")) {
+      patientService.deleteTxCode(dto);
+    }
+    else if(pathAction.equals("/updatePatient")) {
+      patientService.updatePatient(dto);
+    }
+    else if(pathAction.equals("/updatePatientMedication")) {
+      patientService.updatePatientMedication(dto);
+    }
+    else if(pathAction.equals("/updateEncounterQuestion")) {
+      patientService.updateEncounterQuestion(dto);
+    }
+    else if(pathAction.equals("/updateDxCode")) {
+      patientService.updateDxCode(dto);
+    }
+    else if(pathAction.equals("/updateTxCode")) {
+      patientService.updateTxCode(dto);
+    }
+    else if(pathAction.equals("/createVitals")) {
+      patientService.createVitals(dto);
+    }
+    else if(pathAction.equals("/createSOAPNote")) {
+      patientService.createSOAPNote(dto);
+    }
+    else if(pathAction.equals("/createCC")) {
+      patientService.createCC(dto);
+    }
+    else if(pathAction.equals("/createOBGYN")) {
+      patientService.createOBGYN(dto);
+    }
+    else if(pathAction.equals("/createPFSH")) {
+      patientService.createPFSH(dto);
+    }
+    else if(pathAction.equals("/createExam")) {
+      patientService.createExam(dto);
+    }
+    else if(pathAction.equals("/createFollowUp")) {
+      patientService.createFollowUp(dto);
+    }
+    else if(pathAction.equals("/createHist")) {
+      patientService.createHist(dto);
+    }
+    else if(pathAction.equals("/createSupp")) {
+      patientService.createSupp(dto);
+    }
+    else if(pathAction.equals("/addPatientMedication")) {
+      Integer patientMedicationId = patientService.addPatientMedication(dto.getPatientId());
+      dto.setPatientMedicationId(patientMedicationId);
+    }
+    else if(pathAction.equals("/addEncounterQuestion")) {
+      Integer encounterQuestionId = patientService.addEncounterQuestion(dto.getEncounterId());
+      dto.setEncounterQuestionId(encounterQuestionId);
+    }
+    else if(pathAction.equals("/addDxCode")) {
+      Integer dxCodeId = patientService.addDxCode(dto.getEncounterId());
+      dto.setDxCodeId(dxCodeId);
+    }
+    else if(pathAction.equals("/addTxCode")) {
+      Integer txCodeId = patientService.addTxCode(dto.getEncounterId());
+      dto.setTxCodeId(txCodeId);
+    }
+    else if(pathAction.equals("/newEncounter")) {
+      Encounter encounter =  patientService.newEncounter(dto);
+      dto.setEncounter(encounter);
+    }
+    else if(pathAction.equals("/newProgressNote")) {
+      ProgressNote note =  patientService.newProgressNote(dto);
+      dto.setProgressNote(note);
+    }
+    else if(pathAction.equals("/releasePatient")) {
+      patientService.releasePatient(dto);
+    }
+    else if(pathAction.equals("/closeEncounter")) {
+      patientService.closeEncounter(dto);
+    }
+    else if(pathAction.equals("/closeProgressNote")) {
+      patientService.closeProgressNote(dto);
+    }
+    else if(pathAction.equals("/encryptPatients")) {
+      patientService.encryptPatients(dto);
+    }
     String json = gson.toJson(dto);
     return json;
-  }
-
-  public String acquirePatient(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  } 
+  
+  public String getPatientProfileImage(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String data = request.getParameter("data");
+    String profileImagePath = request.getParameter("profileImagePath"); 
     Gson gson = new Gson();
+    String patientId = request.getParameter("patientId");
     PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.acquirePatient(dto);
+    String filesHomePatientDirPath =  Core.filesHome  + Core.patientDirPath + "/" + patientId + "/";
+    appService.getFile(request, response, getServletContext(), filesHomePatientDirPath, profileImagePath);  
     String json = gson.toJson(dto);
     return json;
   }
   
-  public String overridePatient(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String updateProgressNote(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String data = request.getParameter("data");
     Gson gson = new Gson();
     PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.overridePatient(dto);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
-  public String releasePatient(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.releasePatient(dto);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
-  public String closeEncounter(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.closeEncounter(dto);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
-  public String closeProgressNote(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.closeProgressNote(dto);
+    ProgressNote note =  patientService.updateProgressNote(dto);
+    dto.setProgressNote(note);
     String json = gson.toJson(dto);
     return json;
   }
@@ -573,18 +379,5 @@ public class PatientServlet extends AppServlet  {
   public String uploadProfileImage(HttpServletRequest request, HttpServletResponse response) throws Exception{
     return patientService.uploadProfileImage(request, response);
   }
-  
-  
-  
-  public String encryptPatients(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    PatientDTO dto = gson.fromJson(data, PatientDTO.class); 
-    patientService.encryptPatients(dto);
-    String json = gson.toJson(dto);
-    return json;
-  }
-
- 
 }
  
