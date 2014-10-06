@@ -246,34 +246,6 @@ public class ReportsService {
     return workbook;
   }
   
-  /*private void decrypt(Patient patient) throws Exception { 
-    //log.info("decrypt()");
-    if (patient == null || patient.isEncrypted() == false) {
-      return;
-    }
-    Credentials cred = patient.getCred();
-    Demographics demo = patient.getDemo();
-    if (cred.getUsername() != null) { cred.setUsername(DataEncryptor.decrypt(cred.getUsername()));}
-    if (cred.getMrn() != null) { cred.setMrn(DataEncryptor.decrypt(cred.getMrn()));}
-    if (cred.getFirstName() != null) { cred.setFirstName(DataEncryptor.decrypt(cred.getFirstName()));}
-    if (cred.getMiddleName() != null) { cred.setMiddleName(DataEncryptor.decrypt(cred.getMiddleName()));}
-    if (cred.getLastName() != null) { cred.setLastName(DataEncryptor.decrypt(cred.getLastName()));}
-    if (cred.getAdditionalName() != null) { cred.setAdditionalName(DataEncryptor.decrypt(cred.getAdditionalName()));}
-    if (cred.getEmail() != null) { cred.setEmail(DataEncryptor.decrypt(cred.getEmail()));}
-    if (cred.getGovtId() != null) { cred.setGovtId(DataEncryptor.decrypt(cred.getGovtId()));}
-    if (demo.getPrimaryPhone() != null) { demo.setPrimaryPhone(DataEncryptor.decrypt(demo.getPrimaryPhone()));}
-    if (demo.getSecondaryPhone() != null) { demo.setSecondaryPhone(DataEncryptor.decrypt(demo.getSecondaryPhone()));}
-    if (demo.getStreetAddress1() != null) { demo.setStreetAddress1(DataEncryptor.decrypt(demo.getStreetAddress1()));}
-    if (demo.getStreetAddress2() != null) { demo.setStreetAddress2(DataEncryptor.decrypt(demo.getStreetAddress2()));}
-    if (demo.getCity() != null) { demo.setCity(DataEncryptor.decrypt(demo.getCity()));}
-    if (demo.getPostalCode() != null) { demo.setPostalCode(DataEncryptor.decrypt(demo.getPostalCode()));}
-    if (demo.getEmployer() != null) { demo.setEmployer(DataEncryptor.decrypt(demo.getEmployer()));}
-    if (demo.getSchoolName() != null) { demo.setSchoolName(DataEncryptor.decrypt(demo.getSchoolName()));}
-    patient.setCred(cred);
-    patient.setDemo(demo);
-    patient.setEncrypted(false);
-  }*/
-  
   private String getFullName(String firstName, String middleName, String lastName){
     
     StringBuilder fullNameBuilder = new StringBuilder();
@@ -368,6 +340,71 @@ public class ReportsService {
       activityLogDTOList.add(activityLogDTO);
     }
     return activityLogDTOList;
+  }
+  
+public List<GroupedByPatientDTO> filterGroupByPatientsActivityLog(ActivityLogDTO dto) throws Exception {
+    
+    Integer clinicianId = null;
+    Activity activity = null;
+    Integer patientId = null;
+    
+    if(dto.getClinicianName().length() > 0){
+      Clinician clinician = reportsDAO.getClinicianByFullName(dto.getClinicianName()); 
+      clinicianId = clinician.getId();
+    }
+    if(dto.getActivityId() != 0){
+      activity = reportsDAO.findActivityById(dto.getActivityId());
+    }
+    if(dto.getPatientName().length() > 0){
+      Patient patient = reportsDAO.getPatientByFullName(dto.getPatientName());
+      patientId = patient.getId();
+    }
+    
+    List<ActivityLogDTO> activityLogDTOList = new ArrayList<ActivityLogDTO>();
+    List<GroupedByPatientDTO> groupedByPatientList = new ArrayList<GroupedByPatientDTO>();
+    ActivityLogDTO activityLogDTO = null;
+    GroupedByPatientDTO groupedByPatientDTO = null;
+    
+    Map<Integer, List<ActivityLog>> groupByPatientsLogMap = reportsDAO.filterGroupByPatientsActivityLog(clinicianId, activity, patientId);  
+    for (Map.Entry<Integer, List<ActivityLog>> entry : groupByPatientsLogMap.entrySet()) {
+      groupedByPatientDTO = new GroupedByPatientDTO();
+      Integer patientIdKey = entry.getKey();
+      Patient loggedPatient = reportsDAO.findPatientById(patientIdKey);
+      patientService.decrypt(loggedPatient);
+      groupedByPatientDTO.setPatient(loggedPatient);
+      List<ActivityLog> activityLogListValue = entry.getValue();
+      for(ActivityLog activityLog : activityLogListValue){      
+        activityLogDTO = new ActivityLogDTO();
+        if(activityLog.getUserId() != null){
+          User user = reportsDAO.findUserById(activityLog.getUserId());
+          if(user != null){
+            activityLogDTO.setUserName(getFullName(user.getFirstName(), user.getMiddleName(), user.getLastName()));
+          }
+        }
+        if(activityLog.getPatientId() != null){
+          Patient activityLoggedPatient = reportsDAO.findPatientById(activityLog.getPatientId());
+          if(activityLoggedPatient != null){
+            patientService.decrypt(activityLoggedPatient);
+            activityLogDTO.setPatientName(getFullName(activityLoggedPatient.getCred().getFirstName(), activityLoggedPatient.getCred().getMiddleName(), activityLoggedPatient.getCred().getLastName()));
+          }
+        }
+        activityLogDTO.setTimePerformed(activityLog.getTimePerformed());
+        if(activityLog.getClinicianId() != null){
+          Clinician loggedClinician = reportsDAO.findClinicianById(activityLog.getClinicianId());
+          if(loggedClinician != null){
+            activityLogDTO.setClinicianName(getFullName(loggedClinician.getFirstName(), loggedClinician.getMiddleName(), loggedClinician.getLastName()));
+          }
+        }
+        activityLogDTO.setEncounterId(activityLog.getEncounterId());
+        activityLogDTO.setFieldName(activityLog.getFieldName());
+        activityLogDTO.setActivity(activityLog.getActivity().getActivityType());
+        activityLogDTO.setModule(activityLog.getModule().getModuleType());
+        activityLogDTOList.add(activityLogDTO);
+      }
+      groupedByPatientDTO.setActivityLog(activityLogDTOList);
+      groupedByPatientList.add(groupedByPatientDTO);
+    }
+    return groupedByPatientList;    
   }
 
 }

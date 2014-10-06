@@ -68,7 +68,9 @@ public class ReportsServlet extends AppServlet {
           returnString = filterActivityLog(request, response);  
         }else if (pathInfo.equals("/getGroupByPatientsLog")) {
           returnString = getGroupByPatientsLog(request, response);  
-        }
+        }else if (pathInfo.equals("/filterGroupByPatientsActivityLog")) {
+          returnString = filterGroupByPatientsActivityLog(request, response);  
+        }        
       }
 
       ServletOutputStream out = null;
@@ -148,6 +150,15 @@ public class ReportsServlet extends AppServlet {
     Gson gson = new Gson();
     ActivityLogDTO dto = gson.fromJson(data, ActivityLogDTO.class); 
     List<GroupedByPatientDTO> groupByPatientsLog = reportsService.getGroupByPatientsLog(dto); 
+    String json = gson.toJson(groupByPatientsLog);
+    return json;   
+  }
+  
+  public String filterGroupByPatientsActivityLog(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String data = request.getParameter("data");
+    Gson gson = new Gson();
+    ActivityLogDTO dto = gson.fromJson(data, ActivityLogDTO.class); 
+    List<GroupedByPatientDTO> groupByPatientsLog = reportsService.filterGroupByPatientsActivityLog(dto); 
     String json = gson.toJson(groupByPatientsLog);
     return json;   
   }

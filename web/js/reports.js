@@ -71,32 +71,11 @@ function getGroupByPatientsLog() {
      {items:parsedData, 
       title:'Grouped by Patients Activity Logs', 
       tableName:'reports-content', 
-      clickable:false/*,
-      columns:[
-       {title:'First Name', field:'patient.cred.firstName', type:'triple'},
-       {title:'Middle Name', field:'patient.cred.middleName', type:'triple'},
-       {title:'Last Name', field:'patient.cred.lastName', type:'triple'}
-      ]*/}, function(s) {
+      clickable:false
+      }, function(s) {
       $('#reports-content').html(s);
       $('#reports-view-header').html("Grouped by Patients Activity Logs");	      
     });
-    /*RenderUtil.render('component/simple_data_table', 
-     {items:parsedData.groupedByPatientList.activityLog, 
-      title:'Activity Logs', 
-      tableName:'reports-content', 
-      clickable:false,
-      columns:[
-       {title:'User Name', field:'userName', type:'simple'},
-       {title:'Patient Name', field:'patientName', type:'simple'},
-       {title:'Time Performed', field:'timePerformed', type:'simple'},
-       {title:'Clinician Name', field:'clinicianName', type:'simple'},
-       {title:'Field Name', field:'fieldName', type:'simple'},
-       {title:'Activity', field:'activity', type:'simple'},
-       {title:'Module', field:'module', type:'simple'}
-      ]}, function(s) {
-      $('#reports-content').html(s);
-      $('#reports-view-header').html("Activity Logs");
-    });      */
   });
 }
 
@@ -223,6 +202,27 @@ function filterActivityLog(){
   });
 }
 
+function filterGroupByPatientsActivityLog(){
+  var jsonData = JSON.stringify({ 
+	clinicianName: $.trim($("#reports-clinician-search-full-name").val()),
+	activityId: $.trim($("#reports-activity-log-activity").val()),
+    patientName: $.trim($("#reports-patient-search-full-name").val()),
+    sessionId: clinician.sessionId 
+  });debug("Grouped by Patients Activity Logs json data: "+jsonData);
+  $.post("reports/filterGroupByPatientsActivityLog", {data:jsonData}, function(data) {
+	    var parsedData = $.parseJSON(data);
+	    RenderUtil.render('component/reports_nested_table', 
+	     {items:parsedData, 
+	      title:'Grouped by Patients Activity Logs', 
+	      tableName:'reports-content', 
+	      clickable:false
+	      }, function(s) {
+	      $('#reports-content').html(s);
+	      $('#reports-view-header').html("Grouped by Patients Activity Logs");	      
+	    });
+	});
+}
+
 function clearActivityLogFilter() {
   $('#reports-clinician-search-full-name').val('');
   $('#reports-activity-log-activity').val('0');
@@ -234,6 +234,8 @@ $('#report-close-button').click(function(){ viewReports(); });
 $('#btn-reports-activity-log-filter').click(function(){ 
 	if(app_currentReportId == 25){
 		filterActivityLog(); 
+	}else if(app_currentReportId == 26){
+		filterGroupByPatientsActivityLog();
 	}
 });
 $('#btn-reports-activity-log-clear').click(function(){ clearActivityLogFilter(); });

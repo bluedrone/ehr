@@ -137,6 +137,30 @@ public class ReportsDAO extends SiteDAO {
     return list;
   }
   
+  public Map<Integer, List<ActivityLog>> filterGroupByPatientsActivityLog(Integer clinicianId, Activity activity, Integer patientId) {
+    Session session = this.getSession();
+    StringBuilder distinctPatientQuery = new StringBuilder();
+    distinctPatientQuery.append("SELECT DISTINCT(al.patientId) FROM ActivityLog al WHERE al.patientId IS NOT NULL");
+    if(clinicianId != null){
+      distinctPatientQuery.append(" AND al.clinicianId = '" + clinicianId + "'");
+    }
+    if(patientId != null){
+      distinctPatientQuery.append(" AND al.patientId  = '" + patientId  + "'");
+    }
+    
+    Query patientIdQuery = session.createQuery(distinctPatientQuery.toString());
+    List<Integer> patientIdList = patientIdQuery.list();
+    Map<Integer, List<ActivityLog>> groupedPatients = new TreeMap<Integer, List<ActivityLog>>();
+    for(Integer distinctPatientId : patientIdList){
+      Criteria crit = session.createCriteria(ActivityLog.class);
+      if (clinicianId != null) {crit.add(Restrictions.eq("clinicianId", clinicianId));}
+      if (activity != null) {crit.add(Restrictions.eq("activity", activity));}
+      if (patientId != null) {crit.add(Restrictions.eq("patientId", distinctPatientId));}
+      groupedPatients.put(distinctPatientId, crit.list());
+    }
+    return groupedPatients;
+  }
+  
   public Clinician getClinicianByFullName(String clinicianFullName) throws Exception {
     String[] name = clinicianFullName.split(WDMConstants.SINGLE_SPACE);
     Session session = this.getSession();
