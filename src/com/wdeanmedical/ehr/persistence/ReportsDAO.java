@@ -140,7 +140,7 @@ public class ReportsDAO extends SiteDAO {
   public Map<Integer, List<ActivityLog>> filterGroupByPatientsActivityLog(Integer clinicianId, Activity activity, Integer patientId) {
     Session session = this.getSession();
     StringBuilder distinctPatientQuery = new StringBuilder();
-    distinctPatientQuery.append("SELECT DISTINCT(al.patientId) FROM ActivityLog al WHERE al.patientId IS NOT NULL");
+    distinctPatientQuery.append("SELECT DISTINCT(al.patientId) FROM ActivityLog al WHERE al.patientId IS NOT NULL AND al.patientId != 0");
     if(clinicianId != null){
       distinctPatientQuery.append(" AND al.clinicianId = '" + clinicianId + "'");
     }
