@@ -1,0 +1,67 @@
+<div id="form-wrapper-basic-info">
+ <div class="page-title-background"><div class="page-title">GROUPED BY PATIENTS ACTIVITY LOGS</div></div>
+ <table class="form-table">
+ <thead class="text-center">
+  <tr>
+    <td>First Name</td>
+    <td>Middle Name</td>
+    <td>Last Name</td>
+    <td>Primary Phone</td>
+    <td>City</td>
+    <td>DOB</td>
+  </tr>
+  </thead>
+  <tbody>
+  {{each(i, item) groupedByPatientsActivityLogs}}
+  <tr 
+    id="${tableId}-${item.id}" 
+    name="${item.id}"
+    data-row-key="${item.id}" 
+    data-table-name="${tableName}" 
+  >
+    <td>${item.patient.cred.firstName}</td>
+    <td>${item.patient.cred.middleName}</td>
+    <td>${item.patient.cred.lastName}</td>
+    <td>${item.patient.demo.primaryPhone}</td>
+    <td>${item.patient.demo.city}</td>
+    <td>${item.patient.demo.dob}</td>
+  </tr>  
+  <tr>  
+	  <td colspan='6'>
+	    <table class="table table-bordered table-hover table-condensed">
+	    <thead class="text-center">
+	    <tr>
+    		<td>User Name</td>
+    		<td>Time Performed</td>
+    		<td>Clinician Name</td>
+    		<td>Field Name</td>
+    		<td>Activity</td>
+    		<td>Module</td>
+  		</tr>
+  		</thead>
+	    {{each(j, subItem) item.activityLog}}	    	
+	    <tr
+	     id="${tableId}-${subItem.id}" 
+    	 name="${subItem.id}"
+    	 data-row-key="${subItem.id}" 
+    	 data-table-name="${tableName}" 
+	    >
+	    	<td>${subItem.userName}</td>
+	    	<td>${subItem.timePerformed}</td>
+	    	<td>${subItem.clinicianName}</td>
+	    	<td>${subItem.fieldName}</td>
+	    	<td>${subItem.activity}</td>
+	    	<td>${subItem.module}</td>	    	
+	    </tr>
+	    {{/each}}
+	    </table>
+	  </td>  
+  </tr>
+  {{/each}}
+  <tr class="simple-data-table-footer">
+    <td class="simple-data-table-footer" colspan='6'>
+      <p><span>${title} ${groupedByPatientsActivityLogs.length == 0 ? '0' : '1'}-<wbr>${groupedByPatientsActivityLogs.length}</span></p>
+    </td>
+  </tr>
+  </tbody>
+ </table>

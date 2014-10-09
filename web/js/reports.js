@@ -7,6 +7,8 @@
 
 var app_currentReportId;
 var app_clinicianActivity;
+var app_activityLogs;
+var app_groupByPatientsLog;
 
 $('.app-reports-link').click(function(){ 
 	viewReports(); 
@@ -42,9 +44,9 @@ function getReportsList() {
 function getActivityLog() {
   var jsonData = JSON.stringify({ sessionId: clinician.sessionId });
   $.post("reports/getActivityLog", {data:jsonData}, function(data) {
-    var activityLogs = $.parseJSON(data);
+	app_activityLogs = $.parseJSON(data);
     RenderUtil.render('component/simple_data_table', 
-     {items:activityLogs, 
+     {items:app_activityLogs, 
       title:'Activity Logs', 
       tableName:'reports-content', 
       clickable:false,
@@ -66,9 +68,9 @@ function getActivityLog() {
 function getGroupByPatientsLog() {
   var jsonData = JSON.stringify({ sessionId: clinician.sessionId });
   $.post("reports/getGroupByPatientsLog", {data:jsonData}, function(data) {
-    var parsedData = $.parseJSON(data);
+	app_groupByPatientsLog = $.parseJSON(data);
     RenderUtil.render('component/reports_nested_table', 
-     {items:parsedData, 
+     {items:app_groupByPatientsLog, 
       title:'Grouped by Patients Activity Logs', 
       tableName:'reports-content', 
       clickable:false
@@ -238,6 +240,16 @@ $('#btn-reports-activity-log-filter').click(function(){
 		filterGroupByPatientsActivityLog();
 	}
 });
+
 $('#btn-reports-activity-log-clear').click(function(){ clearActivityLogFilter(); });
+
+$('#print-report-button').click(function(){
+	if(app_currentReportId == 26){
+	    RenderUtil.render('print/grouped_by_patients_activity_logs',  {groupedByPatientsActivityLogs:app_groupByPatientsLog}, function(obj) {
+	      var s = obj[0].outerHTML;
+	      print_openPrintWindow('print.html', s, 'GROUPED BY PATIENTS ACTIVITY LOGS');
+	    });
+	}
+  });
 
 
