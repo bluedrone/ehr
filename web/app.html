@@ -14,6 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="images/wdm.ico">
     <link href="css/all.css" rel="stylesheet" media="screen">
+    <link href="css/print.css" rel="stylesheet" type="text/css" media="print" />
     <!--[if lt IE 9]> <script src="js/lib/html5shiv.js"></script> <script src="js/lib/respond.min.js"></script> <![endif]-->
   </head>  
   <body id="cloak">
@@ -656,8 +657,8 @@
         		   	  	<div id="reports-view">
         		   	  	<div id="reports-view-header" class="panel-top"></div>
                     		<div class="panel panel-default">
-                      			<div id="report-filter" class="panel-body">                       			
-                      			      <div class="modal-body">
+                      			<div id="report-filter" class="panel-body ">                       			
+                      			      <div class="modal-body noPrint">
 								        <h5 class="modal-sub-title">Filter By</h5>
 								        <div class="panel panel-default">
 								          <div class="panel-body search-panel">
@@ -696,10 +697,10 @@
 								          </div>
 								        </div>
 								      </div>								      
-                      				<a href="#" id="export-csv-activity-log-lg" type="button" class="btn btn-primary pull-right btn-pad hidden-xs">
+                      				<a href="#" id="export-csv-activity-log-lg" type="button" class="btn btn-primary pull-right btn-pad hidden-xs noPrint">
 			                  			<i class="fa fa-user fa-lg"></i><i class="fa fa-plus"></i> Excel Export
 			                		</a>
-			              			<a href="#" id="export-csv-activity-log-sm" type="button" class="btn btn-primary pull-right btn-pad btn-block visible-xs">
+			              			<a href="#" id="export-csv-activity-log-sm" type="button" class="btn btn-primary pull-right btn-pad btn-block visible-xs noPrint">
 			                  			<i class="fa fa-user fa-lg"></i><i class="fa fa-plus"></i> Excel Export
 			                		</a>
                       				<div id="reports-content" class="table-responsive container-scroll"></div>
@@ -708,12 +709,12 @@
                   		</div>        		   	  
         		    </div>
         		  </div>
-        		  <div class="pull-right">             
+        		  <div class="pull-right noPrint">             
               		<a href="#" id="report-close-button" class="btn btn-default">Close</a>
               		<a href="#" id="report-view-button" class="btn btn-default">View</a>
               		<a href="#" class="btn btn-default">Link</a>
               		<a href="#" class="btn btn-default">Change Op</a>
-              		<a href="#" id="print-report-button" class="btn btn-default">Print</a>
+              		<a href="#" class="btn btn-default" onclick="window.print();return false;">Print</a>
               		<a href="#" class="btn btn-default">Select</a>
            		 </div>        		
         	</div> 
@@ -972,7 +973,7 @@
     
 
     <!-- FOOTER -->
-    <footer class="container-fluid">
+    <footer class="container-fluid noPrint">
       <div class="row">
         <div class="hidden-xs hidden-sm col-md-2 sitemap">
           <h6>Corp Site</h6>
@@ -1068,7 +1069,7 @@
         </div>
       </div>
     </footer>    
-    <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+    <nav class="navbar navbar-default navbar-fixed-bottom noPrint" role="navigation">
       <p class="navbar-text">
         <a target="_blank" href="https://www.facebook.com/WDeanMedical"><i class="icon-facebook-sign icon-2x"></i></a> 
         <a target="_blank" href="https://twitter.com/WDeanMedical"><i class="icon-twitter-sign icon-2x"></i></a> 

@@ -245,10 +245,11 @@ $('#btn-reports-activity-log-clear').click(function(){ clearActivityLogFilter();
 
 $('#print-report-button').click(function(){
 	if(app_currentReportId == 26){
-	    RenderUtil.render('print/grouped_by_patients_activity_logs',  {groupedByPatientsActivityLogs:app_groupByPatientsLog}, function(obj) {
+		window.print();
+	   /* RenderUtil.render('print/grouped_by_patients_activity_logs',  {groupedByPatientsActivityLogs:app_groupByPatientsLog}, function(obj) {
 	      var s = obj[0].outerHTML;
 	      print_openPrintWindow('print.html', s, 'GROUPED BY PATIENTS ACTIVITY LOGS');
-	    });
+	    });*/
 	}
   });
 
