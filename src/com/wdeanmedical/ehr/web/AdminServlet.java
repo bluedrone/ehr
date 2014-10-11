@@ -7,17 +7,9 @@
 
 package com.wdeanmedical.ehr.web;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
-import java.util.Arrays;
-import java.util.List;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -26,20 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.wdeanmedical.ehr.dto.AdminDTO;
-import com.wdeanmedical.ehr.dto.PatientDTO;
-import com.wdeanmedical.ehr.entity.ActivityLog;
-import com.wdeanmedical.ehr.entity.Clinician;
-import com.wdeanmedical.ehr.entity.Encounter;
-import com.wdeanmedical.ehr.entity.Patient;
 import com.wdeanmedical.ehr.service.AdminService;
-import com.wdeanmedical.ehr.service.PatientService;
-import com.wdeanmedical.ehr.core.Core;
 import com.google.gson.Gson;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-
 
 public class AdminServlet extends AppServlet  {
   
@@ -72,19 +54,19 @@ public class AdminServlet extends AppServlet  {
       }
       else { 
         if (pathInfo.equals("/activateClinician")) {
-          returnString = activateClinician(request, response);  
+          returnString = getAdminData(request, "/activateClinician");  
         }
         else if (pathInfo.equals("/deactivateClinician")) {
-          returnString = deactivateClinician(request, response);  
+          returnString = getAdminData(request, "/deactivateClinician");  
         }
         else if (pathInfo.equals("/purgeClinician")) {
-          returnString = purgeClinician(request, response);  
+          returnString = getAdminData(request, "/purgeClinician");  
         }
         else if (pathInfo.equals("/saveNewClinician")) {
-          returnString = saveNewClinician(request, response);  
+          returnString = getAdminData(request, "/saveNewClinician");  
         }
         else if (pathInfo.equals("/updateClinician")) {
-          returnString = updateClinician(request, response);  
+          returnString = getAdminData(request, "/updateClinician");  
         }
       }
      
@@ -117,54 +99,28 @@ public class AdminServlet extends AppServlet  {
   public void doGet(HttpServletRequest request, HttpServletResponse response) {
     doPost(request, response);  
   }
-    
-  public String saveNewClinician(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  
+  public String getAdminData(HttpServletRequest request, String pathAction) throws Exception {
     String data = request.getParameter("data");
     Gson gson = new Gson();
     AdminDTO dto = gson.fromJson(data, AdminDTO.class); 
-    adminService.saveNewClinician(dto);
+    if(pathAction.equals("/saveNewClinician")) {
+      adminService.saveNewClinician(dto);
+    } 
+    else if(pathAction.equals("/updateClinician")) {
+      adminService.updateClinician(dto);
+    } 
+    else if(pathAction.equals("/activateClinician")) {
+      adminService.activateClinician(dto);
+    }
+    else if(pathAction.equals("/deactivateClinician")) {
+      adminService.deactivateClinician(dto);
+    }
+    else if(pathAction.equals("/purgeClinician")) {
+      adminService.purgeClinician(dto);
+    }
     String json = gson.toJson(dto);
     return json;
   }
-  
-  
-  public String updateClinician(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    AdminDTO dto = gson.fromJson(data, AdminDTO.class); 
-    adminService.updateClinician(dto);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
-  
-  public String activateClinician(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    AdminDTO dto = gson.fromJson(data, AdminDTO.class); 
-    adminService.activateClinician(dto);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
-  public String deactivateClinician(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    AdminDTO dto = gson.fromJson(data, AdminDTO.class); 
-    adminService.deactivateClinician(dto);
-    String json = gson.toJson(dto);
-    return json;
-  }
-  
-  public String purgeClinician(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    String data = request.getParameter("data");
-    Gson gson = new Gson();
-    AdminDTO dto = gson.fromJson(data, AdminDTO.class); 
-    adminService.purgeClinician(dto);
-    String json = gson.toJson(dto);
-    return json;
-  }  
- 
+
 }
- 
- 
