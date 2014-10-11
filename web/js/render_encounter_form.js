@@ -448,17 +448,6 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
     }
   }
   else if (section == 'exam') {
-    /*
-      var canvas = document.getElementById('encounter-exam-image-'+id);
-      var context = canvas.getContext('2d');
-      var baseImage = new Image();
-      baseImage.src = 'images/exam.png';
-      baseImage.onload = function() {
-        context.drawImage(baseImage, 0, 0, 100, 50);
-      }
-    */
-    initEncounterExamCanvas(id);
-    
     if (savedState == false) {
      RenderUtil.render('component/dx_codes', {encounter:encounter}, function(s) { 
        $("#encounter-dx-codes-"+id).html(s); 

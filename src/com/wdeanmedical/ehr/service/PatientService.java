@@ -556,24 +556,15 @@ public class PatientService {
     ExcludedObjects.excludeObjects(patient); 
     return patient;
   }
-  
+
   
   
   public Encounter getCurrentEncounter(Patient patient, PatientDTO dto) throws Exception {
     Encounter encounter = patientDAO.findCurrentEncounterByPatient(patient);
-    Clinician clinician = null;
     if (encounter == null) {
-      encounter = new Encounter();
-      encounter.setPatient(patient);
-      clinician = appDAO.findClinicianBySessionId(dto.getSessionId());
-      encounter.setClinician(clinician);
-      encounter.setDate(new Date());
-      encounter.setEncounterType(patientDAO.findEncounterTypeById(EncounterType.CHECK_UP));
-      patientDAO.create(encounter); 
+      return encounter;
     }
-    else{
-      clinician = encounter.getClinician();
-    }    
+    Clinician clinician = encounter.getClinician();
     activityLogService.logViewEncounter(clinician.getId(), patient.getId(), clinician.getId(), encounter.getId());
     decrypt(encounter.getPatient());
     ExcludedFields.excludeFields(encounter.getPatient());
