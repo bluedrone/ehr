@@ -467,8 +467,10 @@ public class AppService {
     dto.setProfileImagePath(patient.getDemo().getProfileImagePath());
     patient.setLastAccessed(new Date());
     Encounter encounter = patientService.getCurrentEncounter(patient, dto);
-    dto.setLastApptDate(sdf.format(encounter.getDate()));
-    appDAO.update(patient);
+    if (encounter != null) {
+      dto.setLastApptDate(sdf.format(encounter.getDate()));
+      appDAO.update(patient);
+    }
     activityLogService.logViewPatient(dto.getId(), patient.getId(), dto.getClinicianId());
     return true;
   }

@@ -165,11 +165,12 @@ public class PatientDAO extends SiteDAO {
     crit = session.createCriteria(Encounter.class);
     crit.add(Restrictions.eq("id", id));
     Encounter encounter = (Encounter)crit.uniqueResult();
-    encounter.getSupp().setEncounterQuestionList(getEncounterQuestionsByEncounter(encounter.getId()));
-    patient.getHist().setPatientMedicationList(getPatientMedicationsByPatient(patient.getId()));
-    encounter.setDxCodes(getDxCodes(encounter.getId()));
-    encounter.setTxCodes(getTxCodes(encounter.getId()));
-    
+    if (encounter != null) {
+      encounter.getSupp().setEncounterQuestionList(getEncounterQuestionsByEncounter(encounter.getId()));
+      patient.getHist().setPatientMedicationList(getPatientMedicationsByPatient(patient.getId()));
+      encounter.setDxCodes(getDxCodes(encounter.getId()));
+      encounter.setTxCodes(getTxCodes(encounter.getId()));
+    } 
     return encounter;
   }
     
@@ -343,10 +344,12 @@ public class PatientDAO extends SiteDAO {
     crit.add(Restrictions.eq("patient", patient));
     crit.add(Restrictions.eq("completed", false));
     Encounter encounter = (Encounter)crit.uniqueResult();
-    encounter.getSupp().setEncounterQuestionList(getEncounterQuestionsByEncounter(encounter.getId()));
-    encounter.setDxCodes(getDxCodes(encounter.getId()));
-    encounter.setTxCodes(getTxCodes(encounter.getId())); 
-    patient.getHist().setPatientMedicationList(getPatientMedicationsByPatient(patient.getId()));
+    if (encounter != null) {
+      encounter.getSupp().setEncounterQuestionList(getEncounterQuestionsByEncounter(encounter.getId()));
+      encounter.setDxCodes(getDxCodes(encounter.getId()));
+      encounter.setTxCodes(getTxCodes(encounter.getId())); 
+      patient.getHist().setPatientMedicationList(getPatientMedicationsByPatient(patient.getId()));
+    }
     return encounter;
   }
   
@@ -357,11 +360,13 @@ public class PatientDAO extends SiteDAO {
   
   public Encounter findEncounterById(int id) throws Exception {
     Encounter encounter = (Encounter) this.findById(Encounter.class, id);
+    if (encounter != null) {
     Patient patient = encounter.getPatient();
-    encounter.getSupp().setEncounterQuestionList(getEncounterQuestionsByEncounter(encounter.getId()));
-    encounter.setDxCodes(getDxCodes(encounter.getId()));
-    encounter.setTxCodes(getTxCodes(encounter.getId()));
-    patient.getHist().setPatientMedicationList(getPatientMedicationsByPatient(patient.getId()));
+      encounter.getSupp().setEncounterQuestionList(getEncounterQuestionsByEncounter(encounter.getId()));
+      encounter.setDxCodes(getDxCodes(encounter.getId()));
+      encounter.setTxCodes(getTxCodes(encounter.getId()));
+      patient.getHist().setPatientMedicationList(getPatientMedicationsByPatient(patient.getId()));
+    }
     return encounter;
   }
   
