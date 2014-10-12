@@ -60,7 +60,9 @@ function getActivityLog() {
        {title:'Module', field:'module', type:'simple'}
       ]}, function(s) {
       $('#reports-content').html(s);
-      $('#reports-view-header').html("Activity Logs");	      
+      $('#reports-view-header').html("Activity Logs");	
+      $('#report-date-from').mask("99/99/9999");
+      $('#report-date-to').mask("99/99/9999");
     });
   });
 }
@@ -76,7 +78,9 @@ function getGroupByPatientsLog() {
       clickable:false
       }, function(s) {
       $('#reports-content').html(s);
-      $('#reports-view-header').html("Grouped by Patients Activity Logs");	      
+      $('#reports-view-header').html("Grouped by Patients Activity Logs");	
+      $('#report-date-from').mask("99/99/9999");
+      $('#report-date-to').mask("99/99/9999");
     });
   });
 }
@@ -177,6 +181,8 @@ function renderClinicianActivity(){
 
 function filterActivityLog(){
   var jsonData = JSON.stringify({ 
+	dateFrom: $.trim($("#report-date-from").val()),
+	dateTo: $.trim($("#report-date-to").val()),
 	clinicianName: $.trim($("#reports-clinician-search-full-name").val()),
 	activityId: $.trim($("#reports-activity-log-activity").val()),
     patientName: $.trim($("#reports-patient-search-full-name").val()),
@@ -206,6 +212,8 @@ function filterActivityLog(){
 
 function filterGroupByPatientsActivityLog(){
   var jsonData = JSON.stringify({ 
+	dateFrom: $.trim($("#report-date-from").val()),
+	dateTo: $.trim($("#report-date-to").val()),
 	clinicianName: $.trim($("#reports-clinician-search-full-name").val()),
 	activityId: $.trim($("#reports-activity-log-activity").val()),
     patientName: $.trim($("#reports-patient-search-full-name").val()),
@@ -229,6 +237,8 @@ function clearActivityLogFilter() {
   $('#reports-clinician-search-full-name').val('');
   $('#reports-activity-log-activity').val('0');
   $('#reports-patient-search-full-name').val('');
+  $('#report-date-from').val('');
+  $('#report-date-to').val('');
 }
 
 $('#report-view-button').click(function(){ viewReport(); });

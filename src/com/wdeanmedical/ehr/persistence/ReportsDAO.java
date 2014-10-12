@@ -127,9 +127,15 @@ public class ReportsDAO extends SiteDAO {
     return list;
   }
   
-  public List<ActivityLog> getFilteredActivityLog(Integer clinicianId, Activity activity, Integer patientId) throws Exception {
+  public List<ActivityLog> getFilteredActivityLog(Date dateFrom, Date dateTo, Integer clinicianId, Activity activity, Integer patientId) throws Exception {
     Session session = this.getSession();
     Criteria crit = session.createCriteria(ActivityLog.class);
+    if (dateFrom != null) {crit.add(Restrictions.ge("timePerformed", dateFrom));}
+    if (dateFrom != null && dateTo != null) {
+      crit.add(Restrictions.le("timePerformed", dateTo));
+    }else if(dateFrom != null && dateTo == null){
+      crit.add(Restrictions.le("timePerformed", new Date()));
+    }
     if (clinicianId != null) {crit.add(Restrictions.eq("clinicianId", clinicianId));}
     if (activity != null) {crit.add(Restrictions.eq("activity", activity));}
     if (patientId != null) {crit.add(Restrictions.eq("patientId", patientId));}
@@ -137,7 +143,7 @@ public class ReportsDAO extends SiteDAO {
     return list;
   }
   
-  public Map<Integer, List<ActivityLog>> filterGroupByPatientsActivityLog(Integer clinicianId, Activity activity, Integer patientId) {
+  public Map<Integer, List<ActivityLog>> filterGroupByPatientsActivityLog(Date dateFrom, Date dateTo, Integer clinicianId, Activity activity, Integer patientId) {
     Session session = this.getSession();
     StringBuilder distinctPatientQuery = new StringBuilder();
     distinctPatientQuery.append("SELECT DISTINCT(al.patientId) FROM ActivityLog al WHERE al.patientId IS NOT NULL AND al.patientId != 0");
@@ -153,6 +159,12 @@ public class ReportsDAO extends SiteDAO {
     Map<Integer, List<ActivityLog>> groupedPatients = new TreeMap<Integer, List<ActivityLog>>();
     for(Integer distinctPatientId : patientIdList){
       Criteria crit = session.createCriteria(ActivityLog.class);
+      if (dateFrom != null) {crit.add(Restrictions.ge("timePerformed", dateFrom));}
+      if (dateFrom != null && dateTo != null) {
+        crit.add(Restrictions.le("timePerformed", dateTo));
+      }else if(dateFrom != null && dateTo == null){
+        crit.add(Restrictions.le("timePerformed", new Date()));
+      }
       if (clinicianId != null) {crit.add(Restrictions.eq("clinicianId", clinicianId));}
       if (activity != null) {crit.add(Restrictions.eq("activity", activity));}
       if (patientId != null) {crit.add(Restrictions.eq("patientId", distinctPatientId));}

@@ -8,7 +8,9 @@
 package com.wdeanmedical.ehr.service;
 
 import java.net.MalformedURLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -292,10 +294,19 @@ public class ReportsService {
   
   public List<ActivityLogDTO> filterActivityLog(ActivityLogDTO dto) throws Exception {
     
+    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+    Date dateFrom = null;
+    Date dateTo = null;
     Integer clinicianId = null;
     Activity activity = null;
     Integer patientId = null;
     
+    if(dto.getDateFrom().length() > 0){
+      dateFrom = sdf.parse(dto.getDateFrom());
+    }
+    if(dto.getDateTo().length() > 0){
+      dateTo = sdf.parse(dto.getDateTo());
+    }    
     if(dto.getClinicianName().length() > 0){
       Clinician clinician = reportsDAO.getClinicianByFullName(dto.getClinicianName()); 
       clinicianId = clinician.getId();
@@ -309,7 +320,7 @@ public class ReportsService {
     }
     
     List<ActivityLogDTO> activityLogDTOList = new ArrayList<ActivityLogDTO>();
-    List<ActivityLog> activityLogList  = reportsDAO.getFilteredActivityLog(clinicianId, activity, patientId);
+    List<ActivityLog> activityLogList  = reportsDAO.getFilteredActivityLog(dateFrom, dateTo, clinicianId, activity, patientId);
     ActivityLogDTO activityLogDTO = null;
     for(ActivityLog activityLog : activityLogList){      
       activityLogDTO = new ActivityLogDTO();
@@ -343,11 +354,19 @@ public class ReportsService {
   }
   
 public List<GroupedByPatientDTO> filterGroupByPatientsActivityLog(ActivityLogDTO dto) throws Exception {
-    
+    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+    Date dateFrom = null;
+    Date dateTo = null;
     Integer clinicianId = null;
     Activity activity = null;
     Integer patientId = null;
     
+    if(dto.getDateFrom().length() > 0){
+      dateFrom = sdf.parse(dto.getDateFrom());
+    }
+    if(dto.getDateTo().length() > 0){
+      dateTo = sdf.parse(dto.getDateTo());
+    }
     if(dto.getClinicianName().length() > 0){
       Clinician clinician = reportsDAO.getClinicianByFullName(dto.getClinicianName()); 
       clinicianId = clinician.getId();
@@ -365,7 +384,7 @@ public List<GroupedByPatientDTO> filterGroupByPatientsActivityLog(ActivityLogDTO
     ActivityLogDTO activityLogDTO = null;
     GroupedByPatientDTO groupedByPatientDTO = null;
     
-    Map<Integer, List<ActivityLog>> groupByPatientsLogMap = reportsDAO.filterGroupByPatientsActivityLog(clinicianId, activity, patientId);  
+    Map<Integer, List<ActivityLog>> groupByPatientsLogMap = reportsDAO.filterGroupByPatientsActivityLog(dateFrom, dateTo, clinicianId, activity, patientId);  
     for (Map.Entry<Integer, List<ActivityLog>> entry : groupByPatientsLogMap.entrySet()) {
       groupedByPatientDTO = new GroupedByPatientDTO();
       Integer patientIdKey = entry.getKey();

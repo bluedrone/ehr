@@ -17,6 +17,8 @@ import com.wdeanmedical.ehr.entity.Activity;
 
 public class ActivityLogDTO extends AdminDTO{
 
+  private String dateFrom;
+  private String dateTo;
   private String userName;
   private String patientName;
   private Date timePerformed;
@@ -31,6 +33,22 @@ public class ActivityLogDTO extends AdminDTO{
   public Map<String, List<Activity>> clinicianActivityList = new HashMap<String, List<Activity>>();
 
   public ActivityLogDTO() {
+  }  
+
+  public String getDateFrom() {
+    return dateFrom;
+  }
+
+  public void setDateFrom(String dateFrom) {
+    this.dateFrom = dateFrom;
+  }
+
+  public String getDateTo() {
+    return dateTo;
+  }
+
+  public void setDateTo(String dateTo) {
+    this.dateTo = dateTo;
   }
 
   public String getUserName() {
