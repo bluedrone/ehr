@@ -1,0 +1,25 @@
+/* CSS Document */
+
+body {
+	background: #FFFFFF;
+	margin: 0 !important;
+	padding: 0 !important;
+	font-size: 12px !important;
+}
+
+/* Remove unwanted elements */
+.navbar-header, .navbar-right {
+	display: none;
+	width: 0;
+}
+
+#main-nav-exit, #main-nav-park, #main-nav-dashboard, #main-nav-patient, #main-nav-schedule, #main-nav-messages, #main-nav-letters, #main-nav-reports, #main-nav-help, #app-screen-name {
+	display: none;
+	width: 0;
+}
+
+.noPrint {
+	display: none !important;
+	width: 0;
+}
+
