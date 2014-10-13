@@ -1,5 +1,5 @@
 # WDean Medical EHR
-# version 0.8.19  12-OCT-2014
+# version 0.8.19  13-OCT-2014
 
 Improvements:
 Patient Activity By Clinician Report
