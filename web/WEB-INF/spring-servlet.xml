@@ -222,7 +222,6 @@
             <value>com.wdeanmedical.ehr.entity.AppointmentType</value>
             <value>com.wdeanmedical.ehr.entity.ChiefComplaint</value>
             <value>com.wdeanmedical.ehr.entity.Clinician</value>
-            <value>com.wdeanmedical.ehr.entity.Clinician</value>
             <value>com.wdeanmedical.ehr.entity.ClinicianSchedule</value>
             <value>com.wdeanmedical.ehr.entity.ClinicianSession</value>
             <value>com.wdeanmedical.ehr.entity.Country</value>
