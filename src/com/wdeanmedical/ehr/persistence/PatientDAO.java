@@ -279,12 +279,10 @@ public class PatientDAO extends SiteDAO {
     encounter.setDate(new Date());
     encounter.setClinician(clinician);
     encounter.setPatient(patient);
-    session.save(encounter);
     
     ChiefComplaint cc = new ChiefComplaint();
     cc.setPatientId(patient.getId());
     cc.setEncounterId(encounter.getId());
-    session.save(cc);
     encounter.setCc(cc);
     
     VitalSigns vitals = new VitalSigns();
@@ -292,7 +290,6 @@ public class PatientDAO extends SiteDAO {
     vitals.setClinicianId(clinician.getId());
     vitals.setEncounterId(encounter.getId());
     vitals.setDate(encounter.getDate());
-    session.save(vitals);
     encounter.setVitals(vitals);
     
     SOAPNote soapNote = new SOAPNote();
@@ -300,40 +297,34 @@ public class PatientDAO extends SiteDAO {
     soapNote.setClinicianId(clinician.getId());
     soapNote.setEncounterId(encounter.getId());
     soapNote.setDate(encounter.getDate());
-    session.save(soapNote);
     encounter.setSOAPNote(soapNote);
     
     SuppQuestions supp = new SuppQuestions();
     supp.setPatientId(patient.getId());
     supp.setEncounterId(encounter.getId());
-    session.save(supp);
     encounter.setSupp(supp);
     
     Exam exam = new Exam();
     exam.setPatientId(patient.getId());
     exam.setEncounterId(encounter.getId());
-    session.save(exam);
     encounter.setExam(exam);
     
     Lab lab = new Lab();
     lab.setPatientId(patient.getId());
     lab.setEncounterId(encounter.getId());
-    session.save(lab);
     encounter.setLab(lab);
     
     OBGYNEncounterData obgyn = new OBGYNEncounterData();
     obgyn.setPatientId(patient.getId());
     obgyn.setEncounterId(encounter.getId());
-    session.save(obgyn);
     encounter.setObgyn(obgyn);
     
     PatientFollowUp followUp = new PatientFollowUp();
     followUp.setPatientId(patient.getId());
     followUp.setEncounterId(encounter.getId());
-    session.save(followUp);
     encounter.setFollowUp(followUp);
     
-    session.update(encounter);
+    session.saveOrUpdate(encounter);
     return encounter;
   }
 
