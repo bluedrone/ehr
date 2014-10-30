@@ -17,7 +17,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.persistence.CascadeType;
+
+import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name = "encounter")
@@ -79,37 +80,44 @@ public class Encounter extends BaseEntity implements Serializable {
   public void setClinician(Clinician clinician) { this.clinician = clinician; }
 
   @JoinColumn(name = "vital_signs", referencedColumnName = "id")
-  @ManyToOne(optional = true, cascade = CascadeType.ALL)
+  @ManyToOne(optional = true)
+  @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
   public VitalSigns getVitals() { return vitals; }
   public void setVitals(VitalSigns vitals) { this.vitals = vitals; }
 
   @JoinColumn(name = "chief_complaint", referencedColumnName = "id")
-  @ManyToOne(optional = true, cascade = CascadeType.ALL)
+  @ManyToOne(optional = true)
+  @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
   public ChiefComplaint getCc() { return cc; }
   public void setCc(ChiefComplaint cc) { this.cc = cc; }
 
   @JoinColumn(name = "exam", referencedColumnName = "id")
-  @ManyToOne(optional = true, cascade = CascadeType.ALL)
+  @ManyToOne(optional = true)
+  @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
   public Exam getExam() { return exam; }
   public void setExam(Exam exam) { this.exam = exam; }
 
   @JoinColumn(name = "lab", referencedColumnName = "id")
-  @ManyToOne(optional = true, cascade = CascadeType.ALL)
+  @ManyToOne(optional = true)
+  @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
   public Lab getLab() { return lab; }
   public void setLab(Lab lab) { this.lab = lab; }
 
   @JoinColumn(name = "obgyn", referencedColumnName = "id")
-  @ManyToOne(optional = true, cascade = CascadeType.ALL)
+  @ManyToOne(optional = true)
+  @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
   public OBGYNEncounterData getObgyn() { return obgyn; }
   public void setObgyn(OBGYNEncounterData obgyn) { this.obgyn = obgyn; }
 
   @JoinColumn(name = "soap_note", referencedColumnName = "id")
-  @ManyToOne(optional = true, cascade = CascadeType.ALL)
+  @ManyToOne(optional = true)
+  @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
   public SOAPNote getSOAPNote() { return soapNote; }
   public void setSOAPNote(SOAPNote soapNote) { this.soapNote = soapNote; }
 
   @JoinColumn(name = "patient_follow_up", referencedColumnName = "id")
-  @ManyToOne(optional = true, cascade = CascadeType.ALL)
+  @ManyToOne(optional = true)
+  @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
   public PatientFollowUp getFollowUp() { return followUp; }
   public void setFollowUp(PatientFollowUp followUp) { this.followUp = followUp; }
 
@@ -123,7 +131,8 @@ public class Encounter extends BaseEntity implements Serializable {
   public void setLockStatus(Integer lockStatus) { this.lockStatus = lockStatus; }
 
   @JoinColumn(name = "supp_questions", referencedColumnName = "id")
-  @ManyToOne(optional = true, cascade = CascadeType.ALL)
+  @ManyToOne(optional = true)
+  @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
   public SuppQuestions getSupp() { return supp; }
   public void setSupp(SuppQuestions supp) { this.supp = supp; }
 

@@ -175,8 +175,7 @@ public class PatientService {
   
   
   public void createVitals(PatientDTO dto) throws Exception {
-  Set<String> fieldSetVitals = activityLogService.getListOfChangedFields(dto.getEncounter().getVitals());
-    patientDAO.update(dto.getEncounter().getVitals());
+    Set<String> fieldSetVitals = activityLogService.getListOfChangedFields(dto.getEncounter().getVitals());
     patientDAO.update(dto.getEncounter());
     activityLogService.logEditEncounter(dto.getClinicianId(), dto.getPatientId(), dto.getClinicianId(), dto.getEncounterId(), fieldSetVitals); 
   }
