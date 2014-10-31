@@ -67,6 +67,7 @@ public class Encounter extends BaseEntity implements Serializable {
 
   @JoinColumn(name = "patient", referencedColumnName = "id")
   @ManyToOne(optional = false)
+  @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
   public Patient getPatient() { return patient; }
   public void setPatient(Patient patient) { this.patient = patient; }
 
@@ -76,6 +77,7 @@ public class Encounter extends BaseEntity implements Serializable {
 
   @JoinColumn(name = "clinician", referencedColumnName = "id")
   @ManyToOne(optional = true)
+  @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
   public Clinician getClinician() { return clinician; }
   public void setClinician(Clinician clinician) { this.clinician = clinician; }
 
@@ -123,6 +125,7 @@ public class Encounter extends BaseEntity implements Serializable {
 
   @JoinColumn(name = "encounter_type", referencedColumnName = "id")
   @ManyToOne(optional = false)
+  @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
   public EncounterType getEncounterType() { return encounterType; }
   public void setEncounterType(EncounterType encounterType) { this.encounterType = encounterType; }
 

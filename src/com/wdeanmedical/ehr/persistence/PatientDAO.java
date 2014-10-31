@@ -19,6 +19,7 @@ import com.wdeanmedical.ehr.entity.Clinician;
 import com.wdeanmedical.ehr.entity.ClinicianSchedule;
 import com.wdeanmedical.ehr.entity.ClinicianSession;
 import com.wdeanmedical.ehr.entity.Country;
+import com.wdeanmedical.ehr.entity.Credential;
 import com.wdeanmedical.ehr.entity.Credentials;
 import com.wdeanmedical.ehr.entity.Demographics;
 import com.wdeanmedical.ehr.entity.DxCode;
@@ -517,6 +518,14 @@ public class PatientDAO extends SiteDAO {
 	 Credentials cred = (Credentials)crit.uniqueResult();
 	 Patient patient = (Patient) this.findById(Patient.class, cred.getPatientId());
 	 return patient;
+  }
+  
+  /*public Credential findCredentialById(int id) throws Exception {
+	    return (Credential) this.findById(Credential.class, id);
+  }*/
+  
+  public Clinician findClinicianById(int id) throws Exception {
+    return (Clinician) this.findById(Clinician.class, id);
   }
 
 }

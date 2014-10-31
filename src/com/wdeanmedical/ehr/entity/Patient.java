@@ -22,6 +22,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Cascade;
+
 @Entity
 @Table(name = "patient")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -59,25 +61,23 @@ public class Patient extends BaseEntity implements Serializable {
 
   @JoinColumn(name = "pfsh", referencedColumnName = "id")
   @ManyToOne(optional = true)
+  @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
   public PFSH getPfsh() { return pfsh; }
   public void setPfsh(PFSH pfsh) { this.pfsh = pfsh; }
 
   @JoinColumn(name = "patient_medical_history", referencedColumnName = "id")
   @ManyToOne(optional = true)
+  @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
   public MedicalHistory getHist() { return hist; }
   public void setHist(MedicalHistory hist) { this.hist = hist; }
 
   @Column(name = "current_encounter_id")
   public Integer getCurrentEncounterId() { return currentEncounterId; }
   public void setCurrentEncounterId(Integer currentEncounterId) { this.currentEncounterId = currentEncounterId; }
-
-
+  
   @Transient
   public Boolean isEncrypted() { return encrypted; }
   public void setEncrypted(Boolean encrypted) { this.encrypted = encrypted; }
-
-
-
 
   @Override
   public int hashCode() {
@@ -93,8 +93,6 @@ public class Patient extends BaseEntity implements Serializable {
     result = prime * result + ((pfsh == null) ? 0 : pfsh.hashCode());
     return result;
   }
-
-
 
 @Override
   public boolean equals(Object obj) {
