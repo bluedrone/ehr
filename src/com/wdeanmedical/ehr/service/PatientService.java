@@ -44,7 +44,6 @@ import com.wdeanmedical.ehr.entity.Lab;
 import com.wdeanmedical.ehr.entity.OBGYNEncounterData;
 import com.wdeanmedical.ehr.entity.Patient;
 import com.wdeanmedical.ehr.entity.Encounter;
-import com.wdeanmedical.ehr.entity.EncounterType;
 import com.wdeanmedical.ehr.entity.PatientFollowUp;
 import com.wdeanmedical.ehr.entity.MedicalHistory;
 import com.wdeanmedical.ehr.entity.Clinician;
@@ -101,11 +100,15 @@ public class PatientService {
       ExcludedFields.excludeFields(item.getPatient());
       ExcludedFields.excludeFields(item.getClinician());
       ExcludedObjects.excludeObjects(item.getClinician());
-      for(DxCode dxCodes : item.getDxCodes()){
-       ExcludedObjects.excludeObjects(dxCodes);
+      if(item.getDxCodes() != null){
+    	for(DxCode dxCodes : item.getDxCodes()){
+          ExcludedObjects.excludeObjects(dxCodes);
+        }
       }
-      for(TxCode txCodes : item.getTxCodes()){
-       ExcludedObjects.excludeObjects(txCodes);
+      if(item.getTxCodes() != null){
+    	for(TxCode txCodes : item.getTxCodes()){
+          ExcludedObjects.excludeObjects(txCodes);
+        }
       }
     }
     return items;
@@ -352,11 +355,15 @@ public class PatientService {
     ExcludedObjects.excludeObjects(encounter.getPatient());
     ExcludedFields.excludeFields(encounter.getClinician());
     ExcludedObjects.excludeObjects(encounter.getClinician());
-    for(DxCode dxCodes : encounter.getDxCodes()){
+    if(encounter.getDxCodes() != null){
+     for(DxCode dxCodes : encounter.getDxCodes()){
     	ExcludedObjects.excludeObjects(dxCodes);
+     }
     }
-    for(TxCode txCodes : encounter.getTxCodes()){
+    if(encounter.getTxCodes() != null){
+     for(TxCode txCodes : encounter.getTxCodes()){
     	ExcludedObjects.excludeObjects(txCodes);
+     }
     }
     dto.setEncounter(encounter);
   }
@@ -514,6 +521,16 @@ public class PatientService {
     decrypt(encounter.getPatient()); 
     ExcludedFields.excludeFields(encounter.getPatient());
     ExcludedObjects.excludeObjects(encounter.getPatient());
+    if(encounter.getDxCodes() != null ){
+	    for(DxCode dxCodes : encounter.getDxCodes()){
+	    	ExcludedObjects.excludeObjects(dxCodes);
+	    }
+    }
+    if(encounter.getTxCodes() != null ){
+	    for(TxCode txCodes : encounter.getTxCodes()){
+	    	ExcludedObjects.excludeObjects(txCodes);
+	    }
+    }
     return encounter;
   }
   
@@ -550,11 +567,15 @@ public class PatientService {
     ExcludedFields.excludeFields(encounter.getPatient());
     ExcludedFields.excludeFields(encounter.getClinician());
     ExcludedObjects.excludeObjects(encounter.getClinician());
-    for(DxCode dxCodes : encounter.getDxCodes()){
-    	ExcludedObjects.excludeObjects(dxCodes);
+    if(encounter.getDxCodes() != null ){
+	    for(DxCode dxCodes : encounter.getDxCodes()){
+	    	ExcludedObjects.excludeObjects(dxCodes);
+	    }
     }
-    for(TxCode txCodes : encounter.getTxCodes()){
-    	ExcludedObjects.excludeObjects(txCodes);
+    if(encounter.getTxCodes() != null ){
+	    for(TxCode txCodes : encounter.getTxCodes()){
+	    	ExcludedObjects.excludeObjects(txCodes);
+	    }
     }
     return encounter;
   }
@@ -568,11 +589,15 @@ public class PatientService {
     ExcludedObjects.excludeObjects(encounter.getPatient());
     ExcludedFields.excludeFields(encounter.getClinician());
     ExcludedObjects.excludeObjects(encounter.getClinician());
-    for(DxCode dxCodes : encounter.getDxCodes()){
-    	ExcludedObjects.excludeObjects(dxCodes);
+    if(encounter.getDxCodes() != null ){
+	    for(DxCode dxCodes : encounter.getDxCodes()){
+	    	ExcludedObjects.excludeObjects(dxCodes);
+	    }
     }
-    for(TxCode txCodes : encounter.getTxCodes()){
-    	ExcludedObjects.excludeObjects(txCodes);
+    if(encounter.getTxCodes() != null ){
+	    for(TxCode txCodes : encounter.getTxCodes()){
+	    	ExcludedObjects.excludeObjects(txCodes);
+	    }
     }
     return encounter;
   }
@@ -601,11 +626,15 @@ public class PatientService {
     ExcludedObjects.excludeObjects(encounter.getPatient());
     ExcludedFields.excludeFields(encounter.getClinician());
     ExcludedObjects.excludeObjects(encounter.getClinician());
-    for(DxCode dxCodes : encounter.getDxCodes()){
-    	ExcludedObjects.excludeObjects(dxCodes);
+    if(encounter.getDxCodes() != null ){
+	    for(DxCode dxCodes : encounter.getDxCodes()){
+	    	ExcludedObjects.excludeObjects(dxCodes);
+	    }
     }
-    for(TxCode txCodes : encounter.getTxCodes()){
-    	ExcludedObjects.excludeObjects(txCodes);
+    if(encounter.getTxCodes() != null ){
+	    for(TxCode txCodes : encounter.getTxCodes()){
+	    	ExcludedObjects.excludeObjects(txCodes);
+	    }
     }
     return encounter;
   }
@@ -1094,7 +1123,9 @@ public class PatientService {
   }
    
   private void setClinician(PatientDTO dto) throws Exception{
+	 if(dto.getEncounter() != null){
 	  dto.getEncounter().setClinician(patientDAO.findClinicianById(dto.getClinicianId()));
+  	 }
   }
 
 }
