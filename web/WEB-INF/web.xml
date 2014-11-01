@@ -45,17 +45,17 @@
   
   <context-param>
     <param-name>filesHome</param-name>
-    <param-value>/Users/nick/</param-value>
+    <param-value>/files/</param-value>
   </context-param>  
   
   <context-param>
     <param-name>patientDirPath</param-name>
-    <param-value>wdm_files/patients</param-value>
+    <param-value>patients</param-value>
   </context-param> 
   
   <context-param>
     <param-name>IMAGE_MAGICK_HOME</param-name>
-    <param-value>/Users/nick/imagemagick/bin/</param-value>
+    <param-value>/bin/imagemagick/</param-value>
   </context-param>  
   
   <context-param>

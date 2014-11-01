@@ -101,41 +101,47 @@ var ONE_SECOND =  1000;
 var ONE_MINUTE = 60000;
 
 /***********      @JQUERY INIT    *******************/
-$(document).ready(function() {
-  $('#cloak').css({visibility: 'visible'});
-  if (INITIALIZED == false) {
-    getStaticLists();
-    INITIALIZED = true;
-    $(function () { $("[data-toggle='popover']").popover({ trigger: "hover" }); });
-    app_viewStack('signin-screen', DO_SCROLL);
-    $('.dropdown-menu').find('form').click(function (e) { e.stopPropagation();});
-    
-    setTimeout(function () {
-    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
-    if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";
-    fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
-    }, 1000);
-    
-    $('#section-notification').css("visibility", "hidden");
-    $('#section-notification-text').html("");
-    
-    $('#app-check-in-print').click(function(){
-      RenderUtil.render('print/print_check-in_list',  {groups:app_patientEncounterGroups}, function(obj) {
-        var s = obj[0].outerHTML;
-        print_openPrintWindow('print.html', s, 'PATIENT CHECK-IN LIST');
-      });
-    });
-    $('#app-encounter-print-all').click(function(){
-      var currentDate = dateFormat(new Date(), 'mm/dd/yyyy');
-      RenderUtil.render('print/print_encounter_all',  {encounter:app_currentEncounter, currentDate:currentDate}, function(obj) {
-        var s = obj[0].outerHTML;
-        print_openPrintWindow('print.html', s, 'ENCOUNTER FORM');
-      });
-    });
-    $(document).mousemove( function(){ app_timerReset(); });
-    window.onbeforeunload = confirmBeforeUnload;
-  }
-});
+(function() {
+	jqueryInit = function()	{
+	  $('#cloak').css({visibility: 'visible'});
+	  if (INITIALIZED == false) {
+	    getStaticLists();
+	    INITIALIZED = true;
+	    $(function () { $("[data-toggle='popover']").popover({ trigger: "hover" }); });
+	    app_viewStack('signin-screen', DO_SCROLL);
+	    $('.dropdown-menu').find('form').click(function (e) { e.stopPropagation();});
+	    
+	    setTimeout(function () {
+	    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+	    if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";
+	    fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+	    }, 1000);
+	    
+	    $('#section-notification').css("visibility", "hidden");
+	    $('#section-notification-text').html("");
+	    
+	    $('#app-check-in-print').click(function(){
+	      RenderUtil.render('print/print_check-in_list',  {groups:app_patientEncounterGroups}, function(obj) {
+	        var s = obj[0].outerHTML;
+	        print_openPrintWindow('print.html', s, 'PATIENT CHECK-IN LIST');
+	      });
+	    });
+	    $('#app-encounter-print-all').click(function(){
+	      var currentDate = dateFormat(new Date(), 'mm/dd/yyyy');
+	      RenderUtil.render('print/print_encounter_all',  {encounter:app_currentEncounter, currentDate:currentDate}, function(obj) {
+	        var s = obj[0].outerHTML;
+	        print_openPrintWindow('print.html', s, 'ENCOUNTER FORM');
+	      });
+	    });
+	    $(document).mousemove( function(){ app_timerReset(); });
+	    window.onbeforeunload = confirmBeforeUnload;
+	  }
+	}
+	$(document).ready(function() {
+		standalone = modulejs.require("app/standalone")
+        standalone.ready(jqueryInit)
+	})
+})()
 /***********      @JQUERY INIT    *******************/
 
 function app_runIdleTimer() {
@@ -182,7 +188,7 @@ function getStaticLists() {
     parsedData = $.parseJSON(data);
     app_usStates = parsedData.usStates;
     app_cptModifiers = parsedData.cptModifiers;
- });
+ })
 }
 
 
@@ -254,7 +260,6 @@ function initPatientSearchTypeAheads() {
   $.post("app/getPatientSearchTypeAheads", {data:jsonData}, function(data) {
     var parsedData = $.parseJSON(data);
     patientSearchTypeAheads = parsedData.patientSearchTypeAheads;
-    
     $('#patient-search-first-name').typeahead(
       { hint: true, highlight: true, minLength: 1 },
       { name: 'firstNames', displayKey: 'value', source: util_substringMatcher(patientSearchTypeAheads.firstNames) }); 
@@ -369,7 +374,6 @@ function getClinicianDashboard() {
   $.post("app/getClinicianDashboard", {data:jsonData}, function(data) {
     var parsedData = $.parseJSON(data);
     clinicianDashboard = parsedData.dashboard;
-      
     RenderUtil.render('component/simple_data_table', 
      {items:clinicianDashboard.messages, 
       title:'Messages', 
@@ -831,7 +835,9 @@ function viewClinicianMessage() {
       $('.patient-chart-primary-phone').html(app_patientChartPrimaryPhone);
       $('.patient-chart-secondary-phone').html(app_patientChartSecondaryPhone);
       $('.patient-chart-last-appt').html(app_patientChartLastApptDate);
-      $('.patient-chart-headshot').attr('src', app_patientChartHeadshot);
+      if (!$('.patient-chart-headshot').attr('src')) {
+    	  	$('.patient-chart-headshot').attr('src', app_patientChartHeadshot);
+      }
       $('#section-notification').css("visibility", "visible");
       $('.patient-navbar-btn').css("display", "inline-block");
       $('.check-in-navbar-btn').css("display", "none");
@@ -1155,7 +1161,6 @@ function login(demoMode, destination) {
       clinician.patientId = parsedData.patientId;
       clinician.previousLoginTime = parsedData.previousLoginTime;
       clinician.sessionId = parsedData.sessionId;
-        
       if (clinician.authStatus == CLINICIAN_STATUS_AUTHORIZED) {
         clinicianFullName = util_buildFullName(clinician.firstName, clinician.middleName, clinician.lastName);
         notificationText = clinicianFullName + ' logged in.';
