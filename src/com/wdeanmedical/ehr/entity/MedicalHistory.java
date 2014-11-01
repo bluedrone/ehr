@@ -15,8 +15,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name = "patient_medical_history")
@@ -119,7 +122,8 @@ public class MedicalHistory extends BaseEntity implements Serializable {
   public Boolean getSaved() { return saved; }
   public void setSaved(Boolean saved) { this.saved = saved; }
 
-  @Transient
+  @OneToMany(mappedBy = "medicalHistory")
+  @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
   public List<PatientHistoryMedication> getPatientMedicationList() { return patientMedicationList; }
   public void setPatientMedicationList( List<PatientHistoryMedication> patientMedicationList) { this.patientMedicationList = patientMedicationList; }
   

@@ -11,6 +11,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -23,6 +24,8 @@ public class PatientHistoryMedication extends BaseEntity implements Serializable
   private String dose;
   private String frequency;
   private int patientId;
+  private Integer medicalHistoryId;
+  private MedicalHistory medicalHistory;
 
   public PatientHistoryMedication() {
   }
@@ -61,6 +64,24 @@ public class PatientHistoryMedication extends BaseEntity implements Serializable
 
   public void setPatientId(int patientId) {
     this.patientId = patientId;
+  }    
+  
+  @Column(name = "patient_medical_history_id")
+  public Integer getMedicalHistoryId() {
+	return medicalHistoryId;
+  }
+
+  public void setMedicalHistoryId(Integer medicalHistoryId) {
+	this.medicalHistoryId = medicalHistoryId;
+  }
+
+  @JoinColumn(name = "patient_medical_history_id", referencedColumnName = "id", insertable = false, updatable = false)
+  public MedicalHistory getMedicalHistory() {
+	return medicalHistory;
+  }
+	
+  public void setMedicalHistory(MedicalHistory medicalHistory) {
+	this.medicalHistory = medicalHistory;
   }
 
   @Override
