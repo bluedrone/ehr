@@ -1,11 +1,12 @@
-modulejs.define('app/standalone',  ['app/mode', 'head', 'app/standalone/responder', 'app/standalone/filter', 'jquery'], function (mode, head, responder, filter, $) {
+modulejs.define('app/standalone',  ['app/mode', 'head', 'app/standalone/responder', 'app/standalone/filter', 'jquery', 'underscore'], function (mode, head, responder, filter, $, _) {
 	return { 
 		ready: function(onReady) {
 			if (mode.isStandalone()) {
 				$('#wdm-pm').click(function(){
 					$(this).attr('href', '../../pm/web/app.html')
 				})
-				var server = undefined;
+				var server, recentPatients, groupByPatient
+				var activityLogs = []
 				var appUrlRegex = /^app\/.*/
 				var patientUrlRegex = /^patient\/.*/
 				var reportsUrlRegex = /^reports\/.*/
@@ -73,19 +74,42 @@ modulejs.define('app/standalone',  ['app/mode', 'head', 'app/standalone/responde
 										postData = {id:-1}
 									} else if (url.match('app/getPatientSearchTypeAheads')) {
 												postData = {id:0}
-									}	else {
+									}	
+									else {
 										//gets post request data param
 										postData = decodeURIComponent(request.requestBody).split('=')[1]
 										if (postData) {
 											postData = JSON.parse(postData)
 										}
 									}
-								   return filter.process(url, data, postData)										
+									if (url == 'reports/filterActivityLog' || url == 'reports/filterGroupByPatientsActivityLog') {
+										activity = $('#reports-activity-log-activity option:selected').text()
+										postData.activityName = activity
+										return filter.reports().process(activityLogs, postData)
+									} else if (url == 'app/patientSearch') {
+										return filter.patients().process(recentPatients.patients, postData)
+									}
+									else {
+										return filter.process(url, data, postData)
+									}
 								}
 							}		
 							success = function(data){
 								var processedData = processData(data)
-								
+								if (url == 'app/getRecentPatients') {
+									recentPatients = processedData
+								}if (url == 'app/patientSearch') {
+									var patients = processedData
+									processedData=_.extend({}, recentPatients, {patients:patients})
+								}
+								 if (url == 'reports/getActivityLog' || url == 'reports/getGroupByPatientsLog') {
+									activityLogs = processedData[0].activityLog || processedData
+									groupByPatient = processedData[0].patient
+								}
+								 if (url == 'reports/filterGroupByPatientsActivityLog') {
+									activityLog = processedData
+									processedData = [{patient:groupByPatient, activityLog:activityLog}] 
+								}
 								if (url.match(htmlUrlRegex)) {
 									string = processedData
 								}else {

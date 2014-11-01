@@ -34,6 +34,8 @@ head.js (
    "js/loader.js",
    "js/head.js",
    "js/filter.js",
+   "js/patients_filter.js",
+   "js/reports_filter.js",
    "js/app.js",           
    "js/admin.js",           
    "js/patient_encounter.js",           

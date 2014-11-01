@@ -1,7 +1,8 @@
 modulejs.define('app/mode',  ['jquery'], function ($) {
 	return { 
 		isStandalone: function() {
-			return $('body').data('mode') == 'standalone'
+			protocol = document.URL.split(':')[0]
+			return (protocol == "file")
 		} 
 	}
 });

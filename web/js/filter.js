@@ -1,4 +1,4 @@
-modulejs.define('app/standalone/filter', ['jquery', 'underscore'], function($, _) {
+modulejs.define('app/standalone/filter', ['jquery', 'underscore', 'app/standalone/reports/filter', 'app/standalone/patients/filter'], function($, _, reports, patients) {
  filterForUrl = function(url) {
 	 path = url.split('/')[0]
 	 switch(path) {
@@ -11,6 +11,12 @@ modulejs.define('app/standalone/filter', ['jquery', 'underscore'], function($, _
 	 }
  }
 return {
+	 patients: function() {
+		 return patients
+	 },
+	 reports: function() {
+		 return reports
+	 },
 	 process: function(url, json_string, request_data) {
 		 var filterBy = filterForUrl(url)
 		 var filters = request_data
