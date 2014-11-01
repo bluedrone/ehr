@@ -101,6 +101,12 @@ public class PatientService {
       ExcludedFields.excludeFields(item.getPatient());
       ExcludedFields.excludeFields(item.getClinician());
       ExcludedObjects.excludeObjects(item.getClinician());
+      for(DxCode dxCodes : item.getDxCodes()){
+       ExcludedObjects.excludeObjects(dxCodes);
+      }
+      for(TxCode txCodes : item.getTxCodes()){
+       ExcludedObjects.excludeObjects(txCodes);
+      }
     }
     return items;
   }

@@ -24,6 +24,7 @@ public class DxCode extends BaseEntity implements Serializable {
   
   private Integer encounterId;
   private ICD9 icd9;
+  private Encounter encounter;
   
   
   public DxCode() {
@@ -39,5 +40,10 @@ public class DxCode extends BaseEntity implements Serializable {
   @ManyToOne(optional = true)
   public ICD9 getIcd9() { return icd9; }
   public void setIcd9(ICD9 icd9) { this.icd9 = icd9; }
+  
+  @JoinColumn(name = "encounter_id", referencedColumnName = "id", insertable = false, updatable = false)
+  @ManyToOne(optional = true)
+  public Encounter getEncounter() { return encounter; }
+  public void setEncounter(Encounter encounter) { this.encounter = encounter; }
 
 }

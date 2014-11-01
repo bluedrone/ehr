@@ -25,6 +25,7 @@ public class TxCode extends BaseEntity implements Serializable {
   private Integer encounterId;
   private CPT cpt;
   private CPTModifier cptModifier;
+  private Encounter encounter;
   
   
   public TxCode() {
@@ -45,5 +46,11 @@ public class TxCode extends BaseEntity implements Serializable {
   @ManyToOne(optional = true)
   public CPTModifier getCptModifier() { return cptModifier; }
   public void setCptModifier(CPTModifier cptModifier) { this.cptModifier = cptModifier; }
+  
+  @JoinColumn(name = "encounter_id", referencedColumnName = "id", insertable = false, updatable = false)
+  @ManyToOne(optional = true)
+  public Encounter getEncounter() { return encounter; }
+  public void setEncounter(Encounter encounter) { this.encounter = encounter; }
+
 
 }

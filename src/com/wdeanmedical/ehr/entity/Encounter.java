@@ -15,6 +15,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -183,11 +184,11 @@ public class Encounter extends BaseEntity implements Serializable {
   public String getNotes() { return notes; }
   public void setNotes(String notes) { this.notes = notes; }
   
-  @Transient
+  @OneToMany(mappedBy = "encounter")  
   public List<DxCode> getDxCodes() { return dxCodes; }
   public void setDxCodes(List<DxCode> dxCodes) { this.dxCodes = dxCodes; }
 
-  @Transient
+  @OneToMany(mappedBy = "encounter")  
   public List<TxCode> getTxCodes() { return txCodes; }
   public void setTxCodes(List<TxCode> txCodes) { this.txCodes = txCodes; }
 

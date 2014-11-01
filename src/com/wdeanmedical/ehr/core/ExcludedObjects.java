@@ -12,11 +12,13 @@ import java.util.TreeMap;
 
 import com.wdeanmedical.ehr.entity.Clinician;
 import com.wdeanmedical.ehr.entity.ClinicianSchedule;
+import com.wdeanmedical.ehr.entity.DxCode;
 import com.wdeanmedical.ehr.entity.LabReview;
 import com.wdeanmedical.ehr.entity.Patient;
 import com.wdeanmedical.ehr.entity.PatientMessage;
 import com.wdeanmedical.ehr.entity.ProgressNote;
 import com.wdeanmedical.ehr.entity.ToDoNote;
+import com.wdeanmedical.ehr.entity.TxCode;
 
 
 public class ExcludedObjects {
@@ -59,6 +61,14 @@ public class ExcludedObjects {
     else if ("ClinicianSchedule".equals(className)) {
       ClinicianSchedule cs = (ClinicianSchedule)obj;
       cs.setClinician(null);
+    }
+    else if ("DxCode".equals(className)) {
+      DxCode dxCode = (DxCode)obj;
+      dxCode.setEncounter(null);
+	}
+    else if ("TxCode".equals(className)) {
+      TxCode txCode = (TxCode)obj;
+      txCode.setEncounter(null);
     }
     
   }
