@@ -352,6 +352,12 @@ public class PatientService {
     ExcludedObjects.excludeObjects(encounter.getPatient());
     ExcludedFields.excludeFields(encounter.getClinician());
     ExcludedObjects.excludeObjects(encounter.getClinician());
+    for(DxCode dxCodes : encounter.getDxCodes()){
+    	ExcludedObjects.excludeObjects(dxCodes);
+    }
+    for(TxCode txCodes : encounter.getTxCodes()){
+    	ExcludedObjects.excludeObjects(txCodes);
+    }
     dto.setEncounter(encounter);
   }
   
@@ -544,6 +550,12 @@ public class PatientService {
     ExcludedFields.excludeFields(encounter.getPatient());
     ExcludedFields.excludeFields(encounter.getClinician());
     ExcludedObjects.excludeObjects(encounter.getClinician());
+    for(DxCode dxCodes : encounter.getDxCodes()){
+    	ExcludedObjects.excludeObjects(dxCodes);
+    }
+    for(TxCode txCodes : encounter.getTxCodes()){
+    	ExcludedObjects.excludeObjects(txCodes);
+    }
     return encounter;
   }
   
@@ -556,6 +568,12 @@ public class PatientService {
     ExcludedObjects.excludeObjects(encounter.getPatient());
     ExcludedFields.excludeFields(encounter.getClinician());
     ExcludedObjects.excludeObjects(encounter.getClinician());
+    for(DxCode dxCodes : encounter.getDxCodes()){
+    	ExcludedObjects.excludeObjects(dxCodes);
+    }
+    for(TxCode txCodes : encounter.getTxCodes()){
+    	ExcludedObjects.excludeObjects(txCodes);
+    }
     return encounter;
   }
   
@@ -583,6 +601,12 @@ public class PatientService {
     ExcludedObjects.excludeObjects(encounter.getPatient());
     ExcludedFields.excludeFields(encounter.getClinician());
     ExcludedObjects.excludeObjects(encounter.getClinician());
+    for(DxCode dxCodes : encounter.getDxCodes()){
+    	ExcludedObjects.excludeObjects(dxCodes);
+    }
+    for(TxCode txCodes : encounter.getTxCodes()){
+    	ExcludedObjects.excludeObjects(txCodes);
+    }
     return encounter;
   }
   
