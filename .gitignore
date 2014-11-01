@@ -1,2 +1,6 @@
 .DS_Store
 web/WEB-INF/classes/
+web/.swp
+web/**/.idea
+
+*.log
