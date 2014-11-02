@@ -13,6 +13,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -122,7 +123,7 @@ public class MedicalHistory extends BaseEntity implements Serializable {
   public Boolean getSaved() { return saved; }
   public void setSaved(Boolean saved) { this.saved = saved; }
 
-  @OneToMany(mappedBy = "medicalHistory")
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "medicalHistory")
   @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
   public List<PatientHistoryMedication> getPatientMedicationList() { return patientMedicationList; }
   public void setPatientMedicationList( List<PatientHistoryMedication> patientMedicationList) { this.patientMedicationList = patientMedicationList; }
