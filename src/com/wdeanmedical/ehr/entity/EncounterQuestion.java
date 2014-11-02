@@ -11,6 +11,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -21,6 +22,8 @@ public class EncounterQuestion extends BaseEntity implements Serializable {
   private String question = "&nbsp;";
   private String response = "&nbsp;";
   private int encounterId;
+  private Integer suppQuestionsId;
+  private SuppQuestions suppQuestions;
 
   public EncounterQuestion() {
   }
@@ -50,9 +53,27 @@ public class EncounterQuestion extends BaseEntity implements Serializable {
 
   public void setEncounterId(int encounterId) {
     this.encounterId = encounterId;
+  }   
+  
+  @Column(name = "patient_supp_questions_id")
+  public Integer getSuppQuestionsId() {
+	return suppQuestionsId;
   }
 
-  @Override
+  public void setSuppQuestionsId(Integer suppQuestionsId) {
+	this.suppQuestionsId = suppQuestionsId;
+  }
+
+  @JoinColumn(name = "patient_supp_questions_id", referencedColumnName = "id", insertable = false, updatable = false)
+  public SuppQuestions getSuppQuestions() {
+	return suppQuestions;
+  }
+
+  public void setSuppQuestions(SuppQuestions suppQuestions) {
+	this.suppQuestions = suppQuestions;
+  }
+
+@Override
   public int hashCode() {
     final int prime = 31;
     int result = super.hashCode();

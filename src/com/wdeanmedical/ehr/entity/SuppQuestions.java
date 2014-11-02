@@ -15,8 +15,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name = "patient_supp_questions")
@@ -109,7 +112,8 @@ public class SuppQuestions extends BaseEntity implements Serializable {
     this.waterSource = waterSource;
   }
 
-  @Transient
+  @OneToMany(mappedBy = "suppQuestions")
+  @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
   public List<EncounterQuestion> getEncounterQuestionList() {
     return encounterQuestionList;
   }
