@@ -1,12 +1,9 @@
 # WDean Medical EHR
-# version 0.8.19  13-OCT-2014
+# version 1.0  01-NOV-2014
 
 Improvements:
-Patient Activity By Clinician Report
-Printable Reports
-Date Ranges on Reports
-Refactoring of Servlet Facades to reduce repeating code.
-Refactoring of JavaScript screen showing/hiding to reduce repeating code.
+Addition of Standalone Mode that will allow for HTML and CSS development without a server.
+Refactoring of Persistance Layer to leverage Hibernate better.
 
 Bug Fixes:
 
