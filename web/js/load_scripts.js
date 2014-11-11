@@ -6,6 +6,7 @@
  */
 
 head.js (
+   "js/lib/bowser.min.js",          
    "js/lib/moment.min.js",          
    "js/lib/jquery-1.10.2.js", 
    "js/lib/modulejs-1.5.0.min.js", 
@@ -36,12 +37,12 @@ head.js (
    "js/filter.js",
    "js/patients_filter.js",
    "js/reports_filter.js",
+   "js/view_stacks.js",           
    "js/app.js",           
    "js/admin.js",           
    "js/patient_encounter.js",           
    "js/render_encounter_form.js",           
    "js/patient.js",           
-   "js/view_stacks.js",           
    "js/dto.js",           
    "js/RenderUtil.js",           
    "js/print.js",           

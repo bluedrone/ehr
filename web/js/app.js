@@ -5,6 +5,11 @@
  * copyright 2013-2014 WDean Medical
  */
 
+// test for Grade A browser support.
+if (!bowser.a) { 
+  document.location = 'browser_upgrade.html';
+}
+
 var ENCOUNTER_FREE =  0;
 var ENCOUNTER_LOCKED = 1;
 var ENCOUNTER_OVERRIDDEN =  2;
