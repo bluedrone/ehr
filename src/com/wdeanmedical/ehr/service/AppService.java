@@ -448,6 +448,7 @@ public class AppService {
   public  boolean getPatientChart(PatientDTO dto) throws Exception {
     SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
     Patient patient = appDAO.findPatientById(dto.getId());
+    ExcludedObjects.excludeObjects(patient);
     patientService.decrypt(patient); 
     ExcludedFields.excludeFields(patient);
     dto.setPatient(patient);
