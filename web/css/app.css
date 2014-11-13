@@ -768,6 +768,11 @@ table.encounter-form td {
   width: 100%; 
 }
 
+.tt-dataset-icd9List, .tt-dataset-cptList { 
+  height: 124px; 
+  overflow-y: auto;
+}
+
 .typeahead, .tt-query, .tt-hint {
   border: 2px solid #ccc;
   -webkit-border-radius: 8px;

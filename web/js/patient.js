@@ -580,6 +580,22 @@ function viewPatientEncounter(encounterId) {
     RenderUtil.render('encounter', args, function(s) { 
       $('#modals-placement').html(s);
       $('#modal-encounter').modal('show'); 
+      $('#modal-encounter').on('shown.bs.modal', function() {
+        debug("encounter form showing");
+        $( ".cpt-modifier" ).on("change", function() {
+          var str = $(this).attr("id");
+          var res = parseInt(str.replace(/.+-.+-/i,''));
+          var jsonData = JSON.stringify({ 
+            sessionId: clinician.sessionId, 
+            txCodeId: res,
+            updateProperty: "cptModifier",
+            cptModifierId: parseInt($(this).val())
+          });
+          $.post("patient/updateTxCode", {data:jsonData}, function(data) {
+            
+          }); 
+        });
+      });
       $('#app-encounter-close-record').css({display: (app_currentEncounter.completed ? "none" : "inline-block")}); 
       setupCloseRecordButton();
       renderPatientEncounterForm(app_currentEncounter, true); 

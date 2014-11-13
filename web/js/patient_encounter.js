@@ -86,20 +86,39 @@ function renderCPTModifiers(id, element) {
 
 function initDxTypeAheads(id) {
   var dxCode = new Bloodhound({
-    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+    datumTokenizer: function(icd9List) { 
+      return Bloodhound.tokenizers.whitespace(icd9List.value);
+    },
     queryTokenizer: Bloodhound.tokenizers.whitespace,
+    limit: 100,
     remote: {
       url: 'app/searchICD9?sessionId='+clinician.sessionId+'&searchText=%QUERY',
-      filter: function (data) {
-        return $.map(data.icd9List, function (dxCode) {
-          return { value: dxCode.code + ' ' + dxCode.codeText };
-        });
+      filter: function(response) {      
+        return response.icd9List;
       }
     }
   });
   dxCode.initialize();
   $('.icd9-typeahead').typeahead( { hint: true, highlight: true, limit: 10, minLength: 3 },
-  { name: 'encounter-dx-code-'+id, displayKey: 'value', source: dxCode.ttAdapter(), }).on('typeahead:selected', onTypeaheadSelect); 
+  { 
+    name: 'icd9List', 
+    displayKey: function(icd9List) {
+    return icd9List.code + " " + icd9List.codeText;        
+   },
+    source: dxCode.ttAdapter() 
+  }).on('typeahead:selected', function($e, datum) {
+     var str = $(this).attr("id");
+     var res = parseInt(str.replace(/.+-.+-/i,''));
+     var jsonData = JSON.stringify({ 
+       sessionId: clinician.sessionId, 
+       dxCodeId: res,
+       updateProperty: "icd_9",
+       icd9Id: datum.id
+     });
+     $.post("patient/updateDxCode", {data:jsonData}, function(data) {
+       
+     }); 
+  }); 
 } 
 
 function onTypeaheadSelect($e, datum) {
@@ -110,20 +129,39 @@ function onTypeaheadSelect($e, datum) {
 
 function initTxTypeAheads(id) {
   var cpt = new Bloodhound({
-    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+    datumTokenizer: function(cptList) { 
+      return Bloodhound.tokenizers.whitespace(cptList.value);
+    },
     queryTokenizer: Bloodhound.tokenizers.whitespace,
+    limit: 100,
     remote: {
       url: 'app/searchCPT?sessionId='+clinician.sessionId+'&searchText=%QUERY',
-      filter: function (data) {
-        return $.map(data.cptList, function (cpt) {
-          return { value: cpt.code + ' ' + cpt.description };
-        });
-      }
+      filter: function(response) {      
+         return response.cptList;
+       }
     }
   });
   cpt.initialize();
-  $('.cpt-typeahead').typeahead( { hint: true, highlight: true, limit: 10, minLength: 3 },
-  { name: 'encounter-tx-code-'+id, displayKey: 'value', source: cpt.ttAdapter(), }); 
+  $('.cpt-typeahead').typeahead( { hint: true, highlight: true, minLength: 3 },
+  { 
+    name: 'cptList', 
+    displayKey: function(cptList) {
+      return cptList.code + " " + cptList.description;        
+    },
+    source: cpt.ttAdapter() 
+  }).on('typeahead:selected', function($e, datum) {
+     var str = $(this).attr("id");
+     var res = parseInt(str.replace(/.+-.+-/i,''));
+     var jsonData = JSON.stringify({ 
+       sessionId: clinician.sessionId, 
+       txCodeId: res,
+       updateProperty: "cpt",
+       cptId: datum.id
+     });
+     $.post("patient/updateTxCode", {data:jsonData}, function(data) {
+       
+     }); 
+   }); 
 } 
 
 function updateSavedPatientEncounter(property, value, encounterId, isDualMode, elementId, valueName) {
