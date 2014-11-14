@@ -1,0 +1,35 @@
+
+/*
+ * WDean Medical is distributed under the
+ * GNU Lesser General Public License (GNU LGPL).
+ * For details see: http://www.wdeanmedical.com
+ * copyright 2013-2014 WDean Medical
+ */
+
+"use strict";
+
+var  getColumnValue, getDataTableName, RenderUtil;
+
+modulejs.define('render_util', ["table"], function (Table) {
+ 
+   getColumnValue = Table.getColumnValue;
+   getDataTableName = Table.getDataTableName;
+
+   RenderUtil = Backbone.Model.extend({}, {
+    templates: {}, // Get and Render template by name from hash of preloaded templates
+    // and fetch from server if not yet loaded into cache.
+    render: function (templateName, templateValues, callback) {
+      var that = this;
+      if (templateName in this.templates == false) {
+        $.get('template/' + templateName + '.html', function (data) {
+          that.templates[templateName] = data;
+          that.render(templateName, templateValues, callback);
+        });
+      } else {
+        var s = $.tmpl(this.templates[templateName], templateValues);
+        callback(s);
+      }
+    }
+  });
+  return RenderUtil;
+});

@@ -1,3 +1,6 @@
+
+"use strict";
+
 modulejs.define('underscore', function () {
-  return _
+  return _;
 });
