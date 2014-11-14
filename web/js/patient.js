@@ -10,7 +10,7 @@
 
 modulejs.define('patient', ["app", "notifier", "patient/chart", "render_util",
   "util"
-], function (App, Chart, RenderUtil, Util) {
+], function (App, Notifier, PatientChart, RenderUtil, Util) {
 
   var module = {}
   
@@ -25,7 +25,7 @@ modulejs.define('patient', ["app", "notifier", "patient/chart", "render_util",
   };
 
   module.loadHistScreenForm = function() {
-    object = App.currentPatient.hist;
+    var object = App.currentPatient.hist;
     RenderUtil.render('component/patient_medications', {
       patient: App.currentPatient
     }, function (s) {
@@ -167,8 +167,8 @@ modulejs.define('patient', ["app", "notifier", "patient/chart", "render_util",
     });
   }
 
-  function loadPFSHScreenForm() {
-    object = App.currentPatient.pfsh;
+  module.loadPFSHScreenForm = function() {
+   var object = App.currentPatient.pfsh;
     $('#modal-pfsh .form-control-unsaved').css({
       display: "none"
     });
@@ -271,7 +271,7 @@ modulejs.define('patient', ["app", "notifier", "patient/chart", "render_util",
 
   module.loadCurrentSuppScreen = function() {
     App.patientSupp = [];
-    for (i = 0; i < App.patientEncounters.length; i++) {
+    for (var i = 0; i < App.patientEncounters.length; i++) {
       App.patientSupp.push(App.patientEncounters[i].supp);
     }
     if (App.patientSupp.length == 0) {
@@ -511,7 +511,7 @@ modulejs.define('patient', ["app", "notifier", "patient/chart", "render_util",
 
   module.loadCurrentExamScreen = function() {
     App.patientExam = [];
-    for (i = 0; i < App.patientEncounters.length; i++) {
+    for (var i = 0; i < App.patientEncounters.length; i++) {
       App.patientEncounters[i].exam.hb = App.patientEncounters[i].lab.hb;
       App.patientEncounters[i].exam.glucose = App.patientEncounters[i].lab
         .glucose;

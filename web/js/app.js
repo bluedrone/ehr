@@ -72,7 +72,7 @@ modulejs.define('app',
   app.patientConsultsIndex = 0;
   app.patientConsultsIndex;
   app.patientEncounterGroups = [];
-  app.patientEncounters;
+  app.patientEncounters = [];
   app.patientExam;
   app.patientExamIndex = 0;
   app.patientOBGYN;
@@ -91,7 +91,7 @@ modulejs.define('app',
   app.soapNotes;
   app.usStates;
 
-  var IdleTimer, ViewStack, Park, Calendar, Clinician, Patient, TwitterWjs, Util;
+  var IdleTimer, SOAPNote, ChiefComplaints, PatientChart, ViewStack, PatientEncounter, PatientVitalSigns, Park, Calendar, Clinician, Patient, TwitterWjs, Util;
   
   app.init = function () {
     
@@ -101,7 +101,12 @@ modulejs.define('app',
     Patient = modulejs.require("patient");
     TwitterWjs = modulejs.require("twitter_wjs");
     Calendar = modulejs.require("calendar");
+    ChiefComplaints = modulejs.require("chief_complaints");
     Park = modulejs.require("park");
+    SOAPNote = modulejs.require("soap_note");
+    PatientVitalSigns = modulejs.require("patient/vital_signs");
+    PatientEncounter = modulejs.require("patient/encounter");
+    PatientChart = modulejs.require("patient/chart");
     modulejs.require("events_handler");
     modulejs.require("reports");
     
@@ -484,7 +489,7 @@ modulejs.define('app',
   }
 
   function getPatientEncountersListing() {
-    PatientEncounter.getEncounters();
+    PatientEncounter.getEncountersListing();
   }
 
   function getClinicianMessages() {

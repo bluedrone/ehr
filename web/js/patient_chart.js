@@ -1,6 +1,8 @@
 
 "use strict";
 
+var loadPatientChartHeaderInfo;
+
 modulejs.define('patient/chart', 
                 ["view_stack", "app", "util", "render_util"], 
                 function (ViewStack, App, Util, RenderUtil) {
@@ -22,7 +24,7 @@ modulejs.define('patient/chart',
   module.chartAddress;
   module.chartLastApptDate;
 
-  function loadHeaderInfo() {
+  module.loadHeaderInfo = function() {
     $('.patient-chart-full-name').html(module.chartFullName);
     $('.patient-chart-dob').html(module.chartDOB);
     $('.patient-chart-gender').html(module.chartGender);
@@ -37,6 +39,8 @@ modulejs.define('patient/chart',
     $('.patient-chart-last-appt').html(module.chartLastApptDate);
     $('.patient-chart-city').html(module.chartCity);
   }
+
+  loadPatientChartHeaderInfo = module.loadHeaderInfo;
 
   module.getSummary = function () {
     var jsonData = JSON.stringify({
@@ -224,7 +228,7 @@ modulejs.define('patient/chart',
   function renderHeader() {
     RenderUtil.render('patient_chart_header', {}, function (s) {
       $('#patient_chart_header_template').html(s);
-      loadHeaderInfo();
+      module.loadHeaderInfo();
     });
   }
 
@@ -243,7 +247,7 @@ modulejs.define('patient/chart',
         parsedData.lastName);
       App.currentPatient = parsedData.patient;
       load(parsedData);
-      loadHeaderInfo();
+      module.loadHeaderInfo();
       $('#section-notification').css("visibility", "visible");
       $('.patient-navbar-btn').css("display", "inline-block");
       $('.check-in-navbar-btn').css("display", "none");
@@ -254,6 +258,9 @@ modulejs.define('patient/chart',
     });
   };
 
+  module.show = function() {
+      App.viewPatientChartScreen();
+  }
   function load(data) {
     module.chartFullName = data.fullName;
     module.chartDOB = dateFormat(data.dob, 'mm/dd/yyyy');

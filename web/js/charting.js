@@ -20,7 +20,7 @@ modulejs.define('charting', ["dto"], function (Dto) {
       bezierCurve: false,
       animation: false
     };
-    var myLine = new Dto.chart(document.getElementById(
+    var myLine = new Chart(document.getElementById(
       "health-trends-chart-canvas").getContext("2d")).Line(
       lineChartData,
       options);

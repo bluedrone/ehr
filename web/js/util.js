@@ -16,7 +16,7 @@ modulejs.define('util', ["underscore"], function (_) {
     });
   };
   
-  module.map = function(list, transformer) {_.map(list, transformer)}
+  module.map = function(list, transformer) {return _.map(list, transformer)}
   
   module.debug = function (log_txt) {
     if (window.console != undefined) {
@@ -155,7 +155,7 @@ modulejs.define('util', ["underscore"], function (_) {
   module.selectCheckboxesFromList = function (list, name) {
     if (list !== undefined) {
       var a = list.split(",");
-      for (i = 0; i < a.length; i++) {
+      for (var i = 0; i < a.length; i++) {
         var s = a[i];
         $("input[name=" + name + "][value=" + s + "]").attr("checked",
           true);

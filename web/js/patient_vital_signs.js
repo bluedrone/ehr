@@ -7,7 +7,7 @@ modulejs.define('patient/vital_signs', ["charting", "render_util", "app"],
     var module = {}
     
     module.chartMap;
-    module.loadScreen(patientId); {
+    module.loadScreen = function(patientId) {
       var jsonData = JSON.stringify({
         patientId: patientId,
         sessionId: App.clinician.sessionId
@@ -57,7 +57,7 @@ modulejs.define('patient/vital_signs', ["charting", "render_util", "app"],
           field: 'oximetry',
           type: 'simple'
         }];
-        patientVitalSigns = parsedData.vitalSigns;
+        var patientVitalSigns = App.patientVitalSigns = parsedData.vitalSigns;
         RenderUtil.render('component/portal_data_table', {
           items: patientVitalSigns,
           title: 'Vital Signs',
@@ -71,12 +71,12 @@ modulejs.define('patient/vital_signs', ["charting", "render_util", "app"],
               patientVitalSigns, columns);
           });
           var cellIndexMap = {};
-          for (i = 0; i < columns.length; i++) {
+          for (var i = 0; i < columns.length; i++) {
             cellIndexMap[i] = columns[i].field;
           }
           patientVitalSigns.reverse();
           var chartMap = module.chartMap = {};
-          for (i = 0; i < patientVitalSigns.length; i++) {
+          for (var i = 0; i < patientVitalSigns.length; i++) {
             var obj = patientVitalSigns[i];
             for (var property in obj) {
               if (obj.hasOwnProperty(property)) {
@@ -94,7 +94,7 @@ modulejs.define('patient/vital_signs', ["charting", "render_util", "app"],
           }
           var labels = chartMap['date'];
           var data = chartMap['weight'];
-          renderLineChart(labels, data);
+          Charting.renderLineChart(labels, data);
           $(
             "#patient_health_issue_detail_table th.highlightable:nth-child(2)"
           ).addClass('highlighted').siblings().removeClass(

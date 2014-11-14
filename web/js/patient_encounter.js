@@ -463,7 +463,7 @@ modulejs.define('patient/encounter', ["render_util", "app", "notifier",
     encounter.supp.numCupsWater = Util.processNumber(
       "#encounter-num-cups-water-" +
       id, encounter.supp.numCupsWater);
-    for (i = 0; i < encounter.supp.encounterQuestionList.length; i++) {
+    for (var i = 0; i < encounter.supp.encounterQuestionList.length; i++) {
       var questionId = encounter.supp.encounterQuestionList[i].id;
       encounter.supp.encounterQuestionList[i].question = $(
         "#encounter-question-" +
@@ -487,7 +487,7 @@ modulejs.define('patient/encounter', ["render_util", "app", "notifier",
 
   module.saveHistEncounterForm = function (encounter) {
     var id = encounter.id;
-    for (i = 0; i < encounter.patient.hist.patientMedicationList.length; i++) {
+    for (var i = 0; i < encounter.patient.hist.patientMedicationList.length; i++) {
       var medicationId = encounter.patient.hist.patientMedicationList[i].id;
       encounter.patient.hist.patientMedicationList[i].medication = $(
         "#patient-med-" +
@@ -555,11 +555,11 @@ modulejs.define('patient/encounter', ["render_util", "app", "notifier",
 
   module.saveExamEncounterForm = function (encounter) {
     var id = encounter.id;
-    for (i = 0; i < encounter.dxCodes.length; i++) {
+    for (var i = 0; i < encounter.dxCodes.length; i++) {
       var dxCodeId = encounter.dxCodes[i].id;
       encounter.dxCodes[i].icd9 = $("#encounter-icd9-" + dxCodeId).val();
     }
-    for (i = 0; i < encounter.txCodes.length; i++) {
+    for (var i = 0; i < encounter.txCodes.length; i++) {
       var txCodeId = encounter.txCodes[i].id;
       encounter.txCodes[i].cpt = $("#encounter-cpt-" + txCodeId).val();
       encounter.txCodes[i].cptModifier = $("#encounter-cpt-modifier-" +
@@ -972,7 +972,7 @@ modulejs.define('patient/encounter', ["render_util", "app", "notifier",
       var oldEncounter = App.oldEncounter = parsedData.encounter;
       if (oldEncounter == undefined || oldEncounter.completed ==
         true) {
-        getEncountersListing();
+        module.getEncountersListing();
         newEncounterForm();
         return;
       }
@@ -999,7 +999,7 @@ modulejs.define('patient/encounter', ["render_util", "app", "notifier",
               'Patient Encounter Record Completed');
             App.oldEncounter.completed = true;
             $('#modal-encounter').modal('hide');
-            getEncountersListing();
+            module.getEncountersListing();
             newEncounterForm();
           });
         });
@@ -1072,14 +1072,14 @@ modulejs.define('patient/encounter', ["render_util", "app", "notifier",
             App.currentEncounter.completed = true;
             $('#modal-encounter').modal('hide');
             App.oldEncounter.completed = true;
-            getEncountersListing();
+            module.getEncountersListing();
           });
         });
       });
     });
   }
 
-  function getEncountersListing() {
+  module.getEncountersListing = function() {
     var jsonData = JSON.stringify({
       patientId: App.currentPatientId,
       sessionId: App.clinician.sessionId
@@ -1088,7 +1088,7 @@ modulejs.define('patient/encounter', ["render_util", "app", "notifier",
       data: jsonData
     }, function (data) {
       var parsedData = $.parseJSON(data);
-      var encounters = App.encounters = parsedData.patientEncounters;
+      var encounters = parsedData.patientEncounters;
       RenderUtil.render('component/simple_data_table', {
         items: encounters,
         title: 'Encounter History',
