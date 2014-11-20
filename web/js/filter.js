@@ -2,8 +2,9 @@
 "use strict";
 
 modulejs.define('standalone/filter', ['jquery', 'underscore',
-  'standalone/reports/filter', 'standalone/patients/filter'
-], function ($, _, reports, patients) {
+  'standalone/reports/filter', 'standalone/patients/filter',
+  'standalone/soaps/filter'
+], function ($, _, reports, patients, soaps) {
 
   var filterForUrl = function (url) {
     var path = url.split('/')[0];
@@ -17,6 +18,8 @@ modulejs.define('standalone/filter', ['jquery', 'underscore',
     }
   };
   return {
+    soaps: function() {return soaps;},
+    
     patients: function () {
 
       return patients;

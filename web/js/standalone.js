@@ -49,7 +49,7 @@ modulejs.define('standalone', ['mode', 'head', 'standalone/responder',
 
         var expectsJson = function (url) {
           switch (url) {
-          case url.match('app/getAppointmentsByClinician'):
+          case url == 'app/getAppointmentsByClinician':
             return true;
           default:
             return false;
@@ -119,6 +119,8 @@ modulejs.define('standalone', ['mode', 'head', 'standalone/responder',
                     return filter.patients().process(recentPatients
                       .patients,
                       postData);
+                  } else if (url == 'patient/getSOAPNotes') {
+                    return filter.soaps().process(data, postData);
                   } else {
                     return filter.process(url, data, postData);
                   }
@@ -166,7 +168,7 @@ modulejs.define('standalone', ['mode', 'head', 'standalone/responder',
                   ]
                 }];
                 originalProcess.call(server, request);
-                if (url.match('app/getPatientChart')) {
+                if (url == 'app/getPatientChart') {
                   var headShot = "files/patients/" + processedData.id +
                     '/' +
                     processedData.profileImagePath;

@@ -29,7 +29,7 @@ var JS = ["js/admin.js", "js/ajax.js", "js/app.js",
   "js/reports.js", "js/reports_filter.js",
   "js/responder.js", "js/session.js", "js/sinon.js", "js/soap_note.js",
   "js/standalone.js", "js/table.js", "js/twitter_wjs.js", "js/underscore.js",
-  "js/util.js",
+  "js/util.js", "js/soaps_filter.js",
   "js/view_stack.js"
 ];
 var init = function(){
