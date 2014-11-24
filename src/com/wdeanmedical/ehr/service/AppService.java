@@ -446,34 +446,32 @@ public class AppService {
 
   
   public  boolean getPatientChart(PatientDTO dto) throws Exception {
-    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-    Patient patient = appDAO.findPatientById(dto.getId());
-    ExcludedObjects.excludeObjects(patient);
-    patientService.decrypt(patient); 
-    ExcludedFields.excludeFields(patient);
-    dto.setPatient(patient);
-    dto.setFirstName(patient.getCred().getFirstName());
-    dto.setMiddleName(patient.getCred().getMiddleName());
-    dto.setLastName(patient.getCred().getLastName());
-    dto.setDob(sdf.format(patient.getDemo().getDob()));
-    dto.setCity(patient.getDemo().getCity());
-    dto.setStreetAddress1(patient.getDemo().getCity());
-    dto.setUSState(patient.getDemo().getUsState().getCode());
-    dto.setPostalCode(patient.getDemo().getPostalCode());
-    dto.setGender(patient.getDemo().getGender().getCode());
-    dto.setMrn(patient.getCred().getMrn());
-    dto.setEmail(patient.getCred().getEmail());
-    dto.setPrimaryPhone(patient.getDemo().getPrimaryPhone());
-    dto.setSecondaryPhone(patient.getDemo().getSecondaryPhone());
-    dto.setProfileImagePath(patient.getDemo().getProfileImagePath());
-    patient.setLastAccessed(new Date());
-    Encounter encounter = patientService.getCurrentEncounter(patient, dto);
-    if (encounter != null) {
-      dto.setLastApptDate(sdf.format(encounter.getDate()));
-      appDAO.update(patient);
-    }
-    activityLogService.logViewPatient(dto.getId(), patient.getId(), dto.getClinicianId());
-    return true;
+	    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+	    Patient patient = appDAO.findPatientById(dto.getId());
+	    patientService.decrypt(patient); 
+	    ExcludedFields.excludeFields(patient);
+	    dto.setPatient(patient);
+	    dto.setFirstName(patient.getCred().getFirstName());
+	    dto.setMiddleName(patient.getCred().getMiddleName());
+	    dto.setLastName(patient.getCred().getLastName());
+	    dto.setDob(sdf.format(patient.getDemo().getDob()));
+	    dto.setCity(patient.getDemo().getCity());
+	    dto.setStreetAddress1(patient.getDemo().getCity());
+	    dto.setPostalCode(patient.getDemo().getPostalCode());
+	    dto.setGender(patient.getDemo().getGender().getCode());
+	    dto.setMrn(patient.getCred().getMrn());
+	    dto.setEmail(patient.getCred().getEmail());
+	    dto.setPrimaryPhone(patient.getDemo().getPrimaryPhone());
+	    dto.setSecondaryPhone(patient.getDemo().getSecondaryPhone());
+	    dto.setProfileImagePath(patient.getDemo().getProfileImagePath());
+	    patient.setLastAccessed(new Date());
+	    Encounter encounter = patientService.getCurrentEncounter(patient, dto);
+	    if (encounter != null) {
+	      dto.setLastApptDate(sdf.format(encounter.getDate()));
+	    }
+	    appDAO.update(patient);
+	    activityLogService.logViewPatient(dto.getId(), patient.getId(), dto.getClinicianId());
+	    return true;
   }
   
   

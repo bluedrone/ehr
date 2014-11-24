@@ -22,8 +22,8 @@ public class EncounterQuestion extends BaseEntity implements Serializable {
   private String question = "&nbsp;";
   private String response = "&nbsp;";
   private int encounterId;
-  private Integer suppQuestionsId;
-  private SuppQuestions suppQuestions;
+  //private Integer suppQuestionsId;
+  //private SuppQuestions suppQuestions;
 
   public EncounterQuestion() {
   }
@@ -54,7 +54,7 @@ public class EncounterQuestion extends BaseEntity implements Serializable {
   public void setEncounterId(int encounterId) {
     this.encounterId = encounterId;
   }   
-  
+  /*
   @Column(name = "patient_supp_questions_id")
   public Integer getSuppQuestionsId() {
 	return suppQuestionsId;
@@ -72,7 +72,7 @@ public class EncounterQuestion extends BaseEntity implements Serializable {
   public void setSuppQuestions(SuppQuestions suppQuestions) {
 	this.suppQuestions = suppQuestions;
   }
-
+*/
 @Override
   public int hashCode() {
     final int prime = 31;

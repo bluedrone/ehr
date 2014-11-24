@@ -112,8 +112,9 @@ public class SuppQuestions extends BaseEntity implements Serializable {
     this.waterSource = waterSource;
   }
 
-  @OneToMany(mappedBy = "suppQuestions")
-  @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+  //@OneToMany(mappedBy = "suppQuestions")
+  //@Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+  @Transient
   public List<EncounterQuestion> getEncounterQuestionList() {
     return encounterQuestionList;
   }
