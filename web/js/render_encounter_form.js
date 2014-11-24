@@ -92,7 +92,31 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
       $('#encounter-demo-employer-saved-'+id).html(encounter.patient.demo.employer);
       $('#encounter-demo-school-name-saved-'+id).html(encounter.patient.demo.schoolName);
       
-      $('#encounter-demo-first-name-saved-'+id).blur(function() { updateSavedPatientEncounter("firstName", $(this).html(), id); });
+      $('#demo .form-control-saved, #demo .form-control-unsaved').on('blur', function(e) {
+        var property = e.target.id;
+        var value = '';
+        property = property.replace('encounter-demo-', '');
+        if(/saved/.test(property)) {
+          value = $(this).html();
+          property = property.replace(/-saved-.*$/,'');
+        } else {
+          property = property.replace(/-[0-9]*$/,'');
+          if($(this).prop('tagName') === 'SELECT') {
+            value = $('#'+this.id +' option:selected').text();
+          } else if($(this).prop('tagName') === 'INPUT') {
+            value = $(this).val();
+          }
+        }
+        if(property.indexOf('-') !== -1) {
+          property = property.replace(/-./,property.charAt(property.indexOf('-')+1).toUpperCase());
+          if(property === 'streetAddress') {
+            property = property + '1';
+          }
+        }
+        updateSavedPatientEncounter(property, value, id);
+      });
+      
+      /*$('#encounter-demo-first-name-saved-'+id).blur(function() { updateSavedPatientEncounter("firstName", $(this).html(), id); });
       $('#encounter-demo-middle-name-saved-'+id).blur(function() { updateSavedPatientEncounter("middleName", $(this).html(), id); });
       $('#encounter-demo-last-name-saved-'+id).blur(function() { updateSavedPatientEncounter("lastName", $(this).html(), id); });
       $('#encounter-demo-govt-id-'+id).blur(function() { updateSavedPatientEncounter("govtId", $(this).val(), id); });
@@ -107,6 +131,7 @@ function renderEncounterFormSection (encounter, section, savedState, hasOwnershi
       $('#encounter-demo-occupation-saved-'+id).blur(function() { updateSavedPatientEncounter("occupation", $(this).html(), id); });
       $('#encounter-demo-employer-saved-'+id).blur(function() { updateSavedPatientEncounter("employer", $(this).html(), id); });
       $('#encounter-demo-school-name-saved-'+id).blur(function() { updateSavedPatientEncounter("schoolName", $(this).html(), id); });
+   */
     }
   }
   else if (section == 'soap-note') {
