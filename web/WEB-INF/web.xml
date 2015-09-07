@@ -50,7 +50,7 @@
   
   <context-param>
     <param-name>patientDirPath</param-name>
-    <param-value>wdm_files/patients</param-value>
+    <param-value>wdm_files/core/patients</param-value>
   </context-param> 
   
   <context-param>

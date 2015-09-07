@@ -27,7 +27,7 @@
             <value>com.mysql.jdbc.Driver</value>
         </property>
         <property name="jdbcUrl">
-            <value>jdbc:mysql://localhost/wdm</value>
+            <value>jdbc:mysql://localhost/wdm_old</value>
         </property>
         <property name="user">
             <value>wdm</value>
