@@ -33,7 +33,7 @@
             <value>wdm</value>
         </property>
         <property name="password">
-            <value>wdm</value>
+            <value>wdmwdm</value>
         </property>
         <property name="initialPoolSize">
             <value>5</value>

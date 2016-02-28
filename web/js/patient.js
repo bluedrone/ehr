@@ -361,6 +361,7 @@ function loadConsultsScreenForm() {
 }
 
 
+
 function loadProgressNotesScreen() {
   var jsonData = JSON.stringify({ patientId: app_currentPatientId, sessionId: clinician.sessionId });
   $.post("patient/getProgressNotes", {data:jsonData}, function(data) {

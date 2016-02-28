@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.wdeanmedical.ehr.core.Core;
 import com.wdeanmedical.ehr.core.Permissions;
 import com.wdeanmedical.ehr.dto.AuthorizedDTO;
+import com.wdeanmedical.ehr.dto.BooleanResultDTO;
 import com.wdeanmedical.ehr.dto.ClinicianDTO;
 import com.wdeanmedical.ehr.dto.DTO;
 import com.wdeanmedical.ehr.dto.LoginDTO;
@@ -97,6 +98,9 @@ public class AppServlet extends HttpServlet  {
     try { 
       if (pathInfo.equals("/getStaticLists")) {
         returnString = getStaticLists(request, response);  
+      }
+      else if (pathInfo.equals("/submitIOTData")) {
+        returnString = submitIOTData(request, response);  
       }
       else if (pathInfo.equals("/login")) {
         returnString = login(request, response);  
@@ -393,6 +397,19 @@ public class AppServlet extends HttpServlet  {
     Gson gson = new Gson();
     AppointmentDTO dto = gson.fromJson(data, AppointmentDTO.class); 
     boolean result = appService.getAppointment(dto);
+    String json = gson.toJson(dto);
+    return json;
+  }
+  
+  
+  public String submitIOTData(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String data = request.getParameter("data");
+    Gson gson = new Gson();
+    BooleanResultDTO dto = gson.fromJson(data, BooleanResultDTO.class); 
+    dto.setSuccess(true);
+    dto.setResult(true);
+    dto.setReturnCode(1);
+    //boolean result = appService.getAppointment(dto);
     String json = gson.toJson(dto);
     return json;
   }
