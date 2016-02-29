@@ -7,9 +7,10 @@
  
 package com.wdeanmedical.ehr.dto;
 
-import com.wdeanmedical.ehr.entity.Activity;
 import com.wdeanmedical.ehr.entity.dell.BP;
 import com.wdeanmedical.ehr.entity.dell.Glucose;
+import com.wdeanmedical.ehr.entity.dell.IOTActivity;
+import com.wdeanmedical.ehr.entity.dell.Phynotes;
 import com.wdeanmedical.ehr.entity.dell.Pulse;
 import com.wdeanmedical.ehr.entity.dell.Weightscale;
 
@@ -19,8 +20,9 @@ public class DeviceDTO extends BooleanResultDTO {
   private Pulse pulse;
   private Glucose glucose;
   private Weightscale weightscale;
-  private Activity activity;
+  private IOTActivity activity;
   private String phynotes;
+  private Phynotes phynotesObject;
   
   
   public BP getBp() { return bp; }
@@ -35,9 +37,13 @@ public class DeviceDTO extends BooleanResultDTO {
   public Weightscale getWeightscale() { return weightscale; }
   public void setWeightscale(Weightscale weightscale) { this.weightscale = weightscale; }
   
-  public Activity getActivity() { return activity; }
-  public void setActivity(Activity activity) { this.activity = activity; }
+  public IOTActivity getActivity() { return activity; }
+  public void setActivity(IOTActivity activity) { this.activity = activity; }
   
   public String getPhynotes() { return phynotes; }
   public void setPhynotes(String phynotes) { this.phynotes = phynotes; }
+  
+  public Phynotes getPhynotesObject() { return phynotesObject; }
+  public void setPhynotesObject(Phynotes phynotesObject) { this.phynotesObject = phynotesObject; }
+  
 }

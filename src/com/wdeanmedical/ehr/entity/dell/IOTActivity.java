@@ -22,13 +22,14 @@ public class IOTActivity extends BaseEntity implements Serializable {
 
   private static final long serialVersionUID = 5761220011990424983L;
   
-  private String activity;
+  private String footsteps;
   private String units;
   private Date date;
   
-  @Column(name = "activity")
-  public String getActivity() { return activity; }
-  public void setActivity(String activity) { this.activity = activity; }
+  
+  @Column(name = "footsteps")
+  public String getFootsteps() { return footsteps; }
+  public void setFootsteps(String footsteps) { this.footsteps = footsteps; }
   
   @Column(name = "units")
   public String getUnits() { return units; }

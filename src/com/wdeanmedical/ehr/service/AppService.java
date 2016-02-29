@@ -640,6 +640,7 @@ public class AppService {
   }
   
   
+  
   public boolean getAppointment(AppointmentDTO dto) throws Exception {
     Appointment item = appDAO.findAppointmentById(dto.getId());
     patientService.decrypt(item.getPatient()); 

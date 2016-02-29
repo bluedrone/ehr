@@ -83,6 +83,7 @@ public class AppDAO extends SiteDAO {
   }
   
   public void create(BaseEntity item) throws Exception {
+    item.setCreatedDate(new Date());
     item.setLastUpdated(new Date());
     this.createEntity(item);
   }
