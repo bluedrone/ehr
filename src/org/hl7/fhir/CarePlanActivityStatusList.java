@@ -38,7 +38,7 @@ public enum CarePlanActivityStatusList {
 
 
     /**
-     * Activity is planned but no action has yet been taken.
+     * IOTActivity is planned but no action has yet been taken.
      * 
      */
     @XmlEnumValue("not started")
@@ -52,14 +52,14 @@ public enum CarePlanActivityStatusList {
     SCHEDULED("scheduled"),
 
     /**
-     * Activity has been started but is not yet complete.
+     * IOTActivity has been started but is not yet complete.
      * 
      */
     @XmlEnumValue("in progress")
     IN_PROGRESS("in progress"),
 
     /**
-     * Activity was started but has temporarily ceased with an expectation of resumption at a future time.
+     * IOTActivity was started but has temporarily ceased with an expectation of resumption at a future time.
      * 
      */
     @XmlEnumValue("on hold")

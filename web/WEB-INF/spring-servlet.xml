@@ -286,6 +286,13 @@
             <value>com.wdeanmedical.ehr.entity.User</value>
             <value>com.wdeanmedical.ehr.entity.USState</value>
             <value>com.wdeanmedical.ehr.entity.VitalSigns</value>
+            
+            <value>com.wdeanmedical.ehr.entity.dell.IOTActivity</value>
+            <value>com.wdeanmedical.ehr.entity.dell.BP</value>
+            <value>com.wdeanmedical.ehr.entity.dell.Glucose</value>
+            <value>com.wdeanmedical.ehr.entity.dell.Phynotes</value>
+            <value>com.wdeanmedical.ehr.entity.dell.Pulse</value>
+            <value>com.wdeanmedical.ehr.entity.dell.Weightscale</value>
           </list>
         </property>
         <property name="hibernateProperties">

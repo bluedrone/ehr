@@ -34,6 +34,7 @@ import com.wdeanmedical.ehr.core.Permissions;
 import com.wdeanmedical.ehr.core.Statics;
 import com.wdeanmedical.ehr.dto.AuthorizedDTO;
 import com.wdeanmedical.ehr.dto.ClinicianDTO;
+import com.wdeanmedical.ehr.dto.DeviceDTO;
 import com.wdeanmedical.ehr.dto.LoginDTO;
 import com.wdeanmedical.ehr.dto.PatientDTO;
 import com.wdeanmedical.ehr.dto.TerminologyDTO;
@@ -66,6 +67,7 @@ import com.wdeanmedical.ehr.entity.Clinician;
 import com.wdeanmedical.ehr.entity.ClinicianSession;
 import com.wdeanmedical.ehr.entity.ProgressNote;
 import com.wdeanmedical.ehr.entity.ToDoNote;
+import com.wdeanmedical.ehr.entity.dell.Phynotes;
 import com.wdeanmedical.ehr.util.ClinicianSessionData;
 import com.wdeanmedical.ehr.util.DataEncryptor;
 import com.wdeanmedical.ehr.dto.MessageDTO;
@@ -621,6 +623,21 @@ public class AppService {
     return items;
   }
   
+  
+  
+  public void submitIOTData(DeviceDTO dto) throws Exception {
+    appDAO.create(dto.getBp());
+    appDAO.create(dto.getActivity());
+    appDAO.create(dto.getGlucose());
+    appDAO.create(dto.getPulse());
+    appDAO.create(dto.getWeightscale());
+    Phynotes phynotes = new Phynotes();
+    phynotes.setPhynotes(dto.getPhynotes());
+    appDAO.create(phynotes);
+    dto.setSuccess(true);
+    dto.setResult(true);
+    dto.setReturnCode(1);
+  }
   
   
   public boolean getAppointment(AppointmentDTO dto) throws Exception {

@@ -159,7 +159,7 @@ public class ReportsService {
 
     HSSFWorkbook workbook = new HSSFWorkbook();
     // create a new Excel sheet
-    HSSFSheet sheet = workbook.createSheet("Activity Logs");
+    HSSFSheet sheet = workbook.createSheet("IOTActivity Logs");
     sheet.setDefaultColumnWidth(30);
 
     // create style for header cells
@@ -193,7 +193,7 @@ public class ReportsService {
     header.createCell(5).setCellValue("Field Name");
     header.getCell(5).setCellStyle(style);
 
-    header.createCell(6).setCellValue("Activity");
+    header.createCell(6).setCellValue("IOTActivity");
     header.getCell(6).setCellStyle(style);
 
     header.createCell(7).setCellValue("Module");

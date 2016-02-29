@@ -65,7 +65,7 @@ public class Activity  extends BaseEntity implements Serializable{
 
   @Override
   public String toString() {
-    return "Activity [activityType=" + activityType + "]";
+    return "IOTActivity [activityType=" + activityType + "]";
   }  
 
 }

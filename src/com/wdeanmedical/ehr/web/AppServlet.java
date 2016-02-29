@@ -31,6 +31,7 @@ import com.wdeanmedical.ehr.dto.AuthorizedDTO;
 import com.wdeanmedical.ehr.dto.BooleanResultDTO;
 import com.wdeanmedical.ehr.dto.ClinicianDTO;
 import com.wdeanmedical.ehr.dto.DTO;
+import com.wdeanmedical.ehr.dto.DeviceDTO;
 import com.wdeanmedical.ehr.dto.LoginDTO;
 import com.wdeanmedical.ehr.dto.PatientDTO;
 import com.wdeanmedical.ehr.dto.TerminologyDTO;
@@ -405,11 +406,8 @@ public class AppServlet extends HttpServlet  {
   public String submitIOTData(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String data = request.getParameter("data");
     Gson gson = new Gson();
-    BooleanResultDTO dto = gson.fromJson(data, BooleanResultDTO.class); 
-    dto.setSuccess(true);
-    dto.setResult(true);
-    dto.setReturnCode(1);
-    //boolean result = appService.getAppointment(dto);
+    DeviceDTO dto = gson.fromJson(data, DeviceDTO.class); 
+    appService.submitIOTData(dto);
     String json = gson.toJson(dto);
     return json;
   }
