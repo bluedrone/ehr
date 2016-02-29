@@ -67,6 +67,7 @@ import com.wdeanmedical.ehr.entity.Clinician;
 import com.wdeanmedical.ehr.entity.ClinicianSession;
 import com.wdeanmedical.ehr.entity.ProgressNote;
 import com.wdeanmedical.ehr.entity.ToDoNote;
+import com.wdeanmedical.ehr.entity.dell.DeviceData;
 import com.wdeanmedical.ehr.entity.dell.Phynotes;
 import com.wdeanmedical.ehr.util.ClinicianSessionData;
 import com.wdeanmedical.ehr.util.DataEncryptor;
@@ -633,7 +634,8 @@ public class AppService {
     map.put("pulse", appDAO.getPulses());
     map.put("weightscale", appDAO.getWeightscales());
     map.put("phynotes", appDAO.getPhynotes());
-    dto.setData(map);    
+    //dto.setDataMap(map);    
+    dto.setDeviceData(appDAO.getDeviceData());
     Core.devicesRead = true;
   }
   
@@ -648,6 +650,17 @@ public class AppService {
     Phynotes phynotes = new Phynotes();
     phynotes.setPhynotes(dto.getPhynotes());
     appDAO.create(phynotes);
+    
+    DeviceData data = new DeviceData(); 
+    data.setBp(dto.getBp().getSys() + "/" + dto.getBp().getDia() + " " + dto.getBp().getUnits());
+    data.setPulse(dto.getPulse().getRate() + " " + dto.getPulse().getUnits());
+    data.setGlucose(dto.getGlucose().getGlucose() + " " + dto.getGlucose().getUnits());
+    data.setWeightscale(dto.getWeightscale().getWeight() + " " + dto.getGlucose().getUnits());
+    data.setActivity(dto.getActivity().getFootsteps() + " " + dto.getActivity().getUnits());
+    data.setPhynotes(dto.getPhynotes());
+    data.setDate(new Date());
+    appDAO.create(data);
+    
     Core.devicesRead = false;
     dto.setSuccess(true);
     dto.setResult(true);

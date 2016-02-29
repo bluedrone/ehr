@@ -293,6 +293,7 @@
             <value>com.wdeanmedical.ehr.entity.dell.Phynotes</value>
             <value>com.wdeanmedical.ehr.entity.dell.Pulse</value>
             <value>com.wdeanmedical.ehr.entity.dell.Weightscale</value>
+            <value>com.wdeanmedical.ehr.entity.dell.DeviceData</value>
           </list>
         </property>
         <property name="hibernateProperties">

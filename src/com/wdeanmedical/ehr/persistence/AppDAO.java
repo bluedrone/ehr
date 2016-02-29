@@ -51,6 +51,7 @@ import com.wdeanmedical.ehr.util.OneWayPasswordEncoder;
 import com.wdeanmedical.ehr.entity.PatientStatus;
 import com.wdeanmedical.ehr.entity.USState;
 import com.wdeanmedical.ehr.entity.dell.BP;
+import com.wdeanmedical.ehr.entity.dell.DeviceData;
 import com.wdeanmedical.ehr.entity.dell.Glucose;
 import com.wdeanmedical.ehr.entity.dell.IOTActivity;
 import com.wdeanmedical.ehr.entity.dell.Phynotes;
@@ -582,13 +583,12 @@ public class AppDAO extends SiteDAO {
     return list;
   }
   
-/*
-    map.put("bp", appDAO.getBPs());
-    map.put("activity", appDAO.getActivities());
-    map.put("glucose", appDAO.getGlucose());
-    map.put("pulse", appDAO.getPulses());
-    map.put("weightscale", appDAO.getWeightscales());
-    map.put("phynotes", appDAO.getPhynotes());
-  */
+  public List<DeviceData> getDeviceData() throws Exception {
+    Session session = this.getSession();
+    Criteria crit = session.createCriteria(DeviceData.class);
+    crit.addOrder(Order.desc("id"));
+    List<DeviceData> list =  crit.list();
+    return list;
+  }
   
 }

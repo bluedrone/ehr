@@ -47,5 +47,6 @@ head.js (
    "js/RenderUtil.js",           
    "js/print.js",           
    "js/patient_vital_signs.js",
+   "js/connected_health.js",
    "js/reports.js"
  );

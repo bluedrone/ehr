@@ -56,6 +56,7 @@ var app_currentEncounterId;
 var app_currentScreen = '';
 var app_previousScreen = '';
 var app_oldEncounter;
+var app_patientConnectedHealth;
 var clinician = null;
 var encounter = null;
 var patients;
@@ -656,6 +657,16 @@ $('#vital-signs-link').click(function(){
 });
 
 
+$('#connected-health-link').click(function(){ 
+  RenderUtil.render('connected_health', {}, function(s) {
+    $('#modals-placement').html(s);
+    $('#modal-connected-health').modal('show'); 
+    loadPatientInfo();
+    loadPatientConnectedHealthScreen(app_currentPatientId);
+  });
+});
+
+
 $('#app-problem-list-link').click(function(){ 
   RenderUtil.render('problem_list', {}, function(s) {
     $('#modals-placement').html(s);
@@ -1014,7 +1025,7 @@ function viewClinicianMessage() {
       if (item[column.field] === undefined) {
   	      value = ''; 
   	  }else{
-  		  value = dateFormat(item[column.field], 'mm/dd/yyyy hh:mm')
+  		  value = dateFormat(item[column.field], 'mm/dd/yyyy  h:MM TT')
   	  }
     }
     else if (column.type == 'double') {

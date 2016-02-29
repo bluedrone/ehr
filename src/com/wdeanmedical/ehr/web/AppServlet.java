@@ -103,6 +103,9 @@ public class AppServlet extends HttpServlet  {
       else if (pathInfo.equals("/submitIOTData")) {
         returnString = submitIOTData(request, response);  
       }
+      else if (pathInfo.equals("/getIOTData")) {
+        returnString = getIOTData(request, response);  
+      }
       else if (pathInfo.equals("/login")) {
         returnString = login(request, response);  
       }
@@ -408,6 +411,16 @@ public class AppServlet extends HttpServlet  {
     Gson gson = new Gson();
     DeviceDTO dto = gson.fromJson(data, DeviceDTO.class); 
     appService.submitIOTData(dto);
+    String json = gson.toJson(dto);
+    return json;
+  }
+  
+  
+  public String getIOTData(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String data = request.getParameter("data");
+    Gson gson = new Gson();
+    DeviceDTO dto = gson.fromJson(data, DeviceDTO.class); 
+    appService.getIOTData(dto);
     String json = gson.toJson(dto);
     return json;
   }

@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.wdeanmedical.ehr.entity.dell.BP;
+import com.wdeanmedical.ehr.entity.dell.DeviceData;
 import com.wdeanmedical.ehr.entity.dell.Glucose;
 import com.wdeanmedical.ehr.entity.dell.IOTActivity;
 import com.wdeanmedical.ehr.entity.dell.Phynotes;
@@ -28,7 +29,8 @@ public class DeviceDTO extends BooleanResultDTO {
   private String phynotes;
   private Phynotes phynotesObject;
   private Integer patientId = 2;
-  private Map<String,List> data;
+  private Map<String,List> dataMap;
+  private List<DeviceData> deviceData;
   
   
   public BP getBp() { return bp; }
@@ -55,7 +57,9 @@ public class DeviceDTO extends BooleanResultDTO {
   public Integer getPatientId() { return patientId; }
   public void setPatientId(Integer patientId) { this.patientId = patientId; }
   
-  public Map<String, List> getData() { return data; }
-  public void setData(Map<String, List> data) { this.data = data; }
+  public Map<String, List> getDataMap() { return dataMap; }
+  public void setDataMap(Map<String, List> dataMap) { this.dataMap = dataMap; }
   
+  public List<DeviceData> getDeviceData() { return deviceData; }
+  public void setDeviceData(List<DeviceData> deviceData) { this.deviceData = deviceData; }
 }
