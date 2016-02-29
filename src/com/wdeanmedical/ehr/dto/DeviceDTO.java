@@ -31,6 +31,7 @@ public class DeviceDTO extends BooleanResultDTO {
   private Integer patientId = 2;
   private Map<String,List> dataMap;
   private List<DeviceData> deviceData;
+  private Boolean devicesRead;
   
   
   public BP getBp() { return bp; }
@@ -62,4 +63,8 @@ public class DeviceDTO extends BooleanResultDTO {
   
   public List<DeviceData> getDeviceData() { return deviceData; }
   public void setDeviceData(List<DeviceData> deviceData) { this.deviceData = deviceData; }
+  
+  public Boolean getDevicesRead() { return devicesRead; }
+  public void setDevicesRead(Boolean devicesRead) { this.devicesRead = devicesRead; }
+  
 }

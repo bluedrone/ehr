@@ -10,6 +10,7 @@ if (!bowser.a) {
   document.location = 'browser_upgrade.html';
 }
 
+var app_connectedHealthInterval;
 var ENCOUNTER_FREE =  0;
 var ENCOUNTER_LOCKED = 1;
 var ENCOUNTER_OVERRIDDEN =  2;
@@ -103,8 +104,9 @@ var app_cptModifiers;
 var app_idleInterval;
 var app_idleTime = 0;
 var app_parkWarningDisplayed;
-var ONE_SECOND =  1000;
-var ONE_MINUTE = 60000;
+var ONE_SECOND =   1000;
+var TEN_SECONDS = 10000;
+var ONE_MINUTE =  60000;
 
 /***********      @JQUERY INIT    *******************/
 (function() {
@@ -657,14 +659,18 @@ $('#vital-signs-link').click(function(){
 });
 
 
-$('#connected-health-link').click(function(){ 
+$('#connected-health-link').off('click').on('click', (function(){ 
   RenderUtil.render('connected_health', {}, function(s) {
     $('#modals-placement').html(s);
     $('#modal-connected-health').modal('show'); 
     loadPatientInfo();
-    loadPatientConnectedHealthScreen(app_currentPatientId);
+    loadPatientConnectedHealthScreen();
+    app_connectedHealthInterval = setInterval(loadPatientConnectedHealthScreen, TEN_SECONDS);
+    $('#modal-connected-health-close, #btn-connected-health-close').off('click').on('click', (function() { 
+      if (app_connectedHealthInterval) {clearInterval(app_connectedHealthInterval)};
+    }));
   });
-});
+}));
 
 
 $('#app-problem-list-link').click(function(){ 

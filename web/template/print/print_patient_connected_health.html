@@ -1,0 +1,21 @@
+<div id="form-wrapper-basic-info">
+ <div class="page-title-background"><div class="page-title">CONNECTED HEALTH</div></div>
+ 
+ <table class="form-table">
+  <thead>
+  <tr>
+    {{each(i, column) columns}} <th>${column.title}</th> {{/each}}
+  </tr>
+  </thead>
+  <tbody>
+  {{each(i, item) items}}
+    <tr>
+    {{each(j, column) columns}} 
+      <td style='text-align:${column.type == 'numeric' ? "right" : "left"}'>${getColumnValue(column, item)}</td>
+    {{/each}}
+    </tr>
+  {{/each}}
+  </tbody>
+</table>
+
+</div>

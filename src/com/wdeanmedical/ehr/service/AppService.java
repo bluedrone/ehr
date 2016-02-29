@@ -636,6 +636,7 @@ public class AppService {
     map.put("phynotes", appDAO.getPhynotes());
     //dto.setDataMap(map);    
     dto.setDeviceData(appDAO.getDeviceData());
+    dto.setDevicesRead(Core.devicesRead);
     Core.devicesRead = true;
   }
   
@@ -662,6 +663,7 @@ public class AppService {
     appDAO.create(data);
     
     Core.devicesRead = false;
+    dto.setDevicesRead(false);
     dto.setSuccess(true);
     dto.setResult(true);
     dto.setReturnCode(1);

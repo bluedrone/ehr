@@ -1,7 +1,15 @@
-function loadPatientConnectedHealthScreen(patientId) {
+function loadPatientConnectedHealthScreen() {
+  var patientId = app_currentPatientId;
+  debug('IN loadPatientConnectedHealthScreen(patientId)');
   var jsonData = JSON.stringify({ patientId: patientId, sessionId: clinician.sessionId });
   $.post("app/getIOTData", {data:jsonData}, function(data) {
     var parsedData = $.parseJSON(data);
+    app_patientConnectedHealth = parsedData.deviceData;
+    
+    if (app_patientConnectedHealth.devicesRead == true) {
+      return;
+    }
+    
     var columns = [
       {title:'Date/Time', field:'date', type:'date-time'}, 
       {title:'BP', field:'bp', type:'simple'},
@@ -11,7 +19,6 @@ function loadPatientConnectedHealthScreen(patientId) {
       {title:'Activity', field:'activity', type:'simple'},
       {title:'Physician Notes', field:'phynotes', type:'simple'}
     ];
-    app_patientConnectedHealth = parsedData.deviceData;
     RenderUtil.render('component/portal_data_table', 
     {items:app_patientConnectedHealth, 
     title:'Connected Health', 
@@ -20,7 +27,7 @@ function loadPatientConnectedHealthScreen(patientId) {
     },
     function(s) { 
       $('#connected_health_detail_table').html(s);
-      $('#patient-connected-health-print').off().on('click', function () { printPatientTable('print_patient_connected_health', 'CONNECTED HEALTH', patientConnectedHealth, columns)});
+      $('#patient-connected-health-print').off().on('click', function () { printPatientTable('print_patient_connected_health', 'CONNECTED HEALTH', app_patientConnectedHealth, columns)});
    
       var cellIndexMap = {};
       for (i=0;i<columns.length;i++) {
