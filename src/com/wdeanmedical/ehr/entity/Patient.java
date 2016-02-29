@@ -45,7 +45,7 @@ public class Patient extends BaseEntity implements Serializable {
   private MedicalHistory hist;
   private Integer currentEncounterId;
   private Boolean encrypted = true;
-
+  
   public Patient() {
   }
 
@@ -78,64 +78,5 @@ public class Patient extends BaseEntity implements Serializable {
   @Transient
   public Boolean isEncrypted() { return encrypted; }
   public void setEncrypted(Boolean encrypted) { this.encrypted = encrypted; }
-
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = super.hashCode();
-    result = prime * result + ((cred == null) ? 0 : cred.hashCode());
-    result = prime
-        * result
-        + ((currentEncounterId == null) ? 0 : currentEncounterId
-            .hashCode());
-    result = prime * result + ((demo == null) ? 0 : demo.hashCode());
-    result = prime * result + ((hist == null) ? 0 : hist.hashCode());
-    result = prime * result + ((pfsh == null) ? 0 : pfsh.hashCode());
-    return result;
-  }
-
-@Override
-  public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (!super.equals(obj))
-      {return false;}
-    if (getClass() != obj.getClass())
-      {return false;}
-    Patient other = (Patient) obj;
-    if (cred == null) {
-      if (other.cred != null)
-        {return false;}
-    } else if (!cred.equals(other.cred))
-      {return false;}
-    if (currentEncounterId == null) {
-      if (other.currentEncounterId != null)
-        {return false;}
-    } else if (!currentEncounterId.equals(other.currentEncounterId))
-      {return false;}
-    if (demo == null) {
-      if (other.demo != null)
-        {return false;}
-    } else if (!demo.equals(other.demo))
-      {return false;}
-    if (hist == null) {
-      if (other.hist != null)
-        {return false;}
-    } else if (!hist.equals(other.hist))
-      {return false;}
-    if (pfsh == null) {
-      if (other.pfsh != null)
-        {return false;}
-    } else if (!pfsh.equals(other.pfsh))
-      {return false;}
-    return true;
-  }
-
-  @Override
-  public String toString() {
-    return "Patient [cred=" + cred + ", demo=" + demo + ", pfsh=" + pfsh
-        + ", hist=" + hist + ", currentEncounterId="
-        + currentEncounterId + "]";
-  }
 
 }

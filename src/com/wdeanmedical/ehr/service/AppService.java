@@ -624,6 +624,20 @@ public class AppService {
   }
   
   
+    
+  public void getIOTData(DeviceDTO dto) throws Exception {
+    Map<String,List> map = new HashMap<String,List>();
+    map.put("bp", appDAO.getBPs());
+    map.put("activity", appDAO.getIOTActivities());
+    map.put("glucose", appDAO.getGlucose());
+    map.put("pulse", appDAO.getPulses());
+    map.put("weightscale", appDAO.getWeightscales());
+    map.put("phynotes", appDAO.getPhynotes());
+    dto.setData(map);    
+    Core.devicesRead = true;
+  }
+  
+  
   
   public void submitIOTData(DeviceDTO dto) throws Exception {
     appDAO.create(dto.getBp());
@@ -634,6 +648,7 @@ public class AppService {
     Phynotes phynotes = new Phynotes();
     phynotes.setPhynotes(dto.getPhynotes());
     appDAO.create(phynotes);
+    Core.devicesRead = false;
     dto.setSuccess(true);
     dto.setResult(true);
     dto.setReturnCode(1);

@@ -46,5 +46,6 @@ public class Core {
   public static String pmHome;
   public static Map<String, ClinicianSessionData> clinicianSessionMap = Collections.synchronizedMap(new TreeMap<String, ClinicianSessionData>());
   public static Map<Integer, Patient> decryptedPatients = Collections.synchronizedMap(new TreeMap<Integer, Patient>());
+  public static Boolean devicesRead = false;
   
 }

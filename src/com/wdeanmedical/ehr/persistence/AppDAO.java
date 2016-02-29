@@ -50,6 +50,12 @@ import com.wdeanmedical.ehr.persistence.SiteDAO;
 import com.wdeanmedical.ehr.util.OneWayPasswordEncoder;
 import com.wdeanmedical.ehr.entity.PatientStatus;
 import com.wdeanmedical.ehr.entity.USState;
+import com.wdeanmedical.ehr.entity.dell.BP;
+import com.wdeanmedical.ehr.entity.dell.Glucose;
+import com.wdeanmedical.ehr.entity.dell.IOTActivity;
+import com.wdeanmedical.ehr.entity.dell.Phynotes;
+import com.wdeanmedical.ehr.entity.dell.Pulse;
+import com.wdeanmedical.ehr.entity.dell.Weightscale;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
@@ -527,5 +533,62 @@ public class AppDAO extends SiteDAO {
     List<USState> list =  crit.list();
     return list;
   }
+  
+  public List<BP> getBPs() throws Exception {
+    Session session = this.getSession();
+    Criteria crit = session.createCriteria(BP.class);
+    crit.addOrder(Order.desc("id"));
+    List<BP> list =  crit.list();
+    return list;
+  }
+  
+  public List<IOTActivity> getIOTActivities() throws Exception {
+    Session session = this.getSession();
+    Criteria crit = session.createCriteria(IOTActivity.class);
+    crit.addOrder(Order.desc("id"));
+    List<IOTActivity> list =  crit.list();
+    return list;
+  }
+  
+  public List<Glucose> getGlucose() throws Exception {
+    Session session = this.getSession();
+    Criteria crit = session.createCriteria(Glucose.class);
+    crit.addOrder(Order.desc("id"));
+    List<Glucose> list =  crit.list();
+    return list;
+  }
+  
+  public List<Pulse> getPulses() throws Exception {
+    Session session = this.getSession();
+    Criteria crit = session.createCriteria(Pulse.class);
+    crit.addOrder(Order.desc("id"));
+    List<Pulse> list =  crit.list();
+    return list;
+  }
+  
+  public List<Weightscale> getWeightscales() throws Exception {
+    Session session = this.getSession();
+    Criteria crit = session.createCriteria(Weightscale.class);
+    crit.addOrder(Order.desc("id"));
+    List<Weightscale> list =  crit.list();
+    return list;
+  }
+  
+  public List<Phynotes> getPhynotes() throws Exception {
+    Session session = this.getSession();
+    Criteria crit = session.createCriteria(Phynotes.class);
+    crit.addOrder(Order.desc("id"));
+    List<Phynotes> list =  crit.list();
+    return list;
+  }
+  
+/*
+    map.put("bp", appDAO.getBPs());
+    map.put("activity", appDAO.getActivities());
+    map.put("glucose", appDAO.getGlucose());
+    map.put("pulse", appDAO.getPulses());
+    map.put("weightscale", appDAO.getWeightscales());
+    map.put("phynotes", appDAO.getPhynotes());
+  */
   
 }

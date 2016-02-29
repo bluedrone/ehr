@@ -7,6 +7,10 @@
  
 package com.wdeanmedical.ehr.dto;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.wdeanmedical.ehr.entity.dell.BP;
 import com.wdeanmedical.ehr.entity.dell.Glucose;
 import com.wdeanmedical.ehr.entity.dell.IOTActivity;
@@ -23,6 +27,8 @@ public class DeviceDTO extends BooleanResultDTO {
   private IOTActivity activity;
   private String phynotes;
   private Phynotes phynotesObject;
+  private Integer patientId = 2;
+  private Map<String,List> data;
   
   
   public BP getBp() { return bp; }
@@ -45,5 +51,11 @@ public class DeviceDTO extends BooleanResultDTO {
   
   public Phynotes getPhynotesObject() { return phynotesObject; }
   public void setPhynotesObject(Phynotes phynotesObject) { this.phynotesObject = phynotesObject; }
+  
+  public Integer getPatientId() { return patientId; }
+  public void setPatientId(Integer patientId) { this.patientId = patientId; }
+  
+  public Map<String, List> getData() { return data; }
+  public void setData(Map<String, List> data) { this.data = data; }
   
 }
