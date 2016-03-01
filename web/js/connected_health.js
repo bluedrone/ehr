@@ -19,7 +19,7 @@ function loadPatientConnectedHealthScreen() {
       {title:'Activity', field:'activity', type:'simple'},
       {title:'Physician Notes', field:'phynotes', type:'simple'}
     ];
-    RenderUtil.render('component/portal_data_table', 
+    RenderUtil.render('component/iot_data_table', 
     {items:app_patientConnectedHealth, 
     title:'Connected Health', 
     clickable:false, 

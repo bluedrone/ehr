@@ -7,6 +7,7 @@
 
 package com.wdeanmedical.ehr.web;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
@@ -406,10 +407,32 @@ public class AppServlet extends HttpServlet  {
   }
   
   
-  public String submitIOTData(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String submitIOTDataOrig(HttpServletRequest request, HttpServletResponse response) throws Exception {
     String data = request.getParameter("data");
     Gson gson = new Gson();
     DeviceDTO dto = gson.fromJson(data, DeviceDTO.class); 
+    appService.submitIOTData(dto);
+    String json = gson.toJson(dto);
+    return json;
+  }
+  
+  
+  public String submitIOTData(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    String jsonData = "";
+    String read = "";                                                 
+    BufferedReader br = null;                                              
+    try {
+      br = request.getReader();
+      while((read = br.readLine())!= null) {                                                                                                                            
+        jsonData = jsonData + read;
+      }
+      logger.info("Json Data recived : " + jsonData);
+    }
+    catch (IOException e) {                               
+      e.printStackTrace();                                    
+    }
+    Gson gson = new Gson();
+    DeviceDTO dto = gson.fromJson(jsonData, DeviceDTO.class); 
     appService.submitIOTData(dto);
     String json = gson.toJson(dto);
     return json;

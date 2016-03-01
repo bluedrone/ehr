@@ -1,0 +1,37 @@
+<!--
+  WDean Medical is distributed under the
+  GNU Lesser General Public License (GNU LGPL).
+  For details see: http://www.wdeanmedical.com
+  copyright 2013-2014 WDean Medical
+--> 
+
+<table class="table table-hover table-bordered table-condensed simple-data-table">
+  <thead>
+  <tr>
+    {{each(i, column) columns}} <th>${column.title}</th> {{/each}}
+  </tr>
+  </thead>
+  <tbody>
+  {{each(i, item) items}}
+    <tr 
+      id="${tableId}-${item.id}" 
+      class="clickable-table-row" 
+      style="display:table-row"
+      name="${item.id}"
+      data-row-key="${item.id}" 
+      data-table-name="${tableName}" 
+    >
+    {{each(j, column) columns}} 
+      <td style='text-align:${column.type == 'numeric' ? "right" : "left"}'>
+        <div style='max-width:250px'>${getColumnValue(column, item)}</div>
+      </td>
+    {{/each}}
+    </tr>
+  {{/each}}
+  <tr class="simple-data-table-footer">
+    <td class="simple-data-table-footer" colspan='${columns.length}'>
+      <p><span>${title} ${items.length == 0 ? '0' : '1'}-<wbr>${items.length}</span></p>
+    </td>
+  </tr>
+  </tbody>
+</table>
