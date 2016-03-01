@@ -665,7 +665,7 @@ $('#connected-health-link').off('click').on('click', (function(){
     $('#modal-connected-health').modal('show'); 
     loadPatientInfo();
     loadPatientConnectedHealthScreen();
-    //app_connectedHealthInterval = setInterval(loadPatientConnectedHealthScreen, TEN_SECONDS);
+    app_connectedHealthInterval = setInterval(loadPatientConnectedHealthScreen, TEN_SECONDS);
     $('#modal-connected-health-close, #btn-connected-health-close').off('click').on('click', (function() { 
       if (app_connectedHealthInterval) {clearInterval(app_connectedHealthInterval)};
     }));

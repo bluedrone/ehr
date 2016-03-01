@@ -656,7 +656,7 @@ public class AppService {
     data.setBp(dto.getBp().getSys() + "/" + dto.getBp().getDia() + " " + dto.getBp().getUnits());
     data.setPulse(dto.getPulse().getRate() + " " + dto.getPulse().getUnits());
     data.setGlucose(dto.getGlucose().getGlucose() + " " + dto.getGlucose().getUnits());
-    data.setWeightscale(dto.getWeightscale().getWeight() + " " + dto.getGlucose().getUnits());
+    data.setWeightscale(dto.getWeightscale().getWeight() + " " + dto.getWeightscale().getUnits());
     data.setActivity(dto.getActivity().getFootsteps() + " " + dto.getActivity().getUnits());
     data.setPhynotes(dto.getPhynotes());
     data.setDate(new Date());
