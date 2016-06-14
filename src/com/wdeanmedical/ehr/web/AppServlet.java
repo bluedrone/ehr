@@ -426,7 +426,7 @@ public class AppServlet extends HttpServlet  {
       while((read = br.readLine())!= null) {                                                                                                                            
         jsonData = jsonData + read;
       }
-      logger.info("Json Data recived : " + jsonData);
+      logger.info("Json Data received : " + jsonData);
     }
     catch (IOException e) {                               
       e.printStackTrace();                                    
@@ -435,6 +435,7 @@ public class AppServlet extends HttpServlet  {
     DeviceDTO dto = gson.fromJson(jsonData, DeviceDTO.class); 
     appService.submitIOTData(dto);
     String json = gson.toJson(dto);
+    
     return json;
   }
   

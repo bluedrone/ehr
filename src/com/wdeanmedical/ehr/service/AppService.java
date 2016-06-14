@@ -10,6 +10,7 @@ package com.wdeanmedical.ehr.service;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -68,6 +69,7 @@ import com.wdeanmedical.ehr.entity.ClinicianSession;
 import com.wdeanmedical.ehr.entity.ProgressNote;
 import com.wdeanmedical.ehr.entity.ToDoNote;
 import com.wdeanmedical.ehr.entity.dell.DeviceData;
+import com.wdeanmedical.ehr.entity.dell.HIEDeviceData;
 import com.wdeanmedical.ehr.entity.dell.Phynotes;
 import com.wdeanmedical.ehr.util.ClinicianSessionData;
 import com.wdeanmedical.ehr.util.DataEncryptor;
@@ -660,6 +662,35 @@ public class AppService {
     data.setActivity(dto.getActivity().getFootsteps() + " " + dto.getActivity().getUnits());
     data.setPhynotes(dto.getPhynotes());
     data.setDate(new Date());
+    
+    HIEDeviceData dd = new HIEDeviceData();
+    dd.data.bp.sys = dto.getBp().getSys();
+    dd.data.bp.dia = dto.getBp().getDia();
+    dd.data.bp.units = dto.getBp().getUnits();
+    dd.data.bp.date = dto.getBp().getDate().getTime();
+    dd.data.pulse.rate = dto.getPulse().getRate();
+    dd.data.pulse.units = dto.getPulse().getUnits();
+    dd.data.pulse.date = dto.getPulse().getDate().getTime();
+    dd.data.glucose.glucose = dto.getGlucose().getGlucose();
+    dd.data.glucose.units = dto.getGlucose().getUnits();
+    dd.data.glucose.date = dto.getGlucose().getDate().getTime();
+    dd.data.weightscale.weight = dto.getWeightscale().getWeight();
+    dd.data.weightscale.units = dto.getWeightscale().getUnits();
+    dd.data.weightscale.date = dto.getWeightscale().getDate().getTime();
+    dd.data.activity.footsteps = dto.getActivity().getFootsteps();
+    dd.data.activity.units = dto.getActivity().getUnits();
+    dd.data.activity.date = dto.getActivity().getDate().getTime();
+    dd.data.phynotes = dto.getPhynotes();
+    
+    Gson gson = new Gson();
+    String json = gson.toJson(dd);
+    
+        
+    PrintWriter out = new PrintWriter("/Users/sophinosn/sample.json");
+    //PrintWriter out = new PrintWriter("/var/www/dell/data/sample.json");
+    out.println(json);
+    out.close();
+    
     appDAO.create(data);
     
     Core.devicesRead = false;
