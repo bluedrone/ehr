@@ -685,11 +685,13 @@ public class AppService {
     Gson gson = new Gson();
     String json = gson.toJson(dd);
     
-        
-    PrintWriter out = new PrintWriter("/Users/sophinosn/sample.json");
-    //PrintWriter out = new PrintWriter("/var/www/dell/data/sample.json");
+    //String path = "/Users/sophinosn/sample.json";    
+    String path = "/var/www/dell/data/sample.json";
+    PrintWriter out = new PrintWriter(path);
     out.println(json);
     out.close();
+    File file = new File(path);
+    file.setWritable(true, false);
     
     appDAO.create(data);
     
